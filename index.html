@@ -71,6 +71,7 @@
   }
   footer.site-footer .wordmark { font-size: 1.1rem; }
   footer.site-footer p { color: var(--muted); font-size: 0.9rem; }
+  footer.site-footer .foot-links a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   /* ---------- header ---------- */
   header {
@@ -256,6 +257,21 @@
     padding: 26px 18px 24px;
     box-shadow: 0 10px 30px -18px rgba(0,0,0,.18);
   }
+  .poem-card .poem-body > div { cursor: pointer; }
+  .poem-card .brand-line {
+    margin-top: 16px; font-size: 0.78rem; font-style: italic; opacity: .55;
+  }
+  .verse-pick { display: flex; gap: 8px; margin-top: 10px; }
+  .verse-pick[hidden] { display: none; }
+  .verse-pick .btn { font-size: 0.9rem; padding: 9px 14px; }
+  .scene-pick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .scene-pick .scene-chip {
+    font: inherit; font-size: 0.88rem; padding: 8px 13px; border-radius: 999px;
+    border: 1.5px solid var(--line); background: #fff; cursor: pointer;
+  }
+  .scene-pick .scene-chip[aria-pressed="true"] {
+    border-color: var(--ink); background: var(--ink); color: #fff;
+  }
   .poem-card .corner { position: absolute; font-size: 1.5rem; opacity: .85; }
   .poem-card .corner.tl { top: 16px; left: 20px; }
   .poem-card .corner.tr { top: 16px; right: 20px; }
@@ -290,6 +306,7 @@
 
   /* ---------- print ---------- */
   @media print {
+    @page { margin: 12mm; }
     body > *:not(.wrap) { display: none; }
     header, .hero, .panel, .card-buttons, .card-note { display: none !important; }
     .studio { display: block; padding: 0; }
@@ -299,6 +316,7 @@
       width: 100%; box-shadow: none; border-radius: 0;
       -webkit-print-color-adjust: exact; print-color-adjust: exact;
     }
+    .brand-line { opacity: .8 !important; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -338,7 +356,8 @@
       </div>
 
       <div class="field">
-        <label>Background <span class="hint">free scene art, or your own photo</span></label>
+        <label>Background <span class="hint">free scene art, any scene you like, or your own photo</span></label>
+        <div class="scene-pick" id="scenePick"></div>
         <div class="bg-actions">
           <label class="btn btn-ghost bg-btn">Use my photo<input type="file" id="bgUpload" accept="image/*" hidden></label>
           <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Back to scene art</button>
@@ -361,6 +380,10 @@
             <strong>Rhyming verse</strong>
             <small>A short poem that carries their name</small>
           </button>
+        </div>
+        <div class="verse-pick" id="versePick" hidden>
+          <button type="button" class="btn btn-ghost" id="verseA">Verse one</button>
+          <button type="button" class="btn btn-ghost" id="verseB">Verse two</button>
         </div>
       </div>
 
@@ -390,6 +413,7 @@
             </svg>
             <div class="poem-body" id="poemBody"></div>
             <div class="from-line" id="fromLine"></div>
+            <div class="brand-line">made with Name in Verse</div>
           </div>
         </div>
       </div>
@@ -399,6 +423,7 @@
         <button type="button" class="btn" id="printBtn">Print</button>
         <button type="button" class="btn" id="copyBtn">Copy text</button>
         <button type="button" class="btn" id="linkBtn">Copy link</button>
+        <button type="button" class="btn" id="waBtn">Share on WhatsApp</button>
       </div>
       <p class="card-note">The picture downloads at greeting-card size, ready to send on WhatsApp or print at home.</p>
     </section>
@@ -408,6 +433,8 @@
   <footer class="site-footer">
     <div class="wordmark">Name in Verse<span>.</span></div>
     <p>every name deserves a poem, made with ❤️ for celebrations big and small</p>
+    <p class="foot-links"><a href="words/">A to Z word lists</a> and <a href="backgrounds/">free backgrounds</a></p>
+    <!-- Newsletter slot: paste your Mailchimp, Buttondown or Substack embed form here to start collecting emails -->
   </footer>
 </div>
 
@@ -972,7 +999,7 @@ const CLOSERS = {
 
 /* ---------------- state & helpers ---------------- */
 
-const state = { occasion: "birthday", style: "acrostic", poem: null, customBg: null };
+const state = { occasion: "birthday", style: "acrostic", poem: null, customBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
 const $ = (id) => document.getElementById(id);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -990,15 +1017,51 @@ function buildAcrostic(name) {
   });
 }
 
-function acrosticLine(l) {
-  return l.letter + " is for " + l.word + ", " + l.desc;
+function buildAcrosticPair(n1, n2) {
+  const l1 = n1.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
+  const l2 = n2.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
+  const inter = [];
+  const maxL = Math.max(l1.length, l2.length);
+  for (let i = 0; i < maxL; i++) {
+    if (i < l1.length) inter.push({ letter: l1[i], who: n1 });
+    if (i < l2.length) inter.push({ letter: l2[i], who: n2 });
+  }
+  const used = new Set();
+  return inter.map((x) => {
+    const bank = LETTER_TRAITS[x.letter] || [[x.letter + "-cellent", "one of a kind"]];
+    let trait = pick(bank);
+    let guard = 0;
+    while (used.has(trait[0]) && guard < 8) { trait = pick(bank); guard++; }
+    used.add(trait[0]);
+    return { letter: x.letter, word: trait[0], desc: trait[1], who: x.who };
+  });
 }
 
-function buildRhyme(name, name2) {
+function acrosticLine(l) {
+  return l.letter + " is for " + l.word + ", " + l.desc + (l.who ? " (" + l.who + ")" : "");
+}
+
+function rerollLine(idx) {
+  if (!state.poem || state.poem.type !== "acrostic") return;
+  const line = state.poem.lines[idx];
+  if (!line) return;
+  const bank = LETTER_TRAITS[line.letter] || [[line.letter + "-cellent", "one of a kind"]];
+  if (bank.length < 2) return;
+  let trait = pick(bank);
+  let guard = 0;
+  while (trait[0] === line.word && guard < 8) { trait = pick(bank); guard++; }
+  line.word = trait[0];
+  line.desc = trait[1];
+  renderCard();
+}
+
+function buildRhyme(name, name2, vi) {
   const theme = OCCASIONS[state.occasion];
   const shown = name2 ? name + " and " + name2 : name;
   const pretty = shown.charAt(0).toUpperCase() + shown.slice(1);
-  return pick(theme.verses).split("{N}").join(pretty);
+  const verses = theme.verses || [];
+  const t = verses[vi] || verses[0] || "Dear {N}, today is all about you.";
+  return t.split("{N}").join(pretty);
 }
 
 const PAIR_CATEGORIES = ["couple", "engagement", "wedding", "anniversary", "valentine"];
@@ -1021,9 +1084,11 @@ function writePoem() {
   }
   const raw2 = $("name2Input").value.trim();
   const name2 = raw2 ? cap(raw2.replace(/[^a-zA-Z\s'-]/g, "")) : "";
+  state.name1 = name;
+  state.name2 = name2;
   state.poem = state.style === "acrostic"
-    ? { type: "acrostic", lines: buildAcrostic(name), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]) }
-    : { type: "rhyme", text: buildRhyme(name, name2) };
+    ? { type: "acrostic", lines: name2 ? buildAcrosticPair(name, name2) : buildAcrostic(name), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]) }
+    : { type: "rhyme", verse: state.lastVerse, text: buildRhyme(name, name2, state.lastVerse) };
   state.name = name2 ? name + " & " + name2 : name;
   renderCard();
   if (typeof syncUrl === "function") syncUrl();
@@ -1201,7 +1266,7 @@ function sceneSvg(theme, kind) {
 }
 
 function sceneDataUrl(theme) {
-  const kind = SCENE_MAP[state.occasion] || "sunset";
+  const kind = state.sceneOverride || SCENE_MAP[state.occasion] || "sunset";
   return "data:image/svg+xml," + encodeURIComponent(sceneSvg(theme, kind));
 }
 
@@ -1229,14 +1294,18 @@ function renderCard() {
 
   const body = $("poemBody");
   body.innerHTML = "";
+  $("verseA").setAttribute("aria-pressed", String(state.lastVerse === 0));
+  $("verseB").setAttribute("aria-pressed", String(state.lastVerse === 1));
   if (state.poem.type === "acrostic") {
-    state.poem.lines.forEach((l) => {
+    state.poem.lines.forEach((l, idx) => {
       const div = document.createElement("div");
+      div.title = "tap for a different word";
       const lead = document.createElement("span");
       lead.className = "lead-letter";
       lead.textContent = l.letter;
       div.appendChild(lead);
-      div.appendChild(document.createTextNode(" is for " + l.word + ", " + l.desc));
+      div.appendChild(document.createTextNode(" is for " + l.word + ", " + l.desc + (l.who ? " (" + l.who + ")" : "")));
+      div.addEventListener("click", () => rerollLine(idx));
       body.appendChild(div);
     });
     const closer = document.createElement("div");
@@ -1269,23 +1338,86 @@ function retheme() {
 
 /* ---------------- background upload ---------------- */
 
+const SCENE_INFO = {
+  sunset: ["Sunset", "🌅"], night: ["Starry night", "🌙"], garden: ["Garden", "🌸"],
+  mountains: ["Mountains", "⛰️"], beach: ["Beach", "🏖️"], autumn: ["Autumn", "🍂"],
+  winter: ["Winter", "❄️"], festival: ["Festival", "🪔"], hearts: ["Hearts", "💗"],
+  party: ["Party", "🎉"], dream: ["Dream", "☁️"]
+};
+
+function syncSceneChips() {
+  document.querySelectorAll(".scene-chip").forEach((c) => {
+    c.setAttribute("aria-pressed", String((c.dataset.k || null) === state.sceneOverride));
+  });
+}
+
+function clearPhoto() {
+  state.customBg = null;
+  $("bgResetBtn").style.display = "none";
+  $("bgUpload").value = "";
+}
+
+(function buildScenePick() {
+  const box = $("scenePick");
+  const makeBtn = (k, label) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "scene-chip";
+    b.dataset.k = k;
+    b.textContent = label;
+    b.addEventListener("click", () => {
+      if (k) state.sceneOverride = k; else state.sceneOverride = null;
+      clearPhoto();
+      syncSceneChips();
+      retheme();
+      if ($("nameInput").value.trim()) writePoem();
+    });
+    box.appendChild(b);
+    return b;
+  };
+  makeBtn("", "Auto scene").setAttribute("aria-pressed", "true");
+  Object.keys(SCENES).forEach((k) => {
+    makeBtn(k, SCENE_INFO[k][1] + " " + SCENE_INFO[k][0]).setAttribute("aria-pressed", "false");
+  });
+})();
+
 $("bgUpload").addEventListener("change", (e) => {
   const f = e.target.files && e.target.files[0];
   if (!f) return;
   const fr = new FileReader();
   fr.onload = () => {
-    state.customBg = fr.result;
-    $("bgResetBtn").style.display = "";
-    retheme();
-    if ($("nameInput").value.trim()) writePoem();
+    const applyBg = (dataUrl) => {
+      state.customBg = dataUrl;
+      state.sceneOverride = null;
+      syncSceneChips();
+      $("bgResetBtn").style.display = "";
+      retheme();
+      if ($("nameInput").value.trim()) writePoem();
+    };
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 1600;
+      const r = Math.min(1, MAX / Math.max(img.width, img.height));
+      if (r < 1) {
+        const c = document.createElement("canvas");
+        c.width = Math.round(img.width * r);
+        c.height = Math.round(img.height * r);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        applyBg(c.toDataURL("image/jpeg", 0.85));
+      } else {
+        applyBg(fr.result);
+      }
+    };
+    img.onerror = () => applyBg(fr.result);
+    img.src = fr.result;
   };
   fr.readAsDataURL(f);
 });
 
 $("bgResetBtn").addEventListener("click", () => {
-  state.customBg = null;
-  $("bgResetBtn").style.display = "none";
-  $("bgUpload").value = "";
+  clearPhoto();
+  state.sceneOverride = null;
+  syncSceneChips();
   retheme();
   if ($("nameInput").value.trim()) writePoem();
 });
@@ -1360,10 +1492,22 @@ $("bgResetBtn").addEventListener("click", () => {
 
 $("styleAcrostic").addEventListener("click", () => setStyle("acrostic"));
 $("styleRhyme").addEventListener("click", () => setStyle("rhyme"));
+$("verseA").addEventListener("click", () => setVerse(0));
+$("verseB").addEventListener("click", () => setVerse(1));
 function setStyle(s) {
   state.style = s;
   $("styleAcrostic").setAttribute("aria-pressed", s === "acrostic");
   $("styleRhyme").setAttribute("aria-pressed", s === "rhyme");
+  $("versePick").hidden = s !== "rhyme";
+}
+
+function setVerse(v) {
+  state.lastVerse = v;
+  if (state.poem && state.poem.type === "rhyme") {
+    state.poem.verse = v;
+    state.poem.text = buildRhyme(state.name1, state.name2, v);
+    renderCard();
+  }
 }
 
 /* ---------------- buttons ---------------- */
@@ -1411,6 +1555,17 @@ $("pngBtn").addEventListener("click", () => {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
+  const rr = (x, y, w, h, rad) => {
+    ctx.beginPath();
+    if (typeof ctx.roundRect === "function") { ctx.roundRect(x, y, w, h, rad); return; }
+    ctx.moveTo(x + rad, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rad);
+    ctx.arcTo(x + w, y + h, x, y + h, rad);
+    ctx.arcTo(x, y + h, x, y, rad);
+    ctx.arcTo(x, y, x + w, y, rad);
+    ctx.closePath();
+  };
+
   const paint = (img) => {
     if (img) {
       const r = Math.max(W / img.width, H / img.height);
@@ -1432,8 +1587,7 @@ $("pngBtn").addEventListener("click", () => {
   // clean white panel for the poem
   ctx.save();
   ctx.fillStyle = "rgba(255,255,255,.68)";
-  ctx.beginPath();
-  ctx.roundRect(60, 80, W - 120, H - 160, 40);
+  rr(60, 80, W - 120, H - 160, 40);
   ctx.fill();
   ctx.restore();
 
@@ -1496,7 +1650,7 @@ $("pngBtn").addEventListener("click", () => {
     while (lines.length && lines[lines.length - 1] === "") lines.pop();
   }
 
-  const lh = 64;
+  const lh = lines.length > 16 ? 48 : lines.length > 12 ? 56 : 64;
   const startY = 540;
   const maxLines = Math.floor((H - startY - 180) / lh);
   const shown = lines.slice(0, maxLines);
@@ -1512,9 +1666,15 @@ $("pngBtn").addEventListener("click", () => {
   if (from) {
     ctx.font = "italic 36px Fraunces, Georgia, serif";
     ctx.globalAlpha = 0.8;
-    ctx.fillText("with love, from " + from, W / 2, H - 80);
+    ctx.fillText("with love, from " + from, W / 2, H - 96);
     ctx.globalAlpha = 1;
   }
+
+  // brand line
+  ctx.font = "italic 26px Fraunces, Georgia, serif";
+  ctx.globalAlpha = 0.55;
+  ctx.fillText("made with Name in Verse", W / 2, H - 38);
+  ctx.globalAlpha = 1;
 
   // watermark emoji
   ctx.save();
@@ -1572,6 +1732,21 @@ function syncUrl() {
   if (next !== location.pathname + location.search) history.replaceState(null, "", next);
 }
 syncUrl();
+
+$("waBtn").addEventListener("click", () => {
+  if (!state.poem) return;
+  syncUrl();
+  let text = "";
+  if (state.poem.type === "acrostic") {
+    text = state.poem.lines.map(acrosticLine).join("\n") + "\n\n" + state.name + ", " + state.poem.closer;
+  } else {
+    text = state.poem.text;
+  }
+  const from = $("fromInput").value.trim();
+  if (from) text += "\n\nwith love, from " + from;
+  const url = location.origin + location.pathname + location.search;
+  window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n\n" + url), "_blank");
+});
 
 $("linkBtn").addEventListener("click", () => {
   syncUrl();
