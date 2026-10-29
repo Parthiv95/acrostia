@@ -174,6 +174,9 @@
     font-weight: 400; white-space: pre-line;
   }
   .poem-card .poem-body .lead-letter { font-weight: 700; }
+  .poem-card .poem-body .closer-line {
+    margin-top: 18px; font-style: italic; font-weight: 600;
+  }
   .poem-card .from-line {
     margin-top: 22px; font-family: "Fraunces", serif; font-style: italic;
     font-size: 1rem; opacity: .8;
@@ -522,33 +525,49 @@ const GENERIC_TAILS = [
   "and the world is better for it."
 ];
 
-const LETTER_WORDS = {
-  A: ["Amazing","Admirable","Awesome","Awe-inspiring"],
-  B: ["Brave","Bright","Beautiful","Beloved"],
-  C: ["Caring","Courageous","Charming","Clever"],
-  D: ["Daring","Devoted","Delightful","Dependable"],
-  E: ["Extraordinary","Energetic","Elegant","Endearing"],
-  F: ["Fearless","Fun","Fantastic","Faithful"],
-  G: ["Generous","Graceful","Glowing","Great"],
-  H: ["Honest","Happy","Heartwarming","Heroic"],
-  I: ["Inspiring","Incredible","Imaginative","Irreplaceable"],
-  J: ["Joyful","Jovial","Jaunty","Jewel-bright"],
-  K: ["Kind","Kindhearted","Keen","Kingly"],
-  L: ["Lively","Loyal","Loving","Light-hearted"],
-  M: ["Marvelous","Mighty","Magical","Merry"],
-  N: ["Noble","Nice","Notable","Nurturing"],
-  O: ["Outstanding","Optimistic","Original","One-of-a-kind"],
-  P: ["Playful","Patient","Precious","Positive"],
-  Q: ["Quick-witted","Queenly","Quietly brilliant","Quintessential"],
-  R: ["Radiant","Remarkable","Reliable","Rare"],
-  S: ["Sparkling","Strong","Sweet","Sunny"],
-  T: ["Talented","Thoughtful","Terrific","Trustworthy"],
-  U: ["Unstoppable","Unique","Upbeat","Unforgettable"],
-  V: ["Valiant","Vibrant","Valued","Vivacious"],
-  W: ["Wise","Warm","Wonderful","Witty"],
-  X: ["XOXO-worthy","Xtra special","Xceptional"],
-  Y: ["Youthful","Yearned-for","Young-at-heart"],
-  Z: ["Zesty","Zippy","Zestful","Zen"]
+const LETTER_TRAITS = {
+  A: [["Able","potential to achieve big"],["Admirable","admired by everyone around"],["Affectionate","warm to all who know you"],["Ambitious","always aiming higher"]],
+  B: [["Brave","facing every challenge head-on"],["Bright","lighting up every room"],["Beloved","cherished by family and friends"],["Bubbly","full of life and bubbles"]],
+  C: [["Creative","full of fresh ideas"],["Confident","sure of every step"],["Caring","always there for others"],["Cheerful","with a smile that spreads"]],
+  D: [["Determined","never giving up"],["Dependable","relied on in every storm"],["Delightful","a joy to be around"],["Diligent","careful in all you do"]],
+  E: [["Energetic","full of life and spirit"],["Excellent","excelling in all you do"],["Empathetic","feeling what others feel"],["Enthusiastic","excited by every opportunity"]],
+  F: [["Friendly","a friend to everyone"],["Fearless","unafraid of any challenge"],["Faithful","true in word and deed"],["Fun-loving","finding joy everywhere"]],
+  G: [["Generous","sharing without counting"],["Graceful","graceful in every way"],["Good-hearted","kind to the core"],["Genuine","real through and through"]],
+  H: [["Honored","respected by all"],["Honest","true in every word"],["Hardworking","giving your best always"],["Happy","spreading cheer all around"]],
+  I: [["Inspiring","pushing others to dream"],["Intelligent","sharp of mind and thought"],["Ideal","the example others follow"],["Imaginative","dreaming up wonders"]],
+  J: [["Joyful","spreading happiness wherever you go"],["Jovial","with laughter always near"],["Judicious","wise in every choice"],["Just","fair in all dealings"]],
+  K: [["Kind","gentle in word and deed"],["Keen","eager for every opportunity"],["Knowledgeable","a wealth of wisdom"],["Kindhearted","soft of heart, strong of spirit"]],
+  L: [["Loyal","standing by people always"],["Loving","with a heart that gives"],["Leader","born to guide the way"],["Lively","buzzing with energy"]],
+  M: [["Motivated","driven from within"],["Marvelous","wonderful in every way"],["Modest","humble despite it all"],["Magnetic","drawing people in"]],
+  N: [["Noble","in thought and in action"],["Nice","pleasant to all you meet"],["Notable","worth remembering"],["Nurturing","helping others grow"]],
+  O: [["Optimistic","seeing the bright side always"],["Outstanding","standing out from the crowd"],["Open-minded","accepting every opinion"],["Original","one of a true kind"]],
+  P: [["Passionate","burning with purpose"],["Patient","calm through every storm"],["Positive","spreading optimism around"],["Principled","standing by what is right"]],
+  Q: [["Quick-witted","ready with a smile and a line"],["Quick-thinking","calm when it matters most"],["Qualified","ready for anything life brings"],["Quintessential","the very best of the type"]],
+  R: [["Receptive","accepting every opinion"],["Refined","in taste, manners and gait"],["Reliable","a promise kept"],["Radiant","glowing from within"]],
+  S: [["Self-motivated","driven by your own fire"],["Sincere","honest at heart"],["Strong","through every high and low"],["Smart","quick to learn and adapt"]],
+  T: [["Talented","gifted in many ways"],["Trustworthy","trusted by everyone"],["Thoughtful","thinking of others first"],["Tenacious","holding on till it's done"]],
+  U: [["Unstoppable","nothing stands in your way"],["Unique","one of a kind"],["Upstanding","honorable in all things"],["Understanding","seeing every side"]],
+  V: [["Valiant","brave of heart"],["Versatile","good at everything you try"],["Visionary","dreaming of tomorrow"],["Vivacious","lively and full of spirit"]],
+  W: [["Wise","beyond your years"],["Warm","with a smile for everyone"],["Wonderful","in countless ways"],["Willing","first to lend a hand"]],
+  X: [["X-factor","that special spark you carry"],["XOXO","hugs and kisses to spare"],["Xceptional","beyond the ordinary"]],
+  Y: [["Young-at-heart","with smiling eyes"],["Yearning","always reaching higher"],["Youthful","full of energy and cheer"],["Yare","quick and ready for anything"]],
+  Z: [["Zealous","enthusiastic in all you do"],["Zestful","with a taste for life"],["Zen","calm in every storm"],["Zippy","quick in step and thought"]]
+};
+
+const CLOSERS = {
+  birthday: ["a self-motivated individual, one year wiser","one of a kind, today and always"],
+  wedding: ["beginning a beautiful new chapter","ready for forever"],
+  anniversary: ["still writing a beautiful story","proof that true love lasts"],
+  baby: ["our little miracle, just arrived","brand new and already so loved"],
+  graduation: ["a self-motivated individual, ready for the world","destined for great things"],
+  retirement: ["a legend signing off in style","ready for life's next adventure"],
+  farewell: ["a self-motivated individual, headed for brighter roads","missed already, cheered always"],
+  friendship: ["a friend for life","the one everyone is lucky to know"],
+  thanks: ["a selfless soul we are grateful for","kindness in person"],
+  getwell: ["strong, and getting stronger every day","resting now, back on your feet soon"],
+  christmas: ["the spirit of the season in person","someone worth celebrating this Christmas"],
+  diwali: ["a light that brightens every room","the sparkle of every celebration"],
+  eid: ["blessed, and a blessing to others","the joy of every gathering"]
 };
 
 /* ---------------- state & helpers ---------------- */
@@ -559,30 +578,20 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 function buildAcrostic(name) {
-  const theme = OCCASIONS[state.occasion];
   const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const used = new Set();
-  const usedTails = new Set();
   return letters.map((L) => {
-    const word = pick(LETTER_WORDS[L] || [L + "mazing"]);
-    let key = word;
+    const bank = LETTER_TRAITS[L] || [[L + "-cellent", "one of a kind"]];
+    let trait = pick(bank);
     let guard = 0;
-    while (used.has(key) && guard < 8) { key = pick(LETTER_WORDS[L] || [L]); guard++; }
-    used.add(key);
-    let tail = Math.random() < 0.6
-      ? pick(theme.similes)
-      : pick(GENERIC_TAILS);
-    let tguard = 0;
-    while (usedTails.has(tail) && tguard < 12) {
-      tail = Math.random() < 0.6 ? pick(theme.similes) : pick(GENERIC_TAILS);
-      tguard++;
-    }
-    usedTails.add(tail);
-    const line = tail.startsWith("like") || tail.startsWith("as ")
-      ? word + ", " + tail
-      : word + " " + tail;
-    return { letter: L, word, line };
+    while (used.has(trait[0]) && guard < 8) { trait = pick(bank); guard++; }
+    used.add(trait[0]);
+    return { letter: L, word: trait[0], desc: trait[1] };
   });
+}
+
+function acrosticLine(l) {
+  return l.letter + " is for " + l.word + ", " + l.desc;
 }
 
 function buildRhyme(name) {
@@ -600,7 +609,7 @@ function writePoem() {
     return;
   }
   state.poem = state.style === "acrostic"
-    ? { type: "acrostic", lines: buildAcrostic(name) }
+    ? { type: "acrostic", lines: buildAcrostic(name), closer: pick(CLOSERS[state.occasion]) }
     : { type: "rhyme", text: buildRhyme(name) };
   state.name = name;
   renderCard();
@@ -624,15 +633,19 @@ function renderCard() {
   const body = $("poemBody");
   body.innerHTML = "";
   if (state.poem.type === "acrostic") {
-    state.poem.lines.forEach((l, i) => {
+    state.poem.lines.forEach((l) => {
       const div = document.createElement("div");
       const lead = document.createElement("span");
       lead.className = "lead-letter";
       lead.textContent = l.letter;
       div.appendChild(lead);
-      div.appendChild(document.createTextNode(l.line.slice(l.letter.length)));
+      div.appendChild(document.createTextNode(" is for " + l.word + ", " + l.desc));
       body.appendChild(div);
     });
+    const closer = document.createElement("div");
+    closer.className = "closer-line";
+    closer.textContent = state.name + ", " + state.poem.closer;
+    body.appendChild(closer);
   } else {
     body.textContent = state.poem.text;
   }
@@ -699,7 +712,8 @@ $("copyBtn").addEventListener("click", async () => {
   let text = "";
   if (state.poem.type === "acrostic") {
     text = "A " + OCCASIONS[state.occasion].label.toLowerCase() + " poem for " + state.name + "\n\n" +
-      state.poem.lines.map((l) => l.line).join("\n");
+      state.poem.lines.map(acrosticLine).join("\n") +
+      "\n\n" + state.name + ", " + state.poem.closer;
   } else {
     text = "A " + OCCASIONS[state.occasion].label.toLowerCase() + " poem for " + state.name + "\n\n" + state.poem.text;
   }
@@ -755,7 +769,7 @@ $("pngBtn").addEventListener("click", () => {
   ctx.globalAlpha = 1;
 
   // name
-  ctx.font = "700 110px Fraunces, Georgia, serif";
+  ctx.font = state.name.length > 10 ? "700 84px Fraunces, Georgia, serif" : "700 110px Fraunces, Georgia, serif";
   ctx.fillText(state.name, W / 2, 380);
 
   // flourish line
@@ -770,33 +784,46 @@ $("pngBtn").addEventListener("click", () => {
   ctx.globalAlpha = 1;
 
   // poem body
-  let lines;
+  ctx.font = "42px Fraunces, Georgia, serif";
+  const wrapText = (str) => {
+    const out = [];
+    const words = str.split(" ");
+    let cur = "";
+    words.forEach((w) => {
+      if (ctx.measureText(cur + " " + w).width > W - 280 && cur) {
+        out.push(cur); cur = w;
+      } else {
+        cur = cur ? cur + " " + w : w;
+      }
+    });
+    if (cur) out.push(cur);
+    return out;
+  };
+
+  let lines = [];
+  let closerLine = "";
   if (state.poem.type === "acrostic") {
-    lines = state.poem.lines.map((l) => l.line);
+    state.poem.lines.forEach((l) => lines.push(...wrapText(acrosticLine(l))));
+    lines.push("");
+    closerLine = state.name + ", " + state.poem.closer;
   } else {
-    lines = [];
     state.poem.text.split("\n").forEach((para) => {
-      const words = para.split(" ");
-      let cur = "";
-      words.forEach((w) => {
-        if (ctx.measureText(cur + " " + w).width > W - 300 && cur) {
-          lines.push(cur); cur = w;
-        } else {
-          cur = cur ? cur + " " + w : w;
-        }
-      });
-      if (cur) lines.push(cur);
+      lines.push(...wrapText(para));
       lines.push(""); // stanza gap
     });
     while (lines.length && lines[lines.length - 1] === "") lines.pop();
   }
 
-  ctx.font = "42px Fraunces, Georgia, serif";
-  const lh = 66;
-  const startY = 560;
+  const lh = 64;
+  const startY = 540;
   const maxLines = Math.floor((H - startY - 180) / lh);
   const shown = lines.slice(0, maxLines);
   shown.forEach((line, i) => ctx.fillText(line, W / 2, startY + i * lh));
+
+  if (closerLine) {
+    ctx.font = "italic 44px Fraunces, Georgia, serif";
+    ctx.fillText(closerLine, W / 2, startY + shown.length * lh + 24);
+  }
 
   // footer
   const from = $("fromInput").value.trim();
