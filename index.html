@@ -1448,16 +1448,33 @@ function syncPhotoChips() {
     b.addEventListener("click", () => {
       if (state.photoBg === b.dataset.u) {
         state.photoBg = null;
-      } else {
+        state.sceneOverride = null;
+        syncSceneChips();
+        syncPhotoChips();
+        retheme();
+        if ($("nameInput").value.trim()) writePoem();
+        return;
+      }
+      const probe = new Image();
+      probe.onload = () => {
         state.photoBg = b.dataset.u;
         clearPhoto();
         $("bgResetBtn").style.display = "none";
-      }
-      state.sceneOverride = null;
-      syncSceneChips();
-      syncPhotoChips();
-      retheme();
-      if ($("nameInput").value.trim()) writePoem();
+        state.sceneOverride = null;
+        b.style.opacity = "";
+        syncSceneChips();
+        syncPhotoChips();
+        retheme();
+        if ($("nameInput").value.trim()) writePoem();
+      };
+      probe.onerror = () => {
+        state.photoBg = null;
+        syncPhotoChips();
+        retheme();
+        b.style.opacity = ".35";
+        b.title = "this photo could not load here, try the art scenes";
+      };
+      probe.src = b.dataset.u;
     });
     box.appendChild(b);
   });
