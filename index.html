@@ -220,11 +220,13 @@
     width: min(460px, 100%);
     border-radius: 26px; padding: 46px 40px 38px; text-align: center;
     background-image:
-      radial-gradient(rgba(255,255,255,.38) 2px, transparent 2.6px),
-      radial-gradient(rgba(255,255,255,.25) 2px, transparent 2.6px),
+      radial-gradient(rgba(255,255,255,.5) 2.4px, transparent 3px),
+      radial-gradient(rgba(255,255,255,.3) 1.6px, transparent 2.2px),
+      radial-gradient(rgba(255,255,255,.22) 4px, transparent 4.8px),
+      repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 14px, transparent 14px 34px),
       linear-gradient(160deg, var(--c1), var(--c2));
-    background-size: 30px 30px, 30px 30px, 100% 100%;
-    background-position: 0 0, 15px 15px, 0 0;
+    background-size: 36px 36px, 24px 24px, 64px 64px, auto, 100% 100%;
+    background-position: 0 0, 12px 14px, 30px 22px, 0 0, 0 0;
     color: var(--card-ink);
     box-shadow: 0 24px 60px -18px var(--c-shadow);
     position: relative; overflow: hidden;
@@ -240,6 +242,15 @@
     position: absolute; right: -20px; bottom: -36px;
     font-size: 9rem; line-height: 1; opacity: .13;
     transform: rotate(-14deg); pointer-events: none;
+  }
+  .poem-card .card-frame {
+    position: absolute; inset: 13px;
+    border: 2px dashed color-mix(in srgb, var(--card-ink, #6B2D4E) 32%, transparent);
+    border-radius: 18px; pointer-events: none;
+  }
+  .poem-card .stamps { position: absolute; inset: 0; pointer-events: none; }
+  .poem-card .stamps span {
+    position: absolute; font-size: 1.45rem; line-height: 1; opacity: .22;
   }
   .poem-card .corner { position: absolute; font-size: 1.5rem; opacity: .85; }
   .poem-card .corner.tl { top: 16px; left: 20px; }
@@ -306,7 +317,7 @@
     <span class="float-emoji e1" aria-hidden="true">🎂</span>
     <span class="float-emoji e2" aria-hidden="true">🌸</span>
     <span class="float-emoji e3" aria-hidden="true">🪔</span>
-    <p>Type a name, pick from 47 categories across celebrations, festivals, everyday moments and the people you love. Get an acrostic or a rhyming verse, then print it, download it as a picture, or copy the words.</p>
+    <p>Type a name, pick from 51 occasions across world holidays, festivals, everyday moments and the people you love. Get an acrostic or a rhyming verse, then print it, download it as a picture, or copy the words.</p>
   </section>
 
   <main class="studio">
@@ -350,6 +361,8 @@
     <section class="stage" aria-live="polite">
       <div class="card-backdrop">
         <div class="poem-card" id="poemCard">
+          <span class="card-frame" aria-hidden="true"></span>
+          <div class="stamps" id="stamps" aria-hidden="true"></div>
           <span class="corner tl" id="cornerTl"></span>
           <span class="corner tr" id="cornerTr"></span>
           <span class="watermark" id="watermark" aria-hidden="true"></span>
@@ -503,6 +516,46 @@ const OCCASIONS = {
       "New clothes, old songs, a table spread,\nWith every soul you love well-fed,\nDear {N}, may this Eid be sweet,\nAnd every year your joys complete."
     ]
   },
+  easter: {
+    label: "Easter", emoji: "🐣", orn: ["🐣","🌷","🥚"],
+    c1: "#E6F4E4", c2: "#FFF6C9", ink: "#44672E", shadow: "rgba(140,180,110,.45)",
+    chipBg: "#EAF3E2",
+    closers: ["some-bunny amazing", "the sweetest egg in the hunt", "spring's brightest smile", "fresh as a spring morning", "egg-stra special", "the sunniest part of spring", "hopping with happiness", "blooming marvelous"],
+    verses: [
+      "{N}, the spring is waking, all is new,\nThe tulips lift their faces to the blue,\nMay this season bring you hope and cheer,\nAnd happy days throughout the year.",
+      "Chocolate eggs and daffodils,\nSunshine dancing over hills,\nDear {N}, may your heart be light,\nAnd all your days be warm and bright."
+    ]
+  },
+  thanksgiving: {
+    label: "Thanksgiving", emoji: "🦃", orn: ["🦃","🍂","🍁"],
+    c1: "#FFE9D0", c2: "#FCE4EC", ink: "#8A4B26", shadow: "rgba(200,140,80,.45)",
+    chipBg: "#F8EBDA",
+    closers: ["the gratitude list starts with", "thankful, grateful, wonderful", "the sweetest reason to gather", "the centerpiece of the table", "warm as fresh pie", "the season's finest blessing", "gathered close and loved the most", "thankful for, every single year"],
+    verses: [
+      "The table's set, the leaves turn gold,\nDear {N}, warm your hands and hold,\nMay thanks and laughter fill your day,\nIn every kind and simple way.",
+      "Around the table, hands entwined,\nWith family close and hearts aligned,\nDear {N}, may blessings find your door,\nThis day and evermore."
+    ]
+  },
+  hanukkah: {
+    label: "Hanukkah", emoji: "🕎", orn: ["🕯️","✡️","⭐"],
+    c1: "#E3F2FD", c2: "#E8EAF6", ink: "#283593", shadow: "rgba(90,110,190,.45)",
+    chipBg: "#E5EBF7",
+    closers: ["a light that keeps on giving", "brighter than eight nights combined", "the miracle of the season", "spinning through the season in style", "the flame of the family", "latke royalty", "glowing, night after night", "the blessing of the holiday"],
+    verses: [
+      "Eight little candles, one by one,\nLighting the sky like a second sun,\nDear {N}, may your days be bright,\nWith love and laughter, warm and light.",
+      "The candles glow, the dreidels spin,\nMay joy come knocking, enter in,\nDear {N}, may every night renew\nThe warmest blessings known to you."
+    ]
+  },
+  lunarnewyear: {
+    label: "Lunar New Year", emoji: "🧧", orn: ["🧧","🏮","🐲"],
+    c1: "#FFE2D6", c2: "#FFF0CC", ink: "#A33220", shadow: "rgba(220,110,80,.45)",
+    chipBg: "#FAE4DA",
+    closers: ["fortune's favorite", "the luckiest name of the year", "destined for a golden year", "a firecracker of a person", "the dragon's own", "prosperity in human form", "red envelope royalty", "blessed with luck and laughter"],
+    verses: [
+      "Lanterns rising, red and gold,\nA brand new year, a story told,\nDear {N}, may luck walk by your side,\nWith every blessing, far and wide.",
+      "The firecrackers light the night,\nDear {N}, may your year shine bright,\nMay fortune find you where you are,\nAnd lift you like a rising star."
+    ]
+  },
   engagement: {
     label: "Engagement", emoji: "💫", orn: ["💖","💫","🥂"],
     c1: "#FDE8F0", c2: "#FFF1D6", ink: "#6B2D4E", shadow: "rgba(210,120,160,.45)",
@@ -547,7 +600,7 @@ const OCCASIONS = {
     label: "Good Luck", emoji: "🍀", orn: ["🍀","⭐","🌈"],
     c1: "#E0F2F1", c2: "#F3E5F5", ink: "#2E5650", shadow: "rgba(110,160,160,.4)",
     chipBg: "#E1F1EC",
-    closers: ["destined for great things","luck's favorite person", "luck is on your side", "go shine like you always do", "we're all betting on you", "destiny's favorite right now", "the sure thing in a world of chance", "go show them how it's done"],
+    closers: ["every door opens for you","luck's favorite person", "luck is on your side", "go shine like you always do", "we're all betting on you", "destiny's favorite right now", "the sure thing in a world of chance", "go show them how it's done"],
     verses: [
       "{N}, the hour's near, you're set, you're ready,\nKeep your breath and pace both steady,\nMay luck walk in and stand by you\nIn everything you're about to do.",
       "A four-leaf clover, just for you,\nDear {N}, here's luck in all you do,\nGo get them, shine, be brave, be bold,\nYour story's waiting to be told."
@@ -767,7 +820,7 @@ const OCCASIONS = {
     label: "Husband", emoji: "🤵", orn: ["🤵","💙","🏠"],
     c1: "#E8EAF6", c2: "#E3F2FD", ink: "#333F66", shadow: "rgba(120,130,190,.4)",
     chipBg: "#E7E9F7",
-    closers: ["my always and forever","the king of our home","my calm in every storm","loved more every single day", "my partner in everything", "the best hug in the house", "loved beyond measure, daily", "the man of the house, in every good sense"],
+    closers: ["my one and only","the king of our home","my calm in every storm","loved more every single day", "my partner in everything", "the best hug in the house", "loved beyond measure, daily", "the man of the house, in every good sense"],
     verses: [
       "{N}, my steady rock and cheer,\nSo thankful that you're always near,\nMay our love keep growing strong,\nWith you is where I belong.",
       "Through every season, every year,\nDear {N}, I want you near,\nMy partner, my love, my closest friend,\nRight beside you to the end."
@@ -847,7 +900,7 @@ const OCCASIONS = {
 
 const GROUPS = [
   ["Celebrate", ["birthday","engagement","wedding","anniversary","graduation","newjob","newhome","retirement","congrats"]],
-  ["Festivals", ["christmas","diwali","eid","holi","rakhi","navratri","newyear","valentine","halloween"]],
+  ["Festivals & Holidays", ["christmas","newyear","lunarnewyear","easter","thanksgiving","hanukkah","valentine","halloween","eid","diwali","holi","rakhi","navratri"]],
   ["Everyday", ["thanks","getwell","goodluck","farewell","teachersday"]],
   ["Love", ["boyfriend","girlfriend","couple","wife","husband"]],
   ["Family", ["mother","father","sister","brother","son","daughter","baby","mothersday","fathersday","grandma","grandpa","cousin","aunt","uncle","niece","nephew"]],
@@ -946,6 +999,26 @@ function writePoem() {
 
 /* ---------------- card rendering ---------------- */
 
+const STAMP_SPOTS = [
+  { x: "7%",  y: "16%", r: -14 }, { x: "88%", y: "22%", r: 12 },
+  { x: "10%", y: "66%", r: 15 },  { x: "87%", y: "60%", r: -11 },
+  { x: "46%", y: "5%",  r: 9 },   { x: "28%", y: "90%", r: -9 },
+  { x: "64%", y: "92%", r: 13 }
+];
+
+function fillStamps(theme) {
+  const box = $("stamps");
+  if (!box) return;
+  box.innerHTML = "";
+  STAMP_SPOTS.forEach((s, i) => {
+    const el = document.createElement("span");
+    el.textContent = theme.orn[i % theme.orn.length];
+    el.style.left = s.x; el.style.top = s.y;
+    el.style.transform = "rotate(" + s.r + "deg)";
+    box.appendChild(el);
+  });
+}
+
 function renderCard() {
   const theme = OCCASIONS[state.occasion];
   const card = $("poemCard").parentElement;
@@ -956,6 +1029,7 @@ function renderCard() {
   $("cornerTl").textContent = theme.orn[0];
   $("cornerTr").textContent = theme.orn[1];
   $("watermark").textContent = theme.orn[2];
+  fillStamps(theme);
   $("ornRow").textContent = theme.orn.join(" ");
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
   $("poemName").textContent = state.name;
@@ -994,6 +1068,7 @@ function retheme() {
   $("cornerTl").textContent = theme.orn[0];
   $("cornerTr").textContent = theme.orn[1];
   $("watermark").textContent = theme.orn[2];
+  fillStamps(theme);
   $("ornRow").textContent = theme.orn.join(" ");
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
 }
@@ -1119,7 +1194,7 @@ $("pngBtn").addEventListener("click", () => {
   ctx.fillRect(0, 0, W, H);
 
   // polka dot texture
-  ctx.fillStyle = "rgba(255,255,255,.35)";
+  ctx.fillStyle = "rgba(255,255,255,.4)";
   for (let y = 30; y < H; y += 56) {
     for (let x = 30; x < W; x += 56) {
       ctx.beginPath();
@@ -1127,6 +1202,47 @@ $("pngBtn").addEventListener("click", () => {
       ctx.fill();
     }
   }
+
+  // diagonal stripe texture
+  ctx.save();
+  ctx.strokeStyle = "rgba(255,255,255,.11)";
+  ctx.lineWidth = 14;
+  for (let i = -H; i < W; i += 46) {
+    ctx.beginPath();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i + H, H);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // dashed keepsake frame
+  ctx.save();
+  ctx.strokeStyle = theme.ink;
+  ctx.globalAlpha = 0.32;
+  ctx.lineWidth = 3;
+  ctx.setLineDash([14, 12]);
+  ctx.beginPath();
+  ctx.roundRect(34, 34, W - 68, H - 68, 28);
+  ctx.stroke();
+  ctx.restore();
+
+  // scattered emoji stamps
+  const STAMP_SPOTS_PNG = [
+    [0.07, 0.16, -0.24], [0.88, 0.22, 0.21], [0.10, 0.66, 0.26],
+    [0.87, 0.60, -0.19], [0.46, 0.055, 0.16], [0.28, 0.90, -0.16], [0.64, 0.92, 0.23]
+  ];
+  ctx.save();
+  ctx.font = "56px serif";
+  ctx.globalAlpha = 0.22;
+  ctx.textAlign = "center";
+  STAMP_SPOTS_PNG.forEach((s, i) => {
+    ctx.save();
+    ctx.translate(s[0] * W, s[1] * H);
+    ctx.rotate(s[2]);
+    ctx.fillText(theme.orn[i % theme.orn.length], 0, 0);
+    ctx.restore();
+  });
+  ctx.restore();
 
   // soft corner glows
   const glow = (x, y, r, color) => {
