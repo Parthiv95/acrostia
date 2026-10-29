@@ -131,6 +131,8 @@
   }
   #name2Row { display: none; }
   #name2Row.show { display: block; }
+  .bg-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bg-btn { cursor: pointer; font-size: 0.92rem; padding: 10px 16px; display: inline-flex; align-items: center; }
   .field label {
     display: block; font-weight: 600; font-size: 0.98rem; margin-bottom: 8px;
   }
@@ -245,7 +247,7 @@
   }
   .poem-card .card-inner {
     position: relative;
-    background: rgba(255,255,255,.66);
+    background: rgba(255,255,255,.72);
     border-radius: 22px;
     padding: 26px 18px 24px;
     box-shadow: 0 10px 30px -18px rgba(0,0,0,.18);
@@ -329,6 +331,14 @@
       <div class="field" id="name2Row">
         <label for="name2Input">& their partner <span class="hint">optional</span></label>
         <input type="text" id="name2Input" placeholder="e.g. Rohan" maxlength="20" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Background <span class="hint">free scene art, or your own photo</span></label>
+        <div class="bg-actions">
+          <label class="btn btn-ghost bg-btn">Use my photo<input type="file" id="bgUpload" accept="image/*" hidden></label>
+          <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Back to scene art</button>
+        </div>
       </div>
 
       <div class="field">
@@ -957,7 +967,7 @@ const CLOSERS = {
 
 /* ---------------- state & helpers ---------------- */
 
-const state = { occasion: "birthday", style: "acrostic", poem: null };
+const state = { occasion: "birthday", style: "acrostic", poem: null, customBg: null };
 const $ = (id) => document.getElementById(id);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -1015,28 +1025,185 @@ function writePoem() {
 
 /* ---------------- card rendering ---------------- */
 
-function emojiPatternUrl(theme) {
-  const spots = [
-    { x: 26, y: 36, o: 0, r: -10 },
-    { x: 96, y: 30, o: 1, r: 8 },
-    { x: 64, y: 84, o: 2, r: -6 },
-    { x: 122, y: 112, o: 0, r: 12 }
-  ];
-  const parts = spots.map((s) =>
-    '<text x="' + s.x + '" y="' + s.y + '" font-size="30" transform="rotate(' + s.r + " " + s.x + " " + s.y + ')">' + theme.orn[s.o] + "</text>"
-  ).join("");
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="132" height="132"><g opacity="0.2" font-family="sans-serif">' + parts + "</g></svg>";
-  return "data:image/svg+xml," + encodeURIComponent(svg);
+const SCENE_MAP = {
+  birthday: "party", congrats: "party", holi: "party", bestfriend: "party", cousin: "party",
+  engagement: "hearts", anniversary: "hearts", valentine: "hearts", boyfriend: "hearts",
+  girlfriend: "hearts", couple: "hearts", wife: "hearts", husband: "hearts",
+  wedding: "dream", newhome: "dream", daughter: "dream", baby: "dream", niece: "dream", friendship: "dream",
+  christmas: "winter", hanukkah: "night", eid: "night", halloween: "night",
+  diwali: "festival", rakhi: "festival", navratri: "festival", newyear: "festival", lunarnewyear: "festival",
+  easter: "garden", getwell: "garden", teachersday: "garden", mother: "garden", sister: "garden",
+  mothersday: "garden", grandma: "garden", aunt: "garden", pet: "garden",
+  graduation: "sunset", newjob: "sunset", retirement: "sunset", goodluck: "sunset", farewell: "sunset",
+  son: "sunset", nephew: "sunset",
+  thanks: "autumn", thanksgiving: "autumn",
+  father: "mountains", brother: "mountains", fathersday: "mountains", grandpa: "mountains", uncle: "mountains"
+};
+
+const SCENES = {
+  sunset(t) {
+    return (
+      '<circle cx="235" cy="200" r="66" fill="#FFFFFF" opacity=".55" filter="url(#soft)"/>' +
+      '<circle cx="235" cy="200" r="42" fill="#FFF8DC" opacity=".8"/>' +
+      '<path d="M0 425 Q 115 378 232 420 T 460 415 V 620 H 0 Z" fill="' + t.ink + '" opacity=".13"/>' +
+      '<path d="M0 485 Q 150 440 270 482 T 460 475 V 620 H 0 Z" fill="' + t.ink + '" opacity=".2"/>' +
+      '<path d="M0 545 Q 170 505 310 545 T 460 538 V 620 H 0 Z" fill="' + t.ink + '" opacity=".3"/>' +
+      '<path d="M110 150 q 9 -9 18 0 q 9 -9 18 0" stroke="' + t.ink + '" stroke-width="3" fill="none" opacity=".45" stroke-linecap="round"/>' +
+      '<path d="M300 110 q 8 -8 16 0 q 8 -8 16 0" stroke="' + t.ink + '" stroke-width="3" fill="none" opacity=".4" stroke-linecap="round"/>' +
+      '<path d="M390 170 q 7 -7 14 0 q 7 -7 14 0" stroke="' + t.ink + '" stroke-width="2.5" fill="none" opacity=".35" stroke-linecap="round"/>'
+    );
+  },
+  night(t) {
+    let s = "";
+    [[40,60],[90,140],[150,50],[210,110],[260,60],[310,40],[360,100],[410,70],[60,220],[140,190],[250,200],[330,185],[420,220],[380,150],[110,90],[290,130]].forEach((p) => {
+      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#FFFFFF" opacity=".85"/>';
+    });
+    s += '<circle cx="340" cy="145" r="54" fill="#FFF9E0" opacity=".25" filter="url(#soft)"/>' +
+      '<circle cx="340" cy="145" r="30" fill="#FFF9E0" opacity=".9"/>' +
+      '<path d="M0 480 L 130 300 L 240 480 Z" fill="' + t.ink + '" opacity=".18"/>' +
+      '<path d="M140 500 L 300 280 L 460 500 Z" fill="' + t.ink + '" opacity=".26"/>' +
+      '<path d="M0 560 Q 230 520 460 555 V 620 H 0 Z" fill="' + t.ink + '" opacity=".35"/>';
+    return s;
+  },
+  garden(t) {
+    let s =
+      '<ellipse cx="95" cy="115" rx="70" ry="26" fill="#FFFFFF" opacity=".5" filter="url(#soft)"/>' +
+      '<ellipse cx="355" cy="85" rx="60" ry="22" fill="#FFFFFF" opacity=".4" filter="url(#soft)"/>';
+    [55, 125, 205, 285, 355, 425].forEach((x, i) => {
+      s += '<path d="M' + x + ' 620 Q ' + (x - 9) + ' 545 ' + x + ' 485" stroke="#5E8C3A" stroke-width="5" fill="none" opacity=".55"/>' +
+        '<circle cx="' + x + '" cy="473" r="14" fill="#FFFFFF" opacity=".8"/>' +
+        '<circle cx="' + x + '" cy="473" r="7" fill="' + (i % 2 ? "#F6A5B8" : "#FFE082") + '" opacity=".9"/>';
+    });
+    s += '<ellipse cx="185" cy="175" rx="9" ry="5" fill="#F6A5B8" opacity=".8"/>' +
+      '<ellipse cx="200" cy="175" rx="9" ry="5" fill="#F6A5B8" opacity=".8"/>' +
+      '<circle cx="192" cy="176" r="3.5" fill="' + t.ink + '" opacity=".6"/>' +
+      '<path d="M0 585 Q 230 555 460 585 V 620 H 0 Z" fill="#5E8C3A" opacity=".25"/>';
+    return s;
+  },
+  mountains(t) {
+    let s =
+      '<path d="M0 460 L 140 260 L 280 460 Z" fill="' + t.ink + '" opacity=".16"/>' +
+      '<path d="M120 480 L 290 230 L 460 480 Z" fill="' + t.ink + '" opacity=".24"/>' +
+      '<path d="M262 262 L 290 230 L 318 262 L 302 252 L 290 272 L 276 254 Z" fill="#FFFFFF" opacity=".8"/>' +
+      '<path d="M122 296 L 140 260 L 158 296 L 148 288 L 138 304 Z" fill="#FFFFFF" opacity=".7"/>' +
+      '<path d="M0 500 Q 230 470 460 498 V 620 H 0 Z" fill="#5E8C3A" opacity=".22"/>';
+    [[70, 500], [115, 500], [345, 500], [395, 500]].forEach((p) => {
+      s += '<path d="M' + p[0] + ' ' + (p[1] - 60) + ' L ' + (p[0] + 24) + ' ' + p[1] + ' L ' + (p[0] - 24) + ' ' + p[1] + ' Z" fill="#33691E" opacity=".45"/>' +
+        '<path d="M' + p[0] + ' ' + (p[1] - 85) + ' L ' + (p[0] + 17) + ' ' + (p[1] - 34) + ' L ' + (p[0] - 17) + ' ' + (p[1] - 34) + ' Z" fill="#33691E" opacity=".45"/>';
+    });
+    return s;
+  },
+  beach(t) {
+    return (
+      '<circle cx="240" cy="145" r="50" fill="#FFF3C4" opacity=".9"/>' +
+      '<circle cx="240" cy="145" r="72" fill="#FFF3C4" opacity=".3" filter="url(#soft)"/>' +
+      '<path d="M0 350 Q 115 325 230 348 T 460 342 V 620 H 0 Z" fill="#7EC8CE" opacity=".45"/>' +
+      '<path d="M0 375 Q 130 355 240 372 T 460 368" stroke="#FFFFFF" stroke-width="4" fill="none" opacity=".6"/>' +
+      '<path d="M0 405 Q 130 385 240 402 T 460 398" stroke="#FFFFFF" stroke-width="4" fill="none" opacity=".45"/>' +
+      '<path d="M0 440 Q 230 408 460 435 V 620 H 0 Z" fill="#F1DDA7" opacity=".55"/>' +
+      '<path d="M85 620 Q 92 540 80 490 L 100 490 Q 90 540 105 620 Z" fill="' + t.ink + '" opacity=".45"/>' +
+      '<path d="M90 488 Q 55 452 20 462 Q 55 478 90 490 Z" fill="#2E7D32" opacity=".55"/>' +
+      '<path d="M90 486 Q 90 440 60 425 Q 92 448 96 486 Z" fill="#2E7D32" opacity=".55"/>' +
+      '<path d="M92 488 Q 125 448 160 452 Q 128 470 96 490 Z" fill="#2E7D32" opacity=".55"/>' +
+      '<circle cx="330" cy="520" r="10" fill="#FFFFFF" opacity=".5"/>'
+    );
+  },
+  autumn(t) {
+    let s =
+      '<path d="M118 620 Q 126 525 108 462 L 142 462 Q 126 525 140 620 Z" fill="' + t.ink + '" opacity=".4"/>' +
+      '<circle cx="125" cy="425" r="56" fill="#E8964A" opacity=".45" filter="url(#soft)"/>' +
+      '<circle cx="178" cy="448" r="42" fill="#D2691E" opacity=".4" filter="url(#soft)"/>' +
+      '<circle cx="80" cy="452" r="38" fill="#E8964A" opacity=".38" filter="url(#soft)"/>';
+    [[210, 540], [250, 500], [300, 560], [340, 520], [390, 555], [420, 480], [180, 580], [280, 600]].forEach((p, i) => {
+      s += '<ellipse cx="' + p[0] + '" cy="' + p[1] + '" rx="8" ry="5" fill="' + (i % 2 ? "#D2691E" : "#E8964A") + '" opacity=".55" transform="rotate(' + (p[0] % 60) + ' ' + p[0] + ' ' + p[1] + ')"/>';
+    });
+    s += '<path d="M0 590 Q 230 565 460 590 V 620 H 0 Z" fill="' + t.ink + '" opacity=".18"/>';
+    return s;
+  },
+  winter(t) {
+    let s =
+      '<path d="M0 520 Q 230 485 460 515 V 620 H 0 Z" fill="#FFFFFF" opacity=".55"/>' +
+      '<path d="M0 570 Q 230 540 460 568 V 620 H 0 Z" fill="#FFFFFF" opacity=".75"/>';
+    [[85, 520], [135, 520], [330, 515], [385, 515]].forEach((p) => {
+      s += '<path d="M' + p[0] + ' ' + (p[1] - 70) + ' L ' + (p[0] + 26) + ' ' + p[1] + ' L ' + (p[0] - 26) + ' ' + p[1] + ' Z" fill="#33691E" opacity=".5"/>';
+    });
+    [[50, 80],[130, 150],[210, 60],[290, 130],[370, 70],[430, 160],[90, 240],[250, 230],[410, 260],[170, 300],[330, 320],[60, 380]].forEach((p) => {
+      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="4" fill="#FFFFFF" opacity=".9"/>';
+    });
+    return s;
+  },
+  festival(t) {
+    let s =
+      '<path d="M0 115 Q 230 185 460 105" stroke="' + t.ink + '" stroke-width="3" fill="none" opacity=".4"/>';
+    [[30, 133], [95, 155], [160, 168], [230, 172], [300, 158], [365, 138], [430, 118]].forEach((p) => {
+      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="13" fill="#FFD54F" opacity=".3" filter="url(#soft)"/>' +
+        '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="#FFD54F" opacity=".95"/>';
+    });
+    [[355, 250], [110, 260]].forEach((c) => {
+      for (let a = 0; a < 8; a++) {
+        const ang = (Math.PI / 4) * a, x1 = c[0] + Math.cos(ang) * 14, y1 = c[1] + Math.sin(ang) * 14, x2 = c[0] + Math.cos(ang) * 34, y2 = c[1] + Math.sin(ang) * 34;
+        s += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#FFD54F" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>';
+      }
+      s += '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="6" fill="#FFE082" opacity=".9"/>';
+    });
+    s += '<path d="M0 560 Q 230 525 460 555 V 620 H 0 Z" fill="' + t.ink + '" opacity=".22"/>';
+    return s;
+  },
+  hearts(t) {
+    const hp = "M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z";
+    let s = "";
+    [[70, 200, 1.3], [160, 110, .8], [265, 85, 1.05], [345, 175, 1.5], [408, 84, .7], [215, 235, .6], [120, 320, .9], [330, 330, .7]].forEach((h, i) => {
+      s += '<path d="' + hp + '" fill="' + (i % 3 === 2 ? "#F8BBD0" : "#FFFFFF") + '" opacity=".5" transform="translate(' + h[0] + ' ' + h[1] + ') scale(' + h[2] + ') translate(-12 -14)"/>';
+    });
+    s += '<circle cx="230" cy="200" r="70" fill="#FFFFFF" opacity=".18" filter="url(#soft)"/>';
+    return s;
+  },
+  party(t) {
+    let s = "";
+    const cols = ["#F8BBD0", "#FFE082", "#A5D6A7", "#90CAF9", "#CE93D8"];
+    [[90, 170, "#F8BBD0"], [150, 120, "#90CAF9"], [330, 130, "#FFE082"], [390, 185, "#A5D6A7"]].forEach((b) => {
+      s += '<ellipse cx="' + b[0] + '" cy="' + b[1] + '" rx="30" ry="38" fill="' + b[2] + '" opacity=".65"/>' +
+        '<path d="M' + b[0] + ' ' + (b[1] + 38) + ' q 6 20 -2 40" stroke="' + t.ink + '" stroke-width="2" fill="none" opacity=".4"/>';
+    });
+    [[40, 300, 20], [200, 280, -30], [280, 320, 45], [420, 290, -15], [120, 360, 60], [360, 400, -40], [60, 470, 15], [250, 430, -55], [410, 480, 30], [170, 470, -20], [310, 500, 40], [90, 560, -35]].forEach((c, i) => {
+      s += '<rect x="' + c[0] + '" y="' + c[1] + '" width="14" height="7" rx="3" fill="' + cols[i % 5] + '" opacity=".8" transform="rotate(' + c[2] + ' ' + c[0] + ' ' + c[1] + ')"/>';
+    });
+    return s;
+  },
+  dream(t) {
+    let s = "";
+    [["#F8BBD0", 175], ["#FFE082", 150], ["#A5D6A7", 125], ["#90CAF9", 100]].forEach((r) => {
+      s += '<path d="M ' + (230 - r[1]) + ' 480 A ' + r[1] + ' ' + r[1] + ' 0 0 1 ' + (230 + r[1]) + ' 480" stroke="' + r[0] + '" stroke-width="15" fill="none" opacity=".45"/>';
+    });
+    s += '<ellipse cx="95" cy="480" rx="62" ry="26" fill="#FFFFFF" opacity=".7" filter="url(#soft)"/>' +
+      '<ellipse cx="365" cy="480" rx="62" ry="26" fill="#FFFFFF" opacity=".7" filter="url(#soft)"/>' +
+      '<ellipse cx="230" cy="150" rx="55" ry="20" fill="#FFFFFF" opacity=".5" filter="url(#soft)"/>' +
+      '<circle cx="390" cy="120" r="34" fill="#FFF3C4" opacity=".5" filter="url(#soft)"/>';
+    return s;
+  }
+};
+
+function sceneSvg(theme, kind) {
+  const body = SCENES[kind](theme);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="460" height="620" viewBox="0 0 460 620">' +
+    '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0" stop-color="' + theme.c1 + '"/><stop offset="1" stop-color="' + theme.c2 + '"/>' +
+    '</linearGradient>' +
+    '<filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>' +
+    '</defs>' +
+    '<rect width="460" height="620" fill="url(#sky)"/>' + body + '</svg>';
+}
+
+function sceneDataUrl(theme) {
+  const kind = SCENE_MAP[state.occasion] || "sunset";
+  return "data:image/svg+xml," + encodeURIComponent(sceneSvg(theme, kind));
 }
 
 function applyCardPattern(theme) {
   const pc = $("poemCard");
-  pc.style.backgroundImage =
-    'url("' + emojiPatternUrl(theme) + '"), ' +
-    "radial-gradient(200px 200px at 14% 8%, rgba(255,255,255,.55), transparent 70%), " +
-    "radial-gradient(240px 240px at 88% 88%, rgba(255,255,255,.5), transparent 70%), " +
-    "linear-gradient(160deg, " + theme.c1 + ", " + theme.c2 + ")";
-  pc.style.backgroundSize = "132px 132px, auto, auto, 100% 100%";
+  pc.style.backgroundImage = 'url("' + (state.customBg || sceneDataUrl(theme)) + '")';
+  pc.style.backgroundSize = "cover";
+  pc.style.backgroundPosition = "center";
 }
 
 function renderCard() {
@@ -1093,6 +1260,29 @@ function retheme() {
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
   updateName2Visibility();
 }
+
+/* ---------------- background upload ---------------- */
+
+$("bgUpload").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  const fr = new FileReader();
+  fr.onload = () => {
+    state.customBg = fr.result;
+    $("bgResetBtn").style.display = "";
+    retheme();
+    if ($("nameInput").value.trim()) writePoem();
+  };
+  fr.readAsDataURL(f);
+});
+
+$("bgResetBtn").addEventListener("click", () => {
+  state.customBg = null;
+  $("bgResetBtn").style.display = "none";
+  $("bgUpload").value = "";
+  retheme();
+  if ($("nameInput").value.trim()) writePoem();
+});
 
 /* ---------------- occasion chips ---------------- */
 
@@ -1215,34 +1405,12 @@ $("pngBtn").addEventListener("click", () => {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  // polka dot texture
-  ctx.fillStyle = "rgba(255,255,255,.4)";
-  for (let y = 30; y < H; y += 56) {
-    for (let x = 30; x < W; x += 56) {
-      ctx.beginPath();
-      ctx.arc(x + ((Math.round(y / 56)) % 2) * 28, y, 4, 0, Math.PI * 2);
-      ctx.fill();
+  const paint = (img) => {
+    if (img) {
+      const r = Math.max(W / img.width, H / img.height);
+      const w = img.width * r, h = img.height * r;
+      ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
     }
-  }
-
-  // emoji wallpaper
-  ctx.save();
-  ctx.globalAlpha = 0.18;
-  ctx.font = "64px serif";
-  ctx.textAlign = "center";
-  let wi = 0;
-  for (let y = 110; y < H; y += 250) {
-    const startX = (Math.round(y / 250) % 2) ? 125 : 0;
-    for (let x = startX; x < W + 40; x += 250) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(((wi % 3) - 1) * 0.12);
-      ctx.fillText(theme.orn[wi % theme.orn.length], 0, 0);
-      ctx.restore();
-      wi++;
-    }
-  }
-  ctx.restore();
 
   // soft corner glows
   const glow = (x, y, r, color) => {
@@ -1358,6 +1526,15 @@ $("pngBtn").addEventListener("click", () => {
   ctx.fillText(theme.orn[0], 44, 74);
   ctx.textAlign = "right";
   ctx.fillText(theme.orn[1], W - 44, 74);
+  };
+
+  const load = (src, ok) => {
+    const img = new Image();
+    img.onload = () => paint(img);
+    img.onerror = () => paint(null);
+    img.src = src;
+  };
+  load(state.customBg || sceneDataUrl(theme));
 
   const a = document.createElement("a");
   a.download = state.name.toLowerCase().replace(/\s+/g, "-") + "-" + state.occasion + "-poem.png";
