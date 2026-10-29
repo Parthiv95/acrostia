@@ -8,8 +8,12 @@
 <meta name="theme-color" content="#FFD9E8">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FFD9E8%22/><text y=%22.9em%22 x=%2250%25%22 text-anchor=%22middle%22 font-size=%2262%22>🎂</text></svg>">
 <meta property="og:title" content="Name in Verse">
-<meta property="og:description" content="Every name hides a poem. Turn any name into a personalized poem for birthdays and 12 more occasions.">
+<meta property="og:description" content="Every name hides a poem. Turn any name into a personalized poem card for 51 occasions, free and instant.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/name-in-verse/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Analytics placeholder: paste your GA4 or Plausible snippet here after deploying -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -394,6 +398,7 @@
         <button type="button" class="btn" id="pngBtn">Download as picture</button>
         <button type="button" class="btn" id="printBtn">Print</button>
         <button type="button" class="btn" id="copyBtn">Copy text</button>
+        <button type="button" class="btn" id="linkBtn">Copy link</button>
       </div>
       <p class="card-note">The picture downloads at greeting-card size, ready to send on WhatsApp or print at home.</p>
     </section>
@@ -1021,6 +1026,7 @@ function writePoem() {
     : { type: "rhyme", text: buildRhyme(name, name2) };
   state.name = name2 ? name + " & " + name2 : name;
   renderCard();
+  if (typeof syncUrl === "function") syncUrl();
 }
 
 /* ---------------- card rendering ---------------- */
@@ -1544,9 +1550,36 @@ $("pngBtn").addEventListener("click", () => {
 
 /* ---------------- boot with a sample ---------------- */
 
-$("nameInput").value = "Meera";
+const urlParams = new URLSearchParams(location.search);
+if (urlParams.get("o") && OCCASIONS[urlParams.get("o")]) state.occasion = urlParams.get("o");
+if (urlParams.get("s") === "rhyme") setStyle("rhyme");
+const urlName = cap((urlParams.get("n") || "Meera").replace(/[^a-zA-Z\s'-]/g, "").trim()) || "Meera";
+$("nameInput").value = urlName;
+const urlPartner = cap((urlParams.get("p") || "").replace(/[^a-zA-Z\s'-]/g, "").trim());
 updateName2Visibility();
+if (urlPartner && PAIR_CATEGORIES.indexOf(state.occasion) !== -1) $("name2Input").value = urlPartner;
+retheme();
 writePoem();
+
+function syncUrl() {
+  if (!state.poem) return;
+  const q = new URLSearchParams();
+  q.set("n", $("nameInput").value.trim());
+  q.set("o", state.occasion);
+  q.set("s", state.style);
+  if ($("name2Input").value.trim()) q.set("p", $("name2Input").value.trim());
+  const next = location.pathname + "?" + q.toString();
+  if (next !== location.pathname + location.search) history.replaceState(null, "", next);
+}
+syncUrl();
+
+$("linkBtn").addEventListener("click", () => {
+  syncUrl();
+  navigator.clipboard.writeText(location.origin + location.pathname + location.search).then(() => {
+    $("linkBtn").textContent = "Link copied!";
+    setTimeout(() => ($("linkBtn").textContent = "Copy link"), 1600);
+  });
+});
 </script>
 </body>
 </html>
