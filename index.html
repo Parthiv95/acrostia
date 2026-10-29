@@ -265,6 +265,7 @@
   .verse-pick[hidden] { display: none; }
   .verse-pick .btn { font-size: 0.9rem; padding: 9px 14px; }
   .scene-pick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .scene-pick[hidden] { display: none; }
   .scene-pick .scene-chip {
     font: inherit; font-size: 0.88rem; padding: 8px 13px; border-radius: 999px;
     border: 1.5px solid var(--line); background: #fff; cursor: pointer;
@@ -272,6 +273,20 @@
   .scene-pick .scene-chip[aria-pressed="true"] {
     border-color: var(--ink); background: var(--ink); color: #fff;
   }
+  .bg-tabs { display: flex; gap: 8px; }
+  .bg-tab {
+    font: inherit; font-size: 0.9rem; padding: 8px 14px; border-radius: 999px;
+    border: 1.5px solid var(--line); background: #fff; cursor: pointer; color: var(--ink);
+  }
+  .bg-tab[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .scene-pick .photo-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: inherit; font-size: 0.88rem; padding: 5px 13px 5px 5px; border-radius: 999px;
+    border: 1.5px solid var(--line); background: #fff; cursor: pointer;
+  }
+  .scene-pick .photo-chip img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; display: block; }
+  .scene-pick .photo-chip[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+  .bg-actions[hidden] { display: none; }
   .poem-card .corner { position: absolute; font-size: 1.5rem; opacity: .85; }
   .poem-card .corner.tl { top: 16px; left: 20px; }
   .poem-card .corner.tr { top: 16px; right: 20px; }
@@ -356,11 +371,17 @@
       </div>
 
       <div class="field">
-        <label>Background <span class="hint">free scene art, any scene you like, or your own photo</span></label>
+        <label>Background <span class="hint">scene art, real photos, or your own</span></label>
+        <div class="bg-tabs">
+          <button type="button" class="bg-tab" data-bt="art" aria-pressed="true">Art scenes</button>
+          <button type="button" class="bg-tab" data-bt="photo" aria-pressed="false">Photos</button>
+          <button type="button" class="bg-tab" data-bt="mine" aria-pressed="false">My photo</button>
+        </div>
         <div class="scene-pick" id="scenePick"></div>
-        <div class="bg-actions">
+        <div class="scene-pick" id="photoPick" hidden></div>
+        <div class="bg-actions" id="bgMineRow" hidden>
           <label class="btn btn-ghost bg-btn">Use my photo<input type="file" id="bgUpload" accept="image/*" hidden></label>
-          <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Back to scene art</button>
+          <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Remove my photo</button>
         </div>
       </div>
 
@@ -999,7 +1020,7 @@ const CLOSERS = {
 
 /* ---------------- state & helpers ---------------- */
 
-const state = { occasion: "birthday", style: "acrostic", poem: null, customBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
+const state = { occasion: "birthday", style: "acrostic", poem: null, customBg: null, photoBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
 const $ = (id) => document.getElementById(id);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -1272,7 +1293,7 @@ function sceneDataUrl(theme) {
 
 function applyCardPattern(theme) {
   const pc = $("poemCard");
-  pc.style.backgroundImage = 'url("' + (state.customBg || sceneDataUrl(theme)) + '")';
+  pc.style.backgroundImage = 'url("' + (state.customBg || state.photoBg || sceneDataUrl(theme)) + '")';
   pc.style.backgroundSize = "cover";
   pc.style.backgroundPosition = "center";
 }
@@ -1338,6 +1359,26 @@ function retheme() {
 
 /* ---------------- background upload ---------------- */
 
+// Free-license photo backgrounds (Unsplash CDN, hotlink friendly).
+// Swap any "full" URL for a photo you prefer, e.g. from pexels.com,
+// keeping the same shape: ?auto=format&fit=crop&w=900&h=1200&q=80
+const PHOTO_BG = [
+  { label: "Golden sunset",   thumb: "photo-1470252649378-9c29740c9fa8", full: "photo-1470252649378-9c29740c9fa8" },
+  { label: "Mountain lake",   thumb: "photo-1506744038136-46273834b3fb", full: "photo-1506744038136-46273834b3fb" },
+  { label: "Sunlit forest",   thumb: "photo-1441974231531-c6227db76b6e", full: "photo-1441974231531-c6227db76b6e" },
+  { label: "Morning meadow",  thumb: "photo-1472214103451-9374bd1c798e", full: "photo-1472214103451-9374bd1c798e" },
+  { label: "Tropical beach",  thumb: "photo-1507525428034-b723cf961d3e", full: "photo-1507525428034-b723cf961d3e" },
+  { label: "Starry night",    thumb: "photo-1419242902214-272b3f66ee7a", full: "photo-1419242902214-272b3f66ee7a" },
+  { label: "Snowy peaks",     thumb: "photo-1519681393784-d120267933ba", full: "photo-1519681393784-d120267933ba" },
+  { label: "Spring blossoms", thumb: "photo-1522383225653-ed111181a951", full: "photo-1522383225653-ed111181a951" },
+  { label: "Wildflowers",     thumb: "photo-1490750967868-88aa4486c946", full: "photo-1490750967868-88aa4486c946" },
+  { label: "Confetti party",  thumb: "photo-1513151233558-d860c5398176", full: "photo-1513151233558-d860c5398176" },
+  { label: "Wedding day",     thumb: "photo-1519741497674-611481863552", full: "photo-1519741497674-611481863552" },
+  { label: "First light",     thumb: "photo-1469474968028-56623f02e42e", full: "photo-1469474968028-56623f02e42e" }
+];
+const photoUrl = (id, thumb) =>
+  "https://images.unsplash.com/" + id + "?auto=format&fit=crop&q=80&" + (thumb ? "w=120&h=120" : "w=900&h=1200");
+
 const SCENE_INFO = {
   sunset: ["Sunset", "🌅"], night: ["Starry night", "🌙"], garden: ["Garden", "🌸"],
   mountains: ["Mountains", "⛰️"], beach: ["Beach", "🏖️"], autumn: ["Autumn", "🍂"],
@@ -1353,8 +1394,15 @@ function syncSceneChips() {
 
 function clearPhoto() {
   state.customBg = null;
+  state.photoBg = null;
   $("bgResetBtn").style.display = "none";
   $("bgUpload").value = "";
+}
+
+function syncPhotoChips() {
+  document.querySelectorAll(".photo-chip").forEach((c) => {
+    c.setAttribute("aria-pressed", String(c.dataset.u === state.photoBg));
+  });
 }
 
 (function buildScenePick() {
@@ -1367,8 +1415,10 @@ function clearPhoto() {
     b.textContent = label;
     b.addEventListener("click", () => {
       if (k) state.sceneOverride = k; else state.sceneOverride = null;
+      state.photoBg = null;
       clearPhoto();
       syncSceneChips();
+      syncPhotoChips();
       retheme();
       if ($("nameInput").value.trim()) writePoem();
     });
@@ -1381,6 +1431,47 @@ function clearPhoto() {
   });
 })();
 
+(function buildPhotoPick() {
+  const box = $("photoPick");
+  PHOTO_BG.forEach((p) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "photo-chip";
+    b.dataset.u = photoUrl(p.full, false);
+    b.setAttribute("aria-pressed", "false");
+    const img = document.createElement("img");
+    img.src = photoUrl(p.thumb, true);
+    img.alt = "";
+    img.loading = "lazy";
+    b.appendChild(img);
+    b.appendChild(document.createTextNode(p.label));
+    b.addEventListener("click", () => {
+      if (state.photoBg === b.dataset.u) {
+        state.photoBg = null;
+      } else {
+        state.photoBg = b.dataset.u;
+        clearPhoto();
+        $("bgResetBtn").style.display = "none";
+      }
+      state.sceneOverride = null;
+      syncSceneChips();
+      syncPhotoChips();
+      retheme();
+      if ($("nameInput").value.trim()) writePoem();
+    });
+    box.appendChild(b);
+  });
+})();
+
+document.querySelectorAll(".bg-tab").forEach((t) => {
+  t.addEventListener("click", () => {
+    document.querySelectorAll(".bg-tab").forEach((x) => x.setAttribute("aria-pressed", String(x === t)));
+    $("scenePick").hidden = t.dataset.bt !== "art";
+    $("photoPick").hidden = t.dataset.bt !== "photo";
+    $("bgMineRow").hidden = t.dataset.bt !== "mine";
+  });
+});
+
 $("bgUpload").addEventListener("change", (e) => {
   const f = e.target.files && e.target.files[0];
   if (!f) return;
@@ -1388,8 +1479,10 @@ $("bgUpload").addEventListener("change", (e) => {
   fr.onload = () => {
     const applyBg = (dataUrl) => {
       state.customBg = dataUrl;
+      state.photoBg = null;
       state.sceneOverride = null;
       syncSceneChips();
+      syncPhotoChips();
       $("bgResetBtn").style.display = "";
       retheme();
       if ($("nameInput").value.trim()) writePoem();
@@ -1692,21 +1785,39 @@ $("pngBtn").addEventListener("click", () => {
   ctx.fillText(theme.orn[0], 44, 74);
   ctx.textAlign = "right";
   ctx.fillText(theme.orn[1], W - 44, 74);
+
+  finish();
   };
 
-  const load = (src, ok) => {
+  let bgSrc = state.customBg || state.photoBg || sceneDataUrl(theme);
+  let remote = bgSrc === state.photoBg;
+
+  const finish = () => {
+    let href = null;
+    try { href = canvas.toDataURL("image/png"); } catch (err) { href = null; }
+    if (!href && remote) {
+      // the remote photo blocked export, redraw with scene art instead
+      remote = false;
+      bgSrc = sceneDataUrl(theme);
+      load(bgSrc, false);
+      return;
+    }
+    const a = document.createElement("a");
+    a.download = state.name.toLowerCase().replace(/\s+/g, "-") + "-" + state.occasion + "-poem.png";
+    a.href = href || canvas.toDataURL("image/png");
+    a.click();
+  };
+
+  const load = (src, isRemote) => {
     const img = new Image();
+    if (isRemote) img.crossOrigin = "anonymous";
     img.onload = () => paint(img);
     img.onerror = () => paint(null);
     img.src = src;
   };
-  load(state.customBg || sceneDataUrl(theme));
-
-  const a = document.createElement("a");
-  a.download = state.name.toLowerCase().replace(/\s+/g, "-") + "-" + state.occasion + "-poem.png";
-  a.href = canvas.toDataURL("image/png");
-  a.click();
+  load(bgSrc, remote);
 });
+
 
 /* ---------------- boot with a sample ---------------- */
 
