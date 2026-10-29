@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Name in Verse — personalized name poems for every occasion</title>
+<meta name="description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more.">
+<meta name="theme-color" content="#FFD9E8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FFD9E8%22/><text y=%22.9em%22 x=%2250%25%22 text-anchor=%22middle%22 font-size=%2262%22>🎂</text></svg>">
+<meta property="og:title" content="Name in Verse">
+<meta property="og:description" content="Every name hides a poem. Turn any name into a personalized poem for birthdays and 12 more occasions.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,6 +32,17 @@
     line-height: 1.55;
   }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .top-strip {
+    height: 6px;
+    background: linear-gradient(90deg, #FF9AA2 0%, #FFD9A8 18%, #FFF3A0 36%, #B8E6B8 54%, #A8D8F0 72%, #C9B8F0 86%, #F5B8D8 100%);
+  }
+  footer.site-footer {
+    border-top: 1px solid var(--line);
+    margin-top: 8px; padding: 26px 0 40px;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  footer.site-footer .wordmark { font-size: 1.1rem; }
+  footer.site-footer p { color: var(--muted); font-size: 0.9rem; }
 
   /* ---------- header ---------- */
   header {
@@ -207,6 +224,7 @@
 </style>
 </head>
 <body>
+<div class="top-strip" aria-hidden="true"></div>
 <div class="wrap">
 
   <header>
@@ -285,6 +303,11 @@
     </section>
 
   </main>
+
+  <footer class="site-footer">
+    <div class="wordmark">Name in Verse<span>.</span></div>
+    <p>every name deserves a poem — made with ❤️ for celebrations big and small</p>
+  </footer>
 </div>
 
 <script>
