@@ -1394,7 +1394,6 @@ function syncSceneChips() {
 
 function clearPhoto() {
   state.customBg = null;
-  state.photoBg = null;
   $("bgResetBtn").style.display = "none";
   $("bgUpload").value = "";
 }
@@ -1457,9 +1456,8 @@ function syncPhotoChips() {
       }
       const probe = new Image();
       probe.onload = () => {
-        state.photoBg = b.dataset.u;
         clearPhoto();
-        $("bgResetBtn").style.display = "none";
+        state.photoBg = b.dataset.u;
         state.sceneOverride = null;
         b.style.opacity = "";
         syncSceneChips();
@@ -1526,8 +1524,10 @@ $("bgUpload").addEventListener("change", (e) => {
 
 $("bgResetBtn").addEventListener("click", () => {
   clearPhoto();
+  state.photoBg = null;
   state.sceneOverride = null;
   syncSceneChips();
+  syncPhotoChips();
   retheme();
   if ($("nameInput").value.trim()) writePoem();
 });
