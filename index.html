@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Name in Verse — personalized name poems for every occasion</title>
+<title>Name in Verse: personalized name poems for every occasion</title>
 <meta name="description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more.">
 <meta name="theme-color" content="#FFD9E8">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FFD9E8%22/><text y=%22.9em%22 x=%2250%25%22 text-anchor=%22middle%22 font-size=%2262%22>🎂</text></svg>">
@@ -28,13 +28,37 @@
   body {
     font-family: "Outfit", system-ui, sans-serif;
     background: var(--paper);
+    background-image:
+      radial-gradient(#EFE8F6 1.2px, transparent 1.3px),
+      radial-gradient(#F7F1FB 1.2px, transparent 1.3px);
+    background-size: 30px 30px, 30px 30px;
+    background-position: 0 0, 15px 15px;
     color: var(--ink);
     line-height: 1.55;
+    position: relative;
   }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
   .top-strip {
     height: 6px;
     background: linear-gradient(90deg, #FF9AA2 0%, #FFD9A8 18%, #FFF3A0 36%, #B8E6B8 54%, #A8D8F0 72%, #C9B8F0 86%, #F5B8D8 100%);
+    position: relative; z-index: 2;
+  }
+  .confetti-field {
+    position: absolute; top: 6px; left: 0; right: 0; height: 540px;
+    overflow: hidden; pointer-events: none; z-index: 0;
+  }
+  .confetti-field i {
+    position: absolute; top: -16px; display: block;
+    animation: confetti-fall linear infinite;
+  }
+  @keyframes confetti-fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    8% { opacity: .85; }
+    85% { opacity: .85; }
+    100% { transform: translateY(580px) rotate(560deg); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .confetti-field i { animation: none; display: none; }
   }
   footer.site-footer {
     border-top: 1px solid var(--line);
@@ -62,6 +86,10 @@
     font-family: "Fraunces", serif; font-weight: 600;
     font-size: clamp(2.1rem, 4.5vw, 3.2rem);
     line-height: 1.12; letter-spacing: -0.02em;
+    background: linear-gradient(115deg, #A62D6D 8%, #7A3FA8 55%, #C77D2E 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    display: inline-block;
   }
   .hero h1 .squiggle {
     text-decoration: underline wavy var(--accent);
@@ -85,15 +113,22 @@
 
   /* ---------- layout ---------- */
   .studio {
-    display: grid; grid-template-columns: 380px 1fr; gap: 48px;
-    padding-bottom: 72px; align-items: start;
+    display: grid; grid-template-columns: 400px 1fr; gap: 56px;
+    padding-bottom: 80px; align-items: start;
   }
   @media (max-width: 880px) {
     .studio { grid-template-columns: 1fr; gap: 36px; }
   }
 
   /* ---------- form ---------- */
-  .panel { display: flex; flex-direction: column; gap: 26px; }
+  .panel {
+    display: flex; flex-direction: column; gap: 26px;
+    background: rgba(255,255,255,.88);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 26px 24px 28px;
+    box-shadow: 0 14px 40px -22px rgba(36,28,53,.35);
+  }
   .field label {
     display: block; font-weight: 600; font-size: 0.98rem; margin-bottom: 8px;
   }
@@ -106,13 +141,29 @@
   input[type="text"]:focus { outline: none; border-color: var(--accent); }
   input[type="text"]::placeholder { color: #B9B2C6; }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; min-height: 76px; align-content: flex-start; }
+  .group-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .group-tab {
+    font: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    padding: 7px 15px; border-radius: 999px;
+    border: 1.5px solid var(--line); background: #fff; color: var(--ink);
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .group-tab:hover { border-color: var(--ink); }
+  .group-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .group-tab[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
   .chip {
     display: inline-flex; align-items: center; gap: 7px;
-    padding: 8px 13px; border-radius: 999px; cursor: pointer;
+    padding: 7px 13px 7px 7px; border-radius: 999px; cursor: pointer;
     border: 1.5px solid transparent; background: var(--chip-bg, #FBE9F2); font: inherit;
     font-size: 0.92rem; font-weight: 500; color: var(--ink);
     transition: transform .12s, border-color .15s, box-shadow .15s;
+  }
+  .chip-emoji {
+    display: grid; place-items: center;
+    width: 25px; height: 25px; border-radius: 50%;
+    background: rgba(255,255,255,.92); font-size: 0.85rem;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
   }
   .chip:hover { transform: translateY(-1px); }
   .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -168,10 +219,27 @@
   .poem-card {
     width: min(460px, 100%);
     border-radius: 26px; padding: 46px 40px 38px; text-align: center;
-    background: linear-gradient(160deg, var(--c1), var(--c2));
+    background-image:
+      radial-gradient(rgba(255,255,255,.38) 2px, transparent 2.6px),
+      radial-gradient(rgba(255,255,255,.25) 2px, transparent 2.6px),
+      linear-gradient(160deg, var(--c1), var(--c2));
+    background-size: 30px 30px, 30px 30px, 100% 100%;
+    background-position: 0 0, 15px 15px, 0 0;
     color: var(--card-ink);
     box-shadow: 0 24px 60px -18px var(--c-shadow);
     position: relative; overflow: hidden;
+  }
+  .poem-card::before, .poem-card::after {
+    content: ""; position: absolute; top: -9px; width: 76px; height: 22px;
+    background: rgba(255,255,255,.55); border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  }
+  .poem-card::before { left: 38px; transform: rotate(-6deg); }
+  .poem-card::after { right: 38px; transform: rotate(5deg); }
+  .poem-card .watermark {
+    position: absolute; right: -20px; bottom: -36px;
+    font-size: 9rem; line-height: 1; opacity: .13;
+    transform: rotate(-14deg); pointer-events: none;
   }
   .poem-card .corner { position: absolute; font-size: 1.5rem; opacity: .85; }
   .poem-card .corner.tl { top: 16px; left: 20px; }
@@ -225,6 +293,7 @@
 </head>
 <body>
 <div class="top-strip" aria-hidden="true"></div>
+<div class="confetti-field" id="confettiField" aria-hidden="true"></div>
 <div class="wrap">
 
   <header>
@@ -237,7 +306,7 @@
     <span class="float-emoji e1" aria-hidden="true">🎂</span>
     <span class="float-emoji e2" aria-hidden="true">🌸</span>
     <span class="float-emoji e3" aria-hidden="true">🪔</span>
-    <p>Type a name, pick the occasion, and we'll write a poem worth framing — as an acrostic of their name, or a short verse. Print it, download it as a picture, or copy the words.</p>
+    <p>Type a name, pick from 47 categories across celebrations, festivals, everyday moments and the people you love. Get an acrostic or a rhyming verse, then print it, download it as a picture, or copy the words.</p>
   </section>
 
   <main class="studio">
@@ -268,7 +337,7 @@
       </div>
 
       <div class="field">
-        <label for="fromInput">From <span class="hint">optional — signs the card</span></label>
+        <label for="fromInput">From <span class="hint">optional, signs the card</span></label>
         <input type="text" id="fromInput" placeholder="e.g. Aunt Rhea" maxlength="30" autocomplete="off">
       </div>
 
@@ -283,6 +352,7 @@
         <div class="poem-card" id="poemCard">
           <span class="corner tl" id="cornerTl"></span>
           <span class="corner tr" id="cornerTr"></span>
+          <span class="watermark" id="watermark" aria-hidden="true"></span>
           <div class="orn-row" id="ornRow"></div>
           <div class="occ-label" id="occLabelCard"></div>
           <div class="poem-name" id="poemName"></div>
@@ -306,7 +376,7 @@
 
   <footer class="site-footer">
     <div class="wordmark">Name in Verse<span>.</span></div>
-    <p>every name deserves a poem — made with ❤️ for celebrations big and small</p>
+    <p>every name deserves a poem, made with ❤️ for celebrations big and small</p>
   </footer>
 </div>
 
@@ -320,14 +390,6 @@ const OCCASIONS = {
     label: "Birthday", emoji: "🎂", orn: ["🎈","🎂","✨"],
     c1: "#FFF1D6", c2: "#FFD9E8", ink: "#4A2458", shadow: "rgba(205,110,140,.45)",
     chipBg: "#FFE9F0",
-    similes: [
-      "like a cake with one more candle to go.",
-      "like the first line of a brand new year.",
-      "as bright as candles on the cake.",
-      "like confetti that never settles.",
-      "like a wish waiting to be made.",
-      "as sweet as frosting on the first slice."
-    ],
     verses: [
       "{N}, today is all for you,\nWith cake and candles, laughter too,\nMay every wish you make tonight\nBloom into a year of light.",
       "Another trip around the sun,\nAnother year of days well won,\nDear {N}, whatever this year brings,\nMay your heart stay light, and sing."
@@ -337,14 +399,6 @@ const OCCASIONS = {
     label: "Wedding", emoji: "💍", orn: ["🌸","💍","🤍"],
     c1: "#FDE8F0", c2: "#E8E4FA", ink: "#4A3363", shadow: "rgba(140,110,180,.4)",
     chipBg: "#F6E8FB",
-    similes: [
-      "like a vow that will never wear thin.",
-      "like the first page of a beautiful story.",
-      "as radiant as a room full of roses.",
-      "like two hearts that found their way.",
-      "as rare as a love like this.",
-      "like a promise the stars co-signed."
-    ],
     verses: [
       "Dear {N}, today the bells ring true,\nTwo lives now woven, old made new,\nMay every morning that you share\nBe wrapped in warmth and gentle care.",
       "{N}, the flowers, the vows, the song,\nA love that's worth the wait so long,\nMay your home be full, your cups run over,\nLove like yours will live forever."
@@ -354,31 +408,15 @@ const OCCASIONS = {
     label: "Anniversary", emoji: "🥂", orn: ["❤️","🥂","🌹"],
     c1: "#FFE4E1", c2: "#FFD1DC", ink: "#63243B", shadow: "rgba(200,90,120,.4)",
     chipBg: "#FFE6EC",
-    similes: [
-      "like a promise that keeps its shine.",
-      "as steady as the years you've shared.",
-      "like a love story still being written.",
-      "as warm as the day it all began.",
-      "like wine that only got better.",
-      "as sure as two hands that fit."
-    ],
     verses: [
       "{N}, the years have come and gone,\nYet like a well-loved song, linger on,\nHere's to the love you still grow,\nSteady, deep, and warm as glow.",
       "Anniversaries mark the days,\nBut yours is written subtler ways,\nDear {N}, in every look you share\nLives a love beyond compare."
     ]
   },
   baby: {
-    label: "New Baby", emoji: "🍼", orn: ["🍼","🌟","🧸"],
+    label: "Baby", emoji: "🍼", orn: ["🍼","🌟","🧸"],
     c1: "#E3F2FD", c2: "#FCE4EC", ink: "#2C4A6E", shadow: "rgba(110,150,200,.4)",
     chipBg: "#E4F0FB",
-    similes: [
-      "like the softest miracle in tiny socks.",
-      "as brand new as ten little toes.",
-      "like a lullaby waiting to be sung.",
-      "as precious as a first sleepy smile.",
-      "like the world arriving brand new.",
-      "as tiny and as vast as a yawn."
-    ],
     verses: [
       "A little star has landed soft,\nTen tiny toes held up aloft,\nDear {N}, welcome, small and sweet,\nThe world is brighter at your feet.",
       "{N}, so small, so brand new,\nThe whole wide world is waiting for you,\nMay your days be warm and slow,\nWith love in every dream you grow."
@@ -388,14 +426,6 @@ const OCCASIONS = {
     label: "Graduation", emoji: "🎓", orn: ["🎓","📜","🌟"],
     c1: "#E8F5E9", c2: "#FFF9C4", ink: "#33691E", shadow: "rgba(140,170,90,.45)",
     chipBg: "#EAF4E2",
-    similes: [
-      "like a cap thrown high into the sky.",
-      "as bright as every door now open.",
-      "like hard work turned into wings.",
-      "as proud as every face in the crowd.",
-      "like a chapter ending in applause.",
-      "as ready as the road ahead."
-    ],
     verses: [
       "{N}, the tassel turns, the cheers ring out,\nYou've earned this day, beyond all doubt,\nMay every door you choose to try\nOpen wide against the sky.",
       "The books are closed, the caps are thrown,\nThe seeds of all your work are sown,\nDear {N}, go forth, be bold and true,\nThe world is lucky to have you."
@@ -405,14 +435,6 @@ const OCCASIONS = {
     label: "Retirement", emoji: "🌅", orn: ["🌅","🏆","🌿"],
     c1: "#FFF3E0", c2: "#FFE0B2", ink: "#6D4C1E", shadow: "rgba(210,160,90,.45)",
     chipBg: "#FBEEDB",
-    similes: [
-      "like a sunrise with no alarm in sight.",
-      "as golden as the years ahead.",
-      "like a finish line crossed in style.",
-      "as free as an open calendar.",
-      "like a well-earned rest that fits.",
-      "as rich as every life you've touched."
-    ],
     verses: [
       "{N}, the desk is cleared, the watch is done,\nNow mornings belong to tea and sun,\nYou've given years of your very best,\nNow the world hands you back its rest.",
       "No alarms to answer, no races to run,\nDear {N}, your second life's begun,\nMay every day be slow and kind,\nWith good health, good books, and peace of mind."
@@ -422,31 +444,15 @@ const OCCASIONS = {
     label: "Farewell", emoji: "✈️", orn: ["🕊️","✈️","🍀"],
     c1: "#E0F7FA", c2: "#E1F5FE", ink: "#1E4A5A", shadow: "rgba(90,150,180,.4)",
     chipBg: "#E0F2F7",
-    similes: [
-      "like a good chapter ending well.",
-      "as hopeful as a road just opening.",
-      "like a friend the distance can't dim.",
-      "as bright as wherever you're headed.",
-      "like a goodbye that means come back soon.",
-      "as brave as every new beginning."
-    ],
     verses: [
       "Goodbye is hard, dear {N}, it's true,\nBut better days are calling you,\nMay every road you take from here\nBe lined with luck and folks who cheer.",
-      "{N}, we'll miss your smiling face,\nNo one else can take your place,\nGo shine wherever you may be —\nYou'll always have a home with me."
+      "{N}, we'll miss your smiling face,\nNo one else can take your place,\nGo shine wherever you may be,\nYou'll always have a home with me."
     ]
   },
   friendship: {
     label: "Friendship", emoji: "🌻", orn: ["🌻","🤝","💫"],
     c1: "#FFF9C4", c2: "#FFECB3", ink: "#6D5A10", shadow: "rgba(215,185,80,.45)",
     chipBg: "#FBF3CE",
-    similes: [
-      "like the friend everyone hopes for.",
-      "as easy as laughter with an old friend.",
-      "like sunshine on an ordinary day.",
-      "as steady as your favourite song.",
-      "like a call you always have time for.",
-      "as rare as a friend like you."
-    ],
     verses: [
       "{N}, some folks come and go,\nBut friends like you are rare to know,\nDear {N}, you're the friend who stays,\nThrough all of life's winding ways.",
       "No ribbon, card, or grand parade\nCould thank you for the difference made,\nDear {N}, you're the kind of friend\nWho stays until the very end."
@@ -456,14 +462,6 @@ const OCCASIONS = {
     label: "Thank You", emoji: "🙏", orn: ["🙏","💐","💛"],
     c1: "#E8EAF6", c2: "#F3E5F5", ink: "#3A3A6E", shadow: "rgba(130,130,200,.4)",
     chipBg: "#E9E8F9",
-    similes: [
-      "like kindness that came right on time.",
-      "as warm as the help you gave.",
-      "like a favour that turned into a treasure.",
-      "as rare as someone like you.",
-      "like gratitude too big for words.",
-      "as good as good gets."
-    ],
     verses: [
       "{N}, these simple words are true:\nThank you for all you do,\nFor showing up, for thoughtful ways,\nYou deserve a thousand days of praise.",
       "Some kindness can't be repaid,\nOnly remembered, gently displayed,\nDear {N}, please know it's so:\nThe warmest thanks to you we owe."
@@ -473,14 +471,6 @@ const OCCASIONS = {
     label: "Get Well Soon", emoji: "🌷", orn: ["🌷","💛","☀️"],
     c1: "#E8F5E9", c2: "#E0F2F1", ink: "#2E5D50", shadow: "rgba(110,170,150,.4)",
     chipBg: "#E2F1EA",
-    similes: [
-      "like spring waiting right outside the window.",
-      "as strong as you've always been.",
-      "like the best chapter still to come.",
-      "as missed as you are right now.",
-      "like rest that's busy healing you.",
-      "as sure as sun after the rain."
-    ],
     verses: [
       "{N}, rest now, take it slow,\nHealing has its own tempo,\nWe're saving your seat, your cup, your place,\nUntil we see your smiling face.",
       "Get well soon, dear {N}, please do,\nThe world's not half as bright without you,\nMay every day bring strength your way,\nAnd better news by close of day."
@@ -490,16 +480,8 @@ const OCCASIONS = {
     label: "Christmas", emoji: "🎄", orn: ["🎄","⭐","🔔"],
     c1: "#E8F5E9", c2: "#FFEBEE", ink: "#3E2723", shadow: "rgba(160,90,90,.4)",
     chipBg: "#FDE7EA",
-    similes: [
-      "like the star on top of the tree.",
-      "as magical as the first snow.",
-      "like carols that stay in the heart.",
-      "as cozy as lights on a winter night.",
-      "like a stocking with your name sewn on.",
-      "as warm as mulled cheer shared."
-    ],
     verses: [
-      "{N}, the lights are on the tree,\nAnd there's a gift beneath it with your name — see,\nMay your season sparkle, may it sing,\nMerry Christmas, and everything.",
+      "{N}, the lights are on the tree,\nAnd a gift beneath it carries your name, you see,\nMay your season sparkle, may it sing,\nMerry Christmas, and everything.",
       "The fire is lit, the night is deep,\nAnd all the house is wrapped in sleep,\nDear {N}, wherever you may be,\nMay Christmas bring you peace and glee."
     ]
   },
@@ -507,14 +489,6 @@ const OCCASIONS = {
     label: "Diwali", emoji: "🪔", orn: ["🪔","✨","🎆"],
     c1: "#FFF8E1", c2: "#FFE0B2", ink: "#5D4037", shadow: "rgba(220,160,80,.5)",
     chipBg: "#FBEFD8",
-    similes: [
-      "like a diya that lights ten more.",
-      "as golden as marigold garlands.",
-      "like a lamp that never dims.",
-      "as bright as the festival sky.",
-      "like sweetness shared plate to plate.",
-      "as full as a home on Diwali night."
-    ],
     verses: [
       "{N}, may the lamps burn bright,\nAnd every darkness yield to light,\nMay wealth and wellness find your door,\nAnd peace stay with you evermore.",
       "A row of lamps, a sky of gold,\nA festival a thousand years old,\nDear {N}, may this Diwali bring\nSweetness in every little thing."
@@ -524,28 +498,360 @@ const OCCASIONS = {
     label: "Eid", emoji: "🌙", orn: ["🌙","🕌","⭐"],
     c1: "#E0F2F1", c2: "#F3E5F5", ink: "#37474F", shadow: "rgba(120,150,180,.4)",
     chipBg: "#E3F0F5",
-    similes: [
-      "like the first sight of the crescent moon.",
-      "as sweet as sheer khurma.",
-      "like a table full of everyone you love.",
-      "as gentle as the evening prayer.",
-      "like new clothes and old songs.",
-      "as joyful as the moonlit sky."
-    ],
     verses: [
       "{N}, the crescent moon is here,\nEid Mubarak, a day so dear,\nMay blessings fill your home and heart,\nAnd joy that never will depart.",
       "New clothes, old songs, a table spread,\nWith every soul you love well-fed,\nDear {N}, may this Eid be sweet,\nAnd every year your joys complete."
     ]
+  },
+  engagement: {
+    label: "Engagement", emoji: "💫", orn: ["💖","💫","🥂"],
+    c1: "#FDE8F0", c2: "#FFF1D6", ink: "#6B2D4E", shadow: "rgba(210,120,160,.45)",
+    chipBg: "#FCE9F4",
+    closers: ["engaged, and glowing","halfway to forever", "a forever kind of love", "the start of always", "the sparkle on the ring finger", "the rumor of forever, confirmed", "today's sweetest yes", "the promise before the promise"],
+    verses: [
+      "{N}, the question's asked, the answer's yes,\nA ring, a dream, a happiness,\nMay the road from here to 'I do'\nBe lined with sweet surprises too.",
+      "{N}, today love got its seal,\nA promise made, a future real,\nMay your engagement season gleam\nWith every wish and every dream."
+    ]
+  },
+  newjob: {
+    label: "New Job", emoji: "💼", orn: ["💼","🎯","🌟"],
+    c1: "#E3F2FD", c2: "#E8EAF6", ink: "#28395C", shadow: "rgba(100,130,190,.4)",
+    chipBg: "#E2ECFA",
+    closers: ["a self-motivated individual, new chapter unlocked","ready to conquer the corner office", "promotion loading", "born for this role", "the hire of the year", "a workplace about to level up", "new badge, same brilliance", "destined for the corner office"],
+    verses: [
+      "{N}, the offer's here, the door is wide,\nWith talent, grit and hope inside,\nMay every day bring something new\nTo show the world the best of you.",
+      "A fresh desk, a brand-new start,\nDear {N}, go show them your heart,\nMay success come fast and stay,\nIn everything you do each day."
+    ]
+  },
+  newhome: {
+    label: "New Home", emoji: "🏠", orn: ["🏠","🔑","🌿"],
+    c1: "#E8F5E9", c2: "#FFF3E0", ink: "#3E5641", shadow: "rgba(130,170,120,.45)",
+    chipBg: "#E7F2E4",
+    closers: ["a homeowner with heart","turning four walls into a home", "home sweet home, finally", "new keys, new memories", "the host with the most, from day one", "home is wherever you unpack", "walls waiting for your warmth", "keys to a thousand memories"],
+    verses: [
+      "{N}, the keys are yours at last,\nA present, past, and future cast,\nMay every room hold warmth and cheer,\nAnd joy live year after year.",
+      "Four walls, a roof, a brand-new door,\nDear {N}, may this home hold more,\nMore laughter, love, and quiet peace,\nThan walls can hold or hearts can crease."
+    ]
+  },
+  congrats: {
+    label: "Congratulations", emoji: "🎉", orn: ["🎉","🏆","✨"],
+    c1: "#FFF9C4", c2: "#FFE0B2", ink: "#6D4A10", shadow: "rgba(220,170,70,.5)",
+    chipBg: "#FBF2D0",
+    closers: ["a champion, proved and true","proof that hard work wins", "take a bow, champ", "well earned, well deserved", "the trophy of the day", "applause in human form", "the win was always yours", "slow clap turned standing ovation"],
+    verses: [
+      "{N}, you did it, take a bow,\nThe moment's yours, the time is now,\nMay this win be just the start\nOf victories straight from the heart.",
+      "Some wins are loud and some are small,\nBut yours today outshines them all,\nDear {N}, congratulations, well done,\nEnjoy the applause you've truly won."
+    ]
+  },
+  goodluck: {
+    label: "Good Luck", emoji: "🍀", orn: ["🍀","⭐","🌈"],
+    c1: "#E0F2F1", c2: "#F3E5F5", ink: "#2E5650", shadow: "rgba(110,160,160,.4)",
+    chipBg: "#E1F1EC",
+    closers: ["destined for great things","luck's favorite person", "luck is on your side", "go shine like you always do", "we're all betting on you", "destiny's favorite right now", "the sure thing in a world of chance", "go show them how it's done"],
+    verses: [
+      "{N}, the hour's near, you're set, you're ready,\nKeep your breath and pace both steady,\nMay luck walk in and stand by you\nIn everything you're about to do.",
+      "A four-leaf clover, just for you,\nDear {N}, here's luck in all you do,\nGo get them, shine, be brave, be bold,\nYour story's waiting to be told."
+    ]
+  },
+  mothersday: {
+    label: "Mother's Day", emoji: "🌸", orn: ["🌸","💗","🌷"],
+    c1: "#FCE4EC", c2: "#FFF1D6", ink: "#7A3B55", shadow: "rgba(220,140,170,.45)",
+    chipBg: "#FAE4EE",
+    closers: ["the heart of the home","loved more than words can hold", "the best mom in the world", "our gratitude, our love, our all", "the hands that rock the world", "the strongest soft person we know", "the family's north star", "the best mom, certified by us"],
+    verses: [
+      "{N}, your love's the first we know,\nThe root from which our whole lives grow,\nToday we pause to say with cheer:\nThe world is sweeter with you here.",
+      "Supermom without a cape,\nDear {N}, there's no escape\nFrom our love and gratitude,\nHappy Mother's Day to you!"
+    ]
+  },
+  fathersday: {
+    label: "Father's Day", emoji: "👔", orn: ["👔","💙","🛠️"],
+    c1: "#E3F2FD", c2: "#E0F7FA", ink: "#2A4A66", shadow: "rgba(100,150,190,.4)",
+    chipBg: "#E2EEF9",
+    closers: ["the family's quiet hero","our anchor, always", "hero without a cape", "our guiding star", "the quiet hero of every day", "shoulders we all stand on", "strength with a soft heart", "the legend of the living room"],
+    verses: [
+      "{N}, your quiet strength has been our ground,\nIn you our safest place is found,\nToday we celebrate you true,\nThe hero's always been you.",
+      "Fix-it king, advice on call,\nDear {N}, you've given us your all,\nHappy Father's Day, today we say\nWe love you more than words can say."
+    ]
+  },
+  teachersday: {
+    label: "Teacher's Day", emoji: "🍎", orn: ["🍎","📚","✏️"],
+    c1: "#FFF8E1", c2: "#FFECB3", ink: "#5D4A1E", shadow: "rgba(215,175,90,.45)",
+    chipBg: "#FAEFD3",
+    closers: ["shaping futures, one lesson at a time","the teacher we'll never forget", "molding minds, touching hearts", "thank you for everything", "the lesson that lasts forever", "a mind-shaper, a heart-mender", "the reason students smile", "education's brightest flame"],
+    verses: [
+      "Dear {N}, with patience, chalk and care,\nYou opened windows everywhere,\nNo gift can match what you have done,\nA hundred thanks, and then some.",
+      "The books you gave, the faith you showed,\nThe paths you lit, the seeds you sowed,\nDear {N}, we grow, and in that way\nWe thank you more than words can say."
+    ]
+  },
+  newyear: {
+    label: "New Year", emoji: "🎆", orn: ["🎆","🗓️","✨"],
+    c1: "#E8EAF6", c2: "#FFF3E0", ink: "#3A3E6E", shadow: "rgba(140,140,200,.45)",
+    chipBg: "#E8E9F8",
+    closers: ["a self-motivated individual, year ready","twelve months of possibility ahead", "365 new chances start with you", "the party starts with you", "the resolution everyone believes in", "confetti's favorite person", "fresh start, familiar wonderfulness", "the spark of the new year"],
+    verses: [
+      "{N}, the clock strikes twelve, the old is gone,\nA clean new page to write upon,\nMay this year be kind and new,\nAnd every dream of yours come true.",
+      "Fireworks up, the glasses raise,\nDear {N}, here's to brighter days,\nMay January's hopeful song\nPlay happy in your heart all year long."
+    ]
+  },
+  holi: {
+    label: "Holi", emoji: "🎨", orn: ["🎨","💛","💦"],
+    c1: "#FCE4EC", c2: "#E1F5FE", ink: "#5C3A5E", shadow: "rgba(190,140,200,.45)",
+    chipBg: "#F6E3F6",
+    closers: ["a splash of every color","the brightest smile in the crowd", "color us lucky to know you", "the life of every holi", "a rainbow in human form", "the splash of the season", "joy in every color", "the brightest color of all"],
+    verses: [
+      "{N}, the colors fly, the drums beat loud,\nYour smile's the brightest in the crowd,\nMay every color find your face\nAnd paint your life with joy and grace.",
+      "Pink and green and gold and blue,\nDear {N}, may this Holi too\nSplash your days with laughter's sound,\nAnd happiness all year around."
+    ]
+  },
+  rakhi: {
+    label: "Rakhi", emoji: "🎀", orn: ["🎀","💛","✨"],
+    c1: "#FFF3E0", c2: "#FCE4EC", ink: "#6E4430", shadow: "rgba(220,160,110,.45)",
+    chipBg: "#FAEADA",
+    closers: ["tied to love, always","the sibling everyone wishes for", "the best sibling by far", "a bond beyond distance", "the thread's favorite sibling", "a bond beyond time", "protection and love, personified", "the sibling bond's MVP"],
+    verses: [
+      "{N}, a thread of gold, a promise tied,\nOf love and protection side by side,\nMay this Rakhi bind your year\nWith laughter, luck and loved ones near.",
+      "A thread, a sweet, a memory,\nDear {N}, of family,\nMay the bond this Rakhi shows\nGrow deeper as the lifetime grows."
+    ]
+  },
+  navratri: {
+    label: "Navratri", emoji: "🌺", orn: ["🌺","🪔","💃"],
+    c1: "#FFE0B2", c2: "#F8BBD0", ink: "#6D3049", shadow: "rgba(220,120,150,.5)",
+    chipBg: "#F9E2DC",
+    closers: ["blessed with strength and grace","dancing through every challenge", "divine grace in a smile", "the star of the garba", "the garba floor's heartbeat", "divine in every step", "grace in motion", "the dandiya star"],
+    verses: [
+      "Nine bright nights, the dandiya's sound,\nDear {N}, may strength and grace surround,\nMay every night of celebration\nLift your heart and your dedication.",
+      "Nine nights of garba, lamps aglow,\nDear {N}, may blessings flow,\nMay Maa's grace light up your way,\nThrough every night and every day."
+    ]
+  },
+  valentine: {
+    label: "Valentine's Day", emoji: "💝", orn: ["💝","🌹","💕"],
+    c1: "#FFEBEE", c2: "#FCE4EC", ink: "#8E2C48", shadow: "rgba(220,110,140,.5)",
+    chipBg: "#FBE3E9",
+    closers: ["loved, today and always","the valentine everyone hopes for", "today's sweetest valentine", "cupid's finest work", "the name written in hearts", "valentine's day's headliner", "love's favorite answer", "sweeter than any heart-shaped box"],
+    verses: [
+      "{N}, the roses out, the hearts aglow,\nSome feelings only lovers know,\nMay your day be soft and sweet,\nWith love in every heartbeat.",
+      "A card, a rose, a whispered vow,\nDear {N}, it's all about you now,\nMay love find you where'er you are\nAnd stay as constant as a star."
+    ]
+  },
+  halloween: {
+    label: "Halloween", emoji: "🎃", orn: ["🎃","👻","🕸️"],
+    c1: "#FFE0B2", c2: "#E1BEE7", ink: "#4A2C5E", shadow: "rgba(170,110,190,.45)",
+    chipBg: "#F5E4F2",
+    closers: ["sweetest treat in town","spookily wonderful", "cutest creature of the night", "spooky season's star", "the treat we all came for", "the boo-tiful star of the night", "cutest pumpkin in the patch", "magic in the moonlight"],
+    verses: [
+      "{N}, the pumpkins glow, the spooky's out,\nThere's candy, costumes, fun about,\nMay your treats be sweet, your scares be few,\nAnd every ghost be friendlier than you.",
+      "Bats and black cats, moonlight bright,\nDear {N}, may your night delight,\nMay magic hover where you stand,\nNo spooky fright, just fun well-planned."
+    ]
+  },
+  pet: {
+    label: "Pet", emoji: "🐾", orn: ["🐾","🦴","💛"],
+    c1: "#FFF3E0", c2: "#FFF9C4", ink: "#5D4A1E", shadow: "rgba(215,175,90,.45)",
+    chipBg: "#F9F0D8",
+    closers: ["the goodest one there is","pawsitively loved", "pawsitively perfect", "the best of the bunch, fur real", "the boss of the household, obviously", "paws that hold our hearts", "the walk-time champion", "unconditionally loved, always"],
+    verses: [
+      "{N}, four little paws, a heart so true,\nThe world is bright because of you,\nMay your days be treats and naps and play,\nYou're the best in every way.",
+      "A furry friend, a faithful heart,\nDear {N}, you're loved from the start,\nMay your bowl be full, your naps be long,\nAnd your humans sing your song."
+    ]
+  },
+  boyfriend: {
+    label: "Boyfriend", emoji: "❤️", orn: ["❤️","💫","🎧"],
+    c1: "#FFEBEE", c2: "#E3F2FD", ink: "#6E2C3E", shadow: "rgba(210,120,140,.45)",
+    chipBg: "#FBE5EA",
+    closers: ["the best boyfriend around","loved more than you know", "my favorite person to annoy", "boyfriend of the year, every year", "the blueprint, honestly", "my favorite forever date", "the heart behind my smile", "better than any love song"],
+    verses: [
+      "{N}, your smile's my favorite view,\nOf all the people, I'd pick you,\nMay my hand stay tucked in yours\nThrough all the years, forevermore.",
+      "From inside jokes to late-night calls,\nDear {N}, you're the best of all,\nMay us two keep laughing on,\nFrom every dusk to every dawn."
+    ]
+  },
+  girlfriend: {
+    label: "Girlfriend", emoji: "💕", orn: ["💕","🌸","✨"],
+    c1: "#FCE4EC", c2: "#FFF1D6", ink: "#7A3B55", shadow: "rgba(220,140,170,.45)",
+    chipBg: "#FAE4EE",
+    closers: ["the most wonderful girlfriend ever","beautiful, inside and out", "my favorite hello", "girlfriend of my dreams, literally", "the muse behind every poem", "my sunshine on demand", "the girl of every dream, and mine came true", "love's finest masterpiece"],
+    verses: [
+      "{N}, you make the ordinary glow,\nMore than you will ever know,\nMay my love find you each hour,\nGentle, steady, like a flower.",
+      "Dear {N}, the stars up above\nHave nothing on the one I love,\nMay your days be soft and sweet,\nMy favorite person, my heartbeat."
+    ]
+  },
+  bestfriend: {
+    label: "Best Friend", emoji: "🌟", orn: ["🌟","🤝","💫"],
+    c1: "#FFF9C4", c2: "#E1F5FE", ink: "#5E5518", shadow: "rgba(200,180,90,.45)",
+    chipBg: "#F7F2CE",
+    closers: ["a best friend for life","the family I chose", "the yin to my yang", "friendship goals, honestly", "my emergency contact, literally", "the peanut butter to my jelly", "the friend who became family", "my partner, my person"],
+    verses: [
+      "{N}, you know my worst and stay,\nYou light my darkest, dullest day,\nNo diamond and no lucky charm\nBeats a best friend's loyal arm.",
+      "From silly talks to secrets shared,\nDear {N}, you've always cared,\nFriends like you are far and few,\nThe world got lucky making you."
+    ]
+  },
+  couple: {
+    label: "Couple", emoji: "💑", orn: ["💑","💐","🥂"],
+    c1: "#FDE8F0", c2: "#E8E4FA", ink: "#4A3363", shadow: "rgba(140,110,180,.4)",
+    chipBg: "#F3E6FA",
+    closers: ["better together, always","a perfect pair", "relationship goals, unlocked", "match made in heaven, certified", "the couple others copy", "two names, one heartbeat", "written in the stars, verified by us", "the duo that outshines all"],
+    verses: [
+      "{N}, two souls, one beautiful team,\nLiving the love that others dream,\nMay your bond grow deep and true,\nEvery year, renewed in you.",
+      "Hand in hand through every weather,\nDear {N}, you two just fit together,\nMay your laughter never part,\nTwo lives, one story, one shared heart."
+    ]
+  },
+  mother: {
+    label: "Mother", emoji: "🌷", orn: ["🌷","💗","🏡"],
+    c1: "#FCE4EC", c2: "#E8F5E9", ink: "#7A3B55", shadow: "rgba(220,140,170,.4)",
+    chipBg: "#F6E9EE",
+    closers: ["the heart of our family","loved beyond all words", "supermom, no cape needed", "the family's beating heart", "the one who made us who we are", "a heart that never runs out", "our forever soft place", "love's first and finest teacher"],
+    verses: [
+      "{N}, first love, first friend, first light,\nYou made our world warm and bright,\nMay every blessing you have given\nCome back to you from earth and heaven.",
+      "The meals, the prayers, the sleepless nights,\nThe quiet, unseen little fights,\nDear {N}, we owe it all to you,\nA mother's love so pure and true."
+    ]
+  },
+  father: {
+    label: "Father", emoji: "💙", orn: ["💙","🏔️","🌟"],
+    c1: "#E3F2FD", c2: "#E8EAF6", ink: "#2A3E66", shadow: "rgba(100,140,190,.4)",
+    chipBg: "#E3EDF9",
+    closers: ["our rock, our guide","the strength behind us all", "the man, the legend", "our safe place since day one", "our first hero, our forever friend", "the bar every dad is measured by", "strong arms, stronger heart", "our compass in every storm"],
+    verses: [
+      "{N}, you taught us how to stand,\nWith patient heart and steady hand,\nMay the love you've sown for years\nReturn to you as joy and cheer.",
+      "Quiet strength and wisdom deep,\nDear {N}, the promises you keep,\nNo words could ever quite convey\nThe love we feel for you today."
+    ]
+  },
+  sister: {
+    label: "Sister", emoji: "💛", orn: ["💛","👯","🎀"],
+    c1: "#FFF3E0", c2: "#FCE4EC", ink: "#6E4430", shadow: "rgba(220,160,110,.45)",
+    chipBg: "#F9EDE2",
+    closers: ["the best sister ever","built-in best friend, forever", "forever my first friend", "the sister everyone envies", "the sister of everyone's dreams", "my lifelong co-conspirator", "queen of the family group chat", "love, loud and forever"],
+    verses: [
+      "No distance and no busy day\nCan take my {N}-ness away,\nYou're my secret-keeper, partner in crime,\nMy sister, my friend, for all time.",
+      "Fights today and friends tomorrow,\nShared our joy and shared our sorrow,\nDear {N}, life would miss its hue\nIf I didn't have a sister like you."
+    ]
+  },
+  brother: {
+    label: "Brother", emoji: "💪", orn: ["💪","😂","🤝"],
+    c1: "#E3F2FD", c2: "#FFF3E0", ink: "#37474F", shadow: "rgba(120,150,170,.45)",
+    chipBg: "#E7EDF3",
+    closers: ["the best brother ever","built-in best friend since day one","my first rival, my forever friend","family's own superhero", "the brother of the year, every year", "keeper of the family remote", "strong arm, stronger heart", "my toughest critic, biggest fan"],
+    verses: [
+      "{N}, partner in crime since day one,\nThrough scraped knees, fights and fun,\nNo matter where life takes our ways,\nYou're my brother for always.",
+      "From wrestling matches to heartfelt talks,\nDear {N}, you always walk the walk,\nMay your days be bold and bright,\nMy brother, my friend, my delight."
+    ]
+  },
+  son: {
+    label: "Son", emoji: "💙", orn: ["💙","⚽","🌟"],
+    c1: "#E3F2FD", c2: "#E8F5E9", ink: "#2A4A66", shadow: "rgba(110,150,190,.4)",
+    chipBg: "#E4EEF7",
+    closers: ["our pride and joy","a son any parent would dream of","our greatest adventure","loved then, now and always", "the best thing we ever did", "our tomorrow, looking bright", "a heart we're proud to have raised", "the son of our dreams, literally"],
+    verses: [
+      "{N}, our son, our source of pride,\nWith you always at our side,\nMay your dreams be big and true,\nThere's nothing that you cannot do.",
+      "From little steps to giant strides,\nDear {N}, you've been our pride,\nMay your future warmly glow,\nWe loved you first, we love you so."
+    ]
+  },
+  daughter: {
+    label: "Daughter", emoji: "💗", orn: ["💗","🌸","🦋"],
+    c1: "#FCE4EC", c2: "#E1F5FE", ink: "#7A3B55", shadow: "rgba(210,140,180,.45)",
+    chipBg: "#F9E7F0",
+    closers: ["our heart outside our body","the princess of the house","loved beyond the moon","our sweetest blessing", "our little girl, forever and always", "grace, grit and giggles", "the daughter of our dreams", "love that outgrows every hug"],
+    verses: [
+      "{N}, our precious, shining star,\nWe love you just the way you are,\nMay your dreams take flight and soar,\nOur hearts are yours forevermore.",
+      "From tiny shoes to graceful stride,\nDear {N}, you're our joy and pride,\nMay your life be sweet and true,\nThere's no one quite as dear as you."
+    ]
+  },
+  wife: {
+    label: "Wife", emoji: "💖", orn: ["💖","🏡","☕"],
+    c1: "#FDE8F0", c2: "#FFF1D6", ink: "#7A2E4E", shadow: "rgba(215,120,160,.45)",
+    chipBg: "#FBE7F1",
+    closers: ["my always and forever","the queen of our home","my best decision ever","loved this morning and every morning", "my favorite reason to rush home", "beautiful in every way that counts", "the heart of our little world", "my today and all my tomorrows"],
+    verses: [
+      "{N}, my love, my life, my home,\nBeside you I'm never alone,\nMay my hand stay in yours always,\nThrough every ordinary day.",
+      "Thank you for the love you give,\nFor the beautiful life we live,\nDear {N}, of this I'm sure:\nMy whole heart, always, is yours."
+    ]
+  },
+  husband: {
+    label: "Husband", emoji: "🤵", orn: ["🤵","💙","🏠"],
+    c1: "#E8EAF6", c2: "#E3F2FD", ink: "#333F66", shadow: "rgba(120,130,190,.4)",
+    chipBg: "#E7E9F7",
+    closers: ["my always and forever","the king of our home","my calm in every storm","loved more every single day", "my partner in everything", "the best hug in the house", "loved beyond measure, daily", "the man of the house, in every good sense"],
+    verses: [
+      "{N}, my steady rock and cheer,\nSo thankful that you're always near,\nMay our love keep growing strong,\nWith you is where I belong.",
+      "Through every season, every year,\nDear {N}, I want you near,\nMy partner, my love, my closest friend,\nRight beside you to the end."
+    ]
+  },
+  grandma: {
+    label: "Grandma", emoji: "🧶", orn: ["🧶","🍪","💗"],
+    c1: "#FFF3E0", c2: "#FCE4EC", ink: "#6E4430", shadow: "rgba(215,165,120,.45)",
+    chipBg: "#F9ECE0",
+    closers: ["heart of gold, hugs of warmth","the family's sweetest treasure","love baked into every cookie","our softest place to fall", "the hands that raised us all", "the grandma everyone wishes was theirs", "love at its softest", "our home's sweetest lullaby"],
+    verses: [
+      "{N}, your kitchen smells like love,\nYour blessings fit us like a glove,\nMay your days be slow and sweet,\nWith family always at your feet.",
+      "Warmest hugs and gentle ways,\nDear {N}, you deserve long days\nOf rest and love and joy untold,\nOur precious grandma, heart of gold."
+    ]
+  },
+  grandpa: {
+    label: "Grandpa", emoji: "👓", orn: ["👓","📜","💙"],
+    c1: "#FFF8E1", c2: "#E3F2FD", ink: "#4E4426", shadow: "rgba(170,160,110,.45)",
+    chipBg: "#F4EEDC",
+    closers: ["wisdom with the warmest smile","the family's gentle giant","our storyteller, our hero","old school cool", "the man with a story for everything", "the grandpa of the century", "strong hands, soft heart", "our favorite armchair companion"],
+    verses: [
+      "{N}, your tales of days gone by\nAre treasures money cannot buy,\nMay your days be calm and long,\nOur family's rock, wise and strong.",
+      "A hand to hold, a laugh to share,\nDear {N}, you're always there,\nOur grandpa, strong and kind and true,\nNo one's quite as dear as you."
+    ]
+  },
+  cousin: {
+    label: "Cousin", emoji: "🤗", orn: ["🤗","✨","🎈"],
+    c1: "#E1F5FE", c2: "#FFF9C4", ink: "#2E5650", shadow: "rgba(110,170,190,.4)",
+    chipBg: "#E6F2F5",
+    closers: ["family and friend in one","partner in every family adventure","first friend, forever friend","the fun one, always", "in on every family joke", "the family's own comedy show", "the friend who's family, twice over", "always up to something wonderful"],
+    verses: [
+      "{N}, family and friend in one,\nTwice the love and double the fun,\nMay your days be bright and long,\nWith cousins' bonds staying strong.",
+      "From weddings, games and secrets shared,\nDear {N}, you've always cared,\nA cousin like you's rare to find,\nLoving, loyal, true and kind."
+    ]
+  },
+  aunt: {
+    label: "Aunt", emoji: "🌺", orn: ["🌺","🎁","💛"],
+    c1: "#FCE4EC", c2: "#FFF3E0", ink: "#7A3B55", shadow: "rgba(215,140,160,.4)",
+    chipBg: "#F8E9E4",
+    closers: ["the cool aunt, certified","second mom, first friend","warmth in human form","the aunt everyone wishes for", "spoiler-in-chief of the family", "our stylish shoulder to lean on", "the aunt of the year, every year", "fun, love and warmth in one visit"],
+    verses: [
+      "{N}, like a mom but twice as fun,\nSunshine for everyone,\nMay your days be warm and sweet,\nHaving you as our aunt's a treat.",
+      "Your advice, your laugh, your care,\nDear {N}, you're always there,\nAn aunt as wonderful as you\nDeserves a year of dreams come true."
+    ]
+  },
+  uncle: {
+    label: "Uncle", emoji: "🎣", orn: ["🎣","😄","💙"],
+    c1: "#E0F2F1", c2: "#E3F2FD", ink: "#2E5650", shadow: "rgba(100,160,160,.4)",
+    chipBg: "#E4F0EF",
+    closers: ["the coolest uncle around","fun delivered since day one","our stand-up comedian","a legend in his own time", "the uncle everyone invites first", "wisdom disguised as fun", "always there when it matters", "the uncle of our favorite memories"],
+    verses: [
+      "{N}, the coolest, calm and fun,\nJokes for me and everyone,\nMay your days be light and bright,\nOur dear uncle, pure delight.",
+      "With stories, jokes and wisdom too,\nDear {N}, there's none like you,\nMay good fortune find your door,\nOur uncle, loved forevermore."
+    ]
+  },
+  niece: {
+    label: "Niece", emoji: "🌼", orn: ["🌼","🎀","💫"],
+    c1: "#FFF9C4", c2: "#FCE4EC", ink: "#6E5A18", shadow: "rgba(210,185,90,.45)",
+    chipBg: "#F7F0D6",
+    closers: ["our little sunshine","the family's brightest sparkle","sweet as can be","loved to the moon and back", "the reason family chats stay alive", "growing lovelier every single day", "a delight in every little way", "our favorite little visitor"],
+    verses: [
+      "{N}, a bundle of joy and grace,\nSunshine in your smiling face,\nMay your days be magic, fun and new,\nOur darling niece, we all love you.",
+      "Growing up so fast it seems,\nDear {N}, you fill our dreams,\nMay your sparkle never dim,\nOur love for you fills to the brim."
+    ]
+  },
+  nephew: {
+    label: "Nephew", emoji: "🚀", orn: ["🚀","⭐","💙"],
+    c1: "#E3F2FD", c2: "#FFF9C4", ink: "#2A3E66", shadow: "rgba(110,140,200,.4)",
+    chipBg: "#E7EFF8",
+    closers: ["our little champion","energy, mischief and joy","the family's future superstar","brave, bright and beloved", "the joy of every family photo", "growing braver every single day", "our little legend in training", "the future of the family, already shining"],
+    verses: [
+      "{N}, our little star so bright,\nFull of wonder, full of might,\nMay you grow up strong and true,\nThe world is lucky to have you.",
+      "Full of energy, mischief and cheer,\nDear {N}, we love having you near,\nMay your adventures never end,\nOur nephew and our special friend."
+    ]
   }
 };
 
-const GENERIC_TAILS = [
-  "beyond words.",
-  "in every way that counts.",
-  "to the moon and back.",
-  "in all the best ways.",
-  "more than any poem can say.",
-  "and the world is better for it."
+const GROUPS = [
+  ["Celebrate", ["birthday","engagement","wedding","anniversary","graduation","newjob","newhome","retirement","congrats"]],
+  ["Festivals", ["christmas","diwali","eid","holi","rakhi","navratri","newyear","valentine","halloween"]],
+  ["Everyday", ["thanks","getwell","goodluck","farewell","teachersday"]],
+  ["Love", ["boyfriend","girlfriend","couple","wife","husband"]],
+  ["Family", ["mother","father","sister","brother","son","daughter","baby","mothersday","fathersday","grandma","grandpa","cousin","aunt","uncle","niece","nephew"]],
+  ["Friends & Pets", ["bestfriend","friendship","pet"]]
 ];
 
 const LETTER_TRAITS = {
@@ -578,19 +884,19 @@ const LETTER_TRAITS = {
 };
 
 const CLOSERS = {
-  birthday: ["a self-motivated individual, one year wiser","one of a kind, today and always"],
-  wedding: ["beginning a beautiful new chapter","ready for forever"],
-  anniversary: ["still writing a beautiful story","proof that true love lasts"],
-  baby: ["our little miracle, just arrived","brand new and already so loved"],
-  graduation: ["a self-motivated individual, ready for the world","destined for great things"],
-  retirement: ["a legend signing off in style","ready for life's next adventure"],
-  farewell: ["a self-motivated individual, headed for brighter roads","missed already, cheered always"],
-  friendship: ["a friend for life","the one everyone is lucky to know"],
-  thanks: ["a selfless soul we are grateful for","kindness in person"],
-  getwell: ["strong, and getting stronger every day","resting now, back on your feet soon"],
-  christmas: ["the spirit of the season in person","someone worth celebrating this Christmas"],
-  diwali: ["a light that brightens every room","the sparkle of every celebration"],
-  eid: ["blessed, and a blessing to others","the joy of every gathering"]
+  birthday: ["a self-motivated individual, one year wiser","one of a kind, today and always", "born to be celebrated", "the gift is having you", "a year older, a year more wonderful", "the candle that outshines the cake", "aging like the finest things do", "the birthday star, as always"],
+  wedding: ["beginning a beautiful new chapter","ready for forever", "today's beautiful beginning", "love's favorite person", "today's happily ever after begins", "love's favorite leading role", "wearing forever well", "the wedding everyone will remember"],
+  anniversary: ["still writing a beautiful story","proof that true love lasts", "the better half of a great whole", "still everyone's favorite love story", "still the sweetest pair we know", "like fine wine, better every year", "the anniversary that never gets old", "the love the years can't touch"],
+  baby: ["our little miracle, just arrived","brand new and already so loved", "the newest little wonder", "small but already so loved", "tiny hands, giant blessing", "the newest star of the family", "cute enough to end arguments", "our little miracle in progress"],
+  graduation: ["a self-motivated individual, ready for the world","destined for great things", "the future's brightest name", "a graduate going places", "caps off to you", "the degree is just the beginning", "top of the class of life", "smart cookie, brighter future"],
+  retirement: ["a legend signing off in style","ready for life's next adventure", "a master of the art of living", "the guest of honor, always", "clocking out of work, into joy", "the promotion to permanent relaxation", "a career worth celebrating", "free at last, and loving it"],
+  farewell: ["a self-motivated individual, headed for brighter roads","missed already, cheered always", "hard to leave, harder to forget", "the one who made every place better", "not goodbye, just see you later", "the place won't be the same", "off to better beginnings", "our favorite farewell ever"],
+  friendship: ["a friend for life","the one everyone is lucky to know", "loyalty in human form", "sunshine in human form", "a ten out of ten friend", "friendship's finest example", "the friend others measure against", "loyal to the last"],
+  thanks: ["a selfless soul we are grateful for","kindness in person", "gratitude's favorite person", "one in a million, truly", "the reason we're saying thanks", "kindness deserves this spotlight", "our thanks, multiplied by infinity", "the helper we all hope for"],
+  getwell: ["strong, and getting stronger every day","resting now, back on your feet soon", "stronger than yesterday", "our favorite fighter", "healing already looks good on you", "rest now, shine soon", "your seat here is saved", "better every single day"],
+  christmas: ["the spirit of the season in person","someone worth celebrating this Christmas", "the season's brightest star", "Christmas magic in person", "the best gift under our tree", "Christmas comes alive with you", "santa's favorite human", "the carol of our hearts"],
+  diwali: ["a light that brightens every room","the sparkle of every celebration", "the light of every gathering", "glowing brighter than fireworks", "the brightest diya in the row", "as radiant as a thousand lamps", "the sweetness in every box of mithai", "guest of honor this festival of lights"],
+  eid: ["blessed, and a blessing to others","the joy of every gathering", "the heart of every celebration", "wrapped in love and blessings", "the crescent's favorite person", "the joy of every Eid morning", "sweet as sheer khurma", "a walking Eid blessing"]
 };
 
 /* ---------------- state & helpers ---------------- */
@@ -632,7 +938,7 @@ function writePoem() {
     return;
   }
   state.poem = state.style === "acrostic"
-    ? { type: "acrostic", lines: buildAcrostic(name), closer: pick(CLOSERS[state.occasion]) }
+    ? { type: "acrostic", lines: buildAcrostic(name), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]) }
     : { type: "rhyme", text: buildRhyme(name) };
   state.name = name;
   renderCard();
@@ -649,6 +955,7 @@ function renderCard() {
   card.style.setProperty("--c-shadow", theme.shadow);
   $("cornerTl").textContent = theme.orn[0];
   $("cornerTr").textContent = theme.orn[1];
+  $("watermark").textContent = theme.orn[2];
   $("ornRow").textContent = theme.orn.join(" ");
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
   $("poemName").textContent = state.name;
@@ -686,6 +993,7 @@ function retheme() {
   card.style.setProperty("--c-shadow", theme.shadow);
   $("cornerTl").textContent = theme.orn[0];
   $("cornerTr").textContent = theme.orn[1];
+  $("watermark").textContent = theme.orn[2];
   $("ornRow").textContent = theme.orn.join(" ");
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
 }
@@ -694,23 +1002,66 @@ function retheme() {
 
 (function buildChips() {
   const wrapEl = $("occasionChips");
-  Object.keys(OCCASIONS).forEach((key) => {
+  const tabs = document.createElement("div");
+  tabs.className = "group-tabs";
+  wrapEl.appendChild(tabs);
+  const chipBox = document.createElement("div");
+  chipBox.className = "chips";
+  wrapEl.appendChild(chipBox);
+
+  function makeChip(key, box) {
     const o = OCCASIONS[key];
     const b = document.createElement("button");
     b.type = "button";
     b.className = "chip";
     b.style.setProperty("--chip-color", o.c2);
     b.style.setProperty("--chip-bg", o.chipBg);
-    b.innerHTML = "<span aria-hidden='true'>" + o.emoji + "</span>" + o.label;
+    b.innerHTML = "<span class='chip-emoji' aria-hidden='true'>" + o.emoji + "</span>" + o.label;
     b.setAttribute("aria-pressed", key === state.occasion);
     b.addEventListener("click", () => {
       state.occasion = key;
-      wrapEl.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
+      box.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
       b.setAttribute("aria-pressed", "true");
       retheme();
+      if ($("nameInput").value.trim()) writePoem();
     });
-    wrapEl.appendChild(b);
+    box.appendChild(b);
+  }
+
+  function renderGroup(gname) {
+    chipBox.innerHTML = "";
+    const gdef = GROUPS.find((g) => g[0] === gname);
+    gdef[1].forEach((key) => makeChip(key, chipBox));
+    tabs.querySelectorAll(".group-tab").forEach((t) => t.setAttribute("aria-pressed", String(t.dataset.g === gname)));
+  }
+
+  GROUPS.forEach(([gname]) => {
+    const t = document.createElement("button");
+    t.type = "button";
+    t.className = "group-tab";
+    t.dataset.g = gname;
+    t.textContent = gname;
+    t.addEventListener("click", () => renderGroup(gname));
+    tabs.appendChild(t);
   });
+  renderGroup(GROUPS[0][0]);
+})();
+
+(function confetti() {
+  const field = $("confettiField");
+  const colors = ["#FF9AA2","#FFD9A8","#FFF3A0","#B8E6B8","#A8D8F0","#C9B8F0","#F5B8D8"];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement("i");
+    const s = 6 + Math.random() * 5;
+    p.style.left = (Math.random() * 100) + "%";
+    p.style.width = s + "px";
+    p.style.height = (s * (Math.random() < 0.5 ? 1 : 1.7)) + "px";
+    p.style.background = colors[i % colors.length];
+    p.style.borderRadius = Math.random() < 0.4 ? "50%" : "2px";
+    p.style.animationDuration = (9 + Math.random() * 8) + "s";
+    p.style.animationDelay = (-Math.random() * 16) + "s";
+    field.appendChild(p);
+  }
 })();
 
 /* ---------------- style toggle ---------------- */
@@ -766,6 +1117,16 @@ $("pngBtn").addEventListener("click", () => {
   grad.addColorStop(1, theme.c2);
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
+
+  // polka dot texture
+  ctx.fillStyle = "rgba(255,255,255,.35)";
+  for (let y = 30; y < H; y += 56) {
+    for (let x = 30; x < W; x += 56) {
+      ctx.beginPath();
+      ctx.arc(x + ((Math.round(y / 56)) % 2) * 28, y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
   // soft corner glows
   const glow = (x, y, r, color) => {
@@ -856,6 +1217,16 @@ $("pngBtn").addEventListener("click", () => {
     ctx.fillText("with love, from " + from, W / 2, H - 80);
     ctx.globalAlpha = 1;
   }
+
+  // watermark emoji
+  ctx.save();
+  ctx.globalAlpha = 0.13;
+  ctx.font = "300px serif";
+  ctx.textAlign = "right";
+  ctx.translate(W - 40, H - 50);
+  ctx.rotate(-0.22);
+  ctx.fillText(theme.orn[2], 0, 0);
+  ctx.restore();
 
   // corner emoji
   ctx.font = "44px serif";
