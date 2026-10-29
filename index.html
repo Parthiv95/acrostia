@@ -129,6 +129,8 @@
     padding: 26px 24px 28px;
     box-shadow: 0 14px 40px -22px rgba(36,28,53,.35);
   }
+  #name2Row { display: none; }
+  #name2Row.show { display: block; }
   .field label {
     display: block; font-weight: 600; font-size: 0.98rem; margin-bottom: 8px;
   }
@@ -322,6 +324,11 @@
       <div class="field">
         <label for="nameInput">Their name</label>
         <input type="text" id="nameInput" placeholder="e.g. Meera" maxlength="20" autocomplete="off">
+      </div>
+
+      <div class="field" id="name2Row">
+        <label for="name2Input">& their partner <span class="hint">optional</span></label>
+        <input type="text" id="name2Input" placeholder="e.g. Rohan" maxlength="20" autocomplete="off">
       </div>
 
       <div class="field">
@@ -972,10 +979,21 @@ function acrosticLine(l) {
   return l.letter + " is for " + l.word + ", " + l.desc;
 }
 
-function buildRhyme(name) {
+function buildRhyme(name, name2) {
   const theme = OCCASIONS[state.occasion];
-  const pretty = name.charAt(0).toUpperCase() + name.slice(1);
+  const shown = name2 ? name + " and " + name2 : name;
+  const pretty = shown.charAt(0).toUpperCase() + shown.slice(1);
   return pick(theme.verses).split("{N}").join(pretty);
+}
+
+const PAIR_CATEGORIES = ["couple", "engagement", "wedding", "anniversary", "valentine"];
+
+function updateName2Visibility() {
+  const row = $("name2Row");
+  if (!row) return;
+  const on = PAIR_CATEGORIES.indexOf(state.occasion) !== -1;
+  row.classList.toggle("show", on);
+  if (!on) $("name2Input").value = "";
 }
 
 function writePoem() {
@@ -986,10 +1004,12 @@ function writePoem() {
     $("nameInput").placeholder = "Please type a name first";
     return;
   }
+  const raw2 = $("name2Input").value.trim();
+  const name2 = raw2 ? cap(raw2.replace(/[^a-zA-Z\s'-]/g, "")) : "";
   state.poem = state.style === "acrostic"
     ? { type: "acrostic", lines: buildAcrostic(name), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]) }
-    : { type: "rhyme", text: buildRhyme(name) };
-  state.name = name;
+    : { type: "rhyme", text: buildRhyme(name, name2) };
+  state.name = name2 ? name + " & " + name2 : name;
   renderCard();
 }
 
@@ -1071,6 +1091,7 @@ function retheme() {
   applyCardPattern(theme);
   $("ornRow").textContent = theme.orn.join(" ");
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
+  updateName2Visibility();
 }
 
 /* ---------------- occasion chips ---------------- */
@@ -1154,6 +1175,7 @@ function setStyle(s) {
 $("writeBtn").addEventListener("click", writePoem);
 $("againBtn").addEventListener("click", () => { if (state.poem) writePoem(); });
 $("nameInput").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
+$("name2Input").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
 $("printBtn").addEventListener("click", () => window.print());
 
 $("copyBtn").addEventListener("click", async () => {
@@ -1255,7 +1277,7 @@ $("pngBtn").addEventListener("click", () => {
   ctx.globalAlpha = 1;
 
   // name
-  ctx.font = state.name.length > 10 ? "700 84px Fraunces, Georgia, serif" : "700 110px Fraunces, Georgia, serif";
+  ctx.font = state.name.length > 18 ? "700 64px Fraunces, Georgia, serif" : state.name.length > 10 ? "700 84px Fraunces, Georgia, serif" : "700 110px Fraunces, Georgia, serif";
   ctx.fillText(state.name, W / 2, 380);
 
   // flourish line
@@ -1346,6 +1368,7 @@ $("pngBtn").addEventListener("click", () => {
 /* ---------------- boot with a sample ---------------- */
 
 $("nameInput").value = "Meera";
+updateName2Visibility();
 writePoem();
 </script>
 </body>
