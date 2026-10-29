@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Name in Verse — personalized name poems for every occasion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #FFFDFA;
+    --ink: #241C35;
+    --muted: #6E6580;
+    --line: #E7E1EF;
+    --accent: #A62D6D;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Outfit", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 28px 0 0; gap: 16px;
+  }
+  .wordmark {
+    font-family: "Fraunces", serif; font-style: italic; font-weight: 600;
+    font-size: 1.5rem; letter-spacing: -0.01em;
+  }
+  .wordmark span { color: var(--accent); font-style: normal; }
+  header p { color: var(--muted); font-size: 0.92rem; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 48px 0 36px; max-width: 640px; position: relative; }
+  .hero h1 {
+    font-family: "Fraunces", serif; font-weight: 600;
+    font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+    line-height: 1.12; letter-spacing: -0.02em;
+  }
+  .hero h1 .squiggle {
+    text-decoration: underline wavy var(--accent);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 9px;
+  }
+  .hero p { margin-top: 14px; color: var(--muted); font-size: 1.08rem; max-width: 46ch; }
+  .float-emoji {
+    position: absolute; font-size: 1.7rem; opacity: .9; user-select: none;
+    animation: drift 5.5s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .float-emoji.e1 { top: 8px; right: 6%; transform: rotate(12deg); }
+  .float-emoji.e2 { top: 84px; right: -2%; transform: rotate(-10deg); animation-delay: 1.2s; }
+  .float-emoji.e3 { bottom: 30px; right: 14%; transform: rotate(8deg); animation-delay: 2.4s; }
+  @keyframes drift {
+    from { translate: 0 0; }
+    to { translate: 0 -12px; }
+  }
+  @media (max-width: 700px) { .float-emoji { display: none; } }
+
+  /* ---------- layout ---------- */
+  .studio {
+    display: grid; grid-template-columns: 380px 1fr; gap: 48px;
+    padding-bottom: 72px; align-items: start;
+  }
+  @media (max-width: 880px) {
+    .studio { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  /* ---------- form ---------- */
+  .panel { display: flex; flex-direction: column; gap: 26px; }
+  .field label {
+    display: block; font-weight: 600; font-size: 0.98rem; margin-bottom: 8px;
+  }
+  .field .hint { font-weight: 400; color: var(--muted); font-size: 0.85rem; margin-left: 6px; }
+  input[type="text"] {
+    width: 100%; padding: 13px 16px; font: inherit; font-size: 1.05rem;
+    border: 1.5px solid var(--line); border-radius: 12px; background: #fff;
+    color: var(--ink); transition: border-color .15s;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--accent); }
+  input[type="text"]::placeholder { color: #B9B2C6; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 13px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid transparent; background: var(--chip-bg, #FBE9F2); font: inherit;
+    font-size: 0.92rem; font-weight: 500; color: var(--ink);
+    transition: transform .12s, border-color .15s, box-shadow .15s;
+  }
+  .chip:hover { transform: translateY(-1px); }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .chip[aria-pressed="true"] {
+    border-color: var(--chip-color, var(--accent));
+    box-shadow: inset 0 0 0 1px var(--chip-color, var(--accent));
+    font-weight: 600;
+  }
+
+  .styles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .style-card {
+    text-align: left; padding: 13px 15px; border-radius: 14px; cursor: pointer;
+    border: 1.5px solid var(--line); background: #fff; font: inherit; color: var(--ink);
+    transition: border-color .15s, background .15s;
+  }
+  .style-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .style-card strong { display: block; font-size: 0.98rem; }
+  .style-card small { color: var(--muted); font-size: 0.8rem; line-height: 1.35; display: block; margin-top: 3px; }
+  .style-card[aria-pressed="true"] {
+    border-color: var(--accent); background: #FBE9F2;
+  }
+  .style-card[aria-pressed="true"] small { color: #7C4360; }
+
+  .actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn {
+    font: inherit; font-weight: 600; font-size: 1.05rem; cursor: pointer;
+    border-radius: 14px; padding: 14px 22px; border: 1.5px solid transparent;
+    transition: transform .12s, box-shadow .15s;
+  }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .btn:active { transform: scale(0.985); }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { box-shadow: 0 6px 18px rgba(36,28,53,.25); }
+  .btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); font-weight: 500; }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* ---------- card stage ---------- */
+  .stage {
+    position: sticky; top: 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 22px;
+  }
+  @media (max-width: 880px) { .stage { position: static; } }
+  .card-backdrop {
+    width: 100%; display: flex; justify-content: center;
+    padding: 34px 26px; border-radius: 40px;
+    background:
+      radial-gradient(120% 90% at 20% 0%, var(--c1, #FFF1D6) 0%, transparent 60%),
+      radial-gradient(120% 100% at 90% 100%, var(--c2, #FFD9E8) 0%, transparent 65%),
+      #FBF8F3;
+    transition: background .3s;
+  }
+
+  .poem-card {
+    width: min(460px, 100%);
+    border-radius: 26px; padding: 46px 40px 38px; text-align: center;
+    background: linear-gradient(160deg, var(--c1), var(--c2));
+    color: var(--card-ink);
+    box-shadow: 0 24px 60px -18px var(--c-shadow);
+    position: relative; overflow: hidden;
+  }
+  .poem-card .corner { position: absolute; font-size: 1.5rem; opacity: .85; }
+  .poem-card .corner.tl { top: 16px; left: 20px; }
+  .poem-card .corner.tr { top: 16px; right: 20px; }
+  .poem-card .orn-row { font-size: 1.7rem; letter-spacing: 0.35em; margin-bottom: 14px; }
+  .poem-card .occ-label {
+    font-family: "Fraunces", serif; font-style: italic; font-size: 1rem;
+    opacity: .75; margin-bottom: 6px;
+  }
+  .poem-card .poem-name {
+    font-family: "Fraunces", serif; font-weight: 700;
+    font-size: clamp(2.3rem, 6vw, 3rem); line-height: 1.05; letter-spacing: -0.01em;
+  }
+  .poem-card .flourish { margin: 18px auto; width: 130px; opacity: .55; }
+  .poem-card .poem-body {
+    font-family: "Fraunces", serif; font-size: 1.13rem; line-height: 1.85;
+    font-weight: 400; white-space: pre-line;
+  }
+  .poem-card .poem-body .lead-letter { font-weight: 700; }
+  .poem-card .from-line {
+    margin-top: 22px; font-family: "Fraunces", serif; font-style: italic;
+    font-size: 1rem; opacity: .8;
+  }
+
+  .card-buttons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .card-buttons .btn { font-size: 0.95rem; padding: 11px 18px; background: #fff; color: var(--ink); border-color: var(--line); }
+  .card-buttons .btn:hover { border-color: var(--ink); }
+
+  .card-note { color: var(--muted); font-size: 0.85rem; text-align: center; max-width: 42ch; }
+
+  /* ---------- print ---------- */
+  @media print {
+    body > *:not(.wrap) { display: none; }
+    header, .hero, .panel, .card-buttons, .card-note { display: none !important; }
+    .studio { display: block; padding: 0; }
+    .stage { position: static; }
+    .card-backdrop { padding: 0; background: none; border-radius: 0; }
+    .poem-card {
+      width: 100%; box-shadow: none; border-radius: 0;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="wordmark">Name in Verse<span>.</span></div>
+    <p>a little print shop for celebrations</p>
+  </header>
+
+  <section class="hero">
+    <h1>Every name hides a <span class="squiggle">poem</span>.</h1>
+    <span class="float-emoji e1" aria-hidden="true">🎂</span>
+    <span class="float-emoji e2" aria-hidden="true">🌸</span>
+    <span class="float-emoji e3" aria-hidden="true">🪔</span>
+    <p>Type a name, pick the occasion, and we'll write a poem worth framing — as an acrostic of their name, or a short verse. Print it, download it as a picture, or copy the words.</p>
+  </section>
+
+  <main class="studio">
+
+    <form class="panel" id="form" onsubmit="return false;">
+      <div class="field">
+        <label for="nameInput">Their name</label>
+        <input type="text" id="nameInput" placeholder="e.g. Meera" maxlength="20" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label id="occLabel">What's the occasion?</label>
+        <div class="chips" id="occasionChips" role="group" aria-labelledby="occLabel"></div>
+      </div>
+
+      <div class="field">
+        <label id="styleLabel">Pick a style</label>
+        <div class="styles" role="group" aria-labelledby="styleLabel">
+          <button type="button" class="style-card" id="styleAcrostic" aria-pressed="true">
+            <strong>Acrostic</strong>
+            <small>Each letter of their name starts a line</small>
+          </button>
+          <button type="button" class="style-card" id="styleRhyme" aria-pressed="false">
+            <strong>Rhyming verse</strong>
+            <small>A short poem that carries their name</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fromInput">From <span class="hint">optional — signs the card</span></label>
+        <input type="text" id="fromInput" placeholder="e.g. Aunt Rhea" maxlength="30" autocomplete="off">
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="writeBtn">Write the poem</button>
+        <button type="button" class="btn btn-ghost" id="againBtn">Another take</button>
+      </div>
+    </form>
+
+    <section class="stage" aria-live="polite">
+      <div class="card-backdrop">
+        <div class="poem-card" id="poemCard">
+          <span class="corner tl" id="cornerTl"></span>
+          <span class="corner tr" id="cornerTr"></span>
+          <div class="orn-row" id="ornRow"></div>
+          <div class="occ-label" id="occLabelCard"></div>
+          <div class="poem-name" id="poemName"></div>
+          <svg class="flourish" viewBox="0 0 130 12" aria-hidden="true">
+            <path d="M2 6 Q 18 0, 34 6 T 65 6 T 96 6 T 128 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <div class="poem-body" id="poemBody"></div>
+          <div class="from-line" id="fromLine"></div>
+        </div>
+      </div>
+
+      <div class="card-buttons">
+        <button type="button" class="btn" id="pngBtn">Download as picture</button>
+        <button type="button" class="btn" id="printBtn">Print</button>
+        <button type="button" class="btn" id="copyBtn">Copy text</button>
+      </div>
+      <p class="card-note">The picture downloads at greeting-card size, ready to send on WhatsApp or print at home.</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+"use strict";
+
+/* ---------------- occasion themes & word banks ---------------- */
+
+const OCCASIONS = {
+  birthday: {
+    label: "Birthday", emoji: "🎂", orn: ["🎈","🎂","✨"],
+    c1: "#FFF1D6", c2: "#FFD9E8", ink: "#4A2458", shadow: "rgba(205,110,140,.45)",
+    chipBg: "#FFE9F0",
+    similes: [
+      "like a cake with one more candle to go.",
+      "like the first line of a brand new year.",
+      "as bright as candles on the cake.",
+      "like confetti that never settles.",
+      "like a wish waiting to be made.",
+      "as sweet as frosting on the first slice."
+    ],
+    verses: [
+      "{N}, today is all for you,\nWith cake and candles, laughter too,\nMay every wish you make tonight\nBloom into a year of light.",
+      "Another trip around the sun,\nAnother year of days well won,\nDear {N}, whatever this year brings,\nMay your heart stay light, and sing."
+    ]
+  },
+  wedding: {
+    label: "Wedding", emoji: "💍", orn: ["🌸","💍","🤍"],
+    c1: "#FDE8F0", c2: "#E8E4FA", ink: "#4A3363", shadow: "rgba(140,110,180,.4)",
+    chipBg: "#F6E8FB",
+    similes: [
+      "like a vow that will never wear thin.",
+      "like the first page of a beautiful story.",
+      "as radiant as a room full of roses.",
+      "like two hearts that found their way.",
+      "as rare as a love like this.",
+      "like a promise the stars co-signed."
+    ],
+    verses: [
+      "Dear {N}, today the bells ring true,\nTwo lives now woven, old made new,\nMay every morning that you share\nBe wrapped in warmth and gentle care.",
+      "{N}, the flowers, the vows, the song,\nA love that's worth the wait so long,\nMay your home be full, your cups run over,\nLove like yours will live forever."
+    ]
+  },
+  anniversary: {
+    label: "Anniversary", emoji: "🥂", orn: ["❤️","🥂","🌹"],
+    c1: "#FFE4E1", c2: "#FFD1DC", ink: "#63243B", shadow: "rgba(200,90,120,.4)",
+    chipBg: "#FFE6EC",
+    similes: [
+      "like a promise that keeps its shine.",
+      "as steady as the years you've shared.",
+      "like a love story still being written.",
+      "as warm as the day it all began.",
+      "like wine that only got better.",
+      "as sure as two hands that fit."
+    ],
+    verses: [
+      "{N}, the years have come and gone,\nYet like a well-loved song, linger on,\nHere's to the love you still grow,\nSteady, deep, and warm as glow.",
+      "Anniversaries mark the days,\nBut yours is written subtler ways,\nDear {N}, in every look you share\nLives a love beyond compare."
+    ]
+  },
+  baby: {
+    label: "New Baby", emoji: "🍼", orn: ["🍼","🌟","🧸"],
+    c1: "#E3F2FD", c2: "#FCE4EC", ink: "#2C4A6E", shadow: "rgba(110,150,200,.4)",
+    chipBg: "#E4F0FB",
+    similes: [
+      "like the softest miracle in tiny socks.",
+      "as brand new as ten little toes.",
+      "like a lullaby waiting to be sung.",
+      "as precious as a first sleepy smile.",
+      "like the world arriving brand new.",
+      "as tiny and as vast as a yawn."
+    ],
+    verses: [
+      "A little star has landed soft,\nTen tiny toes held up aloft,\nDear {N}, welcome, small and sweet,\nThe world is brighter at your feet.",
+      "{N}, so small, so brand new,\nThe whole wide world is waiting for you,\nMay your days be warm and slow,\nWith love in every dream you grow."
+    ]
+  },
+  graduation: {
+    label: "Graduation", emoji: "🎓", orn: ["🎓","📜","🌟"],
+    c1: "#E8F5E9", c2: "#FFF9C4", ink: "#33691E", shadow: "rgba(140,170,90,.45)",
+    chipBg: "#EAF4E2",
+    similes: [
+      "like a cap thrown high into the sky.",
+      "as bright as every door now open.",
+      "like hard work turned into wings.",
+      "as proud as every face in the crowd.",
+      "like a chapter ending in applause.",
+      "as ready as the road ahead."
+    ],
+    verses: [
+      "{N}, the tassel turns, the cheers ring out,\nYou've earned this day, beyond all doubt,\nMay every door you choose to try\nOpen wide against the sky.",
+      "The books are closed, the caps are thrown,\nThe seeds of all your work are sown,\nDear {N}, go forth, be bold and true,\nThe world is lucky to have you."
+    ]
+  },
+  retirement: {
+    label: "Retirement", emoji: "🌅", orn: ["🌅","🏆","🌿"],
+    c1: "#FFF3E0", c2: "#FFE0B2", ink: "#6D4C1E", shadow: "rgba(210,160,90,.45)",
+    chipBg: "#FBEEDB",
+    similes: [
+      "like a sunrise with no alarm in sight.",
+      "as golden as the years ahead.",
+      "like a finish line crossed in style.",
+      "as free as an open calendar.",
+      "like a well-earned rest that fits.",
+      "as rich as every life you've touched."
+    ],
+    verses: [
+      "{N}, the desk is cleared, the watch is done,\nNow mornings belong to tea and sun,\nYou've given years of your very best,\nNow the world hands you back its rest.",
+      "No alarms to answer, no races to run,\nDear {N}, your second life's begun,\nMay every day be slow and kind,\nWith good health, good books, and peace of mind."
+    ]
+  },
+  farewell: {
+    label: "Farewell", emoji: "✈️", orn: ["🕊️","✈️","🍀"],
+    c1: "#E0F7FA", c2: "#E1F5FE", ink: "#1E4A5A", shadow: "rgba(90,150,180,.4)",
+    chipBg: "#E0F2F7",
+    similes: [
+      "like a good chapter ending well.",
+      "as hopeful as a road just opening.",
+      "like a friend the distance can't dim.",
+      "as bright as wherever you're headed.",
+      "like a goodbye that means come back soon.",
+      "as brave as every new beginning."
+    ],
+    verses: [
+      "Goodbye is hard, dear {N}, it's true,\nBut better days are calling you,\nMay every road you take from here\nBe lined with luck and folks who cheer.",
+      "{N}, we'll miss your smiling face,\nNo one else can take your place,\nGo shine wherever you may be —\nYou'll always have a home with me."
+    ]
+  },
+  friendship: {
+    label: "Friendship", emoji: "🌻", orn: ["🌻","🤝","💫"],
+    c1: "#FFF9C4", c2: "#FFECB3", ink: "#6D5A10", shadow: "rgba(215,185,80,.45)",
+    chipBg: "#FBF3CE",
+    similes: [
+      "like the friend everyone hopes for.",
+      "as easy as laughter with an old friend.",
+      "like sunshine on an ordinary day.",
+      "as steady as your favourite song.",
+      "like a call you always have time for.",
+      "as rare as a friend like you."
+    ],
+    verses: [
+      "{N}, some folks come and go,\nBut friends like you are rare to know,\nDear {N}, you're the friend who stays,\nThrough all of life's winding ways.",
+      "No ribbon, card, or grand parade\nCould thank you for the difference made,\nDear {N}, you're the kind of friend\nWho stays until the very end."
+    ]
+  },
+  thanks: {
+    label: "Thank You", emoji: "🙏", orn: ["🙏","💐","💛"],
+    c1: "#E8EAF6", c2: "#F3E5F5", ink: "#3A3A6E", shadow: "rgba(130,130,200,.4)",
+    chipBg: "#E9E8F9",
+    similes: [
+      "like kindness that came right on time.",
+      "as warm as the help you gave.",
+      "like a favour that turned into a treasure.",
+      "as rare as someone like you.",
+      "like gratitude too big for words.",
+      "as good as good gets."
+    ],
+    verses: [
+      "{N}, these simple words are true:\nThank you for all you do,\nFor showing up, for thoughtful ways,\nYou deserve a thousand days of praise.",
+      "Some kindness can't be repaid,\nOnly remembered, gently displayed,\nDear {N}, please know it's so:\nThe warmest thanks to you we owe."
+    ]
+  },
+  getwell: {
+    label: "Get Well Soon", emoji: "🌷", orn: ["🌷","💛","☀️"],
+    c1: "#E8F5E9", c2: "#E0F2F1", ink: "#2E5D50", shadow: "rgba(110,170,150,.4)",
+    chipBg: "#E2F1EA",
+    similes: [
+      "like spring waiting right outside the window.",
+      "as strong as you've always been.",
+      "like the best chapter still to come.",
+      "as missed as you are right now.",
+      "like rest that's busy healing you.",
+      "as sure as sun after the rain."
+    ],
+    verses: [
+      "{N}, rest now, take it slow,\nHealing has its own tempo,\nWe're saving your seat, your cup, your place,\nUntil we see your smiling face.",
+      "Get well soon, dear {N}, please do,\nThe world's not half as bright without you,\nMay every day bring strength your way,\nAnd better news by close of day."
+    ]
+  },
+  christmas: {
+    label: "Christmas", emoji: "🎄", orn: ["🎄","⭐","🔔"],
+    c1: "#E8F5E9", c2: "#FFEBEE", ink: "#3E2723", shadow: "rgba(160,90,90,.4)",
+    chipBg: "#FDE7EA",
+    similes: [
+      "like the star on top of the tree.",
+      "as magical as the first snow.",
+      "like carols that stay in the heart.",
+      "as cozy as lights on a winter night.",
+      "like a stocking with your name sewn on.",
+      "as warm as mulled cheer shared."
+    ],
+    verses: [
+      "{N}, the lights are on the tree,\nAnd there's a gift beneath it with your name — see,\nMay your season sparkle, may it sing,\nMerry Christmas, and everything.",
+      "The fire is lit, the night is deep,\nAnd all the house is wrapped in sleep,\nDear {N}, wherever you may be,\nMay Christmas bring you peace and glee."
+    ]
+  },
+  diwali: {
+    label: "Diwali", emoji: "🪔", orn: ["🪔","✨","🎆"],
+    c1: "#FFF8E1", c2: "#FFE0B2", ink: "#5D4037", shadow: "rgba(220,160,80,.5)",
+    chipBg: "#FBEFD8",
+    similes: [
+      "like a diya that lights ten more.",
+      "as golden as marigold garlands.",
+      "like a lamp that never dims.",
+      "as bright as the festival sky.",
+      "like sweetness shared plate to plate.",
+      "as full as a home on Diwali night."
+    ],
+    verses: [
+      "{N}, may the lamps burn bright,\nAnd every darkness yield to light,\nMay wealth and wellness find your door,\nAnd peace stay with you evermore.",
+      "A row of lamps, a sky of gold,\nA festival a thousand years old,\nDear {N}, may this Diwali bring\nSweetness in every little thing."
+    ]
+  },
+  eid: {
+    label: "Eid", emoji: "🌙", orn: ["🌙","🕌","⭐"],
+    c1: "#E0F2F1", c2: "#F3E5F5", ink: "#37474F", shadow: "rgba(120,150,180,.4)",
+    chipBg: "#E3F0F5",
+    similes: [
+      "like the first sight of the crescent moon.",
+      "as sweet as sheer khurma.",
+      "like a table full of everyone you love.",
+      "as gentle as the evening prayer.",
+      "like new clothes and old songs.",
+      "as joyful as the moonlit sky."
+    ],
+    verses: [
+      "{N}, the crescent moon is here,\nEid Mubarak, a day so dear,\nMay blessings fill your home and heart,\nAnd joy that never will depart.",
+      "New clothes, old songs, a table spread,\nWith every soul you love well-fed,\nDear {N}, may this Eid be sweet,\nAnd every year your joys complete."
+    ]
+  }
+};
+
+const GENERIC_TAILS = [
+  "beyond words.",
+  "in every way that counts.",
+  "to the moon and back.",
+  "in all the best ways.",
+  "more than any poem can say.",
+  "and the world is better for it."
+];
+
+const LETTER_WORDS = {
+  A: ["Amazing","Admirable","Awesome","Awe-inspiring"],
+  B: ["Brave","Bright","Beautiful","Beloved"],
+  C: ["Caring","Courageous","Charming","Clever"],
+  D: ["Daring","Devoted","Delightful","Dependable"],
+  E: ["Extraordinary","Energetic","Elegant","Endearing"],
+  F: ["Fearless","Fun","Fantastic","Faithful"],
+  G: ["Generous","Graceful","Glowing","Great"],
+  H: ["Honest","Happy","Heartwarming","Heroic"],
+  I: ["Inspiring","Incredible","Imaginative","Irreplaceable"],
+  J: ["Joyful","Jovial","Jaunty","Jewel-bright"],
+  K: ["Kind","Kindhearted","Keen","Kingly"],
+  L: ["Lively","Loyal","Loving","Light-hearted"],
+  M: ["Marvelous","Mighty","Magical","Merry"],
+  N: ["Noble","Nice","Notable","Nurturing"],
+  O: ["Outstanding","Optimistic","Original","One-of-a-kind"],
+  P: ["Playful","Patient","Precious","Positive"],
+  Q: ["Quick-witted","Queenly","Quietly brilliant","Quintessential"],
+  R: ["Radiant","Remarkable","Reliable","Rare"],
+  S: ["Sparkling","Strong","Sweet","Sunny"],
+  T: ["Talented","Thoughtful","Terrific","Trustworthy"],
+  U: ["Unstoppable","Unique","Upbeat","Unforgettable"],
+  V: ["Valiant","Vibrant","Valued","Vivacious"],
+  W: ["Wise","Warm","Wonderful","Witty"],
+  X: ["XOXO-worthy","Xtra special","Xceptional"],
+  Y: ["Youthful","Yearned-for","Young-at-heart"],
+  Z: ["Zesty","Zippy","Zestful","Zen"]
+};
+
+/* ---------------- state & helpers ---------------- */
+
+const state = { occasion: "birthday", style: "acrostic", poem: null };
+const $ = (id) => document.getElementById(id);
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function buildAcrostic(name) {
+  const theme = OCCASIONS[state.occasion];
+  const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
+  const used = new Set();
+  const usedTails = new Set();
+  return letters.map((L) => {
+    const word = pick(LETTER_WORDS[L] || [L + "mazing"]);
+    let key = word;
+    let guard = 0;
+    while (used.has(key) && guard < 8) { key = pick(LETTER_WORDS[L] || [L]); guard++; }
+    used.add(key);
+    let tail = Math.random() < 0.6
+      ? pick(theme.similes)
+      : pick(GENERIC_TAILS);
+    let tguard = 0;
+    while (usedTails.has(tail) && tguard < 12) {
+      tail = Math.random() < 0.6 ? pick(theme.similes) : pick(GENERIC_TAILS);
+      tguard++;
+    }
+    usedTails.add(tail);
+    const line = tail.startsWith("like") || tail.startsWith("as ")
+      ? word + ", " + tail
+      : word + " " + tail;
+    return { letter: L, word, line };
+  });
+}
+
+function buildRhyme(name) {
+  const theme = OCCASIONS[state.occasion];
+  const pretty = name.charAt(0).toUpperCase() + name.slice(1);
+  return pick(theme.verses).split("{N}").join(pretty);
+}
+
+function writePoem() {
+  const raw = $("nameInput").value.trim();
+  const name = cap(raw.replace(/[^a-zA-Z\s'-]/g, ""));
+  if (!name) {
+    $("nameInput").focus();
+    $("nameInput").placeholder = "Please type a name first";
+    return;
+  }
+  state.poem = state.style === "acrostic"
+    ? { type: "acrostic", lines: buildAcrostic(name) }
+    : { type: "rhyme", text: buildRhyme(name) };
+  state.name = name;
+  renderCard();
+}
+
+/* ---------------- card rendering ---------------- */
+
+function renderCard() {
+  const theme = OCCASIONS[state.occasion];
+  const card = $("poemCard").parentElement;
+  card.style.setProperty("--c1", theme.c1);
+  card.style.setProperty("--c2", theme.c2);
+  card.style.setProperty("--card-ink", theme.ink);
+  card.style.setProperty("--c-shadow", theme.shadow);
+  $("cornerTl").textContent = theme.orn[0];
+  $("cornerTr").textContent = theme.orn[1];
+  $("ornRow").textContent = theme.orn.join(" ");
+  $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
+  $("poemName").textContent = state.name;
+
+  const body = $("poemBody");
+  body.innerHTML = "";
+  if (state.poem.type === "acrostic") {
+    state.poem.lines.forEach((l, i) => {
+      const div = document.createElement("div");
+      const lead = document.createElement("span");
+      lead.className = "lead-letter";
+      lead.textContent = l.letter;
+      div.appendChild(lead);
+      div.appendChild(document.createTextNode(l.line.slice(l.letter.length)));
+      body.appendChild(div);
+    });
+  } else {
+    body.textContent = state.poem.text;
+  }
+
+  const from = $("fromInput").value.trim();
+  $("fromLine").textContent = from ? "with love, from " + from : "";
+}
+
+function retheme() {
+  const theme = OCCASIONS[state.occasion];
+  const card = $("poemCard").parentElement;
+  card.style.setProperty("--c1", theme.c1);
+  card.style.setProperty("--c2", theme.c2);
+  card.style.setProperty("--card-ink", theme.ink);
+  card.style.setProperty("--c-shadow", theme.shadow);
+  $("cornerTl").textContent = theme.orn[0];
+  $("cornerTr").textContent = theme.orn[1];
+  $("ornRow").textContent = theme.orn.join(" ");
+  $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
+}
+
+/* ---------------- occasion chips ---------------- */
+
+(function buildChips() {
+  const wrapEl = $("occasionChips");
+  Object.keys(OCCASIONS).forEach((key) => {
+    const o = OCCASIONS[key];
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip";
+    b.style.setProperty("--chip-color", o.c2);
+    b.style.setProperty("--chip-bg", o.chipBg);
+    b.innerHTML = "<span aria-hidden='true'>" + o.emoji + "</span>" + o.label;
+    b.setAttribute("aria-pressed", key === state.occasion);
+    b.addEventListener("click", () => {
+      state.occasion = key;
+      wrapEl.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+      retheme();
+    });
+    wrapEl.appendChild(b);
+  });
+})();
+
+/* ---------------- style toggle ---------------- */
+
+$("styleAcrostic").addEventListener("click", () => setStyle("acrostic"));
+$("styleRhyme").addEventListener("click", () => setStyle("rhyme"));
+function setStyle(s) {
+  state.style = s;
+  $("styleAcrostic").setAttribute("aria-pressed", s === "acrostic");
+  $("styleRhyme").setAttribute("aria-pressed", s === "rhyme");
+}
+
+/* ---------------- buttons ---------------- */
+
+$("writeBtn").addEventListener("click", writePoem);
+$("againBtn").addEventListener("click", () => { if (state.poem) writePoem(); });
+$("nameInput").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
+$("printBtn").addEventListener("click", () => window.print());
+
+$("copyBtn").addEventListener("click", async () => {
+  if (!state.poem) return;
+  let text = "";
+  if (state.poem.type === "acrostic") {
+    text = "A " + OCCASIONS[state.occasion].label.toLowerCase() + " poem for " + state.name + "\n\n" +
+      state.poem.lines.map((l) => l.line).join("\n");
+  } else {
+    text = "A " + OCCASIONS[state.occasion].label.toLowerCase() + " poem for " + state.name + "\n\n" + state.poem.text;
+  }
+  const from = $("fromInput").value.trim();
+  if (from) text += "\n\nwith love, from " + from;
+  try {
+    await navigator.clipboard.writeText(text);
+    $("copyBtn").textContent = "Copied!";
+    setTimeout(() => ($("copyBtn").textContent = "Copy text"), 1600);
+  } catch (err) {
+    $("copyBtn").textContent = "Press Ctrl+C";
+  }
+});
+
+/* ---------------- PNG download (canvas-drawn) ---------------- */
+
+$("pngBtn").addEventListener("click", () => {
+  if (!state.poem) return;
+  const theme = OCCASIONS[state.occasion];
+  const W = 1200, H = 1500;
+  const canvas = document.createElement("canvas");
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext("2d");
+
+  const grad = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, theme.c1);
+  grad.addColorStop(1, theme.c2);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // soft corner glows
+  const glow = (x, y, r, color) => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, color);
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  };
+  glow(80, 80, 420, "rgba(255,255,255,.55)");
+  glow(W - 80, H - 80, 480, "rgba(255,255,255,.45)");
+
+  ctx.fillStyle = theme.ink;
+  ctx.textAlign = "center";
+
+  // ornament row
+  ctx.font = "64px serif";
+  ctx.fillText(theme.orn.join("  "), W / 2, 170);
+
+  // occasion label
+  ctx.font = "italic 34px Fraunces, Georgia, serif";
+  ctx.globalAlpha = 0.75;
+  ctx.fillText("a " + theme.label.toLowerCase() + " poem for", W / 2, 250);
+  ctx.globalAlpha = 1;
+
+  // name
+  ctx.font = "700 110px Fraunces, Georgia, serif";
+  ctx.fillText(state.name, W / 2, 380);
+
+  // flourish line
+  ctx.strokeStyle = theme.ink;
+  ctx.globalAlpha = 0.5;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(W / 2 - 130, 430);
+  ctx.bezierCurveTo(W / 2 - 60, 410, W / 2 - 20, 450, W / 2, 430);
+  ctx.bezierCurveTo(W / 2 + 20, 410, W / 2 + 60, 450, W / 2 + 130, 430);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // poem body
+  let lines;
+  if (state.poem.type === "acrostic") {
+    lines = state.poem.lines.map((l) => l.line);
+  } else {
+    lines = [];
+    state.poem.text.split("\n").forEach((para) => {
+      const words = para.split(" ");
+      let cur = "";
+      words.forEach((w) => {
+        if (ctx.measureText(cur + " " + w).width > W - 300 && cur) {
+          lines.push(cur); cur = w;
+        } else {
+          cur = cur ? cur + " " + w : w;
+        }
+      });
+      if (cur) lines.push(cur);
+      lines.push(""); // stanza gap
+    });
+    while (lines.length && lines[lines.length - 1] === "") lines.pop();
+  }
+
+  ctx.font = "42px Fraunces, Georgia, serif";
+  const lh = 66;
+  const startY = 560;
+  const maxLines = Math.floor((H - startY - 180) / lh);
+  const shown = lines.slice(0, maxLines);
+  shown.forEach((line, i) => ctx.fillText(line, W / 2, startY + i * lh));
+
+  // footer
+  const from = $("fromInput").value.trim();
+  if (from) {
+    ctx.font = "italic 36px Fraunces, Georgia, serif";
+    ctx.globalAlpha = 0.8;
+    ctx.fillText("with love, from " + from, W / 2, H - 80);
+    ctx.globalAlpha = 1;
+  }
+
+  // corner emoji
+  ctx.font = "44px serif";
+  ctx.textAlign = "left";
+  ctx.fillText(theme.orn[0], 44, 74);
+  ctx.textAlign = "right";
+  ctx.fillText(theme.orn[1], W - 44, 74);
+
+  const a = document.createElement("a");
+  a.download = state.name.toLowerCase().replace(/\s+/g, "-") + "-" + state.occasion + "-poem.png";
+  a.href = canvas.toDataURL("image/png");
+  a.click();
+});
+
+/* ---------------- boot with a sample ---------------- */
+
+$("nameInput").value = "Meera";
+writePoem();
+</script>
+</body>
+</html>
