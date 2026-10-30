@@ -112,9 +112,17 @@
   #liquidCv { pointer-events: none; }
   .liquid canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .hero-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,.18), transparent 30%, transparent 70%, rgba(255,255,255,.18)); }
-  .hero-wm { pointer-events: none; position: absolute; inset-inline: 0; bottom: 7rem; z-index: 1; text-align: center; user-select: none; font-weight: 700; line-height: 1; font-size: clamp(4.5rem, 10vw, 9.5rem); color: rgba(255,255,255,.4); opacity: 0; transform: translateY(20px); transition: opacity 1.1s cubic-bezier(.16,1,.3,1) .3s, transform 1.1s cubic-bezier(.16,1,.3,1) .3s; }
-  .hero-wm.in { opacity: .4; transform: none; }
-  @media (max-width:640px) { .hero-wm { font-size: 4.5rem; bottom: 5rem; } }
+  .hero-wm-cv { pointer-events: none; position: absolute; inset-inline: 0; bottom: 7rem; z-index: 1; width: 100%; display: block; }
+  @media (max-width:640px) { .hero-wm-cv { bottom: 5rem; } }
+  .w-gold { background-image: linear-gradient(110deg, var(--ink) 0%, #B4763C 28%, #EFC48C 50%, #B4763C 72%, var(--ink) 100%); background-size: 260% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  @media (hover: hover) and (pointer: fine) {
+    .niv-hero, .niv-hero a, .niv-hero button { cursor: none; }
+    .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; border-radius: 50%; opacity: 0; will-change: transform; }
+    .cur-dot { width: 6px; height: 6px; background: #B4763C; }
+    .cur-ring { width: 36px; height: 36px; border: 1.5px solid rgba(180,118,60,.5); transition: opacity .2s ease, width .2s ease, height .2s ease, border-color .2s ease; }
+    .cur-ring.on { width: 52px; height: 52px; border-color: rgba(233,168,96,.85); }
+    .cur-dot.show, .cur-ring.show { opacity: 1; }
+  }
   .hero-grid { position: relative; z-index: 20; display: flex; flex-direction: column; gap: 2rem; padding: 7rem 1.25rem 5rem; }
   @media (min-width:640px) { .hero-grid { padding-inline: 2rem; } }
   @media (min-width:1024px) { .hero-grid { display: grid; min-height: 100lvh; grid-template-columns: repeat(12,1fr); gap: 2.5rem; padding: 9rem 2rem 7rem; } .hero-left { grid-column: span 7; } .hero-right { grid-column: span 5; } }
@@ -205,19 +213,17 @@
   .share-banner .sb-close:hover { color: var(--ink); }
 
   .band-sec { background: #fff; }
-  .band { display: flex; flex-direction: column; gap: .75rem; padding: 2.5rem 1.25rem; max-width: 88rem; margin-inline: auto; list-style: none; }
-  @media (min-width:640px) { .band { flex-direction: row; gap: 1rem; padding-inline: 2rem; } }
-  .band li { flex: 1; opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .band { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .7rem .8rem; padding: 2.75rem 1.25rem; max-width: 88rem; margin-inline: auto; list-style: none; }
+  .band li { flex: 0 1 auto; opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
   .band li.in { opacity: 1; transform: none; }
-  .band .tile { display: grid; place-items: center; height: 6rem; border-radius: 9999px; font-family: "Fraunces", serif; font-size: 1.875rem; font-weight: 500; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
-  @media (min-width:640px) { .band .tile { height: 10rem; font-size: 2.25rem; } }
+  .band .tile { display: grid; place-items: center; padding: .42em 1.05em; border-radius: 9999px; font-family: "Fraunces", serif; font-size: clamp(1.7rem, 4.6vw, 2.6rem); font-weight: 500; line-height: 1.15; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
   .band .tile:hover { transform: scale(1.03); }
   .tile-light { background: #f1f0ee; color: #111; }
   .tile-accent { background: linear-gradient(to bottom right, #cf8047, #97501f); color: #fff; }
   .tile-dark { background: #0a0a0a; color: #fff; }
   .tile-ghost { background: rgba(241,240,238,.6); color: rgba(17,17,17,.35); }
-  .tile-dark svg { width: 2.25rem; height: 2.25rem; }
-  @media (min-width:640px) { .tile-dark svg { width: 3rem; height: 3rem; } }
+  .band .tile-dark { padding: .3em; aspect-ratio: 1; }
+  .tile-dark svg { width: 1.4em; height: 1.4em; }
 
   .samples-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 88rem; margin: 3rem auto 0; padding: 0 1.25rem 5rem; }
   @media (min-width:768px) { .samples-grid { grid-template-columns: 1fr 1fr; padding-inline: 2rem; } }
@@ -689,12 +695,12 @@
     <canvas id="trailCv"></canvas>
   </div>
   <div class="hero-vignette" aria-hidden="true"></div>
-  <div class="hero-wm" data-ready aria-hidden="true">ACROSTIA</div>
+  <canvas id="wmCv" class="hero-wm-cv" aria-hidden="true"></canvas>
 
   <div class="hero-grid">
     <div class="hero-left">
       <p class="eyebrow">Free name poem generator</p>
-      <h1 class="hero-h1 rise" data-rise data-gate>Every name hides a little poem.</h1>
+      <h1 class="hero-h1 rise" data-rise data-gate data-shimmer="poem">Every name hides a little poem.</h1>
       <div class="rating-row">
         <span class="stars" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
@@ -1656,12 +1662,12 @@ const GROUPS = [
 
 const LETTER_TRAITS = {
   A: [["Able","potential to achieve big"],["Admirable","admired by everyone around"],["Affectionate","warm to all who know you"],["Ambitious","always aiming higher"]],
-  B: [["Brave","facing every challenge head-on"],["Bright","lighting up every room"],["Beloved","cherished by family and friends"],["Bubbly","full of life and bubbles"]],
+  B: [["Brave","facing every challenge head-on"],["Bright","lighting up every room"],["Beloved","cherished by family and friends"],["Bubbly","full of life and bubbles","f"]],
   C: [["Creative","full of fresh ideas"],["Confident","sure of every step"],["Caring","always there for others"],["Cheerful","with a smile that spreads"]],
-  D: [["Determined","never giving up"],["Dependable","relied on in every storm"],["Delightful","a joy to be around"],["Diligent","careful in all you do"]],
+  D: [["Determined","never giving up"],["Dependable","relied on in every storm"],["Delightful","a joy to be around","f"],["Diligent","careful in all you do"]],
   E: [["Energetic","full of life and spirit"],["Excellent","excelling in all you do"],["Empathetic","feeling what others feel"],["Enthusiastic","excited by every opportunity"]],
   F: [["Friendly","a friend to everyone"],["Fearless","unafraid of any challenge"],["Faithful","true in word and deed"],["Fun-loving","finding joy everywhere"]],
-  G: [["Generous","sharing without counting"],["Graceful","graceful in every way"],["Good-hearted","kind to the core"],["Genuine","real through and through"]],
+  G: [["Generous","sharing without counting"],["Graceful","graceful in every way","f"],["Good-hearted","kind to the core"],["Genuine","real through and through"]],
   H: [["Honored","respected by all"],["Honest","true in every word"],["Hardworking","giving your best always"],["Happy","spreading cheer all around"]],
   I: [["Inspiring","pushing others to dream"],["Intelligent","sharp of mind and thought"],["Ideal","the example others follow"],["Imaginative","dreaming up wonders"]],
   J: [["Joyful","spreading happiness wherever you go"],["Jovial","with laughter always near"],["Judicious","wise in every choice"],["Just","fair in all dealings"]],
@@ -1672,16 +1678,84 @@ const LETTER_TRAITS = {
   O: [["Optimistic","seeing the bright side always"],["Outstanding","standing out from the crowd"],["Open-minded","accepting every opinion"],["Original","one of a true kind"]],
   P: [["Passionate","burning with purpose"],["Patient","calm through every storm"],["Positive","spreading optimism around"],["Principled","standing by what is right"]],
   Q: [["Quick-witted","ready with a smile and a line"],["Quick-thinking","calm when it matters most"],["Qualified","ready for anything life brings"],["Quintessential","the very best of the type"]],
-  R: [["Receptive","accepting every opinion"],["Refined","in taste, manners and gait"],["Reliable","a promise kept"],["Radiant","glowing from within"]],
+  R: [["Receptive","accepting every opinion"],["Refined","in taste, manners and gait","f"],["Reliable","a promise kept"],["Radiant","glowing from within","f"]],
   S: [["Self-motivated","driven by your own fire"],["Sincere","honest at heart"],["Strong","through every high and low"],["Smart","quick to learn and adapt"]],
   T: [["Talented","gifted in many ways"],["Trustworthy","trusted by everyone"],["Thoughtful","thinking of others first"],["Tenacious","holding on till it's done"]],
   U: [["Unstoppable","nothing stands in your way"],["Unique","one of a kind"],["Upstanding","honorable in all things"],["Understanding","seeing every side"]],
-  V: [["Valiant","brave of heart"],["Versatile","good at everything you try"],["Visionary","dreaming of tomorrow"],["Vivacious","lively and full of spirit"]],
+  V: [["Valiant","brave of heart"],["Versatile","good at everything you try"],["Visionary","dreaming of tomorrow"],["Vivacious","lively and full of spirit","f"]],
   W: [["Wise","beyond your years"],["Warm","with a smile for everyone"],["Wonderful","in countless ways"],["Willing","first to lend a hand"]],
   X: [["X-factor","that special spark you carry"],["XOXO","hugs and kisses to spare"],["Xceptional","beyond the ordinary"]],
   Y: [["Young-at-heart","with smiling eyes"],["Yearning","always reaching higher"],["Youthful","full of energy and cheer"],["Yare","quick and ready for anything"]],
   Z: [["Zealous","enthusiastic in all you do"],["Zestful","with a taste for life"],["Zen","calm in every storm"],["Zippy","quick in step and thought"]]
 };
+
+/* ---------------- gender-aware trait selection ---------------- */
+const FEMALE_NAMES = new Set("AISHA ANANYA ANITA ANJALI AMRITA ADITI AVANI BHAVNA DEEPA DIVYA DIYA ESHA FATIMA GAURI GEETA HEMA ISHITA JYOTI KAVYA KAJOL LAKSHMI LATA LEELA MEERA MITALI NISHA NEHA NANDINI PADMA POOJA PRIYA PRIYANKA PALAK RANI RADHA RITU RIA SARA SNEHA SHRUTI SIMRAN SONAL SWARA TARA TRISHA USHA VAISHALI VIDYA YAMINI ZARA ALICE AMANDA ANNA AVA CHARLOTTE CLAIRE ELIZABETH EMILY EMMA EVA FIONA GRACE HANNAH ISABELLA JANE JENNIFER JULIA KATE LAURA LILY LINDA LUCY MARIA MARY MEGAN MIA MICHELLE NATALIE NICOLE OLIVIA RACHEL REBECCA ROSE SAMANTHA SARAH SOPHIA STELLA SUSAN VICTORIA VIOLET WENDY".split(" "));
+const MALE_NAMES = new Set("AARAV ADITYA AKASH AMAN ANIL ANISH ANURAG ARJUN ARNAV ASHOK BALAJI BHARAT CHETAN DEEPAK DEV DHRUV FARHAN GAURAV HARISH HARSH HEMANT IMRAN ISHAAN JAI JAYESH KABIR KARAN KARTIK KRISH LALIT MAHESH MANISH MOHIT NIKHIL NITIN OM PARESH PRANAV RAHUL RAJESH RAKESH RAVI REHAN ROHIT SAMIR SANJAY SHREYAS SIDDHARTH SUMIT SURAJ TUSHAR UDAY VARUN VIKAS VIKRAM VISHAL YASH ZAIN ADAM ANDREW ANTHONY BENJAMIN BRANDON CHARLES CHRISTIAN CHRISTOPHER DANIEL DAVID DYLAN EDWARD ETHAN FELIX GABRIEL GEORGE HARRY HENRY ISAAC JACK JACOB JAMES JASON JOHN JOSEPH JULIAN KEVIN LEO LIAM LOGAN LOUIS LUKE MARK MARTIN MATTHEW MICHAEL NATHAN NICHOLAS NOAH OLIVER OSCAR OWEN PATRICK PETER RICHARD ROBERT RYAN SAMUEL SEAN THEODORE THOMAS TIMOTHY VICTOR WILLIAM XAVIER ZACHARY".split(" "));
+
+function genderOf(name) {
+  if (!name) return "";
+  const first = name.trim().split(/\s+/)[0].replace(/[^a-zA-Z]/g, "").toUpperCase();
+  if (!first) return "";
+  if (FEMALE_NAMES.has(first)) return "f";
+  if (MALE_NAMES.has(first)) return "m";
+  return "";
+}
+
+const GENDER_TRAITS = {
+  f: {
+    A: [["Angel-hearted","kindness that shows"]],
+    B: [["Blossoming","more wonderful every year"]],
+    C: [["Charming","grace in every gesture"]],
+    D: [["Divine","in a way words miss"]],
+    E: [["Elegant","poise in every step"]],
+    F: [["Fabulous","effortlessly wonderful"]],
+    G: [["Glowing","a light all your own"]],
+    H: [["Heart-mender","the one who makes it better"]],
+    I: [["Iconic","impossible to forget"]],
+    J: [["Jewel","precious beyond measure"]],
+    K: [["Kindest","the softest heart around"]],
+    L: [["Luminous","lighting every room you enter"]],
+    M: [["Mesmerizing","a presence people remember"]],
+    P: [["Picture-perfect","lovely inside and out"]],
+    R: [["Regal","grace that needs no crown"]],
+    S: [["Shimmering","bright with possibility"]],
+    T: [["Tender-hearted","gentle with everyone"]],
+    V: [["Vibrant","color in every room"]],
+    W: [["Winsome","charm that draws people close"]]
+  },
+  m: {
+    A: [["Astute","sharp in every situation"]],
+    B: [["Bold","never one to step back"]],
+    C: [["Charismatic","a presence rooms remember"]],
+    D: [["Daring","first to take the leap"]],
+    E: [["Esteemed","respected wherever you go"]],
+    F: [["Fierce","all heart, all effort"]],
+    G: [["Gallant","a gentleman through and through"]],
+    H: [["Heroic","the one people count on"]],
+    I: [["Incisive","straight to the heart of it"]],
+    J: [["Juggernaut","unstoppable when it counts"]],
+    K: [["Knight","first to show up, last to leave"]],
+    L: [["Legendary","the stories are all true"]],
+    M: [["Masterful","command of every craft"]],
+    O: [["Outspoken","says what needs saying"]],
+    P: [["Protector","a shield for the people you love"]],
+    R: [["Rock-solid","steady when everything shakes"]],
+    S: [["Stalwart","standing firm every time"]],
+    T: [["Trailblazer","first through every door"]],
+    U: [["Unshakeable","calm under any pressure"]],
+    V: [["Valorous","courage where it matters"]],
+    W: [["Worthy","earned, every bit of it"]]
+  }
+};
+
+function traitsFor(L, g) {
+  let bank = (LETTER_TRAITS[L] || []).slice();
+  if (g && GENDER_TRAITS[g] && GENDER_TRAITS[g][L]) bank = bank.concat(GENDER_TRAITS[g][L]);
+  if (g === "m") bank = bank.filter((t) => t[2] !== "f");
+  if (g === "f") bank = bank.filter((t) => t[2] !== "m");
+  return bank.length ? bank : [[L + "-cellent", "one of a kind"]];
+}
 
 const CLOSERS = {
   birthday: ["a self-motivated individual, one year wiser","one of a kind, today and always", "born to be celebrated", "the gift is having you", "a year older, a year more wonderful", "the candle that outshines the cake", "aging like the finest things do", "the birthday star, as always"],
@@ -1709,8 +1783,9 @@ const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 function buildAcrostic(name) {
   const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const used = new Set();
+  const g = genderOf(name);
   return letters.map((L) => {
-    const bank = LETTER_TRAITS[L] || [[L + "-cellent", "one of a kind"]];
+    const bank = traitsFor(L, g);
     let trait = pick(bank);
     let guard = 0;
     while (used.has(trait[0]) && guard < 8) { trait = pick(bank); guard++; }
@@ -1730,7 +1805,7 @@ function buildAcrosticPair(n1, n2) {
   }
   const used = new Set();
   return inter.map((x) => {
-    const bank = LETTER_TRAITS[x.letter] || [[x.letter + "-cellent", "one of a kind"]];
+    const bank = traitsFor(x.letter, genderOf(x.who));
     let trait = pick(bank);
     let guard = 0;
     while (used.has(trait[0]) && guard < 8) { trait = pick(bank); guard++; }
@@ -1747,7 +1822,7 @@ function rerollLine(idx) {
   if (!state.poem || state.poem.type !== "acrostic") return;
   const line = state.poem.lines[idx];
   if (!line) return;
-  const bank = LETTER_TRAITS[line.letter] || [[line.letter + "-cellent", "one of a kind"]];
+  const bank = traitsFor(line.letter, genderOf(state.name1));
   if (bank.length < 2) return;
   let trait = pick(bank);
   let guard = 0;
@@ -2538,6 +2613,7 @@ syncUrl();
   banner.classList.add("show");
   $("sbMake").addEventListener("click", () => {
     $("nameInput").value = "";
+    try { $("nameInput").dispatchEvent(new Event("input")); } catch (e) {}
     $("name2Input").value = "";
     $("fromInput").value = "";
     $("nameInput").focus();
@@ -2726,16 +2802,47 @@ $("linkBtn").addEventListener("click", () => {
     }
     requestAnimationFrame(loop);
   }
+  /* ---------- gold shimmer sweep on [data-shimmer] words ---------- */
+  var shimmerSpans = [];
+  var shimmerRunning = false;
+  function pumpShimmer() {
+    if (shimmerRunning || reduced) return;
+    shimmerRunning = true;
+    var t0 = performance.now();
+    function loop(now) {
+      requestAnimationFrame(loop);
+      if (document.hidden) return;
+      var alive = false;
+      for (var i = 0; i < shimmerSpans.length; i++) {
+        var el = shimmerSpans[i];
+        if (!el.isConnected) continue;
+        alive = true;
+        var ph = ((now - t0) / 6400) % 1;
+        var sweep = ph < 0.42 ? ph / 0.42 : ph < 0.5 ? 1 : 1 - (ph - 0.5) / 0.42;
+        el.style.backgroundPosition = (sweep * 100).toFixed(1) + "% 0";
+      }
+      if (!alive) { shimmerRunning = false; return; }
+    }
+    requestAnimationFrame(loop);
+  }
+
   (function initRise() {
     var heads = qsa("[data-rise]");
     if (reduced || !heads.length) return;
-    var io = new IntersectionObserver(function (entries) {
+    var io = new IntersectionObserver(entries => {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         io.unobserve(en.target);
         var items = splitRise(en.target);
         springs.push(items);
         pumpSprings();
+        var word = en.target.getAttribute("data-shimmer");
+        if (word) {
+          var spans = en.target.querySelectorAll(".w");
+          for (var i = 0; i < spans.length; i++) {
+            if (spans[i].textContent.indexOf(word) === 0) { spans[i].classList.add("w-gold"); shimmerSpans.push(spans[i]); pumpShimmer(); }
+          }
+        }
       });
     }, { threshold: 0.2 });
     heads.forEach(function (h) {
@@ -2952,6 +3059,17 @@ $("linkBtn").addEventListener("click", () => {
       last = now;
       addSparkle((e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr, Math.random() < 0.3);
     }, { passive: true });
+    function burst(cx, cy) {
+      var r = cv.getBoundingClientRect();
+      var x = (cx - r.left) * dpr, y = (cy - r.top) * dpr;
+      for (var i = 0; i < 14; i++) addSparkle(x, y, Math.random() < 0.5);
+    }
+    window.__heroBurst = burst;
+    window.addEventListener("pointerdown", function (e) {
+      var r = cv.getBoundingClientRect();
+      if (e.clientY < r.top || e.clientY > r.bottom) return;
+      burst(e.clientX, e.clientY);
+    }, { passive: true });
     function drawStar(c, s) {
       c.beginPath();
       for (var i = 0; i < 8; i++) {
@@ -2985,6 +3103,127 @@ $("linkBtn").addEventListener("click", () => {
         ctx.restore();
       }
     })();
+  })();
+
+  /* ---------- particle watermark: the studio name forms out of drifting gold dots ---------- */
+  (function initWatermark() {
+    var cv = qs("#wmCv");
+    if (!cv) return;
+    var ctx = cv.getContext("2d");
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var COLORS = ["#E9A860", "#D99058", "#B4763C", "#EFC48C"];
+    var parts = [];
+    var visible = true, rto = 0;
+    function makeTargets(w) {
+      var cw = cv.parentElement ? cv.parentElement.clientWidth : cv.clientWidth;
+      if (!cw || !w) return [];
+      var fs = Math.min(Math.max(window.innerWidth * 0.10, 72), 152);
+      ctx.font = "700 " + fs + "px Fraunces, Georgia, serif";
+      var tw = ctx.measureText(w).width;
+      if (tw > cw * 0.92) fs = Math.floor(fs * cw * 0.92 / tw);
+      var W = Math.round(cw * dpr), H = Math.round(fs * 1.18 * dpr);
+      cv.width = W; cv.height = H;
+      var off = document.createElement("canvas");
+      off.width = W; off.height = H;
+      var oc = off.getContext("2d");
+      oc.font = "700 " + (fs * dpr) + "px Fraunces, Georgia, serif";
+      oc.textAlign = "center"; oc.textBaseline = "middle";
+      oc.fillStyle = "#000";
+      oc.fillText(w, W / 2, H / 2);
+      var data = oc.getImageData(0, 0, W, H).data;
+      var step = Math.max(4, Math.round(fs * dpr / 14));
+      var out = [];
+      for (var y = 0; y < H; y += step) {
+        for (var x = 0; x < W; x += step) {
+          if (data[(y * W + x) * 4 + 3] > 120) {
+            out.push({ x: x, y: y, c: COLORS[(Math.random() * COLORS.length) | 0], ph: Math.random() * 6.283, a: 0.3 + Math.random() * 0.45 });
+          }
+        }
+      }
+      return out;
+    }
+    function setWord(w) {
+      var tg = makeTargets(w);
+      var next = [];
+      for (var i = 0; i < tg.length; i++) {
+        var p = parts[i] || { x: Math.random() * (cv.width || 1), y: Math.random() * (cv.height || 1) };
+        p.tx = tg[i].x; p.ty = tg[i].y; p.c = tg[i].c; p.ph = tg[i].ph; p.a = tg[i].a;
+        if (reduced) { p.x = p.tx; p.y = p.ty; }
+        next.push(p);
+      }
+      parts = next;
+    }
+    function wordFromInput() {
+      var inp = qs("#nameInput");
+      var v = inp && inp.value ? inp.value : "";
+      v = v.toUpperCase().replace(/[^A-Z ]/g, "").trim().slice(0, 14);
+      return v || "MEERA";
+    }
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { threshold: 0 }).observe(cv);
+    }
+    window.addEventListener("resize", function () {
+      clearTimeout(rto);
+      rto = setTimeout(function () { parts = []; setWord(wordFromInput()); }, 180);
+    });
+    var inp = qs("#nameInput");
+    if (inp) inp.addEventListener("input", function () { setWord(wordFromInput()); });
+    setWord(wordFromInput());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setWord(wordFromInput()); });
+    if (reduced) { ctx.clearRect(0, 0, cv.width, cv.height); for (var i = 0; i < parts.length; i++) { var p = parts[i]; ctx.globalAlpha = p.a; ctx.fillStyle = p.c; ctx.fillRect(p.x - dpr, p.y - dpr, 2 * dpr, 2 * dpr); } ctx.globalAlpha = 1; return; }
+    (function loop() {
+      var now = performance.now();
+      requestAnimationFrame(loop);
+      if (!visible || document.hidden) return;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        p.x += (p.tx - p.x) * 0.06;
+        p.y += (p.ty - p.y) * 0.06;
+        var wx = Math.sin(now * 0.0011 + p.ph) * 1.6 * dpr;
+        var wy = Math.cos(now * 0.0009 + p.ph * 1.3) * 1.6 * dpr;
+        ctx.globalAlpha = p.a;
+        ctx.fillStyle = p.c;
+        ctx.fillRect(p.x + wx - dpr, p.y + wy - dpr, 2 * dpr, 2 * dpr);
+      }
+      ctx.globalAlpha = 1;
+    })();
+  })();
+
+  /* ---------- custom cursor: gold dot + lagging ring (fine pointers only) ---------- */
+  (function initCursor() {
+    if (reduced) return;
+    if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var hero = qs(".niv-hero");
+    if (!hero) return;
+    var dot = document.createElement("div");
+    dot.className = "cur-dot";
+    var ring = document.createElement("div");
+    ring.className = "cur-ring";
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+    var mx = -100, my = -100, rx = -100, ry = -100, raf = 0;
+    function loop() {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
+      ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
+      raf = requestAnimationFrame(loop);
+    }
+    hero.addEventListener("pointermove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!raf) raf = requestAnimationFrame(loop);
+      dot.classList.add("show"); ring.classList.add("show");
+      var t = e.target;
+      ring.classList.toggle("on", !!(t.closest && t.closest("a, button, input, select, .pill")));
+    });
+    hero.addEventListener("pointerleave", function () {
+      dot.classList.remove("show"); ring.classList.remove("show");
+      ring.classList.remove("on");
+    });
+    hero.addEventListener("pointerdown", function (e) {
+      if (window.__heroBurst) window.__heroBurst(e.clientX, e.clientY);
+    });
   })();
 
   /* ---------- stats count-up ---------- */
