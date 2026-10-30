@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://YOUR-USERNAME.github.io/name-in-verse/sitemap.xml
+Sitemap: https://Parthiv95.github.io/name-in-verse/sitemap.xml
