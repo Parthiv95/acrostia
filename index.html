@@ -35,6 +35,7 @@
     --radius: 18px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
   html { -webkit-text-size-adjust: 100%; }
   @media (min-width:1024px) { html { font-size: clamp(16px, 1.25vw, 32px); } }
   body {
@@ -88,7 +89,7 @@
   .brand-btn .spark { width: 1.25rem; height: 1.25rem; color: #b15f2c; }
   .nav-links { display: none; align-items: center; gap: 2rem; font-size: .875rem; font-weight: 500; }
   @media (min-width:1024px) { .nav-links { display: flex; } }
-  .nav-links button, .nav-links a { opacity: .8; transition: opacity .3s, transform .3s cubic-bezier(.2,.8,.2,1); }
+  .nav-links button, .nav-links a { opacity: .8; color: var(--ink); text-decoration: none; transition: opacity .3s, transform .3s cubic-bezier(.2,.8,.2,1); }
   .nav-links button:hover, .nav-links a:hover { opacity: 1; transform: translateY(-2px); }
   .nav-right { display: flex; align-items: center; gap: .75rem; }
   .clock-chip { display: none; align-items: center; gap: .75rem; border: 1px solid rgba(230,229,226,.8); background: rgba(255,255,255,.4); backdrop-filter: blur(4px); border-radius: .875rem; padding: .5rem .75rem; font-size: .75rem; color: rgba(17,17,17,.7); }
@@ -204,7 +205,7 @@
   .share-banner .sb-close:hover { color: var(--ink); }
 
   .band-sec { background: #fff; }
-  .band { display: flex; flex-direction: column; gap: .75rem; padding: 2.5rem 1.25rem; max-width: 88rem; margin-inline: auto; }
+  .band { display: flex; flex-direction: column; gap: .75rem; padding: 2.5rem 1.25rem; max-width: 88rem; margin-inline: auto; list-style: none; }
   @media (min-width:640px) { .band { flex-direction: row; gap: 1rem; padding-inline: 2rem; } }
   .band li { flex: 1; opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
   .band li.in { opacity: 1; transform: none; }
@@ -229,7 +230,7 @@
   .sample-badge svg { width: 1rem; height: 1rem; }
   .sample-card:hover .sample-badge { transform: rotate(45deg) scale(1.08); }
   .sample-spark { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
-  .sample-spark .spark { width: 4.5rem; height: 4.5rem; color: rgba(255,255,255,.9); }
+  .sample-spark .spark { width: 7rem; height: 7rem; color: rgba(255,255,255,.07); }
   .sample-poem { position: relative; font-family: "Fraunces", serif; font-style: italic; font-size: .98rem; line-height: 1.75; color: rgba(255,255,255,.75); max-width: 30rem; }
   .sample-bottom h3 { font-family: "Fraunces", serif; font-size: 1.5rem; font-weight: 500; letter-spacing: -.01em; }
   @media (min-width:640px) { .sample-bottom h3 { font-size: 1.875rem; } }
@@ -314,8 +315,9 @@
   .foot-tag { margin-top: .75rem; max-width: 20rem; font-size: .875rem; color: rgba(255,255,255,.55); }
   .foot-col h4 { font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .025em; color: rgba(255,255,255,.4); margin-bottom: 1rem; }
   .foot-col ul { display: flex; flex-direction: column; gap: .625rem; align-items: flex-start; }
-  .foot-col a, .foot-col button { font-size: .875rem; color: rgba(255,255,255,.65); opacity: .75; transition: opacity .3s, transform .3s cubic-bezier(.2,.8,.2,1), color .3s; display: inline-block; }
+  .foot-col a, .foot-col button { font-size: .875rem; color: rgba(255,255,255,.65); opacity: .75; transition: opacity .3s, transform .3s cubic-bezier(.2,.8,.2,1), color .3s; display: inline-block; padding: .375rem 0; }
   .foot-col a:hover, .foot-col button:hover { opacity: 1; transform: translateX(4px); color: #fff; }
+  .foot-legal a { padding: .5rem 0; display: inline-block; }
   .foot-legal { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: 2rem; font-size: .75rem; color: rgba(255,255,255,.45); }
   @media (min-width:640px) { .foot-legal { flex-direction: row; } }
   .foot-legal .links { display: flex; gap: 1.5rem; }
@@ -684,8 +686,7 @@
 <section class="niv-hero" id="home">
   <div class="liquid" aria-hidden="true">
     <canvas id="fieldCv"></canvas>
-    <img id="liquidBase" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=1600&auto=format&fit=crop" alt="" loading="eager">
-    <canvas id="liquidCv"></canvas>
+    <canvas id="trailCv"></canvas>
   </div>
   <div class="hero-vignette" aria-hidden="true"></div>
   <div class="hero-wm" data-ready aria-hidden="true">ACROSTIA</div>
@@ -2907,113 +2908,81 @@ $("linkBtn").addEventListener("click", () => {
     })();
   })();
 
-  /* ---------- liquid photo strokes: the cursor paints the hero photo, strokes fade ---------- */
-  (function initLiquid() {
-    var cv = qs("#liquidCv");
-    var img = qs("#liquidBase");
-    if (!cv || !img || reduced) return;
+  /* ---------- gold sparkle trail: crisp cursor sparkles over the hero ---------- */
+  (function initSparkles() {
+    var cv = qs("#trailCv");
+    if (!cv || reduced) return;
     var ctx = cv.getContext("2d");
-    var FALLBACK = "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=1600&auto=format&fit=crop";
-    var brushRadius = 143;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var photoCv = document.createElement("canvas");
-    var scratch = document.createElement("canvas");
-    var ready = false, hasInked = false;
-    var pts = [], last = null;
-    function useFallback() {
-      if (img.dataset.fb) return;
-      img.dataset.fb = "1";
-      img.addEventListener("load", buildPhoto);
-      img.src = FALLBACK;
-    }
-    img.addEventListener("error", function () {
-      if (img.dataset.fb) { cv.style.display = "none"; return; }
-      useFallback();
-    });
-    function computeCover(iw, ih, w, h) {
-      var s = Math.max(w / iw, h / ih);
-      return { w: iw * s, h: ih * s, ox: (w - iw * s) / 2, oy: (h - ih * s) / 2 };
-    }
-    function buildPhoto() {
-      if (!img.complete || !img.naturalWidth) return;
-      var w = cv.width, h = cv.height;
-      if (!w || !h) return;
-      photoCv.width = w; photoCv.height = h;
-      var pctx = photoCv.getContext("2d");
-      var c = computeCover(img.naturalWidth, img.naturalHeight, w, h);
-      pctx.drawImage(img, c.ox, c.oy, c.w, c.h);
-      scratch.width = w; scratch.height = h;
-      ready = true;
-    }
+    var sparkles = [];
+    var COLORS = ["#E9A860", "#D99058", "#B4763C", "#EFC48C"];
+    var last = 0, visible = true;
     function resize() {
       var r = cv.getBoundingClientRect();
       if (!r.width || !r.height) return;
       cv.width = Math.round(r.width * dpr);
       cv.height = Math.round(r.height * dpr);
-      ready = false; hasInked = false;
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      buildPhoto();
     }
-    function brush(x, y) {
-      if (!ready) return;
-      var sctx = scratch.getContext("2d");
-      sctx.globalCompositeOperation = "source-over";
-      sctx.clearRect(0, 0, scratch.width, scratch.height);
-      var g = sctx.createRadialGradient(x, y, 0, x, y, brushRadius);
-      g.addColorStop(0, "rgba(255,255,255,1)");
-      g.addColorStop(0.72, "rgba(255,255,255,1)");
-      g.addColorStop(1, "rgba(255,255,255,0)");
-      sctx.fillStyle = g;
-      sctx.beginPath();
-      sctx.arc(x, y, brushRadius, 0, Math.PI * 2);
-      sctx.fill();
-      sctx.globalCompositeOperation = "source-in";
-      sctx.drawImage(photoCv, 0, 0);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.drawImage(scratch, 0, 0);
-      hasInked = true;
-    }
-    function toCv(e) {
-      var r = cv.getBoundingClientRect();
-      return { x: (e.clientX - r.left) * dpr, y: (e.clientY - r.top) * dpr };
-    }
-    function addPoint(p) {
-      if (last) {
-        var dx = p.x - last.x, dy = p.y - last.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        var maxStep = Math.max(brushRadius * 0.3, 1);
-        var nSteps = Math.min(Math.ceil(dist / maxStep), 60);
-        for (var s = 1; s <= nSteps; s++) {
-          pts.push({ x: last.x + dx * s / nSteps, y: last.y + dy * s / nSteps });
-        }
-      } else {
-        pts.push(p);
-      }
-      last = p;
-    }
-    window.addEventListener("pointermove", function (e) {
-      var p = toCv(e);
-      addPoint(p);
-    }, { passive: true });
-    var ro = new ResizeObserver(function () { resize(); });
+    var ro = new ResizeObserver(resize);
     ro.observe(cv);
-    img.addEventListener("load", function () { resize(); });
-    var visible = true;
+    resize();
     if (window.IntersectionObserver) {
       new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { threshold: 0 }).observe(cv);
+    }
+    function addSparkle(x, y, big) {
+      var s = (big ? 7 : 4) + Math.random() * 6;
+      sparkles.push({
+        x: x + (Math.random() - 0.5) * 14,
+        y: y + (Math.random() - 0.5) * 14,
+        s: s,
+        rot: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.02,
+        vy: -(0.15 + Math.random() * 0.3),
+        life: 0,
+        ttl: 60 + Math.random() * 40,
+        color: COLORS[(Math.random() * COLORS.length) | 0]
+      });
+      if (sparkles.length > 90) sparkles.splice(0, sparkles.length - 90);
+    }
+    window.addEventListener("pointermove", function (e) {
+      var r = cv.getBoundingClientRect();
+      if (e.clientY < r.top || e.clientY > r.bottom) return;
+      var now = performance.now();
+      if (now - last < 28) return;
+      last = now;
+      addSparkle((e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr, Math.random() < 0.3);
+    }, { passive: true });
+    function drawStar(c, s) {
+      c.beginPath();
+      for (var i = 0; i < 8; i++) {
+        var r = (i % 2 === 0) ? s : s * 0.28;
+        var ang = i * Math.PI / 4;
+        var px = Math.cos(ang) * r, py = Math.sin(ang) * r;
+        if (i === 0) c.moveTo(px, py); else c.lineTo(px, py);
+      }
+      c.closePath();
+      c.fill();
     }
     (function loop() {
       requestAnimationFrame(loop);
       if (!visible) return;
-      if (pts.length) {
-        var framePts = pts.splice(0, 14);
-        framePts.forEach(function (p) { brush(p.x, p.y); });
-      }
-      // strokes slowly dissolve back into the gradient field
-      if (hasInked) {
-        ctx.globalCompositeOperation = "destination-out";
-        ctx.fillStyle = "rgba(0,0,0,0.004)";
-        ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      for (var i = sparkles.length - 1; i >= 0; i--) {
+        var p = sparkles[i];
+        p.life++;
+        if (p.life > p.ttl) { sparkles.splice(i, 1); continue; }
+        p.y += p.vy * dpr;
+        p.rot += p.vr;
+        var t = p.life / p.ttl;
+        var scale = t < 0.25 ? t / 0.25 : 1 - (t - 0.25) / 0.75;
+        var alpha = t < 0.2 ? t / 0.2 : 1 - (t - 0.2) / 0.8;
+        ctx.save();
+        ctx.globalAlpha = Math.max(alpha, 0);
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        drawStar(ctx, p.s * scale * dpr);
+        ctx.restore();
       }
     })();
   })();
