@@ -43,28 +43,6 @@
     position: relative;
   }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-  .top-strip {
-    height: 6px;
-    background: linear-gradient(90deg, #FF9AA2 0%, #FFD9A8 18%, #FFF3A0 36%, #B8E6B8 54%, #A8D8F0 72%, #C9B8F0 86%, #F5B8D8 100%);
-    position: relative; z-index: 2;
-  }
-  .confetti-field {
-    position: absolute; top: 6px; left: 0; right: 0; height: 540px;
-    overflow: hidden; pointer-events: none; z-index: 0;
-  }
-  .confetti-field i {
-    position: absolute; top: -16px; display: block;
-    animation: confetti-fall linear infinite;
-  }
-  @keyframes confetti-fall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-    8% { opacity: .85; }
-    85% { opacity: .85; }
-    100% { transform: translateY(580px) rotate(560deg); opacity: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .confetti-field i { animation: none; display: none; }
-  }
   footer.site-footer {
     border-top: 1px solid var(--line);
     margin-top: 8px; padding: 26px 0 40px;
@@ -118,9 +96,11 @@
   .menu-btn svg { width: .875rem; height: .875rem; }
   @media (max-width:640px) { .menu-btn .mb-lbl { display: none; } }
 
-  .niv-hero { position: relative; isolation: isolate; overflow: hidden; border-radius: 0 0 2rem 2rem; background: #c9c9c9; }
+  .niv-hero { position: relative; isolation: isolate; overflow: hidden; border-radius: 0 0 2rem 2rem; background: linear-gradient(160deg, #f4f2ed, #eae3d6); }
   .liquid { position: absolute; inset: 0; z-index: 0; }
-  .liquid img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .liquid img { display: none; }
+  .liquid canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #liquidCv { pointer-events: none; }
   .liquid canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .hero-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,.35), transparent, rgba(255,255,255,.35)); }
   .hero-wm { pointer-events: none; position: absolute; inset-inline: 0; bottom: 7rem; z-index: 1; text-align: center; user-select: none; font-weight: 700; line-height: 1; font-size: 13rem; color: rgba(255,255,255,.4); opacity: 0; transform: translateY(20px); transition: opacity 1.1s cubic-bezier(.16,1,.3,1) .3s, transform 1.1s cubic-bezier(.16,1,.3,1) .3s; }
@@ -260,6 +240,30 @@
   .how-badge svg { width: 1rem; height: 1rem; }
   @media (min-width:640px) { .how-badge { width: 3rem; height: 3rem; } }
   .how-row:hover .how-badge { transform: translateX(5px); }
+
+  .about-cols { max-width: 60rem; margin: 2.5rem auto 0; padding: 0 1.25rem; display: grid; grid-template-columns: 1fr; gap: 1.25rem 3rem; }
+  @media (min-width:768px) { .about-cols { grid-template-columns: 1fr 1fr; padding-inline: 2rem; } }
+  .about-cols p { font-size: .95rem; line-height: 1.7; color: rgba(17,17,17,.65); opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .about-cols p.in { opacity: 1; transform: none; }
+  .value-tiles { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 88rem; margin: 3rem auto 0; padding: 0 1.25rem 5rem; }
+  @media (min-width:768px) { .value-tiles { grid-template-columns: repeat(3,1fr); padding-inline: 2rem; } }
+  .value-tile { border: 1px solid #e6e5e2; border-radius: 1.5rem; background: rgba(241,240,238,.5); padding: 1.75rem; opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1), background .3s; }
+  .value-tile.in { opacity: 1; transform: none; }
+  .value-tile.in:hover { background: #fff; }
+  .value-tile strong { display: block; font-family: "Fraunces", serif; font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; }
+  .value-tile span { display: block; margin-top: .5rem; font-size: .875rem; color: rgba(17,17,17,.55); }
+
+  .faq-list { max-width: 56rem; margin: 2.5rem auto 0; padding: 0 1.25rem 5rem; }
+  @media (min-width:640px) { .faq-list { padding-inline: 2rem; } }
+  .faq-list details { border-top: 1px solid #e6e5e2; padding: 1.25rem .5rem; opacity: 0; transform: translateY(16px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+  .faq-list details.in { opacity: 1; transform: none; }
+  .faq-list details:last-child { border-bottom: 1px solid #e6e5e2; }
+  .faq-list summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: "Fraunces", serif; font-size: 1.125rem; font-weight: 500; letter-spacing: -.01em; }
+  @media (min-width:640px) { .faq-list summary { font-size: 1.375rem; } }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after { content: "+"; flex: none; width: 1.75rem; height: 1.75rem; display: grid; place-items: center; border-radius: 9999px; background: #f1f0ee; font-family: "Onest", sans-serif; font-size: 1rem; font-weight: 500; color: rgba(17,17,17,.6); transition: transform .3s, background .3s; }
+  .faq-list details[open] summary::after { transform: rotate(45deg); background: #0a0a0a; color: #fff; }
+  .faq-list details p { margin: .875rem 0 0; max-width: 52ch; font-size: .925rem; line-height: 1.65; color: rgba(17,17,17,.6); }
 
   .stats-sec { background: #fff; padding: 0 1.25rem 5rem; }
   @media (min-width:640px) { .stats-sec { padding-inline: 2rem; } }
@@ -598,9 +602,9 @@
   /* ---------- print ---------- */
   @media print {
     @page { margin: 12mm; }
-    #loader, .niv-header, .niv-hero, .band-sec, #samples, #how, .stats-sec,
-    .niv-footer, .nav-overlay, .req-backdrop, .panel, .card-buttons, .card-note,
-    .studio-head, .top-strip, .confetti-field, .skip { display: none !important; }
+    #loader, .niv-header, .niv-hero, .band-sec, #samples, #how, #about, #faq,
+    .stats-sec, .niv-footer, .nav-overlay, .req-backdrop, .panel, .card-buttons,
+    .card-note, .studio-head, .skip { display: none !important; }
     .studio { display: block; padding: 0; }
     .stage { position: static; }
     .card-backdrop { padding: 0; background: none; border-radius: 0; }
@@ -617,9 +621,8 @@
 </style>
 </head>
 <body>
-<div class="top-strip" aria-hidden="true"></div>
-<div class="confetti-field" id="confettiField" aria-hidden="true"></div>
 <a class="skip" href="#studio">Skip to the poem studio</a>
+
 
 <div id="loader" role="status" aria-label="Loading">
   <div class="ld-brand">
@@ -633,10 +636,7 @@
   </div>
 </div>
 
-<div class="top-strip" aria-hidden="true"></div>
-<div class="confetti-field" id="confettiField" aria-hidden="true"></div>
-
-<header class="niv-header" id="nivHeader">
+<header class="niv-header" id="nivHeader" data-ready>
   <div class="nav-row niv-shell">
     <button type="button" class="brand-btn" id="brandBtn" data-scroll="#home">
       <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg>
@@ -646,6 +646,7 @@
       <button type="button" data-scroll="#studio">Studio</button>
       <button type="button" data-scroll="#samples">Samples</button>
       <button type="button" data-scroll="#how">How it works</button>
+      <button type="button" data-scroll="#faq">FAQ</button>
       <a href="words/">Word lists</a>
       <a href="backgrounds/">Backgrounds</a>
     </nav>
@@ -668,6 +669,7 @@
 
 <section class="niv-hero" id="home">
   <div class="liquid" aria-hidden="true">
+    <canvas id="fieldCv"></canvas>
     <img id="liquidBase" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop" alt="" loading="eager">
     <canvas id="liquidCv"></canvas>
   </div>
@@ -941,6 +943,63 @@
   </div>
 </section>
 
+<section class="sec" id="about">
+  <div class="sec-head">
+    <p class="eyebrow">About</p>
+    <h2 class="h2 rise jc" data-rise>Made for the joy of giving</h2>
+  </div>
+  <div class="about-cols">
+    <p data-reveal data-delay="0">Name in Verse began with a simple observation: the nicest gifts are usually the ones that take ten minutes and cost nothing. A poem with someone's name running down the page, written for their exact moment, beats another gift card every time.</p>
+    <p data-reveal data-delay="120">So the whole studio runs right here in your browser. Nothing you type is sent anywhere or stored. Pick a name, pick from 51 occasions across world holidays and everyday moments, tap any line you want rewritten, and walk away with a card you can print, download or share on WhatsApp. It is free, and it stays free.</p>
+  </div>
+  <div class="value-tiles">
+    <div class="value-tile" data-reveal data-delay="0">
+      <strong>Free forever</strong>
+      <span>No sign up, no ads, no paywalled cards.</span>
+    </div>
+    <div class="value-tile" data-reveal data-delay="120">
+      <strong>Private by design</strong>
+      <span>Names never leave your device. There is nothing to leak.</span>
+    </div>
+    <div class="value-tile" data-reveal data-delay="240">
+      <strong>Worldwide occasions</strong>
+      <span>From Diwali to Thanksgiving, Eid to graduation.</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="sec-head">
+    <h2 class="h2 rise jc" data-rise>Questions, answered</h2>
+  </div>
+  <div class="faq-list">
+    <details data-reveal data-delay="0">
+      <summary>Is it really free?</summary>
+      <p>Yes. Every poem, every background, every download. There is no account, no trial and no card hidden behind a paywall.</p>
+    </details>
+    <details data-reveal data-delay="60">
+      <summary>Do you store the names I type?</summary>
+      <p>No. The poem is written by your own browser, on your own device. Nothing is uploaded, so there is nothing stored.</p>
+    </details>
+    <details data-reveal data-delay="120">
+      <summary>Can I print the cards at home?</summary>
+      <p>Yes. Use the Print button for a clean greeting-card print, or download the picture and send it to any photo printer.</p>
+    </details>
+    <details data-reveal data-delay="180">
+      <summary>Which occasions are covered?</summary>
+      <p>51 of them, from birthdays, weddings and new jobs to Diwali, Eid, Christmas, Hanukkah, Lunar New Year, Holi, Rakhi and Thanksgiving.</p>
+    </details>
+    <details data-reveal data-delay="240">
+      <summary>Can I make a poem for a couple?</summary>
+      <p>Yes. Weddings, engagements, anniversaries, Valentine's and couple categories take two names and weave both into the acrostic.</p>
+    </details>
+    <details data-reveal data-delay="300">
+      <summary>Can I use the poems for my business?</summary>
+      <p>The poems and cards are yours to share, gift and print freely. All we ask is that the little "made with Name in Verse" line stays on.</p>
+    </details>
+  </div>
+</section>
+
 <section class="stats-sec">
   <div class="stats-panel" data-reveal>
     <p class="eyebrow light">By the numbers</p>
@@ -1001,7 +1060,7 @@
     </div>
     <div class="foot-legal">
       <span>© 2026 Name in Verse. Made with love.</span>
-      <span class="links"><a href="words/">Word lists</a> <a href="backgrounds/">Backgrounds</a></span>
+      <span class="links"><a href="words/">Word lists</a> <a href="backgrounds/">Backgrounds</a> <a href="privacy/">Privacy</a> <a href="terms/">Terms</a></span>
     </div>
   </div>
   <div class="foot-wm" aria-hidden="true">VERSE</div>
@@ -1024,6 +1083,7 @@
       <li><button type="button" data-scroll="#studio"><span class="idx">02</span><span class="lbl">Studio</span></button></li>
       <li><button type="button" data-scroll="#samples"><span class="idx">03</span><span class="lbl">Samples</span></button></li>
       <li><button type="button" data-scroll="#how"><span class="idx">04</span><span class="lbl">How it works</span></button></li>
+      <li><button type="button" data-scroll="#faq"><span class="idx">05</span><span class="lbl">FAQ</span></button></li>
     </ul>
   </div>
   <div class="nav-bot">
@@ -1052,8 +1112,8 @@
     </form>
     <div class="req-ok" id="reqOk">
       <span class="badge"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg></span>
-      <strong>Message received.</strong>
-      <p>Thank you for writing in. A reply is on its way.</p>
+      <strong>Your mail app is opening.</strong>
+      <p>The message is addressed and ready to send. If the app did not open, the message is copied to your clipboard, so just paste it into an email.</p>
     </div>
   </div>
 </div>
@@ -2180,23 +2240,6 @@ $("bgResetBtn").addEventListener("click", () => {
   renderGroup(GROUPS[0][0]);
 })();
 
-(function confetti() {
-  const field = $("confettiField");
-  const colors = ["#FF9AA2","#FFD9A8","#FFF3A0","#B8E6B8","#A8D8F0","#C9B8F0","#F5B8D8"];
-  for (let i = 0; i < 18; i++) {
-    const p = document.createElement("i");
-    const s = 6 + Math.random() * 5;
-    p.style.left = (Math.random() * 100) + "%";
-    p.style.width = s + "px";
-    p.style.height = (s * (Math.random() < 0.5 ? 1 : 1.7)) + "px";
-    p.style.background = colors[i % colors.length];
-    p.style.borderRadius = Math.random() < 0.4 ? "50%" : "2px";
-    p.style.animationDuration = (9 + Math.random() * 8) + "s";
-    p.style.animationDelay = (-Math.random() * 16) + "s";
-    field.appendChild(p);
-  }
-})();
-
 /* ---------------- style toggle ---------------- */
 
 $("styleAcrostic").addEventListener("click", () => setStyle("acrostic"));
@@ -2222,7 +2265,11 @@ function setVerse(v) {
 /* ---------------- buttons ---------------- */
 
 $("writeBtn").addEventListener("click", writePoem);
-$("againBtn").addEventListener("click", () => { if (state.poem) writePoem(); });
+$("againBtn").addEventListener("click", () => {
+  if (!state.poem) return;
+  if (state.style === "rhyme") state.lastVerse = state.lastVerse === 0 ? 1 : 0;
+  writePoem();
+});
 $("nameInput").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
 $("name2Input").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
 $("printBtn").addEventListener("click", () => window.print());
@@ -2477,8 +2524,14 @@ $("waBtn").addEventListener("click", () => {
 
 $("linkBtn").addEventListener("click", () => {
   syncUrl();
-  navigator.clipboard.writeText(location.origin + location.pathname + location.search).then(() => {
+  const write = navigator.clipboard && navigator.clipboard.writeText
+    ? navigator.clipboard.writeText(location.origin + location.pathname + location.search)
+    : Promise.reject();
+  write.then(() => {
     $("linkBtn").textContent = "Link copied!";
+    setTimeout(() => ($("linkBtn").textContent = "Copy link"), 1600);
+  }).catch(() => {
+    $("linkBtn").textContent = "Press Ctrl+C";
     setTimeout(() => ($("linkBtn").textContent = "Copy link"), 1600);
   });
 });
@@ -2746,60 +2799,140 @@ $("linkBtn").addEventListener("click", () => {
     setInterval(function () { swap(1); }, 5000);
   })();
 
-  /* ---------- liquid cursor reveal on the hero photo ---------- */
+  /* ---------- animated gradient field behind the hero (vanilla WebGL) ---------- */
+  (function initField() {
+    var cv = qs("#fieldCv");
+    if (!cv || reduced) return;
+    var gl = cv.getContext("webgl", { antialias: false, alpha: false }) ||
+             cv.getContext("experimental-webgl", { antialias: false, alpha: false });
+    if (!gl) return; // CSS gradient on .niv-hero stays visible
+    var VS = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+    var FS = [
+      "precision mediump float;",
+      "uniform vec2 uRes;uniform float uT;",
+      "float blob(vec2 uv,vec2 c,float r){return smoothstep(r,0.0,length(uv-c));}",
+      "void main(){",
+      "  vec2 uv=gl_FragCoord.xy/uRes.xy;",
+      "  vec2 p=uv;p.x*=uRes.x/uRes.y;",
+      "  float t=uT*0.05;",
+      "  vec3 col=vec3(0.957,0.949,0.933);",
+      "  col=mix(col,vec3(0.910,0.851,0.784),blob(p,vec2(0.22+0.16*sin(t*0.9),0.78+0.10*cos(t*0.7)),0.60)*0.85);",
+      "  col=mix(col,vec3(0.953,0.851,0.769),blob(p,vec2(0.88+0.14*cos(t*0.6),0.22+0.18*sin(t*0.8)),0.55)*0.75);",
+      "  col=mix(col,vec3(0.878,0.847,0.922),blob(p,vec2(0.55+0.18*sin(t*0.5+2.0),0.95+0.08*cos(t*0.65+1.0)),0.50)*0.60);",
+      "  col=mix(col,vec3(0.933,0.898,0.824),blob(p,vec2(0.70+0.20*sin(t*0.75+4.0),0.55+0.25*cos(t*0.55+3.0)),0.45)*0.50);",
+      "  gl_FragColor=vec4(col,1.0);",
+      "}"
+    ].join("\n");
+    function sh(type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) return null;
+      return s;
+    }
+    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if (!vs || !fs) return;
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    gl.useProgram(prog);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, "p");
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uRes = gl.getUniformLocation(prog, "uRes");
+    var uT = gl.getUniformLocation(prog, "uT");
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    function resize() {
+      var r = cv.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      cv.width = Math.round(r.width * dpr);
+      cv.height = Math.round(r.height * dpr);
+      gl.viewport(0, 0, cv.width, cv.height);
+      gl.uniform2f(uRes, cv.width, cv.height);
+    }
+    var ro = new ResizeObserver(resize);
+    ro.observe(cv);
+    resize();
+    var inView = true, tabOn = true, t0 = performance.now();
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (en) { inView = en[0].isIntersecting; }, { threshold: 0 })
+        .observe(cv);
+    }
+    document.addEventListener("visibilitychange", function () { tabOn = !document.hidden; });
+    (function frame() {
+      requestAnimationFrame(frame);
+      if (!inView || !tabOn || document.hidden) return;
+      gl.uniform1f(uT, (performance.now() - t0) / 1000);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    })();
+  })();
+
+  /* ---------- liquid photo strokes: the cursor paints the hero photo, strokes fade ---------- */
   (function initLiquid() {
     var cv = qs("#liquidCv");
-    if (!cv) return;
-    var ctx = cv.getContext("2d");
     var img = qs("#liquidBase");
+    if (!cv || !img || reduced) return;
+    var ctx = cv.getContext("2d");
     var FALLBACK = "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=1600&auto=format&fit=crop";
-    function sourceOk() { return img && img.complete && img.naturalWidth > 0; }
+    var brushRadius = 143;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var photoCv = document.createElement("canvas");
+    var scratch = document.createElement("canvas");
+    var ready = false, hasInked = false;
+    var pts = [], last = null;
     function useFallback() {
-      if (!img || img.dataset.fb) { return; }
+      if (img.dataset.fb) return;
       img.dataset.fb = "1";
-      img.onerror = function () { cv.style.display = "none"; };
+      img.addEventListener("load", buildPhoto);
       img.src = FALLBACK;
     }
-    if (img && !sourceOk()) {
-      img.onerror = function () { useFallback(); };
-    }
-    var brushRadius = 143, decay = 0.016;
-    var cover = { x: 0, y: 0, w: 0, h: 0, ox: 0, oy: 0 };
-    var pts = [], last = null, hasInked = false, idle = 0, lastMove = 0;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    function computeCover() {
-      var w = cv.width, h = cv.height;
-      var iw = img.naturalWidth, ih = img.naturalHeight;
+    img.addEventListener("error", function () {
+      if (img.dataset.fb) { cv.style.display = "none"; return; }
+      useFallback();
+    });
+    function computeCover(iw, ih, w, h) {
       var s = Math.max(w / iw, h / ih);
-      cover.w = iw * s; cover.h = ih * s;
-      cover.ox = (w - cover.w) / 2; cover.oy = (h - cover.h) / 2;
+      return { w: iw * s, h: ih * s, ox: (w - iw * s) / 2, oy: (h - ih * s) / 2 };
     }
-    function paintBase() {
-      ctx.globalCompositeOperation = "source-over";
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      ctx.globalAlpha = 1;
-      ctx.drawImage(img, cover.ox, cover.oy, cover.w, cover.h);
-      ctx.globalCompositeOperation = "source-in";
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, 0, cv.width, cv.height);
+    function buildPhoto() {
+      if (!img.complete || !img.naturalWidth) return;
+      var w = cv.width, h = cv.height;
+      if (!w || !h) return;
+      photoCv.width = w; photoCv.height = h;
+      var pctx = photoCv.getContext("2d");
+      var c = computeCover(img.naturalWidth, img.naturalHeight, w, h);
+      pctx.drawImage(img, c.ox, c.oy, c.w, c.h);
+      scratch.width = w; scratch.height = h;
+      ready = true;
     }
     function resize() {
       var r = cv.getBoundingClientRect();
       if (!r.width || !r.height) return;
       cv.width = Math.round(r.width * dpr);
       cv.height = Math.round(r.height * dpr);
-      if (sourceOk()) { computeCover(); paintBase(); hasInked = false; }
+      ready = false; hasInked = false;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      buildPhoto();
     }
     function brush(x, y) {
-      var g = ctx.createRadialGradient(x, y, 0, x, y, brushRadius);
-      g.addColorStop(0, "rgba(0,0,0,1)");
-      g.addColorStop(0.55, "rgba(0,0,0,.82)");
-      g.addColorStop(1, "rgba(0,0,0,0)");
+      if (!ready) return;
+      var sctx = scratch.getContext("2d");
+      sctx.globalCompositeOperation = "source-over";
+      sctx.clearRect(0, 0, scratch.width, scratch.height);
+      var g = sctx.createRadialGradient(x, y, 0, x, y, brushRadius);
+      g.addColorStop(0, "rgba(255,255,255,1)");
+      g.addColorStop(0.55, "rgba(255,255,255,.82)");
+      g.addColorStop(1, "rgba(255,255,255,0)");
+      sctx.fillStyle = g;
+      sctx.beginPath();
+      sctx.arc(x, y, brushRadius, 0, Math.PI * 2);
+      sctx.fill();
+      sctx.globalCompositeOperation = "source-in";
+      sctx.drawImage(photoCv, 0, 0);
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(x, y, brushRadius, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.drawImage(scratch, 0, 0);
       hasInked = true;
     }
     function toCv(e) {
@@ -2820,35 +2953,31 @@ $("linkBtn").addEventListener("click", () => {
       }
       last = p;
     }
-    if (!reduced) {
-      window.addEventListener("pointermove", function (e) {
-        if (!sourceOk()) { if (img && img.dataset.fb && img.complete && img.naturalWidth > 0) { computeCover(); paintBase(); } else return; }
-        var p = toCv(e);
-        addPoint(p);
-        lastMove = performance.now();
-        idle = 0;
-      }, { passive: true });
-      var ro = new ResizeObserver(function () { resize(); });
-      ro.observe(cv);
-      img.addEventListener("load", function () { computeCover(); resize(); });
-      (function loop() {
-        requestAnimationFrame(loop);
-        var now = performance.now();
-        if (!sourceOk()) return;
-        if (!hasInked && cv.width) { computeCover(); paintBase(); }
-        // consume queued points (capped per frame so fast moves stay smooth)
-        if (pts.length) {
-          var frame = pts.splice(0, 14);
-          frame.forEach(function (p) { brush(p.x, p.y); });
-          pts.length = 0;
-        }
-        // idle: if the cursor stops for 2 seconds, restore the veil
-        if (now - lastMove > 2000 && hasInked) {
-          paintBase();
-          hasInked = false;
-        }
-      })();
+    window.addEventListener("pointermove", function (e) {
+      var p = toCv(e);
+      addPoint(p);
+    }, { passive: true });
+    var ro = new ResizeObserver(function () { resize(); });
+    ro.observe(cv);
+    img.addEventListener("load", function () { resize(); });
+    var visible = true;
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { threshold: 0 }).observe(cv);
     }
+    (function loop() {
+      requestAnimationFrame(loop);
+      if (!visible) return;
+      if (pts.length) {
+        var framePts = pts.splice(0, 14);
+        framePts.forEach(function (p) { brush(p.x, p.y); });
+      }
+      // strokes slowly dissolve back into the gradient field
+      if (hasInked) {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fillStyle = "rgba(0,0,0,0.006)";
+        ctx.fillRect(0, 0, cv.width, cv.height);
+      }
+    })();
   })();
 
   /* ---------- stats count-up ---------- */
@@ -2888,19 +3017,35 @@ $("linkBtn").addEventListener("click", () => {
 
   /* ---------- nav overlay ---------- */
   var overlay = qs("#navOverlay");
+  var lastFocus = null;
+  function trapTab(e, root) {
+    var f = qsa("button, a[href], input, textarea", root);
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
   function openNav() {
     if (!overlay) return;
+    lastFocus = document.activeElement;
     overlay.classList.add("open");
     stopScroll();
+    var mb = qs("#menuBtn");
+    if (mb) mb.setAttribute("aria-expanded", "true");
     qsa(".nav-mid button", overlay).forEach(function (b, i) {
       b.style.transitionDelay = (80 + i * 45) + "ms";
     });
+    var firstBtn = qs(".nav-mid button", overlay);
+    if (firstBtn) setTimeout(function () { firstBtn.focus(); }, 100);
   }
   function closeNav() {
     if (!overlay || !overlay.classList.contains("open")) return;
     overlay.classList.remove("open");
     qsa(".nav-mid button", overlay).forEach(function (b) { b.style.transitionDelay = "0ms"; });
+    var mb = qs("#menuBtn");
+    if (mb) mb.setAttribute("aria-expanded", "false");
     startScroll();
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); lastFocus = null; }
   }
   var menuBtn = qs("#menuBtn");
   if (menuBtn) menuBtn.addEventListener("click", openNav);
@@ -2912,13 +3057,17 @@ $("linkBtn").addEventListener("click", () => {
   function openModal() {
     if (!backdrop) return;
     closeNav();
+    lastFocus = document.activeElement;
     backdrop.classList.add("open");
     stopScroll();
+    var firstInput = qs("#reqForm input", backdrop);
+    if (firstInput) setTimeout(function () { firstInput.focus(); }, 100);
   }
   function closeModal() {
     if (!backdrop || !backdrop.classList.contains("open")) return;
     backdrop.classList.remove("open");
     startScroll();
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); lastFocus = null; }
     setTimeout(function () {
       var form = qs("#reqForm"), ok = qs("#reqOk");
       if (form && ok) { form.classList.remove("hidden"); ok.classList.remove("show"); form.reset(); }
@@ -2933,21 +3082,29 @@ $("linkBtn").addEventListener("click", () => {
     if (e.target === backdrop) closeModal();
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key !== "Escape") return;
-    closeNav();
-    closeModal();
+    if (e.key === "Escape") { closeNav(); closeModal(); return; }
+    if (e.key === "Tab") {
+      if (overlay && overlay.classList.contains("open")) trapTab(e, overlay);
+      else if (backdrop && backdrop.classList.contains("open")) trapTab(e, backdrop);
+    }
   });
   var reqForm = qs("#reqForm");
+  // Set this to the email address where you want to receive messages.
+  var CONTACT_EMAIL = "hello@nameinverse.com";
   if (reqForm) reqForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    var send = qs("#reqSend");
-    if (send) { send.querySelector(".pill-inner").textContent = "Sending…"; }
-    setTimeout(function () {
-      reqForm.classList.add("hidden");
-      var ok = qs("#reqOk");
-      if (ok) ok.classList.add("show");
-      if (send) { setTimeout(function () { send.querySelector(".pill-inner").textContent = "Send"; }, 400); }
-    }, 700);
+    var name = reqForm.rname.value.trim();
+    var email = reqForm.remail.value.trim();
+    var msg = reqForm.rmsg.value.trim();
+    var subject = "Hello from Name in Verse";
+    var body = "Name: " + name + "\nEmail: " + email + "\n\n" + msg;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(body).then(function () {}, function () {});
+    }
+    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    reqForm.classList.add("hidden");
+    var ok = qs("#reqOk");
+    if (ok) ok.classList.add("show");
   });
 })();
 </script>
