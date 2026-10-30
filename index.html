@@ -6,6 +6,11 @@
 <title>Acrostia: personalized name poems for every occasion</title>
 <meta name="description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more.">
 <meta name="theme-color" content="#FFD9E8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FFD9E8%22/><text y=%22.9em%22 x=%2250%25%22 text-anchor=%22middle%22 font-size=%2262%22>🎂</text></svg>">
 <meta property="og:title" content="Acrostia">
 <meta property="og:description" content="Every name hides a poem. Turn any name into a personalized poem card for 51 occasions, free and instant.">
@@ -191,6 +196,12 @@
 
   .studio-sec { background: #fff; padding-top: 4rem; }
   .studio-head { max-width: 1120px; margin: 0 auto; padding: 0 24px 2rem; display: flex; flex-direction: column; gap: .875rem; align-items: flex-start; }
+  .share-banner { max-width: 1120px; margin: 0 auto 1.5rem; padding: .875rem 1rem; display: none; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; background: #fff; border: 1px solid var(--line); border-radius: 1rem; box-shadow: 0 8px 24px rgba(36,28,53,.08); }
+  .share-banner.show { display: flex; }
+  .share-banner p { margin: 0; font-size: .9375rem; color: var(--ink); }
+  .share-banner .sb-actions { display: flex; align-items: center; gap: .5rem; }
+  .share-banner .sb-close { border: 0; background: transparent; font-size: 1.125rem; line-height: 1; color: rgba(36,28,53,.5); cursor: pointer; padding: .375rem; }
+  .share-banner .sb-close:hover { color: var(--ink); }
 
   .band-sec { background: #fff; }
   .band { display: flex; flex-direction: column; gap: .75rem; padding: 2.5rem 1.25rem; max-width: 88rem; margin-inline: auto; }
@@ -765,6 +776,13 @@
   <div class="studio-head">
     <p class="eyebrow">The studio</p>
     <h2 class="h2 rise" data-rise>Make their poem</h2>
+  </div>
+  <div class="share-banner" id="shareBanner" role="region" aria-label="Make your own poem">
+    <p id="shareBannerText">Someone made a poem with Acrostia. Make one for someone you love.</p>
+    <div class="sb-actions">
+      <button type="button" class="btn btn-primary" id="sbMake">Make your own</button>
+      <button type="button" class="sb-close" id="sbClose" aria-label="Dismiss">×</button>
+    </div>
   </div>
   <div class="wrap">
 
@@ -2510,6 +2528,23 @@ function syncUrl() {
 }
 syncUrl();
 
+/* ---------- share funnel: visitors arriving via a shared poem link ---------- */
+(function shareFunnel() {
+  if (!urlParams.get("n") || !urlParams.get("o")) return;
+  const banner = $("shareBanner");
+  const shareName = cap(urlParams.get("n") || "");
+  $("shareBannerText").textContent = "You're viewing a poem made for " + shareName + ". Make one for someone you love.";
+  banner.classList.add("show");
+  $("sbMake").addEventListener("click", () => {
+    $("nameInput").value = "";
+    $("name2Input").value = "";
+    $("fromInput").value = "";
+    $("nameInput").focus();
+    banner.classList.remove("show");
+  });
+  $("sbClose").addEventListener("click", () => banner.classList.remove("show"));
+})();
+
 $("waBtn").addEventListener("click", () => {
   if (!state.poem) return;
   syncUrl();
@@ -3110,6 +3145,13 @@ $("linkBtn").addEventListener("click", () => {
     if (ok) ok.classList.add("show");
   });
 })();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./sw.js").catch(function () {});
+  });
+}
 </script>
 </body>
 </html>
