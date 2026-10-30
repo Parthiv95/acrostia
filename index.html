@@ -105,7 +105,7 @@
   .liquid canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   #liquidCv { pointer-events: none; }
   .liquid canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-  .hero-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,.35), transparent, rgba(255,255,255,.35)); }
+  .hero-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,.18), transparent 30%, transparent 70%, rgba(255,255,255,.18)); }
   .hero-wm { pointer-events: none; position: absolute; inset-inline: 0; bottom: 7rem; z-index: 1; text-align: center; user-select: none; font-weight: 700; line-height: 1; font-size: clamp(4.5rem, 10vw, 9.5rem); color: rgba(255,255,255,.4); opacity: 0; transform: translateY(20px); transition: opacity 1.1s cubic-bezier(.16,1,.3,1) .3s, transform 1.1s cubic-bezier(.16,1,.3,1) .3s; }
   .hero-wm.in { opacity: .4; transform: none; }
   @media (max-width:640px) { .hero-wm { font-size: 4.5rem; bottom: 5rem; } }
@@ -673,7 +673,7 @@
 <section class="niv-hero" id="home">
   <div class="liquid" aria-hidden="true">
     <canvas id="fieldCv"></canvas>
-    <img id="liquidBase" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop" alt="" loading="eager">
+    <img id="liquidBase" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=1600&auto=format&fit=crop" alt="" loading="eager">
     <canvas id="liquidCv"></canvas>
   </div>
   <div class="hero-vignette" aria-hidden="true"></div>
@@ -2926,7 +2926,7 @@ $("linkBtn").addEventListener("click", () => {
       sctx.clearRect(0, 0, scratch.width, scratch.height);
       var g = sctx.createRadialGradient(x, y, 0, x, y, brushRadius);
       g.addColorStop(0, "rgba(255,255,255,1)");
-      g.addColorStop(0.55, "rgba(255,255,255,.82)");
+      g.addColorStop(0.72, "rgba(255,255,255,1)");
       g.addColorStop(1, "rgba(255,255,255,0)");
       sctx.fillStyle = g;
       sctx.beginPath();
@@ -2977,7 +2977,7 @@ $("linkBtn").addEventListener("click", () => {
       // strokes slowly dissolve back into the gradient field
       if (hasInked) {
         ctx.globalCompositeOperation = "destination-out";
-        ctx.fillStyle = "rgba(0,0,0,0.006)";
+        ctx.fillStyle = "rgba(0,0,0,0.004)";
         ctx.fillRect(0, 0, cv.width, cv.height);
       }
     })();
