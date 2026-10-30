@@ -2395,6 +2395,10 @@ $("copyBtn").addEventListener("click", async () => {
   if (from) text += "\n\nwith love, from " + from;
   try {
     await navigator.clipboard.writeText(text);
+    {
+      var cr = $("copyBtn").getBoundingClientRect();
+      if (window.__goldBurst) window.__goldBurst(cr.left + cr.width / 2, cr.top + cr.height / 2);
+    }
     $("copyBtn").textContent = "Copied!";
     setTimeout(() => ($("copyBtn").textContent = "Copy text"), 1600);
   } catch (err) {
@@ -2576,6 +2580,10 @@ $("pngBtn").addEventListener("click", () => {
     a.download = state.name.toLowerCase().replace(/\s+/g, "-") + "-" + state.occasion + "-poem.png";
     a.href = href || canvas.toDataURL("image/png");
     a.click();
+    if (window.__goldBurst) {
+      var br = $("pngBtn").getBoundingClientRect();
+      window.__goldBurst(br.left + br.width / 2, br.top + br.height / 2);
+    }
   };
 
   const load = (src, isRemote) => {
@@ -2634,6 +2642,10 @@ syncUrl();
 
 $("waBtn").addEventListener("click", () => {
   if (!state.poem) return;
+  {
+    var wr = $("waBtn").getBoundingClientRect();
+    if (window.__goldBurst) window.__goldBurst(wr.left + wr.width / 2, wr.top + wr.height / 2);
+  }
   syncUrl();
   let text = "";
   if (state.poem.type === "acrostic") {
@@ -3254,6 +3266,111 @@ $("linkBtn").addEventListener("click", () => {
       }
       tile.textContent = "";
       tile.appendChild(wrap);
+    });
+  })();
+
+  /* ---------- gold confetti burst (celebration feedback on download and share) ---------- */
+  (function initConfetti() {
+    window.__goldBurst = function (x, y) {
+      if (reduced || document.hidden) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var cv = document.createElement("canvas");
+      cv.width = Math.round(window.innerWidth * dpr);
+      cv.height = Math.round(window.innerHeight * dpr);
+      cv.style.cssText = "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:120";
+      document.body.appendChild(cv);
+      var ctx = cv.getContext("2d");
+      var COLORS = ["#E9A860", "#D99058", "#B4763C", "#EFC48C", "#0A0A0A"];
+      var ps = [];
+      for (var i = 0; i < 90; i++) {
+        var ang = Math.random() * 6.283, sp = (4 + Math.random() * 7) * dpr;
+        ps.push({
+          x: x * dpr, y: y * dpr,
+          vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 6 * dpr,
+          w: (2 + Math.random() * 4) * dpr, h: (4 + Math.random() * 6) * dpr,
+          rot: Math.random() * 6.283, vr: (Math.random() - 0.5) * 0.3,
+          c: COLORS[(Math.random() * COLORS.length) | 0]
+        });
+      }
+      var t0 = performance.now();
+      (function step() {
+        var t = performance.now() - t0;
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        var alive = false;
+        for (var i = 0; i < ps.length; i++) {
+          var q = ps[i];
+          q.vy += 0.35 * dpr; q.x += q.vx; q.y += q.vy; q.vx *= 0.985; q.rot += q.vr;
+          var life = 1 - t / 1100;
+          if (life <= 0) continue;
+          alive = true;
+          ctx.save();
+          ctx.translate(q.x, q.y);
+          ctx.rotate(q.rot);
+          ctx.globalAlpha = Math.min(1, life * 2);
+          ctx.fillStyle = q.c;
+          ctx.fillRect(-q.w / 2, -q.h / 2, q.w, q.h);
+          ctx.restore();
+        }
+        if (alive && t < 1400) requestAnimationFrame(step);
+        else cv.remove();
+      })();
+    };
+  })();
+
+  /* ---------- name input scramble: newly typed letters decode through random glyphs ---------- */
+  (function initScramble() {
+    if (reduced) return;
+    var inp = qs("#nameInput");
+    if (!inp) return;
+    var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var prev = "";
+    var timer = 0, tok = 0;
+    var mirror = document.createElement("div");
+    mirror.style.cssText = "position:absolute;display:none;white-space:pre;overflow:hidden;pointer-events:none;z-index:50";
+    document.body.appendChild(mirror);
+    function syncStyle() {
+      var cs = getComputedStyle(inp);
+      var r = inp.getBoundingClientRect();
+      mirror.style.left = (r.left + window.scrollX) + "px";
+      mirror.style.top = (r.top + window.scrollY) + "px";
+      mirror.style.width = r.width + "px";
+      mirror.style.height = r.height + "px";
+      mirror.style.padding = cs.padding;
+      mirror.style.font = cs.font;
+      mirror.style.letterSpacing = cs.letterSpacing;
+      mirror.style.lineHeight = cs.lineHeight;
+      mirror.style.color = cs.color;
+    }
+    inp.addEventListener("input", function () {
+      var val = inp.value;
+      var pre = 0;
+      while (pre < prev.length && pre < val.length && prev[pre] === val[pre]) pre++;
+      prev = val;
+      clearTimeout(timer);
+      var my = ++tok;
+      if (!val || pre >= val.length || val.length - pre > 4) {
+        inp.style.color = "";
+        mirror.style.display = "none";
+        return;
+      }
+      var tail = val.slice(pre);
+      syncStyle();
+      inp.style.color = "transparent";
+      mirror.style.display = "block";
+      var t0 = performance.now(), DUR = 300;
+      function tick() {
+        if (my !== tok) return;
+        var t = performance.now() - t0;
+        var shown = val.slice(0, pre);
+        for (var i = 0; i < tail.length; i++) {
+          var done = t >= DUR - i * 70;
+          shown += (done || tail[i] === " ") ? tail[i] : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        }
+        mirror.textContent = shown;
+        if (t < DUR) timer = setTimeout(tick, 30);
+        else { inp.style.color = ""; mirror.style.display = "none"; }
+      }
+      tick();
     });
   })();
 
