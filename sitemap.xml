@@ -55,4 +55,6 @@
 <url><loc>https://YOUR-USERNAME.github.io/name-in-verse/pet/</loc></url>
 <url><loc>https://YOUR-USERNAME.github.io/name-in-verse/words/</loc></url>
 <url><loc>https://YOUR-USERNAME.github.io/name-in-verse/backgrounds/</loc></url>
+  <url><loc>https://YOUR-USERNAME.github.io/name-in-verse/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://YOUR-USERNAME.github.io/name-in-verse/terms/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
