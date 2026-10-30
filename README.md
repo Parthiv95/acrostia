@@ -6,10 +6,10 @@ Live URL (once GitHub Pages is enabled): https://parthiv95.github.io/acrostia/
 
 ## What it does
 
-- **Poem studio** — acrostic ("M is for Modest...") or rhyming verse styles, second name for couples, a "from" line for signing
-- **51 occasions** — birthdays, weddings, Diwali, Christmas, Eid, graduations, and more, each with its own landing page
-- **Backgrounds** — 12 art scenes, 12 photo backgrounds, or upload your own photo
-- **Export** — download as PNG, print, copy text, shareable links, WhatsApp share
+- **Poem studio**: acrostic ("M is for Modest...") or rhyming verse styles, second name for couples, a "from" line for signing
+- **51 occasions**: birthdays, weddings, Diwali, Christmas, Eid, graduations, and more, each with its own landing page
+- **Backgrounds**: 12 art scenes, 12 photo backgrounds, or upload your own photo
+- **Export**: download as PNG, print, copy text, shareable links, WhatsApp share
 
 ## Run it locally
 
@@ -25,7 +25,7 @@ Then open http://localhost:8000
 
 1. Repo **Settings → Pages**
 2. Source: **Deploy from a branch**, branch **main**, folder **/(root)**
-3. Save — the site goes live at the URL above in a minute or two
+3. Save: the site goes live at the URL above in a minute or two
 
 > Note: GitHub serves Pages from **public** repos on the free plan. Make the repo public first (Settings → General → Danger Zone → Change visibility).
 
@@ -42,6 +42,6 @@ sitemap.xml       submitted to Google via robots.txt
 
 ## Structure notes
 
-- Headings h1–h6 use the spring word animation (tension 170, friction 24, stagger 110ms, flex row with `column-gap: 0.3em`) — never center headings with text-align, never CSS keyframes
+- Headings h1–h6 use the spring word animation (tension 170, friction 24, stagger 110ms, flex row with `column-gap: 0.3em`): never center headings with text-align, never CSS keyframes
 - Writing style: no em dashes anywhere
 - Contact email lives in `CONTACT_EMAIL` inside index.html

@@ -3439,7 +3439,7 @@ $("linkBtn").addEventListener("click", () => {
       var parts = ex.name.split(" & ");
       $("nameInput").value = parts[0];
       $("nameInput").dispatchEvent(new Event("input"));
-      if (parts[1] && $("name2Input")) $("name2Input").value = parts[1];
+      if ($("name2Input")) $("name2Input").value = parts[1] || "";
       var key = ex.occ, grp = null;
       GROUPS.forEach(function (g) { if (g[1].indexOf(key) !== -1) grp = g[0]; });
       if (grp) {
