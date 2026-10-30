@@ -253,6 +253,24 @@
   .sample-tags { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .5rem; }
   .sample-tags span { display: inline-flex; border: 1px solid rgba(255,255,255,.25); color: #fff; border-radius: 9999px; padding: .5rem 1rem; font-size: .875rem; }
 
+  /* ---------- examples explorer (wishafriend-style full poems) ---------- */
+  .ex-wrap { max-width: 52rem; margin: 2.5rem auto 0; padding: 0 1.25rem 5rem; }
+  .ex-sub { text-align: center; color: rgba(17,17,17,.55); max-width: 34rem; margin: 0 auto; line-height: 1.6; }
+  .ex-chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin: 1.5rem 0 1.25rem; }
+  .ex-chip { border: 1px solid #e6e5e2; background: #fff; border-radius: 9999px; padding: .55rem 1.1rem; font-size: .925rem; font-weight: 600; color: rgba(17,17,17,.7); cursor: pointer; transition: background .2s, color .2s, border-color .2s; font-family: inherit; }
+  .ex-chip[aria-pressed="true"] { background: #0a0a0a; color: #fff; border-color: #0a0a0a; }
+  .ex-panel { background: #fff; border: 1px solid #E8E0D4; border-radius: 1.75rem; padding: 2.25rem 1.5rem; text-align: center; box-shadow: 0 20px 50px -30px rgba(36,28,53,.25); opacity: 1; transform: none; transition: opacity .22s ease, transform .22s ease; }
+  .ex-panel.swap { opacity: 0; transform: translateY(8px); }
+  .ex-title { margin: 0; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(17,17,17,.5); }
+  .ex-name { margin: .5rem 0 1.25rem; font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(2rem, 5vw, 2.75rem); letter-spacing: -.02em; }
+  .ex-lines { display: grid; gap: .55rem; max-width: 34rem; margin: 0 auto; font-size: 1.02rem; line-height: 1.55; color: rgba(17,17,17,.85); }
+  .ex-lines p { margin: 0; }
+  .ex-lines strong { font-weight: 600; color: #B4763C; }
+  .ex-lines em { font-style: normal; color: rgba(17,17,17,.45); font-size: .9em; }
+  .ex-closer { margin: 1.25rem auto 0; max-width: 30rem; font-style: italic; color: rgba(17,17,17,.65); }
+  .ex-actions { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-top: 1.5rem; }
+  @media (min-width:640px) { .ex-panel { padding: 3rem 2.5rem; } .ex-lines { font-size: 1.08rem; } }
+
   .how-list { max-width: 88rem; margin: 3rem auto 0; padding: 0 1.25rem 5rem; }
   @media (min-width:640px) { .how-list { padding-inline: 2rem; } }
   .how-row { display: flex; align-items: center; gap: 1rem; border-top: 1px solid #e6e5e2; border-radius: 1.25rem; padding: 1.5rem; background: rgba(241,240,238,0); transition: background .4s, padding .4s; opacity: 0; transform: translateY(24px); }
@@ -676,7 +694,7 @@
     </button>
     <nav class="nav-links" aria-label="Main">
       <button type="button" data-scroll="#studio">Studio</button>
-      <button type="button" data-scroll="#samples">Samples</button>
+      <button type="button" data-scroll="#samples">Examples</button>
       <button type="button" data-scroll="#how">How it works</button>
       <button type="button" data-scroll="#faq">FAQ</button>
       <a href="words/">Word lists</a>
@@ -901,51 +919,22 @@
 
 <section class="sec" id="samples">
   <div class="sec-head">
-    <span class="eyebrow-boxed"><span class="eyebrow" style="border:0">Samples</span></span>
-    <h2 class="h2 rise jc" data-rise>Poems from the studio</h2>
+    <span class="eyebrow-boxed"><span class="eyebrow" style="border:0">Examples</span></span>
+    <h2 class="h2 rise jc" data-rise>Read full poems before you write one</h2>
+    <p class="ex-sub">Complete examples from the studio, occasion by occasion. Read one, then make it yours in a minute.</p>
   </div>
-  <div class="samples-grid">
-
-    <article class="sample-card" data-reveal data-delay="0">
-      <div class="sample-meta"><span>Sample 01</span><span class="sample-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
-      <div class="sample-spark" aria-hidden="true"><svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg></div>
-      <p class="sample-poem">M is for the mischief in your grin,<br>I is for the light you carry in,<br>R is for the way you make us sing,<br>A is for the joy you always bring.</p>
-      <div class="sample-bottom">
-        <h3 class="rise" data-rise>Birthday acrostic</h3>
-        <div class="sample-tags"><span>Acrostic</span><span>Birthday</span><span>Downloadable</span></div>
+  <div class="ex-wrap" data-reveal>
+    <div class="ex-chips" id="exChips" role="group" aria-label="Pick an example occasion"></div>
+    <div class="ex-panel" id="exPanel">
+      <p class="ex-title" id="exTitle"></p>
+      <p class="ex-name" id="exName"></p>
+      <div class="ex-lines" id="exLines"></div>
+      <p class="ex-closer" id="exCloser"></p>
+      <div class="ex-actions">
+        <button type="button" class="btn btn-primary" id="exUse">Make one like it</button>
+        <button type="button" class="btn" id="exCopy">Copy this poem</button>
       </div>
-    </article>
-
-    <article class="sample-card" data-reveal data-delay="90">
-      <div class="sample-meta"><span>Sample 02</span><span class="sample-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
-      <div class="sample-spark" aria-hidden="true"><svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg></div>
-      <p class="sample-poem">Dear {N}, today the bells ring true,<br>Two lives now woven, old made new,<br>May every morning that you share<br>Be wrapped in warmth and gentle care.</p>
-      <div class="sample-bottom">
-        <h3 class="rise" data-rise>Wedding verse</h3>
-        <div class="sample-tags"><span>Rhyming</span><span>Wedding</span><span>Two names</span></div>
-      </div>
-    </article>
-
-    <article class="sample-card" data-reveal data-delay="180">
-      <div class="sample-meta"><span>Sample 03</span><span class="sample-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
-      <div class="sample-spark" aria-hidden="true"><svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg></div>
-      <p class="sample-poem">D is for the diyas, row on row,<br>I is for the glow the wicks know,<br>W is for the wishes, bright and slow.</p>
-      <div class="sample-bottom">
-        <h3 class="rise" data-rise>Diwali acrostic</h3>
-        <div class="sample-tags"><span>Acrostic</span><span>Diwali</span><span>Festival</span></div>
-      </div>
-    </article>
-
-    <article class="sample-card" data-reveal data-delay="270">
-      <div class="sample-meta"><span>Sample 04</span><span class="sample-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
-      <div class="sample-spark" aria-hidden="true"><svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg></div>
-      <p class="sample-poem">The lights are up, the carols play,<br>Dear {N}, it's nearly Christmas day,<br>May peace and sweetness fill your home,<br>Wherever in the world you roam.</p>
-      <div class="sample-bottom">
-        <h3 class="rise" data-rise>Christmas verse</h3>
-        <div class="sample-tags"><span>Rhyming</span><span>Christmas</span><span>Printable</span></div>
-      </div>
-    </article>
-
+    </div>
   </div>
 </section>
 
@@ -1091,7 +1080,7 @@
         <h4>Studio</h4>
         <ul>
           <li><button type="button" data-scroll="#how">How it works</button></li>
-          <li><button type="button" data-scroll="#samples">Samples</button></li>
+          <li><button type="button" data-scroll="#samples">Examples</button></li>
           <li><button type="button" data-contact>Say hello</button></li>
         </ul>
       </div>
@@ -1119,7 +1108,7 @@
     <ul>
       <li><button type="button" data-scroll="#home"><span class="idx">01</span><span class="lbl">Home</span></button></li>
       <li><button type="button" data-scroll="#studio"><span class="idx">02</span><span class="lbl">Studio</span></button></li>
-      <li><button type="button" data-scroll="#samples"><span class="idx">03</span><span class="lbl">Samples</span></button></li>
+      <li><button type="button" data-scroll="#samples"><span class="idx">03</span><span class="lbl">Examples</span></button></li>
       <li><button type="button" data-scroll="#how"><span class="idx">04</span><span class="lbl">How it works</span></button></li>
       <li><button type="button" data-scroll="#faq"><span class="idx">05</span><span class="lbl">FAQ</span></button></li>
     </ul>
@@ -3371,6 +3360,102 @@ $("linkBtn").addEventListener("click", () => {
         else { inp.style.color = ""; mirror.style.display = "none"; }
       }
       tick();
+    });
+  })();
+
+  /* ---------- examples explorer ---------- */
+  (function initExamples() {
+    var DATA = [
+      { occ: "birthday", title: "a birthday poem for", name: "Meera",
+        lines: [["M","Modest","humble despite it all"],["E","Empathetic","feeling what others feel"],["E","Elegant","poise in every step"],["R","Radiant","glowing from within"],["A","Angel-hearted","kindness that shows"]],
+        closer: "Meera, the candle that outshines the cake" },
+      { occ: "wedding", title: "a wedding poem for", name: "Raj & Mira",
+        lines: [["R","Reliable","a promise kept","Raj"],["A","Angel-hearted","kindness that shows","Mira"],["J","Jovial","with laughter always near","Raj"],["I","Inspiring","pushing others to dream","Mira"],["R","Rock-solid","steady when everything shakes","Raj"],["A","Ambitious","always aiming higher","Mira"]],
+        closer: "Raj and Mira, today's happily ever after begins" },
+      { occ: "diwali", title: "a Diwali poem for", name: "Rohan",
+        lines: [["R","Rock-solid","steady when everything shakes"],["O","Optimistic","seeing the bright side always"],["H","Heroic","the one people count on"],["A","Ambitious","always aiming higher"],["N","Noble","in thought and in action"]],
+        closer: "Rohan, a light that brightens every room" },
+      { occ: "christmas", title: "a Christmas poem for", name: "Emily",
+        lines: [["E","Elegant","poise in every step"],["M","Marvelous","wonderful in every way"],["I","Inspiring","pushing others to dream"],["L","Loyal","standing by people always"],["Y","Young-at-heart","with smiling eyes"]],
+        closer: "Emily, Christmas comes alive with you" },
+      { occ: "valentine", title: "a love poem for", name: "Priya",
+        lines: [["P","Patient","calm through every storm"],["R","Radiant","glowing from within"],["I","Ideal","the example others follow"],["Y","Youthful","full of energy and cheer"],["A","Angel-hearted","kindness that shows"]],
+        closer: "Priya, love's favorite person" },
+      { occ: "friendship", title: "a friendship poem for", name: "Aditi",
+        lines: [["A","Able","potential to achieve big"],["D","Determined","never giving up"],["I","Inspiring","pushing others to dream"],["T","Trustworthy","trusted by everyone"],["I","Intelligent","sharp of mind and thought"]],
+        closer: "Aditi, the friend others measure against" }
+    ];
+    if (!window.OCCASIONS && typeof OCCASIONS === "undefined") return;
+    var chipsEl = qs("#exChips"), panel = qs("#exPanel");
+    if (!chipsEl || !panel) return;
+    var cur = 0;
+    function poemText(ex) {
+      var t = ex.title.charAt(0).toUpperCase() + ex.title.slice(1) + " " + ex.name + "\n\n";
+      t += ex.lines.map(function (l) { return l[0] + " is for " + l[1] + ", " + l[2] + (l[3] ? " (" + l[3] + ")" : ""); }).join("\n");
+      return t + "\n\n" + ex.closer;
+    }
+    function render(idx) {
+      var ex = DATA[idx];
+      qs("#exTitle").textContent = ex.title;
+      qs("#exName").textContent = ex.name;
+      var box = qs("#exLines");
+      box.innerHTML = "";
+      ex.lines.forEach(function (l) {
+        var pl = document.createElement("p");
+        pl.innerHTML = "<strong>" + l[0] + "</strong> is for <strong>" + l[1] + "</strong>, " + l[2] + (l[3] ? " <em>(" + l[3] + ")</em>" : "");
+        box.appendChild(pl);
+      });
+      qs("#exCloser").textContent = ex.closer;
+      chipsEl.querySelectorAll(".ex-chip").forEach(function (c, i) { c.setAttribute("aria-pressed", String(i === idx)); });
+    }
+    DATA.forEach(function (ex, i) {
+      var o = OCCASIONS[ex.occ];
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "ex-chip";
+      b.setAttribute("aria-pressed", String(i === 0));
+      b.textContent = (o && o.emoji ? o.emoji + " " : "") + (o && o.label ? o.label : ex.occ);
+      b.addEventListener("click", function () {
+        if (i === cur) return;
+        cur = i;
+        if (reduced) { render(i); return; }
+        panel.classList.add("swap");
+        setTimeout(function () { render(i); panel.classList.remove("swap"); }, 200);
+      });
+      chipsEl.appendChild(b);
+    });
+    render(0);
+    qs("#exCopy").addEventListener("click", function () {
+      var btn = this;
+      try {
+        navigator.clipboard.writeText(poemText(DATA[cur])).then(function () {
+          btn.textContent = "Copied!";
+          setTimeout(function () { btn.textContent = "Copy this poem"; }, 1600);
+        }, function () {});
+      } catch (e) {}
+    });
+    qs("#exUse").addEventListener("click", function () {
+      var ex = DATA[cur];
+      var parts = ex.name.split(" & ");
+      $("nameInput").value = parts[0];
+      $("nameInput").dispatchEvent(new Event("input"));
+      if (parts[1] && $("name2Input")) $("name2Input").value = parts[1];
+      var key = ex.occ, grp = null;
+      GROUPS.forEach(function (g) { if (g[1].indexOf(key) !== -1) grp = g[0]; });
+      if (grp) {
+        document.querySelectorAll("#occasionChips .group-tab").forEach(function (t) {
+          if (t.dataset.g === grp) t.click();
+        });
+      }
+      setTimeout(function () {
+        var lbl = (OCCASIONS[key] && OCCASIONS[key].label) || key;
+        document.querySelectorAll("#occasionChips .chip").forEach(function (c) {
+          if (c.textContent.indexOf(lbl) !== -1) c.click();
+        });
+        writePoem();
+        var st = qs("#studio");
+        if (st) st.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60);
     });
   })();
 
