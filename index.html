@@ -213,10 +213,11 @@
   .share-banner .sb-close:hover { color: var(--ink); }
 
   .band-sec { background: #fff; }
-  .band { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .7rem .8rem; padding: 2.75rem 1.25rem; max-width: 88rem; margin-inline: auto; list-style: none; }
+  .band { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem .75rem; padding: 2.75rem 1.25rem; max-width: 88rem; margin-inline: auto; list-style: none; }
+  .band-pair { display: flex; align-items: center; gap: .75rem; white-space: nowrap; }
   .band li { flex: 0 1 auto; opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
   .band li.in { opacity: 1; transform: none; }
-  .band .tile { display: grid; place-items: center; padding: .42em 1.05em; border-radius: 9999px; font-family: "Fraunces", serif; font-size: clamp(1.7rem, 4.6vw, 2.6rem); font-weight: 500; line-height: 1.15; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+  .band .tile { display: grid; place-items: center; padding: .4em .95em; border-radius: 9999px; font-family: "Fraunces", serif; font-size: clamp(1.35rem, 4.2vw, 2.5rem); font-weight: 500; line-height: 1.15; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
   .band .tile:hover { transform: scale(1.03); }
   .band .tile .ltrs { display: inline-flex; }
   .band .tile .ltr { display: inline-block; opacity: 0; transform: translateY(.4em); transition: opacity .45s ease, transform .6s cubic-bezier(.16,1,.3,1); }
@@ -231,8 +232,10 @@
   .tile-light { background: #f1f0ee; color: #111; }
   .tile-accent { background: linear-gradient(to bottom right, #cf8047, #97501f); color: #fff; }
   .tile-dark { background: #0a0a0a; color: #fff; }
-  .tile-ghost { background: rgba(241,240,238,.6); color: rgba(17,17,17,.35); }
+  .tile-line { background: #fff; border: 1.5px solid #ddd8cf; color: #111; }
   .band .tile-dark { padding: .3em; aspect-ratio: 1; }
+  .band .band-arrow { border: 0; cursor: pointer; font: inherit; }
+  .band .band-arrow:hover { transform: translateX(.18em); }
   .tile-dark svg { width: 1.4em; height: 1.4em; }
 
   .samples-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 88rem; margin: 3rem auto 0; padding: 0 1.25rem 5rem; }
@@ -805,8 +808,10 @@
   <ul class="band">
     <li data-reveal data-delay="0"><div class="tile tile-light">Names</div></li>
     <li data-reveal data-delay="120"><div class="tile tile-accent">become</div></li>
-    <li data-reveal data-delay="240"><div class="tile tile-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></li>
-    <li data-reveal data-delay="360"><div class="tile tile-ghost">poems</div></li>
+    <li data-reveal data-delay="240"><div class="band-pair">
+      <div class="tile tile-line">poems</div>
+      <button type="button" class="tile tile-dark band-arrow" data-scroll="#studio" aria-label="Go to the studio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div></li>
   </ul>
 </section>
 
