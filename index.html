@@ -527,6 +527,9 @@
   .style-card[aria-pressed="true"] small { color: #7C4360; }
 
   .actions { display: flex; flex-direction: column; gap: 10px; }
+  @keyframes nudgePulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233,168,96,.7); } 60% { transform: scale(1.045); box-shadow: 0 0 0 12px rgba(233,168,96,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233,168,96,0); } }
+  .nudge { animation: nudgePulse .8s ease; }
+  .card-note.warn { color: #B4763C; font-weight: 600; }
   .btn {
     font: inherit; font-weight: 600; font-size: 1.05rem; cursor: pointer;
     border-radius: 14px; padding: 14px 22px; border: 1.5px solid transparent;
@@ -1660,31 +1663,31 @@ const GROUPS = [
 ];
 
 const LETTER_TRAITS = {
-  A: [["Able","potential to achieve big"],["Admirable","admired by everyone around"],["Affectionate","warm to all who know you"],["Ambitious","always aiming higher"]],
-  B: [["Brave","facing every challenge head-on"],["Bright","lighting up every room"],["Beloved","cherished by family and friends"],["Bubbly","full of life and bubbles","f"]],
-  C: [["Creative","full of fresh ideas"],["Confident","sure of every step"],["Caring","always there for others"],["Cheerful","with a smile that spreads"]],
-  D: [["Determined","never giving up"],["Dependable","relied on in every storm"],["Delightful","a joy to be around","f"],["Diligent","careful in all you do"]],
-  E: [["Energetic","full of life and spirit"],["Excellent","excelling in all you do"],["Empathetic","feeling what others feel"],["Enthusiastic","excited by every opportunity"]],
-  F: [["Friendly","a friend to everyone"],["Fearless","unafraid of any challenge"],["Faithful","true in word and deed"],["Fun-loving","finding joy everywhere"]],
-  G: [["Generous","sharing without counting"],["Graceful","graceful in every way","f"],["Good-hearted","kind to the core"],["Genuine","real through and through"]],
-  H: [["Honored","respected by all"],["Honest","true in every word"],["Hardworking","giving your best always"],["Happy","spreading cheer all around"]],
-  I: [["Inspiring","pushing others to dream"],["Intelligent","sharp of mind and thought"],["Ideal","the example others follow"],["Imaginative","dreaming up wonders"]],
-  J: [["Joyful","spreading happiness wherever you go"],["Jovial","with laughter always near"],["Judicious","wise in every choice"],["Just","fair in all dealings"]],
-  K: [["Kind","gentle in word and deed"],["Keen","eager for every opportunity"],["Knowledgeable","a wealth of wisdom"],["Kindhearted","soft of heart, strong of spirit"]],
-  L: [["Loyal","standing by people always"],["Loving","with a heart that gives"],["Leader","born to guide the way"],["Lively","buzzing with energy"]],
-  M: [["Motivated","driven from within"],["Marvelous","wonderful in every way"],["Modest","humble despite it all"],["Magnetic","drawing people in"]],
+  A: [["Able","potential to achieve big"],["Admirable","admired by everyone around"],["Affectionate","warm to all who know you"],["Ambitious","always aiming higher"],["Amazing","wonderfully, unmistakably you"],["Authentic","never a copy"]],
+  B: [["Brave","facing every challenge head-on"],["Bright","lighting up every room"],["Beloved","cherished by family and friends"],["Bubbly","full of life and bubbles","f"],["Big-hearted","room for everyone in it"],["Brilliant","a shine that needs no switch"]],
+  C: [["Creative","full of fresh ideas"],["Confident","sure of every step"],["Caring","always there for others"],["Cheerful","with a smile that spreads"],["Compassionate","kindness in action"],["Curious","always asking, always learning"]],
+  D: [["Determined","never giving up"],["Dependable","relied on in every storm"],["Delightful","a joy to be around","f"],["Diligent","careful in all you do"],["Dynamic","energy that moves rooms"],["Devoted","all in, on everything"]],
+  E: [["Energetic","full of life and spirit"],["Excellent","excelling in all you do"],["Empathetic","feeling what others feel"],["Enthusiastic","excited by every opportunity"],["Encouraging","the voice that says keep going"],["Enchanting","hard to forget"]],
+  F: [["Friendly","a friend to everyone"],["Fearless","unafraid of any challenge"],["Faithful","true in word and deed"],["Fun-loving","finding joy everywhere"],["Focused","eyes on the prize"]],
+  G: [["Generous","sharing without counting"],["Graceful","graceful in every way","f"],["Good-hearted","kind to the core"],["Genuine","real through and through"],["Gracious","class in every move"],["Gifted","born with it"]],
+  H: [["Honored","respected by all"],["Honest","true in every word"],["Hardworking","giving your best always"],["Happy","spreading cheer all around"],["Humble","great without the noise"],["Heartfelt","everything you do, you mean"]],
+  I: [["Inspiring","pushing others to dream"],["Intelligent","sharp of mind and thought"],["Ideal","the example others follow"],["Imaginative","dreaming up wonders"],["Independent","stands fully on their own"],["Insightful","sees what others miss"]],
+  J: [["Joyful","spreading happiness wherever you go"],["Jovial","with laughter always near"],["Judicious","wise in every choice"],["Just","fair in all dealings"],["Jolly","laughter follows them around"]],
+  K: [["Kind","gentle in word and deed"],["Keen","eager for every opportunity"],["Knowledgeable","a wealth of wisdom"],["Kindhearted","soft of heart, strong of spirit"],["Kindred","easy to feel at home with"]],
+  L: [["Loyal","standing by people always"],["Loving","with a heart that gives"],["Leader","born to guide the way"],["Lively","buzzing with energy"],["Light","rooms brighten when they enter"],["Laughter","the sound everyone waits for"]],
+  M: [["Motivated","driven from within"],["Marvelous","wonderful in every way"],["Modest","humble despite it all"],["Magnetic","drawing people in"],["Merry","cheer that never quits"]],
   N: [["Noble","in thought and in action"],["Nice","pleasant to all you meet"],["Notable","worth remembering"],["Nurturing","helping others grow"]],
-  O: [["Optimistic","seeing the bright side always"],["Outstanding","standing out from the crowd"],["Open-minded","accepting every opinion"],["Original","one of a true kind"]],
-  P: [["Passionate","burning with purpose"],["Patient","calm through every storm"],["Positive","spreading optimism around"],["Principled","standing by what is right"]],
-  Q: [["Quick-witted","ready with a smile and a line"],["Quick-thinking","calm when it matters most"],["Qualified","ready for anything life brings"],["Quintessential","the very best of the type"]],
-  R: [["Receptive","accepting every opinion"],["Refined","in taste, manners and gait","f"],["Reliable","a promise kept"],["Radiant","glowing from within","f"]],
-  S: [["Self-motivated","driven by your own fire"],["Sincere","honest at heart"],["Strong","through every high and low"],["Smart","quick to learn and adapt"]],
-  T: [["Talented","gifted in many ways"],["Trustworthy","trusted by everyone"],["Thoughtful","thinking of others first"],["Tenacious","holding on till it's done"]],
-  U: [["Unstoppable","nothing stands in your way"],["Unique","one of a kind"],["Upstanding","honorable in all things"],["Understanding","seeing every side"]],
-  V: [["Valiant","brave of heart"],["Versatile","good at everything you try"],["Visionary","dreaming of tomorrow"],["Vivacious","lively and full of spirit","f"]],
-  W: [["Wise","beyond your years"],["Warm","with a smile for everyone"],["Wonderful","in countless ways"],["Willing","first to lend a hand"]],
-  X: [["X-factor","that special spark you carry"],["XOXO","hugs and kisses to spare"],["Xceptional","beyond the ordinary"]],
-  Y: [["Young-at-heart","with smiling eyes"],["Yearning","always reaching higher"],["Youthful","full of energy and cheer"],["Yare","quick and ready for anything"]],
+  O: [["Optimistic","seeing the bright side always"],["Outstanding","standing out from the crowd"],["Open-minded","accepting every opinion"],["Original","one of a true kind"],["Open-hearted","welcoming everyone in"]],
+  P: [["Passionate","burning with purpose"],["Patient","calm through every storm"],["Positive","spreading optimism around"],["Principled","standing by what is right"],["Playful","fun is a serious habit"],["Peacemaker","calm in every argument"]],
+  Q: [["Quick-witted","ready with a smile and a line"],["Quick-thinking","calm when it matters most"],["Qualified","ready for anything life brings"],["Quintessential","the very best of the type"],["Quirky","wonderfully their own"]],
+  R: [["Receptive","accepting every opinion"],["Refined","in taste, manners and gait","f"],["Reliable","a promise kept"],["Radiant","glowing from within","f"],["Respectful","courtesy that never slips"],["Resourceful","solves it, whatever it is"]],
+  S: [["Self-motivated","driven by your own fire"],["Sincere","honest at heart"],["Strong","through every high and low"],["Smart","quick to learn and adapt"],["Supportive","in your corner, always"],["Spirited","full of spark"]],
+  T: [["Talented","gifted in many ways"],["Trustworthy","trusted by everyone"],["Thoughtful","thinking of others first"],["Tenacious","holding on till it's done"],["True-blue","loyal to the last"],["Tireless","keeps going after others stop"]],
+  U: [["Unstoppable","nothing stands in your way"],["Unique","one of a kind"],["Upstanding","honorable in all things"],["Understanding","seeing every side"],["Uplifting","everyone rises around them"],["Unfazed","nothing rattles them"]],
+  V: [["Valiant","brave of heart"],["Versatile","good at everything you try"],["Visionary","dreaming of tomorrow"],["Vivacious","lively and full of spirit","f"],["Valued","missed the moment they leave"]],
+  W: [["Wise","beyond your years"],["Warm","with a smile for everyone"],["Wonderful","in countless ways"],["Willing","first to lend a hand"],["Wholesome","good for the soul"],["Witty","quick with the perfect line"]],
+  X: [["X-factor","that special spark you carry"],["XOXO","hugs and kisses to spare"],["Xceptional","beyond the ordinary"],["X-citing","never a dull moment"]],
+  Y: [["Young-at-heart","with smiling eyes"],["Yearning","always reaching higher"],["Youthful","full of energy and cheer"],["Yare","quick and ready for anything"],["Yours","everyone's favorite person"]],
   Z: [["Zealous","enthusiastic in all you do"],["Zestful","with a taste for life"],["Zen","calm in every storm"],["Zippy","quick in step and thought"]]
 };
 
@@ -1748,12 +1751,183 @@ const GENDER_TRAITS = {
   }
 };
 
-function traitsFor(L, g) {
+/* ---------------- occasion-aware word banks ---------------- */
+/* Each occasion maps to a theme; theme banks are merged into the letter pools. */
+const OCC_THEMES = {
+  birthday: "birthday",
+  wedding: "love", engagement: "love", anniversary: "love", valentine: "love",
+  couple: "love", boyfriend: "love", girlfriend: "love", husband: "love", wife: "love",
+  baby: "family", mother: "family", father: "family", sister: "family", brother: "family",
+  son: "family", daughter: "family", grandma: "family", grandpa: "family", cousin: "family",
+  aunt: "family", uncle: "family", niece: "family", nephew: "family",
+  mothersday: "family", fathersday: "family", rakhi: "family",
+  friendship: "friends", bestfriend: "friends", farewell: "friends",
+  christmas: "festival", diwali: "festival", eid: "festival", easter: "festival",
+  hanukkah: "festival", lunarnewyear: "festival", holi: "festival", navratri: "festival",
+  thanksgiving: "festival", newyear: "festival",
+  graduation: "milestone", newjob: "milestone", newhome: "milestone", retirement: "milestone", congrats: "milestone", goodluck: "milestone",
+  teachersday: "school", thanks: "thanks", getwell: "heal", halloween: "spooky", pet: "pet"
+};
+
+const OCC_TRAITS = {
+  birthday: {
+    B: [["Birthday-star","the person of the hour"],["Balloons","the whole party rises with them"]],
+    C: [["Candles","one wish per flame"],["Cake","the sweetest slice is theirs"]],
+    G: [["Gifts","though the best one is them"],["Glow","brighter than every candle lit"]],
+    W: [["Wish-maker","eyes closed, thinking big"],["Winner","another year, another win"]],
+    P: [["Party","the celebration follows them"],["Present","the one everyone came for"]],
+    S: [["Surprise","the party's best-kept secret"],["Sparkler","held up on every chorus"]],
+    H: [["High-fives","a full hand for every year"]],
+    F: [["Fireworks","the year starts with a bang"]],
+    T: [["Treat-bringer","the good bag, always shared"]]
+  },
+  love: {
+    L: [["Love","the kind poems are written for"],["Lasting","in it for the long run"]],
+    V: [["Vows","promises kept for life"],["Valentine","the name written in hearts"]],
+    H: [["Heart-keeper","holding yours safely"],["Home","wherever they are is home"]],
+    R: [["Romantic","still writing love notes"],["Real-deal","the love others point at"]],
+    S: [["Soulmate","the other half, found"],["Sweetheart","the name on every heart"]],
+    D: [["Devoted","all in, every day"]],
+    T: [["Together","better side by side"]],
+    C: [["Cherished","held close without trying"]],
+    B: [["Better-half","the piece that completes the whole"]],
+    M: [["Match","fate's finest pairing"]],
+    K: [["Kiss-stealer","and still not sorry"]],
+    A: [["Always","through every season of it"]],
+    W: [["Whole-heart","given without hesitation"]],
+    E: [["Eternal","the promise, kept"]]
+  },
+  family: {
+    F: [["Family","the one everyone gathers around"],["First-call","the person you phone with news"]],
+    H: [["Home","the place everyone returns to"]],
+    R: [["Roots","the reason we all stand tall"]],
+    B: [["Bond","unbroken by distance or years"]],
+    G: [["Guide","the one everyone looks up to"],["Guardian","watching over us all"]],
+    S: [["Shoulder","the one everyone leans on"],["Storyteller","keeper of every family tale"]],
+    T: [["Teacher","first lessons, best lessons"]],
+    M: [["Memory-keeper","holding every family story"]],
+    P: [["Pride","the family's quiet pride"]],
+    D: [["Dear-one","loved without condition"]],
+    L: [["Legacy","the best of what we carry forward"]],
+    C: [["Comfort","home has their voice on it"]]
+  },
+  friends: {
+    F: [["Friend","the kind you keep forever"],["Fun","every joke lands with them"]],
+    B: [["Best-friend","no contest, it's them"],["Backup","always in your corner"]],
+    L: [["Laughter","the sound of every hangout"]],
+    P: [["Partner-in-crime","schemes are better with them"]],
+    S: [["Secret-keeper","vault-level security"],["Sidekick","never, because equals forever"]],
+    M: [["Memories","a thousand and still counting"]],
+    T: [["Trouble","the good kind, always"],["Together-through-it","no exception yet"]],
+    J: [["Joke-sharer","even the bad ones are funny"]],
+    C: [["Corner-keeper","your spot in their circle, permanent"]]
+  },
+  festival: {
+    L: [["Light","the brightest lamp in the row"],["Lights","the season glows brighter with them"]],
+    J: [["Joy","arriving with the season itself"],["Jubilee","the celebration walks in with them"]],
+    G: [["Glow","warmer than every lamp lit"],["Gathering","the one everyone waits for"]],
+    S: [["Sparkle","the festival's brightest"],["Sweets","and sweeter than all of them"]],
+    B: [["Blessing","counted among the best"],["Bash","the heart of every celebration"]],
+    W: [["Warmth","the season's real gift"],["Wishes","every one of them is theirs"]],
+    C: [["Celebration","the reason for the season"],["Cheer","spreading it by default"]],
+    F: [["Feast","the table's brightest presence"],["Festive","wearing the season itself"]],
+    T: [["Toast","raised in their name"],["Tradition","the one everyone loves most"]],
+    H: [["Holiday","made better by them"],["Happiness","passed around by the handful"]],
+    R: [["Reunion","the moment everyone waits for"]],
+    E: [["Ever-bright","through every season"]],
+    P: [["Prayers","answered, in the form of them"]],
+    D: [["Diya-light","a flame that never dims"]],
+    K: [["Kindling","the warmth starts with them"]]
+  },
+  milestone: {
+    G: [["Graduate","the cap, the gown, the future"],["Go-getter","doors open when they knock"]],
+    N: [["New-chapter","the best pages are ahead"],["Next-level","already there"]],
+    F: [["Future","bright, and clearly theirs"],["First","in line for everything great"]],
+    T: [["Top-of-the-class","and it shows"],["Triumph","earned, and then some"]],
+    A: [["Achiever","the proof is framed on the wall"]],
+    S: [["Success","earned, not given"],["Scholar","now certified"]],
+    R: [["Rising","and still climbing"],["Record","the one they just broke"]],
+    C: [["Champion","today belongs to them"],["Commencement","not an ending, a launch"]],
+    P: [["Promotion","well earned"],["Pioneer","first through every door"]],
+    W: [["World-ready","and then some"]],
+    H: [["Hard-won","and worth every hour"],["High-flyer","clearance unlimited"]],
+    M: [["Milestone","they are the milestone"]],
+    D: [["Destiny","clearly at work here"]]
+  },
+  school: {
+    T: [["Teacher","the lesson that lasts a lifetime"],["Torch","lighting the way for many"]],
+    M: [["Mentor","guidance that sticks"],["Molder-of-minds","gently, every day"]],
+    P: [["Patience","endless, and deeply appreciated"]],
+    L: [["Lessons","the kind you keep forever"]],
+    E: [["Educator","in the truest sense"],["Encourager","the first to believe in us"]],
+    G: [["Guide","to a whole classroom at once"]],
+    S: [["Sage","chalk-dust and wisdom"],["Star","of every roll call"]],
+    K: [["Kindling","the love of learning"]],
+    I: [["Inspiring","the reason students aim higher"]]
+  },
+  thanks: {
+    T: [["Thank-you","not nearly enough"],["Treasure","the kind you cannot buy"]],
+    G: [["Grateful","doesn't even cover it"],["Giver","without ever keeping score"]],
+    K: [["Kindness","returned a thousand times over"]],
+    H: [["Help","the kind that just shows up"],["Heart","gold, through and through"]],
+    B: [["Blessing","the kind you count twice"]],
+    S: [["Selfless","in every small way"],["Sunshine","on the heaviest of days"]],
+    A: [["Appreciated","more than words can hold"]]
+  },
+  heal: {
+    S: [["Stronger","every single day"],["Sunshine","already coming back"]],
+    H: [["Healing","well on the way"],["Heart","the fight in it is winning"]],
+    R: [["Rest","well earned"],["Recovery","already underway"]],
+    B: [["Brave","through every appointment"],["Better","better every day"]],
+    W: [["Warrior","and clearly winning"]],
+    F: [["Fighter","the gentlest kind"]],
+    G: [["Getting-there","and getting there fast"]],
+    T: [["Tough","the quiet, gentle kind"]]
+  },
+  spooky: {
+    S: [["Spook-tacular","the star of the night"],["Sweetest-treat","in the whole bag"]],
+    B: [["Boo-tiful","glowing in the dark"],["Batty","in the most charming way"]],
+    M: [["Magical","under the full moon"],["Moonlit","and mysterious"]],
+    C: [["Candy-connoisseur","discriminating taste"],["Costume","the one everyone copies"]],
+    G: [["Ghostly","in the friendliest way"],["Gourd-geous","the pick of the patch"]],
+    T: [["Treat","the reason the trick-or-treaters came"]],
+    F: [["Fang-tastic","all smiles tonight"]],
+    P: [["Pumpkin","the cutest in the patch"]]
+  },
+  pet: {
+    P: [["Pawsome","obviously"],["Playful","zoomies at all hours"]],
+    F: [["Fur-ever","family, permanently"],["Fluff","certified"]],
+    G: [["Goodest","there is none better"],["Greeter","at the door, every single time"]],
+    B: [["Beloved","tail wags included"]],
+    L: [["Loyal","since the day you met"]],
+    T: [["Tail-wagger","self-trained professional"]],
+    C: [["Cuddle-expert","advanced certification"]],
+    S: [["Snuggles","available on demand"]]
+  }
+};
+
+function traitsFor(L, g, occ) {
   let bank = (LETTER_TRAITS[L] || []).slice();
   if (g && GENDER_TRAITS[g] && GENDER_TRAITS[g][L]) bank = bank.concat(GENDER_TRAITS[g][L]);
+  if (occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][L]) bank = bank.concat(OCC_TRAITS[occ][L]);
   if (g === "m") bank = bank.filter((t) => t[2] !== "f");
   if (g === "f") bank = bank.filter((t) => t[2] !== "m");
   return bank.length ? bank : [[L + "-cellent", "one of a kind"]];
+}
+
+/* Picks a trait, leaning toward occasion words at least once per poem. */
+function pickTrait(L, g, occ, used, occUsed) {
+  const occBank = occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][L] ? OCC_TRAITS[occ][L] : [];
+  const full = traitsFor(L, g, occ);
+  const useOcc = occBank.length > 0 && (occUsed.n === 0 || Math.random() < 0.4);
+  let pool = useOcc ? occBank : full;
+  let trait = pick(pool);
+  let guard = 0;
+  while (used.has(trait[0]) && guard < 10) { trait = pick(pool); guard++; }
+  if (used.has(trait[0]) && pool === occBank) { pool = full; guard = 0; trait = pick(pool); while (used.has(trait[0]) && guard < 10) { trait = pick(pool); guard++; } }
+  used.add(trait[0]);
+  if (occBank.some((t) => t[0] === trait[0])) occUsed.n++;
+  return trait;
 }
 
 const CLOSERS = {
@@ -1779,21 +1953,18 @@ const $ = (id) => document.getElementById(id);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-function buildAcrostic(name) {
+function buildAcrostic(name, occ) {
   const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const used = new Set();
+  const occUsed = { n: 0 };
   const g = genderOf(name);
   return letters.map((L) => {
-    const bank = traitsFor(L, g);
-    let trait = pick(bank);
-    let guard = 0;
-    while (used.has(trait[0]) && guard < 8) { trait = pick(bank); guard++; }
-    used.add(trait[0]);
+    const trait = pickTrait(L, g, occ, used, occUsed);
     return { letter: L, word: trait[0], desc: trait[1] };
   });
 }
 
-function buildAcrosticPair(n1, n2) {
+function buildAcrosticPair(n1, n2, occ) {
   const l1 = n1.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const l2 = n2.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const inter = [];
@@ -1803,12 +1974,9 @@ function buildAcrosticPair(n1, n2) {
     if (i < l2.length) inter.push({ letter: l2[i], who: n2 });
   }
   const used = new Set();
+  const occUsed = { n: 0 };
   return inter.map((x) => {
-    const bank = traitsFor(x.letter, genderOf(x.who));
-    let trait = pick(bank);
-    let guard = 0;
-    while (used.has(trait[0]) && guard < 8) { trait = pick(bank); guard++; }
-    used.add(trait[0]);
+    const trait = pickTrait(x.letter, genderOf(x.who), occ, used, occUsed);
     return { letter: x.letter, word: trait[0], desc: trait[1], who: x.who };
   });
 }
@@ -1821,11 +1989,14 @@ function rerollLine(idx) {
   if (!state.poem || state.poem.type !== "acrostic") return;
   const line = state.poem.lines[idx];
   if (!line) return;
-  const bank = traitsFor(line.letter, genderOf(state.name1));
-  if (bank.length < 2) return;
-  let trait = pick(bank);
-  let guard = 0;
-  while (trait[0] === line.word && guard < 8) { trait = pick(bank); guard++; }
+  const occ = state.poem.occ || "";
+  const g = genderOf(line.who || state.name1);
+  const bank = traitsFor(line.letter, g, occ);
+  const occBank = occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][line.letter] ? OCC_TRAITS[occ][line.letter] : [];
+  let pool = occBank.filter((t) => t[0] !== line.word);
+  if (Math.random() > 0.45 || !pool.length) pool = bank.filter((t) => t[0] !== line.word);
+  if (!pool.length) return;
+  const trait = pick(pool);
   line.word = trait[0];
   line.desc = trait[1];
   renderCard();
@@ -1862,8 +2033,9 @@ function writePoem() {
   const name2 = raw2 ? cap(raw2.replace(/[^a-zA-Z\s'-]/g, "")) : "";
   state.name1 = name;
   state.name2 = name2;
+  const occTheme = OCC_THEMES[state.occasion] || "";
   state.poem = state.style === "acrostic"
-    ? { type: "acrostic", lines: name2 ? buildAcrosticPair(name, name2) : buildAcrostic(name), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]) }
+    ? { type: "acrostic", lines: name2 ? buildAcrosticPair(name, name2, occTheme) : buildAcrostic(name, occTheme), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]), occ: occTheme }
     : { type: "rhyme", verse: state.lastVerse, text: buildRhyme(name, name2, state.lastVerse) };
   state.name = name2 ? name + " & " + name2 : name;
   renderCard();
@@ -2358,20 +2530,44 @@ function setVerse(v) {
   }
 }
 
+/* Guard for card actions: before a poem exists, guide instead of doing nothing */
+var noteResetTimer = null;
+function requirePoem() {
+  if (state.poem) return true;
+  var note = document.querySelector(".card-note");
+  var wbtn = $("writeBtn");
+  if (note) {
+    note.textContent = "Write a poem first: type a name above, then press Write the poem.";
+    note.classList.add("warn");
+    if (noteResetTimer) clearTimeout(noteResetTimer);
+    noteResetTimer = setTimeout(function () {
+      note.textContent = "The picture downloads at greeting-card size, ready to send on WhatsApp or print at home.";
+      note.classList.remove("warn");
+    }, 2600);
+  }
+  if (wbtn) {
+    wbtn.classList.remove("nudge");
+    void wbtn.offsetWidth;
+    wbtn.classList.add("nudge");
+  }
+  $("nameInput").focus();
+  return false;
+}
+
 /* ---------------- buttons ---------------- */
 
 $("writeBtn").addEventListener("click", writePoem);
 $("againBtn").addEventListener("click", () => {
-  if (!state.poem) return;
+  if (!requirePoem()) return;
   if (state.style === "rhyme") state.lastVerse = state.lastVerse === 0 ? 1 : 0;
   writePoem();
 });
 $("nameInput").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
 $("name2Input").addEventListener("keydown", (e) => { if (e.key === "Enter") writePoem(); });
-$("printBtn").addEventListener("click", () => window.print());
+$("printBtn").addEventListener("click", () => { if (!requirePoem()) return; window.print(); });
 
 $("copyBtn").addEventListener("click", async () => {
-  if (!state.poem) return;
+  if (!requirePoem()) return;
   let text = "";
   if (state.poem.type === "acrostic") {
     text = "A " + OCCASIONS[state.occasion].label.toLowerCase() + " poem for " + state.name + "\n\n" +
@@ -2398,7 +2594,7 @@ $("copyBtn").addEventListener("click", async () => {
 /* ---------------- PNG download (canvas-drawn) ---------------- */
 
 $("pngBtn").addEventListener("click", () => {
-  if (!state.poem) return;
+  if (!requirePoem()) return;
   const theme = OCCASIONS[state.occasion];
   const W = 1200, H = 1500;
   const canvas = document.createElement("canvas");
@@ -2630,7 +2826,7 @@ syncUrl();
 })();
 
 $("waBtn").addEventListener("click", () => {
-  if (!state.poem) return;
+  if (!requirePoem()) return;
   {
     var wr = $("waBtn").getBoundingClientRect();
     if (window.__goldBurst) window.__goldBurst(wr.left + wr.width / 2, wr.top + wr.height / 2);
@@ -2649,6 +2845,7 @@ $("waBtn").addEventListener("click", () => {
 });
 
 $("linkBtn").addEventListener("click", () => {
+  if (!requirePoem()) return;
   syncUrl();
   const write = navigator.clipboard && navigator.clipboard.writeText
     ? navigator.clipboard.writeText(location.origin + location.pathname + location.search)
