@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is your name secret? Reveal the hidden meaning | Acrostia</title>
+<meta name="description" content="Type your name and reveal its secret: the hidden power, lucky number and natural talent your name carries. Free, instant, no sign up.">
+<link rel="canonical" href="https://Parthiv95.github.io/acrostia/name-secret/">
+<meta property="og:title" content="What is your name secret? | Acrostia">
+<meta property="og:description" content="Type your name and reveal the hidden power, lucky number and talent it carries.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<style>
+body { margin: 0; font-family: Georgia, serif; color: #f3e6e6; background: #520a1a; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 2px, transparent 2px 10px), radial-gradient(ellipse at 50% -10%, #8f2138, #7a1026 55%, #3d0612 100%); background-attachment: fixed; }
+main { max-width: 640px; margin: 0 auto; padding: 40px 22px 60px; }
+.top a { color: #f0d9d9; text-decoration: none; font-family: Verdana, sans-serif; font-size: .9rem; }
+h1 { font-style: italic; font-size: 2.1rem; margin: 6px 0 10px; line-height: 1.25; color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.45); }
+.intro { color: #eccfcf; line-height: 1.7; }
+.tool { background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.22); border-radius: 18px; padding: 24px 20px; margin: 26px 0; }
+.row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.row input { flex: 1 1 220px; background: rgba(255,255,255,.94); border: 0; border-radius: 999px; padding: .85rem 1.2rem; font: 600 1rem Georgia, serif; color: #40101c; }
+.gold { background: linear-gradient(to bottom, #f4b840, #e29e22); color: #241c05; font: 700 1rem Verdana, sans-serif; padding: .85rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
+.gold:hover { transform: translateY(-1px); }
+.chips { margin-top: 14px; }
+.chips p { color: rgba(240,217,217,.65); font-family: Verdana, sans-serif; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 8px; }
+.chip { background: rgba(255,255,255,.1); color: #f0d9d9; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: .35rem .8rem; margin: 0 .3rem .45rem 0; font: 600 .85rem Verdana, sans-serif; cursor: pointer; }
+.chip:hover { background: rgba(255,255,255,.22); }
+.sealed { margin-top: 20px; text-align: center; }
+.seal-btn { display: inline-block; font-size: 2.6rem; line-height: 1; background: none; border: 2px solid rgba(244,184,64,.6); color: #f4b840; border-radius: 50%; width: 5rem; height: 5rem; cursor: pointer; }
+.seal-btn:hover { transform: scale(1.06); }
+.seal-hint { color: rgba(240,217,217,.7); font-style: italic; margin-top: .6rem; }
+.result { margin-top: 20px; background: rgba(255,255,255,.07); border: 1px solid rgba(244,184,64,.4); border-radius: 14px; padding: 20px; line-height: 1.7; display: none; }
+.result.show { display: block; animation: riseIn .5s ease; }
+@keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.result h2 { margin: 0 0 8px; font-style: italic; color: #fff; font-size: 1.3rem; }
+.result .num { color: #f4b840; font-weight: bold; }
+.result .talent { margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,.25); font-style: italic; }
+.about { color: #eccfcf; line-height: 1.7; margin-top: 34px; }
+.about h2 { color: #fff; font-size: 1.35rem; margin: 30px 0 8px; }
+.sample { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-style: italic; line-height: 1.9; color: #f7e8e8; }
+.btn { display: inline-block; background: linear-gradient(to bottom, #f4b840, #e29e22); color: #241c05; text-decoration: none; padding: 14px 26px; border-radius: 999px; font: bold 1rem Verdana, sans-serif; margin: 18px 0; }
+.links { margin-top: 28px; font-size: .95rem; line-height: 2; color: #eccfcf; }
+.links a { color: #f4cf87; }
+.faq dt { color: #fff; font-weight: bold; margin-top: 16px; }
+.faq dd { margin: 6px 0 0; line-height: 1.7; color: #eccfcf; }
+</style>
+</head>
+<body>
+<main>
+<p class="top"><a href="../">&larr; Back to Acrostia</a>
+</p>
+<h1>What is your name secret?</h1>
+<p class="intro">Every name hides something: a power, a lucky number, a talent the person carrying it may not have noticed yet. Type a name and break the seal. Free, instant, no sign up.</p>
+
+<section class="tool">
+  <div class="row">
+    <input id="nsInput" maxlength="14" placeholder="Type a name, e.g. Olivia" aria-label="Your name">
+    <button class="gold" id="nsBtn" type="button">Reveal the secret</button>
+  </div>
+  <div class="chips">
+    <p>Try popular names from around the world</p>
+    <button class="chip" type="button">Olivia</button>
+    <button class="chip" type="button">Muhammad</button>
+    <button class="chip" type="button">Emma</button>
+    <button class="chip" type="button">Aarav</button>
+    <button class="chip" type="button">Liam</button>
+    <button class="chip" type="button">Sophia</button>
+    <button class="chip" type="button">Ananya</button>
+    <button class="chip" type="button">Yuki</button>
+  </div>
+  <div class="sealed" id="nsSealed">
+    <button class="seal-btn" id="nsSeal" type="button" aria-label="Break the seal and reveal the secret">&#128274;</button>
+    <p class="seal-hint">or type a name above and press Reveal</p>
+  </div>
+  <div class="result" id="nsOut" aria-live="polite"></div>
+</section>
+
+<section class="about">
+<h2>Hidden in plain sight</h2>
+<p>A name is the word a person hears most often in their life, said by the people who know them best. Small wonder people have always suspected it carries something extra: numerologists reduce it to a number, astrologers weigh it against the stars, and the rest of us just notice that certain names suit their owners perfectly.</p>
+<div class="sample">The secret in EMMA: The Heart.<br>Lucky number 7. Hidden talent: you make strangers feel like old friends in minutes.</div>
+<p>The reading here is deterministic, which is a fancy way of saying the same name always reveals the same secret. That makes it shareable: compare yours with a partner, check the baby name shortlist, settle the group chat.</p>
+<h2>Questions people ask</h2>
+<dl class="faq">
+<dt>Will the secret change?</dt>
+<dd>No. The same name always reveals the same secret, so you and your friends see matching readings for matching names.</dd>
+<dt>Is my name stored anywhere?</dt>
+<dd>No. Everything happens in your browser: nothing is typed to a server, nothing is saved.</dd>
+<dt>Can I put the secret on a card?</dt>
+<dd>Yes. The <a href="../">Acrostia studio</a> builds a full poem from the name, on a themed card you can download, print or send on WhatsApp.</dd>
+</dl>
+</section>
+
+<a class="btn" href="../">Make your name poem</a>
+<p class="links"><strong>More name fun:</strong> <a href="../name-meaning/">What does your name mean?</a> <a href="../birth-date/">What does your birth date mean?</a> <a href="../first-letter/">First letter of your name meaning</a></p>
+</main>
+<script>
+(function () {
+  var E = [
+    ["1", "The Leader", "Your name carries the number 1: independence, first steps, and the courage to walk ahead even when nobody follows yet."],
+    ["2", "The Peacemaker", "Your name carries the number 2: calm, intuition, and the rare gift of making both sides feel heard."],
+    ["3", "The Spark", "Your name carries the number 3: words, humor and color. Rooms rearrange themselves when you walk in."],
+    ["4", "The Builder", "Your name carries the number 4: patience, craft and the stubbornness to make things last."],
+    ["5", "The Free Spirit", "Your name carries the number 5: movement, curiosity and a restlessness that always finds the interesting road."],
+    ["6", "The Heart", "Your name carries the number 6: loyalty, warmth and the gravity that holds a family or a friend group together."],
+    ["7", "The Seeker", "Your name carries the number 7: depth, questions and a rich quiet inner world that few are allowed into."],
+    ["8", "The Achiever", "Your name carries the number 8: ambition, strategy and the drive to build something with your name on it."],
+    ["9", "The Old Soul", "Your name carries the number 9: idealism, generosity and wisdom that seems to have arrived before you did."]
+  ];
+  var T = [
+    "you can read a room before anyone in it speaks",
+    "you make strangers feel like old friends in minutes",
+    "you turn chaos into plans without breaking stride",
+    "you remember every small detail people tell you, and they feel it",
+    "you find the funny in the heaviest week",
+    "you say the thing everyone was thinking, kindly"
+  ];
+  var input = document.getElementById("nsInput"), btn = document.getElementById("nsBtn"), out = document.getElementById("nsOut"), sealed = document.getElementById("nsSealed");
+  function reduce(n) { while (n > 9) { n = String(n).split("").reduce(function (a, d) { return a + Number(d); }, 0); } return n; }
+  function reveal() {
+    var name = input.value.trim().replace(/[^a-zA-Z]/g, "");
+    if (!name) { input.focus(); input.placeholder = "Type a name first"; return; }
+    var up = name.toUpperCase();
+    var sum = up.split("").reduce(function (a, L) { return a + (L.charCodeAt(0) - 64); }, 0);
+    var e = E[reduce(sum) - 1];
+    var lucky = reduce(sum + 7);
+    var talent = T[(up.charCodeAt(0) - 65) % T.length];
+    document.getElementById("nsSeal").textContent = "\u{1F513}";
+    sealed.querySelector(".seal-hint").textContent = "The seal is broken. Type another name to seal it again.";
+    out.innerHTML =
+      "<h2>The secret in " + up + "</h2>" +
+      "<p><span class=\"num\">" + e[0] + ".</span> " + e[2] + "</p>" +
+      "<p>Lucky number <span class=\"num\">" + lucky + "</span>. Hidden talent: " + talent + ".</p>" +
+      "<p style=\"margin-bottom:0;\"><a href=\"../\" style=\"color:#f4cf87;\">Turn " + name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() + " into a poem &rarr;</a></p>";
+    out.classList.add("show");
+  }
+  btn.addEventListener("click", reveal);
+  document.getElementById("nsSeal").addEventListener("click", function () {
+    if (!input.value.trim()) input.value = "Emma";
+    reveal();
+  });
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") reveal(); });
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
+    c.addEventListener("click", function () { input.value = c.textContent; reveal(); });
+  });
+})();
+</script>
+</body>
+</html>
