@@ -212,31 +212,12 @@
   .share-banner .sb-close { border: 0; background: transparent; font-size: 1.125rem; line-height: 1; color: rgba(36,28,53,.5); cursor: pointer; padding: .375rem; }
   .share-banner .sb-close:hover { color: var(--ink); }
 
-  .band-sec { background: #fff; }
-  .band { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem .75rem; padding: 2.75rem 1.25rem; max-width: 88rem; margin-inline: auto; list-style: none; }
-  .band-pair { display: flex; align-items: center; gap: .75rem; white-space: nowrap; }
-  .band li { flex: 0 1 auto; opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .band li.in { opacity: 1; transform: none; }
-  .band .tile { display: grid; place-items: center; padding: .4em .95em; border-radius: 9999px; font-family: "Fraunces", serif; font-size: clamp(1.35rem, 4.2vw, 2.5rem); font-weight: 500; line-height: 1.15; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
-  .band .tile:hover { transform: scale(1.03); }
-  .band .tile .ltrs { display: inline-flex; }
-  .band .tile .ltr { display: inline-block; opacity: 0; transform: translateY(.4em); transition: opacity .45s ease, transform .6s cubic-bezier(.16,1,.3,1); }
-  .band li.in .ltr { opacity: 1; transform: none; }
-
   /* gold corner brackets, drawn in when the panel reveals (GetLayers-style panel frames) */
   .hero-card, .stats-panel { position: relative; }
   .hero-card::before, .hero-card::after, .stats-panel::before, .stats-panel::after { content: ""; position: absolute; width: 0; height: 0; border: 0 solid #E9A860; pointer-events: none; z-index: 30; transition: width .55s cubic-bezier(.16,1,.3,1) .75s, height .55s cubic-bezier(.16,1,.3,1) .75s; }
   .hero-card::before, .stats-panel::before { top: -6px; left: -6px; border-top-width: 2px; border-left-width: 2px; }
   .hero-card::after, .stats-panel::after { bottom: -6px; right: -6px; border-bottom-width: 2px; border-right-width: 2px; }
   .hero-card.in::before, .stats-panel.in::before, .hero-card.in::after, .stats-panel.in::after { width: 26px; height: 26px; }
-  .tile-light { background: #f1f0ee; color: #111; }
-  .tile-accent { background: linear-gradient(to bottom right, #cf8047, #97501f); color: #fff; }
-  .tile-dark { background: #0a0a0a; color: #fff; }
-  .tile-line { background: #fff; border: 1.5px solid #ddd8cf; color: #111; }
-  .band .tile-dark { padding: .3em; aspect-ratio: 1; }
-  .band .band-arrow { border: 0; cursor: pointer; font: inherit; }
-  .band .band-arrow:hover { transform: translateX(.18em); }
-  .tile-dark svg { width: 1.4em; height: 1.4em; }
 
   .samples-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 88rem; margin: 3rem auto 0; padding: 0 1.25rem 5rem; }
   @media (min-width:768px) { .samples-grid { grid-template-columns: 1fr 1fr; padding-inline: 2rem; } }
@@ -658,7 +639,7 @@
   /* ---------- print ---------- */
   @media print {
     @page { margin: 12mm; }
-    #loader, .niv-header, .niv-hero, .band-sec, #samples, #how, #about, #faq,
+    #loader, .niv-header, .niv-hero, #samples, #how, #about, #faq,
     .stats-sec, .niv-footer, .nav-overlay, .req-backdrop, .panel, .card-buttons,
     .card-note, .studio-head, .skip { display: none !important; }
     .studio { display: block; padding: 0; }
@@ -804,21 +785,10 @@
   </div>
 </section>
 
-<section class="sec band-sec" aria-label="Names become poems">
-  <ul class="band">
-    <li data-reveal data-delay="0"><div class="tile tile-light">Names</div></li>
-    <li data-reveal data-delay="120"><div class="tile tile-accent">become</div></li>
-    <li data-reveal data-delay="240"><div class="band-pair">
-      <div class="tile tile-line">poems</div>
-      <button type="button" class="tile tile-dark band-arrow" data-scroll="#studio" aria-label="Go to the studio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-    </div></li>
-  </ul>
-</section>
-
 <section class="sec studio-sec" id="studio">
   <div class="studio-head">
     <p class="eyebrow">The studio</p>
-    <h2 class="h2 rise" data-rise>Make their poem</h2>
+    <h2 class="h2 rise" data-rise>Make your name poem</h2>
   </div>
   <div class="share-banner" id="shareBanner" role="region" aria-label="Make your own poem">
     <p id="shareBannerText">Someone made a poem with Acrostia. Make one for someone you love.</p>
@@ -3436,27 +3406,6 @@ $("linkBtn").addEventListener("click", () => {
     });
     hero.addEventListener("pointerdown", function (e) {
       if (window.__heroBurst) window.__heroBurst(e.clientX, e.clientY);
-    });
-  })();
-
-  /* ---------- band letter stagger ---------- */
-  (function initBandLetters() {
-    qsa(".band .tile").forEach(function (tile) {
-      var word = (tile.textContent || "").trim();
-      if (!word) return;
-      tile.setAttribute("aria-label", word);
-      var wrap = document.createElement("span");
-      wrap.className = "ltrs";
-      wrap.setAttribute("aria-hidden", "true");
-      for (var i = 0; i < word.length; i++) {
-        var s = document.createElement("span");
-        s.className = "ltr";
-        s.textContent = word[i];
-        s.style.transitionDelay = (i * 45) + "ms";
-        wrap.appendChild(s);
-      }
-      tile.textContent = "";
-      tile.appendChild(wrap);
     });
   })();
 
