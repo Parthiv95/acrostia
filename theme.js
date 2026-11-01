@@ -84,7 +84,9 @@
       var xx = p.x + Math.sin(p.ph) * 22 * p.sw;
       x.globalAlpha = p.a;
       if (mode === "christmas") {
-        x.fillStyle = "#fff";
+        var light = false;
+        try { var bg = getComputedStyle(document.body).backgroundColor, m = bg.match(/\d+/g); light = m && (+m[0] + +m[1] + +m[2]) > 500; } catch (e) {}
+        x.fillStyle = light ? "rgba(122,148,196,.85)" : "#fff";
         x.beginPath(); x.arc(xx, p.y, p.r, 0, 7); x.fill();
       } else if (mode === "newyear") {
         p.rot += p.vr;
