@@ -743,9 +743,10 @@
 @media (min-width:1024px) { .hero-left { grid-column: span 6; } .hero-right { grid-column: span 6; } .hero-card { width: 26rem; } }
 .fun-sec { padding-bottom: 2rem; }
 #samples { padding-top: 1rem; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .quick-start { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 30rem; background: #fff; border: 1px solid #DCD2C2; border-radius: 999px; padding: 7px 7px 7px 22px; box-shadow: 6px 6px 0 rgba(28,35,51,.08); margin-top: 2.1rem; }
 .quick-start input { flex: 1; min-width: 0; border: 0; background: transparent; box-shadow: none; padding: 4px 0; font: 500 1.05rem "Onest", sans-serif; color: var(--ink); outline: none; }
-.quick-start input::placeholder { color: #9A93A6; }
+.quick-start input::placeholder { color: #6E6880; }
 .qs-go { flex: none; background: var(--ink); color: #FCF9F4; border: 0; border-radius: 999px; padding: .85rem 1.5rem; font: 600 .95rem "Onest", sans-serif; letter-spacing: .01em; cursor: pointer; transition: transform .25s cubic-bezier(.2,.8,.2,1), background .25s; }
 .qs-go:hover { background: #2A3450; transform: scale(1.04); }
 .cta-row { justify-content: flex-start; }
@@ -828,13 +829,6 @@
       <p class="eyebrow">Free name poem generator</p>
       <h1 class="hero-h1 rise" data-rise data-gate data-shimmer="poem">Every name hides a little poem.</h1>
       <div class="rating-row">
-        <span class="stars" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-        </span>
         <span class="rtext">51 occasions, worldwide</span>
       </div>
       <div class="quick-start">
@@ -1214,8 +1208,8 @@
       </div>
     </div>
     <div class="foot-legal">
-      <span>© 2026 Acrostia. Made with love.</span>
-      <span class="links"><a href="words/">Word lists</a> <a href="backgrounds/">Backgrounds</a> <a href="privacy/">Privacy</a> <a href="terms/">Terms</a></span>
+      <span>© 2026 Acrostia, operated by Parthiv K, India. Photos by Unsplash and Pexels contributors.</span>
+      <span class="links"><a href="privacy/">Privacy</a> <a href="terms/">Terms</a> <a href="refund-policy/">Refunds</a> <a href="cookie-policy/">Cookies</a> <a href="mailto:parthivkk123@gmail.com">Contact</a></span>
     </div>
   </div>
   <div class="foot-wm" aria-hidden="true">ACROSTIA</div>
@@ -1261,7 +1255,7 @@
       <label>Email<input type="email" name="remail" required autocomplete="email"></label>
       <label>Message<textarea name="rmsg" rows="4" required></textarea></label>
       <div class="req-bot">
-        <span class="req-note">We reply within one business day.</span>
+        <span class="req-note">Opens in your own email app. Nothing is stored on our servers.</span>
         <button type="submit" class="pill pill-dark" id="reqSend"><span class="pill-inner pp">Send</span></button>
       </div>
     </form>

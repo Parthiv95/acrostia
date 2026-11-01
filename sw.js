@@ -1,5 +1,5 @@
 /* Acrostia service worker: offline-first for the app shell, network-first for pages. */
-const CACHE = "acrostia-v1";
+const CACHE = "acrostia-v2";
 const CORE = ["./", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", (event) => {

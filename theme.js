@@ -103,3 +103,29 @@
   function tick() { if (!running) { scheduled = false; return; } step(); requestAnimationFrame(tick); }
   scheduled = true; tick();
 })();
+
+/* ---- privacy notice, site wide ---- */
+(function () {
+  var KEY = "acrostia-consent";
+  try { if (localStorage.getItem(KEY)) return; } catch (e) {}
+  function ready(fn) { if (document.readyState !== "loading") fn(); else document.addEventListener("DOMContentLoaded", fn); }
+  ready(function () {
+    var seg = location.pathname.split("/").filter(Boolean).length;
+    var base = seg > 1 ? "../" : "";
+    var style = document.createElement("style");
+    style.textContent = ".ac-consent-bar{position:fixed;left:14px;right:14px;bottom:14px;z-index:99990;display:flex;gap:14px;align-items:center;max-width:46rem;margin:0 auto;background:#1C2333;color:#F5F1E8;padding:14px 18px;border-radius:14px;box-shadow:0 18px 50px -18px rgba(0,0,0,.5);font:400 .88rem/1.55 Onest,system-ui,sans-serif}.ac-consent-bar a{color:#E9B94C;text-decoration:underline}.ac-consent-txt{margin:0}.ac-consent-ok{flex:none;background:#E9B94C;color:#1C2333;border:0;border-radius:999px;padding:.6rem 1.2rem;font:600 .88rem Onest,system-ui,sans-serif;cursor:pointer}@media(max-width:560px){.ac-consent-bar{flex-direction:column;align-items:flex-start;gap:10px}}";
+    document.head.appendChild(style);
+    var bar = document.createElement("div");
+    bar.className = "ac-consent-bar";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", "Privacy notice");
+    bar.innerHTML =
+      '<p class="ac-consent-txt"><strong>No tracking here.</strong> Acrostia sets no tracking or ad cookies and runs no analytics. Fonts load from Google Fonts and photos from Unsplash and Pexels, who see your IP as with any website image. <a href="' + base + 'cookie-policy/">Cookie policy</a><span aria-hidden="true"> \u00b7 </span><a href="' + base + 'privacy/">Privacy</a></p>' +
+      '<button type="button" class="ac-consent-ok">Got it</button>';
+    document.body.appendChild(bar);
+    bar.querySelector(".ac-consent-ok").addEventListener("click", function () {
+      try { localStorage.setItem(KEY, "notice-closed"); } catch (e) {}
+      bar.remove();
+    });
+  });
+})();
