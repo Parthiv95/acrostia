@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found | Acrostia</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="That page does not exist. Head back to Acrostia to write a free name poem.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Onest:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#FAF7F2; --ink:#1C2333; --muted:#5E5A6B; --line:#E6DFD3; --accent:#C2426E; --gold:#B98A2F; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Onest", Verdana, sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1.25rem; }
+main { max-width: 34rem; text-align: center; }
+.four-oh-four { font-family: "Fraunces", Georgia, serif; font-style: italic; font-weight: 400; font-size: 5.5rem; line-height: 1; color: var(--gold); margin: 0; }
+h1 { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.9rem; line-height: 1.15; margin: 1.1rem 0 .7rem; }
+h1 .w { display: inline-block; will-change: transform, opacity; }
+p { color: var(--muted); line-height: 1.7; margin: 0 0 1.6rem; }
+.home-btn { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; font: 600 1rem "Onest", Verdana, sans-serif; padding: .85rem 1.6rem; border-radius: 999px; }
+.home-btn:hover { background: var(--accent); }
+.fine-links { margin-top: 1.4rem; font-size: .95rem; }
+.fine-links a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--line); }
+.fine-links a:hover { border-bottom-color: var(--accent); }
+.ac-consent-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #1C2333; color: #F3EFE6; font: .9rem "Onest", Verdana, sans-serif; padding: .8rem 1rem; display: flex; gap: .8rem; align-items: center; justify-content: center; flex-wrap: wrap; z-index: 999; }
+.ac-consent-bar a { color: #E9B94C; }
+.ac-consent-bar button { background: #E9B94C; color: #1C2333; border: 0; border-radius: 999px; padding: .45rem 1rem; font: 600 .9rem "Onest", Verdana, sans-serif; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { h1 .w { opacity: 1 !important; transform: none !important; } }
+</style>
+</head>
+<body>
+<main>
+<p class="four-oh-four" aria-hidden="true">404</p>
+<h1 data-rise>This page slipped out of the book</h1>
+<p>The link is broken or the page moved. Nothing is lost: every name poem tool is one tap away on the home page.</p>
+<a class="home-btn" href="/" id="homeLink">Write a name poem</a>
+<div class="fine-links">
+  <a href="/" id="linkBd">Birthday poems</a> &nbsp;&middot;&nbsp;
+  <a href="/" id="linkNm">Name meanings</a>
+</div>
+</main>
+<script>
+(function () {
+  /* site root works at any fake depth a 404 gets served at */
+  var ROOT = location.pathname.indexOf("/acrostia/") === 0 ? "/acrostia/" : "/";
+  document.getElementById("homeLink").href = ROOT;
+  document.getElementById("linkBd").href = ROOT + "birthday/";
+  document.getElementById("linkNm").href = ROOT + "name-meaning/";
+
+  /* Rise Wide spring for the h1, same feel as the home page */
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var h = document.querySelector("h1[data-rise]");
+  if (h && !reduced) {
+    var words = [];
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+            var w = document.createElement("span");
+            w.className = "w";
+            w.textContent = part;
+            frag.appendChild(w);
+            words.push(w);
+          });
+          node.replaceChild(frag, ch);
+        }
+      });
+    })(h);
+    var items = words.map(function (w, i) {
+      w.style.opacity = "0";
+      return { el: w, y: 36, vy: 0, o: 0, vo: 0, t0: performance.now() + i * 110, started: false };
+    });
+    function step(now) {
+      var T = 170, F = 24, DT = 1 / 60, settled = true;
+      items.forEach(function (it) {
+        if (now < it.t0) { settled = false; return; }
+        it.started = true;
+        var ay = T * (0 - it.y) - F * it.vy;
+        var ao = T * (1 - it.o) - F * it.vo;
+        it.vy += ay * DT; it.y += it.vy * DT;
+        it.vo += ao * DT; it.o += it.vo * DT;
+        if (Math.abs(it.vy) > 0.001 || Math.abs(it.y) > 0.001 || Math.abs(it.vo) > 0.001 || Math.abs(it.o) > 0.001 || it.o < 0.999) settled = false;
+        it.el.style.transform = "translateY(" + it.y.toFixed(3) + "px)";
+        it.el.style.opacity = Math.max(0, Math.min(1, it.o)).toFixed(3);
+      });
+      if (!settled) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* same site wide privacy notice as theme.js, safe at any depth */
+  var KEY = "acrostia-consent";
+  try { if (!localStorage.getItem(KEY)) {
+    var bar = document.createElement("div");
+    bar.className = "ac-consent-bar";
+    bar.innerHTML = '<span>No tracking here.</span> <a href="' + ROOT + 'cookie-policy/">Cookie policy</a> <a href="' + ROOT + 'privacy/">Privacy</a>';
+    var ok = document.createElement("button");
+    ok.textContent = "Got it";
+    ok.addEventListener("click", function () {
+      try { localStorage.setItem(KEY, "notice-closed"); } catch (e) {}
+      bar.remove();
+    });
+    bar.appendChild(ok);
+    document.body.appendChild(bar);
+  } } catch (e) {}
+})();
+</script>
+</body>
+</html>
