@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FFD9E8%22/><text y=%22.9em%22 x=%2250%25%22 text-anchor=%22middle%22 font-size=%2262%22>🎂</text></svg>">
 <meta property="og:title" content="Acrostia">
-<meta property="og:description" content="Every name hides a poem. Turn any name into a personalized poem card for 51 occasions, free and instant.">
+<meta property="og:description" content="Every name hides a poem. Turn any name into a personalized poem card for 61 occasions, free and instant.">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://Parthiv95.github.io/acrostia/">
 <meta property="og:url" content="https://Parthiv95.github.io/acrostia/">
@@ -767,6 +767,15 @@
   .quick-start input { flex: 1 1 100%; padding: 6px 4px; }
   .qs-go { width: 100%; padding-block: .9rem; }
 }
+
+  /* compact occasion picker on small screens: chips were stacking into a tall wall */
+  @media (max-width: 640px) {
+    .chips { gap: 6px; min-height: 64px; }
+    .chip { font-size: .8rem; padding: 4px 9px 4px 4px; gap: 5px; }
+    .chip-emoji { width: 20px; height: 20px; font-size: .7rem; }
+    .group-tabs { gap: 6px; margin-bottom: 10px; }
+    .group-tab { font-size: .8rem; padding: 5px 12px; }
+  }
 </style>
 </head>
 <body>
@@ -829,7 +838,7 @@
       <p class="eyebrow">Free name poem generator</p>
       <h1 class="hero-h1 rise" data-rise data-gate data-shimmer="poem">Every name hides a little poem.</h1>
       <div class="rating-row">
-        <span class="rtext">51 occasions, worldwide</span>
+        <span class="rtext">61 occasions, worldwide</span>
       </div>
       <div class="quick-start">
         <input id="heroName" type="text" placeholder="Type a name, e.g. Emma" maxlength="14" aria-label="Name for the poem">
@@ -1769,15 +1778,115 @@ const OCCASIONS = {
       "{N}, our little star so bright,\nFull of wonder, full of might,\nMay you grow up strong and true,\nThe world is lucky to have you.",
       "Full of energy, mischief and cheer,\nDear {N}, we love having you near,\nMay your adventures never end,\nOur nephew and our special friend."
     ]
+  },
+  "teacher-appreciation": {
+    label: "Teacher Appreciation", emoji: "🍎", orn: ["🍎","✏️","⭐"],
+    c1: "#FDECEA", c2: "#FFF3D6", ink: "#5C2320", shadow: "rgba(190,80,60,.4)",
+    chipBg: "#FBE9E7",
+    closers: ["the lesson everyone remembers", "apple of the whole school", "teacher of the year, every year", "the reason someone loves school", "grading papers, raising futures", "the calm in the classroom storm", "chalk dust and pure gold", "shaping the future daily"],
+    verses: [
+      "{N}, you make the hard things clear,\nAnd turn our doubt to cheering cheer,\nWhat you have built in us will stay\nLong after we have walked away.",
+      "For every quiet hour you gave,\nFor every young mind you helped save,\nDear {N}, we say it plain and true:\nThe brightest one in class is you."
+    ]
+  },
+  "grandparents-day": {
+    label: "Grandparents Day", emoji: "💞", orn: ["💞","🌻","🫖"],
+    c1: "#F3EEFA", c2: "#EAF4EA", ink: "#4A3B63", shadow: "rgba(120,100,170,.4)",
+    chipBg: "#F0EAF9",
+    closers: ["the family's favorite storyteller", "warm cookies and warmer hugs", "the hug the whole family queues for", "wisdom with a wink", "the family tree's deep roots", "love that skips a generation, joyfully", "grandkid certified favorite", "the heart of every family photo"],
+    verses: [
+      "{N}, your stories hold us near,\nYour kitchen is our favorite year,\nThe love you hand down, warm and true,\nFinds its way right back to you.",
+      "Grandparents like {N} are rare,\nTime turns to sugar in your care,\nMay your days be long, soft, and bright,\nOur home's most gentle, warmest light."
+    ]
+  },
+  "bar-mitzvah": {
+    label: "Bar/Bat Mitzvah", emoji: "🕯️", orn: ["🕯️","⭐","🎉"],
+    c1: "#E8F0FE", c2: "#FFF3D6", ink: "#1F3A6E", shadow: "rgba(40,80,160,.4)",
+    chipBg: "#E7EFFC",
+    closers: ["today a name, tomorrow a legend", "the candle-lighting star", "grown in the eyes we love", "a blessing come to life", "thirteen going on remarkable", "the toast of the congregation", "mazel tov in human form", "new chapter, same wonderful you"],
+    verses: [
+      "{N}, today you stand up tall,\nThe Torah calls, you heed the call,\nMay this new chapter, bright and blessed,\nBring you joy above the rest.",
+      "A name read loud, a candle's flame,\nThe whole room rises at your name,\nDear {N}, may wisdom light your way,\nAnd blessing greet you every day."
+    ]
+  },
+  quinceanera: {
+    label: "Quinceañera", emoji: "👑", orn: ["👑","✨","💃"],
+    c1: "#FDE7F4", c2: "#EDE4FA", ink: "#5C2A66", shadow: "rgba(170,80,160,.4)",
+    chipBg: "#F9E5F7",
+    closers: ["quince royalty", "fifteen and flawless", "the sparkle of the sala", "today's quinceañera queen", "a waltz the family will remember", "born to wear the crown", "the moment everyone came for", "blossoming right on time"],
+    verses: [
+      "{N}, fifteen and shining bright,\nThe room turns gold when you're in sight,\nMay every wish you whisper true\nFind its way this year to you.",
+      "A crown, a dance, a glowing night,\nDear {N}, the stars are out tonight,\nMay your path be paved with grace,\nAnd joy arrive in every place."
+    ]
+  },
+  "sweet-16": {
+    label: "Sweet 16", emoji: "🎀", orn: ["🎀","🧁","💖"],
+    c1: "#FFE4F1", c2: "#DFF6F5", ink: "#7A2B56", shadow: "rgba(220,90,150,.4)",
+    chipBg: "#FEE8F2",
+    closers: ["sixteen and sensational", "the sweetest sixteen of them all", "certified sweet sixteen royalty", "old enough to know better, young enough to shine", "the party of the year", "sweetness with a license", "sixteen candles, one bright star", "the moment the year was waiting for"],
+    verses: [
+      "{N}, sixteen candles glowing,\nA brand new year, a brand new showing,\nMay every wish you whisper low\nGrow taller than you'll ever know.",
+      "Sweet sixteen, keys to the door,\nThe world is yours to explore,\nDear {N}, may this birthday year\nBe the sweetest one yet, dear."
+    ]
+  },
+  "naming-ceremony": {
+    label: "Naming Ceremony", emoji: "🌱", orn: ["🌱","🕊️","💛"],
+    c1: "#FFF2E2", c2: "#E8F5E9", ink: "#6B4A2A", shadow: "rgba(200,140,70,.4)",
+    chipBg: "#FFF0DE",
+    closers: ["the newest name we love", "small name, giant blessing", "welcome to the world, little one", "a name worth every cheer", "the family's freshest chapter", "tiny star, bright future", "named today, loved forever", "the guest of honor, brand new"],
+    verses: [
+      "Little {N}, your name is blessed,\nThe room has gathered, hearts at rest,\nMay this name you carry far\nBe your compass, be your star.",
+      "A name's the first gift, that is true,\nAnd none was made more just for you,\nDear {N}, grow gentle, strong, and kind,\nWith love wrapped close and joy behind."
+    ]
+  },
+  "baby-shower": {
+    label: "Baby Shower", emoji: "🍼", orn: ["🍼","🎈","🧸"],
+    c1: "#FCE4EC", c2: "#E3F2FD", ink: "#5C3A5E", shadow: "rgba(180,120,190,.4)",
+    chipBg: "#F9E4F2",
+    closers: ["the guest of honor, soon to arrive", "glowing, and rightly so", "nappies, bottles, endless love", "the sweetest countdown begins", "almost here, already adored", "a bundle is on the way", "showered with love, literally", "the calm before the cuddles"],
+    verses: [
+      "{N}, the tiny socks are neat,\nThe little bed looks oh so sweet,\nWe cannot wait to hear you soon,\nThe family's newest, sweetest tune.",
+      "The bump is big, the hearts are bigger,\n{N}, the joy keeps rushing quicker,\nMay the little one you greet\nHave your smile and your heartbeat."
+    ]
+  },
+  prom: {
+    label: "Prom", emoji: "🌹", orn: ["🌹","🕺","🕺"],
+    c1: "#EAE6F9", c2: "#FDE8F0", ink: "#3A2E6E", shadow: "rgba(110,90,190,.4)",
+    chipBg: "#ECE7FA",
+    closers: ["prom night royalty", "best dressed, best danced, best night", "the one the crowd parts for", "a dance card classic", "the night's brightest photo", "dancing like the floor owes them", "crown optional, star certain", "the proposal was just the start"],
+    verses: [
+      "{N}, the music's starting slow,\nThe floor is lit, the lights are low,\nOne name, one night, one dance to share,\nAnd I will meet you there.",
+      "The lights are dim, the songs are sweet,\n{N}, you make the night complete,\nMay this dance and every after\nRing with music, joy, and laughter."
+    ]
+  },
+  "karwa-chauth": {
+    label: "Karwa Chauth", emoji: "🌙", orn: ["🌙","🪔","❤️"],
+    c1: "#FDEBE6", c2: "#FFF3D6", ink: "#7A2E1E", shadow: "rgba(200,70,50,.4)",
+    chipBg: "#FBE8E0",
+    closers: ["the moon's favorite devotee", "love measured in moonlight", "a fast, a prayer, a forever", "glowing till moonrise and beyond", "the love story of the year", "dedication with a smile", "bound by moonlight and love", "the evening's brightest sari"],
+    verses: [
+      "{N}, the moon will rise tonight,\nYour love keeps step with its soft light,\nMay every fast and every prayer\nKeep you both a golden pair.",
+      "Through the fasting day you glow,\n{N}, more radiant than we know,\nMay the moon hear every vow\nAnd bless the love you're keeping now."
+    ]
+  },
+  "silver-anniversary": {
+    label: "Silver Anniversary", emoji: "🥈", orn: ["🥈","🤍","✨"],
+    c1: "#EFF3F6", c2: "#E4ECF2", ink: "#3E4A56", shadow: "rgba(110,130,150,.4)",
+    chipBg: "#EAF0F5",
+    closers: ["twenty-five years, still smitten", "silver outside, gold inside", "the couple other couples study", "proof that forever exists", "a love with a quarter-century warranty", "still each other's favorite person", "anniversary royalty", "the silver standard of love"],
+    verses: [
+      "{N}, twenty-five and counting still,\nA love that time could never kill,\nMay the silver in your years\nShine on, and turn to gold with cheers.",
+      "A quarter century, hand in hand,\nDear {N}, a love the years made grand,\nMay silver shine and softly say\nThe best is still on its way."
+    ]
   }
 };
 
 const GROUPS = [
-  ["Celebrate", ["birthday","engagement","wedding","anniversary","graduation","newjob","newhome","retirement","congrats"]],
-  ["Festivals & Holidays", ["christmas","newyear","lunarnewyear","easter","thanksgiving","hanukkah","valentine","halloween","eid","diwali","holi","rakhi","navratri"]],
-  ["Everyday", ["thanks","getwell","goodluck","farewell","teachersday"]],
+  ["Celebrate", ["birthday","engagement","wedding","anniversary","graduation","newjob","newhome","retirement","congrats","bar-mitzvah","quinceanera","sweet-16","prom","silver-anniversary"]],
+  ["Festivals & Holidays", ["christmas","newyear","lunarnewyear","easter","thanksgiving","hanukkah","valentine","halloween","eid","diwali","holi","rakhi","navratri","karwa-chauth"]],
+  ["Everyday", ["thanks","getwell","goodluck","farewell","teachersday","teacher-appreciation"]],
   ["Love", ["boyfriend","girlfriend","couple","wife","husband"]],
-  ["Family", ["mother","father","sister","brother","son","daughter","baby","mothersday","fathersday","grandma","grandpa","cousin","aunt","uncle","niece","nephew"]],
+  ["Family", ["mother","father","sister","brother","son","daughter","baby","mothersday","fathersday","grandma","grandpa","cousin","aunt","uncle","niece","nephew","grandparents-day","baby-shower","naming-ceremony"]],
   ["Friends & Pets", ["bestfriend","friendship","pet"]]
 ];
 
@@ -1885,7 +1994,10 @@ const OCC_THEMES = {
   hanukkah: "festival", lunarnewyear: "festival", holi: "festival", navratri: "festival",
   thanksgiving: "festival", newyear: "festival",
   graduation: "milestone", newjob: "milestone", newhome: "milestone", retirement: "milestone", congrats: "milestone", goodluck: "milestone",
-  teachersday: "school", thanks: "thanks", getwell: "heal", halloween: "spooky", pet: "pet"
+  teachersday: "school", thanks: "thanks", getwell: "heal", halloween: "spooky", pet: "pet",
+  "teacher-appreciation": "school", "bar-mitzvah": "milestone", quinceanera: "milestone",
+  "sweet-16": "birthday", prom: "friends", "silver-anniversary": "love",
+  "karwa-chauth": "love", "grandparents-day": "family", "baby-shower": "family", "naming-ceremony": "family"
 };
 
 const OCC_TRAITS = {
@@ -2401,6 +2513,7 @@ $("bgResetBtn").addEventListener("click", () => {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "chip";
+    b.dataset.key = key;
     b.style.setProperty("--chip-color", o.c2);
     b.style.setProperty("--chip-bg", o.chipBg);
     b.innerHTML = "<span class='chip-emoji' aria-hidden='true'>" + o.emoji + "</span>" + o.label;
@@ -2762,6 +2875,14 @@ updateName2Visibility();
 if (urlPartner && PAIR_CATEGORIES.indexOf(state.occasion) !== -1) $("name2Input").value = urlPartner;
 retheme();
 writePoem();
+
+/* deep link: open the tab and chip matching ?o= (chips render before boot, so re-sync) */
+(function () {
+  const g = GROUPS.find((gr) => gr[1].indexOf(state.occasion) !== -1);
+  if (!g) return;
+  const tab = document.querySelector('.group-tab[data-g="' + g[0] + '"]');
+  if (tab) tab.click();
+})();
 
 function syncUrl() {
   if (!state.poem) return;

@@ -251,31 +251,95 @@ h1 em { font-style: italic; color: var(--deep); }
     c.width = W; c.height = H;
     var x = c.getContext("2d");
     var WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][r.bd.getDay()];
-    var facts = [
-      ["Age", r.age.y + " years " + r.age.m + " mo"],
-      ["Born on a", WD],
-      ["Chinese zodiac", r.ch.name],
-      ["Birthstone", r.st.stone],
-      ["Birth flower", r.fl.flower],
-      ["Birth tree", r.tr.name],
-      ["Life path", String(r.lp)],
-      ["Lucky color", r.z.color],
-      ["Lucky day", r.z.day],
-      ["Lucky number", String(r.z.number)]
-    ];
+    var MON = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var title = name + "’s big day";
+
+    function fitTitle(txt, size, max) {
+      var s = size;
+      x.font = "600 " + s + "px Fraunces, Georgia, serif";
+      while (s > 30 && x.measureText(txt).width > max) { s -= 2; x.font = "600 " + s + "px Fraunces, Georgia, serif"; }
+      return s;
+    }
+    function wrapWords(txt, font, maxW) {
+      x.font = font;
+      var words = txt.split(" "), lines = [], cur = "";
+      words.forEach(function (w2) {
+        var t = cur ? cur + " " + w2 : w2;
+        if (x.measureText(t).width > maxW && cur) { lines.push(cur); cur = w2; } else cur = t;
+      });
+      if (cur) lines.push(cur);
+      return lines;
+    }
+    function section(title2, yTop) {
+      x.textAlign = "left";
+      x.fillStyle = "#b57718"; x.font = "600 22px Verdana, sans-serif";
+      x.fillText(title2, 100, yTop);
+      x.strokeStyle = "rgba(226,165,42,.55)"; x.lineWidth = 1.5;
+      x.beginPath(); x.moveTo(100 + x.measureText(title2).width + 20, yTop - 7); x.lineTo(W - 100, yTop - 7); x.stroke();
+    }
+    function cell(k, v, xx, yy, w) {
+      x.textAlign = "left";
+      x.fillStyle = "#8a7a5f"; x.font = "600 20px Verdana, sans-serif";
+      x.fillText(k.toUpperCase(), xx, yy);
+      var fs = 30;
+      x.font = fs + "px Georgia, serif";
+      while (fs > 19 && x.measureText(v).width > w) { fs -= 1; x.font = fs + "px Georgia, serif"; }
+      x.fillStyle = "#241d12";
+      x.fillText(v, xx, yy + 38);
+      x.strokeStyle = "rgba(220,207,174,.6)"; x.lineWidth = 1;
+      x.beginPath(); x.moveTo(xx, yy + 56); x.lineTo(xx + w, yy + 56); x.stroke();
+    }
+
     function draw(img) {
-      x.fillStyle = "#fdf9f1"; x.fillRect(0, 0, W, H);
-      x.fillStyle = "rgba(226,165,42,.26)";
-      for (var py = 44; py < H; py += 46) for (var px = 44; px < W; px += 46) { x.beginPath(); x.arc(px, py, 3, 0, 7); x.fill(); }
+      var bg = x.createLinearGradient(0, 0, 0, H);
+      bg.addColorStop(0, "#fffdf6"); bg.addColorStop(1, "#f8efdb");
+      x.fillStyle = bg; x.fillRect(0, 0, W, H);
+      var g1 = x.createRadialGradient(150, 130, 20, 150, 130, 540);
+      g1.addColorStop(0, "rgba(244,200,90,.2)"); g1.addColorStop(1, "rgba(244,200,90,0)");
+      x.fillStyle = g1; x.fillRect(0, 0, W, 720);
+      var g2 = x.createRadialGradient(W - 130, H - 280, 20, W - 130, H - 280, 580);
+      g2.addColorStop(0, "rgba(224,122,88,.11)"); g2.addColorStop(1, "rgba(224,122,88,0)");
+      x.fillStyle = g2; x.fillRect(0, H - 820, W, 820);
+      var seed = 20261114;
+      function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
+      var cols = ["rgba(226,165,42,.38)", "rgba(214,110,76,.28)", "rgba(122,158,98,.28)", "rgba(96,134,182,.26)", "rgba(226,165,42,.26)"];
+      for (var ci = 0; ci < 80; ci++) {
+        var cx2 = 60 + rnd() * (W - 120), cy2 = 60 + rnd() * (H - 210);
+        var sz = 3 + rnd() * 6;
+        x.save(); x.translate(cx2, cy2); x.rotate(rnd() * Math.PI);
+        x.fillStyle = cols[Math.floor(rnd() * cols.length)];
+        var kind = rnd();
+        if (kind < .45) x.fillRect(-sz, -sz * .4, sz * 2, sz * .8);
+        else if (kind < .8) { x.beginPath(); x.arc(0, 0, sz * .6, 0, 7); x.fill(); }
+        else { x.beginPath(); x.moveTo(0, -sz); x.lineTo(sz, sz); x.lineTo(-sz, sz); x.closePath(); x.fill(); }
+        x.restore();
+      }
+      function sprig(sx, sy, rot) {
+        x.save(); x.translate(sx, sy); x.rotate(rot);
+        x.strokeStyle = "rgba(196,148,52,.5)"; x.lineWidth = 3;
+        x.beginPath(); x.moveTo(0, 0); x.quadraticCurveTo(75, 10, 150, 60); x.stroke();
+        x.fillStyle = "rgba(196,148,52,.42)";
+        [26, 54, 84, 116, 142].forEach(function (t, ti) {
+          x.save(); x.translate(t, t * .13 + t * t * .0018); x.rotate(ti % 2 ? -.9 : .5);
+          x.beginPath(); x.ellipse(10, 0, 15, 5.5, 0, 0, 7); x.fill(); x.restore();
+        });
+        x.restore();
+      }
+      sprig(0, 0, 0); sprig(W, 0, Math.PI / 2); sprig(W, H - 104, Math.PI); sprig(0, H - 104, -Math.PI / 2);
       x.fillStyle = "#e2a52a"; x.fillRect(0, H - 104, W, 78);
+
+      /* header */
       x.textAlign = "center";
-      x.fillStyle = "#b57718"; x.font = "600 27px Verdana, sans-serif";
-      x.fillText("B I R T H D A Y   P R O F I L E", W / 2, 132);
-      x.fillStyle = "#241d12"; x.font = "600 76px Fraunces, Georgia, serif";
-      x.fillText(name + "\u2019s big day", W / 2, 218);
-      x.fillStyle = "#8a7a5f"; x.font = "italic 34px Georgia, serif";
-      x.fillText(F.fmt(r.bd), W / 2, 270);
-      var pcx = W / 2, pcy = 524, pr = 190;
+      x.fillStyle = "#b57718"; x.font = "600 26px Verdana, sans-serif";
+      x.fillText("B I R T H D A Y   P R O F I L E", W / 2, 122);
+      x.fillStyle = "#241d12";
+      x.font = "600 " + fitTitle(title, 72, 880) + "px Fraunces, Georgia, serif";
+      x.fillText(title, W / 2, 202);
+      x.fillStyle = "#8a7a5f"; x.font = "italic 32px Georgia, serif";
+      x.fillText(F.fmt(r.bd) + "  ·  born on a " + WD, W / 2, 252);
+
+      /* photo left */
+      var pcx = 292, pcy = 458, pr = 156;
       x.save();
       x.beginPath(); x.arc(pcx, pcy, pr, 0, 7); x.clip();
       if (img) {
@@ -283,31 +347,73 @@ h1 em { font-style: italic; color: var(--deep); }
         x.drawImage(img, pcx - img.width * s / 2, pcy - img.height * s / 2, img.width * s, img.height * s);
       } else {
         x.fillStyle = "#f3e2bd"; x.fillRect(pcx - pr, pcy - pr, pr * 2, pr * 2);
-        x.fillStyle = "#b57718"; x.font = "150px Georgia, serif";
-        x.fillText("\u2740", pcx, pcy + 52);
+        x.fillStyle = "#b57718"; x.font = "130px Georgia, serif";
+        x.fillText("❀", pcx, pcy + 46);
       }
       x.restore();
       x.beginPath(); x.arc(pcx, pcy, pr, 0, 7);
-      x.lineWidth = 10; x.strokeStyle = "#e2a52a"; x.stroke();
-      x.beginPath(); x.arc(pcx, pcy, pr + 16, 0, 7);
+      x.save(); x.shadowColor = "rgba(226,165,42,.55)"; x.shadowBlur = 26;
+      x.lineWidth = 9; x.strokeStyle = "#e2a52a"; x.stroke(); x.restore();
+      x.beginPath(); x.arc(pcx, pcy, pr + 15, 0, 7);
       x.lineWidth = 2; x.strokeStyle = "#dccfae"; x.stroke();
-      x.fillStyle = "#241d12"; x.font = "600 46px Fraunces, Georgia, serif";
-      x.fillText(r.z.glyph + "  " + r.z.name, W / 2, 794);
-      x.fillStyle = "#8a7a5f"; x.font = "27px Verdana, sans-serif";
-      x.fillText(r.z.element + " \u00b7 ruled by " + r.z.planet, W / 2, 838);
-      x.textAlign = "left";
-      facts.forEach(function (f2, i) {
-        var col = i % 2, row = (i - col) / 2;
-        var xx = col === 0 ? 118 : 578;
-        var yy = 936 + row * 92;
-        x.fillStyle = "#8a7a5f"; x.font = "600 21px Verdana, sans-serif";
-        x.fillText(f2[0].toUpperCase(), xx, yy);
-        x.fillStyle = "#241d12"; x.font = "33px Georgia, serif";
-        x.fillText(f2[1], xx, yy + 40);
-        x.strokeStyle = "rgba(220,207,174,.6)"; x.lineWidth = 1;
-        x.beginPath(); x.moveTo(xx, yy + 58); x.lineTo(xx + 384, yy + 58); x.stroke();
-      });
+
+      /* zodiac panel right */
+      var zx = 716;
+      x.fillStyle = "#241d12"; x.font = "92px Georgia, serif";
+      x.fillText(r.z.glyph, zx, 402);
+      x.font = "600 " + fitTitle(r.z.name, 56, 460) + "px Fraunces, Georgia, serif";
+      x.fillText(r.z.name, zx, 476);
+      x.fillStyle = "#b57718"; x.font = "600 23px Verdana, sans-serif";
+      x.fillText(MON[r.z.from[0] - 1] + " " + r.z.from[1] + " to " + MON[r.z.to[0] - 1] + " " + r.z.to[1], zx, 512);
+      x.fillStyle = "#8a7a5f"; x.font = "25px Verdana, sans-serif";
+      x.fillText(r.z.element + " · ruled by " + r.z.planet, zx, 550);
+      /* tagline stays inside the right panel (left edge clear of the photo ring) */
+      var zl = wrapWords(r.z.line, "italic 24px Georgia, serif", 460).slice(0, 2);
+      x.font = "italic 24px Georgia, serif";
+      x.fillStyle = "#8a7a5f";
+      zl.forEach(function (ln, li) { x.fillText(ln, zx, 586 + li * 30); });
+
+      /* paper sheet behind the facts */
+      x.fillStyle = "rgba(255,253,246,.72)";
+      x.strokeStyle = "rgba(214,201,168,.6)"; x.lineWidth = 1.5;
+      x.beginPath();
+      if (x.roundRect) x.roundRect(72, 632, W - 144, 760, 26); else x.rect(72, 632, W - 144, 760);
+      x.fill(); x.stroke();
+
+      /* the basics */
+      section("THE BASICS", 662);
+      cell("Age", r.age.y + " years, " + r.age.m + " months, " + r.age.d + " days", 100, 706, 420);
+      cell("Born on a", WD, 560, 706, 420);
+      cell("Days on earth", r.daysLived.toLocaleString() + " and counting", 100, 798, 420);
+      cell("Next birthday", r.next === 0 ? "It is today!" : "in " + r.next + " days", 560, 798, 420);
+      cell("Leap years seen", r.leaps + (r.leaps === 1 ? " leap year so far" : " leap years so far"), 100, 890, 420);
+      cell("Date of conception", "probably " + F.fmt(r.conception), 560, 890, 420);
+
+      /* signs and numbers */
+      section("SIGNS AND NUMBERS", 988);
+      cell("Star sign", r.z.glyph + " " + r.z.name, 100, 1032, 420);
+      cell("Chinese zodiac", r.ch.name, 560, 1032, 420);
+      cell("Birth number", r.bn + " · " + F.BIRTH_NUMBERS[r.bn].split(":")[0], 100, 1124, 420);
+      cell("Life path", r.lp + " · " + F.LIFE_PATHS[r.lp], 560, 1124, 420);
+
+      /* born in month */
+      section("BORN IN " + MON[r.m - 1].toUpperCase(), 1222);
+      cell("Birthstone", r.st.stone, 100, 1266, 262);
+      cell("Birth flower", r.fl.flower, 393, 1266, 262);
+      cell("Birth tree", r.tr.name, 686, 1266, 294);
+
+      /* lucky strip */
+      x.fillStyle = "rgba(226,165,42,.16)";
+      x.fillRect(100, 1336, W - 200, 46);
       x.textAlign = "center";
+      var lucky = "Lucky color " + r.z.color + "  ·  Lucky day " + r.z.day + "  ·  Lucky number " + r.z.number;
+      var lfs = 25;
+      x.font = "600 " + lfs + "px Verdana, sans-serif";
+      while (lfs > 17 && x.measureText(lucky).width > W - 240) { lfs -= 1; x.font = "600 " + lfs + "px Verdana, sans-serif"; }
+      x.fillStyle = "#241d12";
+      x.fillText(lucky, W / 2, 1367);
+
+      /* footer */
       x.fillStyle = "#241c05"; x.font = "italic 30px Georgia, serif";
       x.fillText("made with Acrostia", W / 2, H - 54);
       x.strokeStyle = "#e2a52a"; x.lineWidth = 5;
