@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What are my lucky numbers? Free lucky number finder | Acrostia | Acrostia</title>
+<meta name="description" content="Type your name and birth date and get your lucky number, birth number, life path number, lucky color and lucky day. Free, instant.">
+<link rel="canonical" href="https://Parthiv95.github.io/acrostia/lucky-number/">
+<meta property="og:title" content="OWhat are my lucky numbers? Free lucky number finder | Acrostia | Acrostia">
+<meta property="og:description" content="Type your name and birth date and get your lucky number, birth number, life path number, lucky color and lucky day. Free, instant.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E\u2049%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="../fun-data.js?v=3"></script>
+<style>
+:root { --ink: #2b1d10; --paper: #fdf6ec; --gold: #e2a52a; --accent: #b57718; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Onest, sans-serif; color: var(--ink); background: var(--paper); background-image: radial-gradient(2px 2px at 14% 20%, rgba(181,119,24,.35), transparent 60%), radial-gradient(2px 2px at 84% 14%, rgba(181,119,24,.3), transparent 60%), radial-gradient(2.5px 2.5px at 68% 60%, rgba(181,119,24,.22), transparent 60%), linear-gradient(#fdf6ec, #f8efe0); background-attachment: fixed; }
+header { display: flex; justify-content: space-between; align-items: center; max-width: 60rem; margin: 0 auto; padding: 18px 2rem; }
+.brand { display: inline-flex; gap: .5rem; align-items: center; font-family: Fraunces, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.spark { width: 20px; height: 20px; color: var(--gold); }
+.top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
+.top-cta:hover { background: var(--ink); color: var(--paper); }
+main { max-width: 60rem; margin: 0 auto; padding: 12px 2rem 70px; }
+h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2rem, 4.4vw, 3rem); margin: 16px 0 12px; letter-spacing: -.01em; }
+h1 em { font-style: italic; color: var(--accent); }
+.lede { font-size: 1.08rem; line-height: 1.65; color: #6b5c48; max-width: 60ch; margin: 0 0 26px; }
+.tool { background: #fff; border: 1px solid #ecdfc6; border-radius: 22px; padding: 26px; box-shadow: 0 18px 44px 0 18px 44px rgba(120,80,20,.08); }
+.controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+.controls label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #6b5c48; margin-bottom: 6px; }
+.controls input, .controls select { font: 600 1rem Onest, sans-serif; color: var(--ink); background: var(--paper); border: 1.5px solid #ecdfc6; border-radius: 12px; padding: .68rem .85rem; }
+.controls select { width: 112px; }
+.gold { background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 1rem Onest, sans-serif; padding: .72rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
+.gold:hover { transform: translateY(-1px); }
+.ghost { background: none; border: 1.5px solid #ecdfc6; color: var(--ink); font: 600 .92rem Onest, sans-serif; padding: .68rem 1.2rem; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-block; }
+.ghost:hover { border-color: var(--ink); }
+.out { margin-top: 24px; display: none; }
+.hero-card { border-radius: 18px; padding: 26px; text-align: center; background: linear-gradient(135deg, #8a5a10, #b57718); }
+.hero-card .glyph { font-size: 4rem; line-height: 1; }
+.hero-card .name { font-family: Fraunces, serif; font-size: 2rem; font-weight: 600; margin-top: 6px; }
+.hero-card .when { font-size: .9rem; color: #6b5c48; margin-top: 2px; }
+.hero-card .line { font-size: 1rem; line-height: 1.55; margin-top: 10px; }
+.hero-card { color: #fff; }
+.hero-card .glyph, .hero-card .name { color: #fff; text-shadow: 0 1px 10px rgba(0,0,0,.25); }
+.hero-card .when { color: rgba(255,255,255,.78); }
+.hero-card .line { color: rgba(255,255,255,.92); }
+.hero-card .tags span { color: #fff; background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.32); }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+.tags span { background: rgba(255,255,255,.75); border: 1px solid #ecdfc6; border-radius: 999px; padding: .32rem .8rem; font-size: .82rem; font-weight: 600; color: var(--accent); }
+.grid12 { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.grid12 button { background: var(--paper); border: 1.5px solid #ecdfc6; border-radius: 14px; padding: .8rem .6rem; font: 600 .9rem Onest, sans-serif; color: var(--ink); cursor: pointer; text-align: center; }
+.grid12 button:hover { border-color: var(--accent); }
+.grid12 button .g { display: block; font-size: 1.5rem; margin-bottom: 2px; }
+.about { margin-top: 46px; max-width: 72ch; }
+.about h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 30px 0 10px; }
+.about p { line-height: 1.7; color: #584b39; margin: 0 0 14px; }
+.links { margin-top: 26px; font-size: .95rem; line-height: 2; }
+.links a { color: var(--accent); font-weight: 600; }
+@media (max-width: 640px) { header, main { padding-left: 1.1rem; padding-right: 1.1rem; } }
+
+.more-sec { margin-top: 46px; }
+.more-h { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 0 0 16px; }
+.more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.mf-card { display: flex; text-decoration: none; }
+.mf-art { position: relative; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; min-height: 190px; border-radius: 18px; overflow: hidden; padding: .95rem; box-shadow: 0 14px 34px rgba(20,16,30,.16); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.mf-card:hover .mf-art { transform: translateY(-3px); }
+.mf-glyph { position: absolute; top: 14%; left: 0; right: 0; text-align: center; font-size: 3.4rem; line-height: 1; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.45); }
+.mf-cta { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: .6rem; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 .88rem Onest, sans-serif; padding: .62rem .95rem; border-radius: 999px; }
+.mf-cta svg { width: 18px; height: 18px; flex: 0 0 auto; }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
+  <a class="top-cta" href="../">Open the studio</a>
+</header>
+<main>
+<h1>Your <em>lucky numbers</em>, by name and birthday</h1>
+<p class="lede">Your name and birth date point at numbers numerology calls yours: a birth number, a life path, and the lucky color, day and number of your zodiac sign. Tap again for a fresh Lucky pick of the day.</p>
+<section class="tool" aria-label="Lucky number finder">
+  <div class="controls">
+    <div><label for="lN">Name</label><input id="lN" maxlength="18" placeholder="e.g. Emma" style="width:160px"></div>
+    <div><label for="lD">Day</label><select id="lD"></select></div>
+    <div><label for="lM">Month</label><select id="lM"></select></div>
+    <button class="gold" id="lGo" type="button">Find my luck</button>
+    <button class="ghost" id="lRnd" type="button">Surprise me</button>
+  </div>
+  <div class="out" id="lOut" aria-live="polite">
+    <div class="hero-card" id="lCard"></div>
+  </div>
+</section>
+<section class="about"><h2>Where lucky numbers come from</h2>
+<p>Numerology reads luck from two places: your birth date and your name. The birth number reduces the day you were born to a single digit. The life path reduces the whole date. Your zodiac sign adds its own lucky color, day and number, and your name letters add a final flourish. Acrostia combines all of them and hands you one card.</p>
+<p>The Lucky pick of the day is the one playful exception: it rolls fresh each time you tap, which is exactly what a lucky number is for. When you want the poem version of your luck, the <a href="../" style="color:var(--accent);font-weight:600">studio</a> is one tap away.</p></section>
+<section class="more-sec" aria-label="More birthday fun">
+  <h2 class="more-h">More birthday fun</h2>
+  <div class="more-grid">
+    <a class="mf-card" href="../birthday-profile/" aria-label="Build a birthday profile"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Build a birthday profile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../zodiac/" aria-label="Find your zodiac sign"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><svg viewBox="0 0 100 62" aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(64%,175px)"><polyline points="18,20 26,10 36,14 38,26 58,34 80,42 86,54 60,48 42,38" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8"/><polyline points="58,34 62,20" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".6"/><circle cx="18" cy="20" r="3.1" fill="#fff" opacity=".25"/><circle cx="18" cy="20" r="1.6" fill="#fff"/><circle cx="26" cy="10" r="3.1" fill="#fff" opacity=".25"/><circle cx="26" cy="10" r="1.6" fill="#fff"/><circle cx="36" cy="14" r="3.1" fill="#fff" opacity=".25"/><circle cx="36" cy="14" r="1.6" fill="#fff"/><circle cx="38" cy="26" r="3.1" fill="#fff" opacity=".25"/><circle cx="38" cy="26" r="1.6" fill="#fff"/><circle cx="58" cy="34" r="3.1" fill="#fff" opacity=".25"/><circle cx="58" cy="34" r="1.6" fill="#fff"/><circle cx="80" cy="42" r="3.1" fill="#fff" opacity=".25"/><circle cx="80" cy="42" r="1.6" fill="#fff"/><circle cx="86" cy="54" r="3.1" fill="#fff" opacity=".25"/><circle cx="86" cy="54" r="1.6" fill="#fff"/><circle cx="60" cy="48" r="3.1" fill="#fff" opacity=".25"/><circle cx="60" cy="48" r="1.6" fill="#fff"/><circle cx="42" cy="38" r="3.1" fill="#fff" opacity=".25"/><circle cx="42" cy="38" r="1.6" fill="#fff"/></svg><span class="mf-cta">Find your zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birthstone/" aria-label="Find your birthstone"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/13300176/pexels-photo-13300176.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Find your birthstone<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-flower/" aria-label="Find your birth flower"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your birth flower<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../lucky-number/" aria-label="Find your lucky number"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your lucky number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../moon-phase/" aria-label="Your birthday moon phase"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/673902/pexels-photo-673902.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your birthday moon phase<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../planet-age/" aria-label="Your age on Mars"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/20337597/pexels-photo-20337597.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your age on Mars<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-month/" aria-label="What your birth month says"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">What your birth month says<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../golden-birthday/" aria-label="Find your golden birthday"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your golden birthday<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+  </div>
+</section>
+</main>
+<script>
+(function () {
+  var F = window.FUN, $ = function (id) { return document.getElementById(id); };
+  var dS = $("lD"), mS = $("lM");
+  for (var i = 1; i <= 31; i++) dS.add(new Option(i, i));
+  ["January","February","March","April","May","June","July","August","September","October","November","December"].forEach(function (m, ix) { mS.add(new Option(m, ix + 1)); });
+  var qs = new URLSearchParams(location.search);
+  if (qs.get("n")) $("lN").value = qs.get("n").slice(0, 18);
+  if (+qs.get("d") >= 1 && +qs.get("d") <= 31) dS.value = qs.get("d");
+  if (+qs.get("m") >= 1 && +qs.get("m") <= 12) mS.value = qs.get("m");
+  function show() {
+    var d = +dS.value, m = +mS.value, name = ($("lN").value || "").trim();
+    var z = F.signFor(m, d), bn = F.reduceNum(d);
+    var nameSum = 0;
+    name.toUpperCase().replace(/[^A-Z]/g, "").split("").forEach(function (L) { nameSum += L.charCodeAt(0) - 64; });
+    var nameNum = nameSum ? F.reduceNum(nameSum) : 0;
+    var pool = [z.number, bn];
+    if (nameNum) pool.push(nameNum);
+    pool.push(1 + Math.floor(Math.random() * 99));
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    var who = name ? name.charAt(0).toUpperCase() + name.slice(1) : "Your";
+    $("lCard").innerHTML = '<div class="glyph">' + pick + '</div><div class="name">' + (name ? who + "\u2019s lucky number" : "Your lucky number") + '</div>' +
+      '<div class="line">From ' + who.replace(/\u2019s$/, "") + "\u2019s " + (name ? "name and " : "") + "birth date: " + pool.slice(0, -1).join(", ") + '</div>' +
+      '<div class="tags"><span>Birth number: ' + bn + '</span><span>' + z.glyph + " " + z.name + '</span><span>Lucky color: ' + z.color + '</span><span>Lucky day: ' + z.day + '</span><span>Sign number: ' + z.number + '</span></div>';
+    $("lOut").style.display = "block";
+  }
+  $("lGo").addEventListener("click", show);
+  [dS, mS].forEach(function (s) { s.addEventListener("change", show); });
+  $("lN").addEventListener("keydown", function (e) { if (e.key === "Enter") show(); });
+  $("lRnd").addEventListener("click", function () {
+    var names = ["Emma","Liam","Olivia","Noah","Grace","Mia","Amelia","Yuki"];
+    $("lN").value = names[Math.floor(Math.random() * names.length)];
+    dS.value = String(1 + Math.floor(Math.random() * 31));
+    mS.value = String(1 + Math.floor(Math.random() * 12));
+    show();
+  });
+  show();
+})();
+</script>
+<script src="../theme.js" defer></script>
+</body>
+</html>

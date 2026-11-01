@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When is my golden birthday? Golden birthday calculator | Acrostia</title>
+<meta name="description" content="Your golden birthday is the one where you turn the age of your birth date. Find the exact date, plus your 10,000th and 25,000th day on Earth. Free, instant.">
+<link rel="canonical" href="https://Parthiv95.github.io/acrostia/golden-birthday/">
+<meta property="og:title" content="When is my golden birthday? Golden birthday calculator | Acrostia | Acrostia">
+<meta property="og:description" content="Your golden birthday is the one where you turn the age of your birth date. Find the exact date, plus your 10,000th and 25,000th day on Earth. Free, instant.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E\u2728%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="../fun-data.js?v=3"></script>
+<style>
+:root { --ink: #2b2113; --paper: #fdf7ea; --gold: #e2a52a; --accent: #c08a1e; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Onest, sans-serif; color: var(--ink); background: var(--paper); background-image: radial-gradient(2px 2px at 15% 20%, rgba(192,138,30,.35), transparent 60%), radial-gradient(2px 2px at 80% 15%, rgba(192,138,30,.3), transparent 60%), radial-gradient(2.5px 2.5px at 65% 60%, rgba(192,138,30,.22), transparent 60%), linear-gradient(#fdf7ea, #f8f0dd); background-attachment: fixed; }
+header { display: flex; justify-content: space-between; align-items: center; max-width: 60rem; margin: 0 auto; padding: 18px 2rem; }
+.brand { display: inline-flex; gap: .5rem; align-items: center; font-family: Fraunces, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.spark { width: 20px; height: 20px; color: var(--gold); }
+.top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
+.top-cta:hover { background: var(--ink); color: var(--paper); }
+main { max-width: 60rem; margin: 0 auto; padding: 12px 2rem 70px; }
+h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2rem, 4.4vw, 3rem); margin: 16px 0 12px; letter-spacing: -.01em; }
+h1 em { font-style: italic; color: var(--accent); }
+.lede { font-size: 1.08rem; line-height: 1.65; color: #6d5c42; max-width: 60ch; margin: 0 0 26px; }
+.tool { background: #fff; border: 1px solid #eee0c2; border-radius: 22px; padding: 26px; box-shadow: 0 18px 44px 0 18px 44px rgba(140,100,20,.08); }
+.controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+.controls label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #6d5c42; margin-bottom: 6px; }
+.controls input, .controls select { font: 600 1rem Onest, sans-serif; color: var(--ink); background: var(--paper); border: 1.5px solid #eee0c2; border-radius: 12px; padding: .68rem .85rem; }
+.controls select { width: 112px; }
+.gold { background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 1rem Onest, sans-serif; padding: .72rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
+.gold:hover { transform: translateY(-1px); }
+.ghost { background: none; border: 1.5px solid #eee0c2; color: var(--ink); font: 600 .92rem Onest, sans-serif; padding: .68rem 1.2rem; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-block; }
+.ghost:hover { border-color: var(--ink); }
+.out { margin-top: 24px; display: none; }
+.hero-card { border-radius: 18px; padding: 26px; text-align: center; background: linear-gradient(135deg, #96701a, #c08a1e); color: #fff; }
+.hero-card .glyph { font-size: 4rem; line-height: 1; }
+.hero-card .name { font-family: Fraunces, serif; font-size: 2rem; font-weight: 600; margin-top: 6px; }
+.hero-card .when { font-size: .9rem; color: rgba(255,255,255,.78); margin-top: 2px; }
+.hero-card .line { font-size: 1rem; line-height: 1.55; margin-top: 10px; color: rgba(255,255,255,.92); }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+.tags span { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.32); border-radius: 999px; padding: .32rem .8rem; font-size: .82rem; font-weight: 600; color: #fff; }
+.grid12 { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.grid12 button { background: var(--paper); border: 1.5px solid #eee0c2; border-radius: 14px; padding: .8rem .6rem; font: 600 .9rem Onest, sans-serif; color: var(--ink); cursor: pointer; text-align: center; }
+.grid12 button:hover { border-color: var(--accent); }
+.about { margin-top: 46px; max-width: 72ch; }
+.about h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 30px 0 10px; }
+.about p { line-height: 1.7; color: #5a4c36; margin: 0 0 14px; }
+.more-sec { margin-top: 46px; }
+.more-h { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 0 0 16px; }
+.more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.mf-card { display: flex; text-decoration: none; }
+.mf-art { position: relative; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; min-height: 190px; border-radius: 18px; overflow: hidden; padding: .95rem; box-shadow: 0 14px 34px rgba(20,16,30,.16); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.mf-card:hover .mf-art { transform: translateY(-3px); }
+.mf-glyph { position: absolute; top: 14%; left: 0; right: 0; text-align: center; font-size: 3.4rem; line-height: 1; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.45); }
+.mf-cta { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: .6rem; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 .88rem Onest, sans-serif; padding: .62rem .95rem; border-radius: 999px; }
+.mf-cta svg { width: 18px; height: 18px; flex: 0 0 auto; }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
+  <a class="top-cta" href="../">Open the studio</a>
+</header>
+<main>
+<h1>Your <em>golden birthday</em>, found</h1>
+<p class="lede">The golden birthday is the one where the age matches the date: turning 24 on the 24th. It comes around exactly once, and most people miss theirs without ever knowing. Find yours, plus the day counts nobody thinks to check.</p>
+<section class="tool" aria-label="Golden birthday finder">
+  <div class="controls">
+    <div><label for="xD">Birth day</label><select id="xD"></select></div>
+    <div><label for="xM">Birth month</label><select id="xM"></select></div>
+    <div><label for="xY">Birth year</label><select id="xY"></select></div>
+    <button class="gold" id="xGo" type="button">Find my golden birthday</button>
+    <button class="ghost" id="xRnd" type="button">Surprise me</button>
+  </div>
+  <div class="out" id="xOut" aria-live="polite"><div class="hero-card" id="xCard"></div></div>
+</section>
+<section class="about"><h2>What exactly is a golden birthday</h2>
+<p>The rule is simple: if you were born on the 9th, your golden birthday is your 9th. Born on the 24th? It is a long wait to 24, and if you were born on the 31st the party is legendary. The idea started in American party culture and stuck because it turns an ordinary year into a once-ever event.</p>
+<p>Missed yours? The card also finds your 10,000th day on Earth, which lands in your late twenties and makes a far better surprise party theme than another round-number birthday. And when it is time for the card, the <a href="../" style="color:var(--accent);font-weight:600">studio</a> writes the poem.</p></section>
+<section class="more-sec" aria-label="More birthday fun">
+  <h2 class="more-h">More birthday fun</h2>
+  <div class="more-grid">
+    <a class="mf-card" href="../birthday-profile/" aria-label="Build a birthday profile"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Build a birthday profile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../zodiac/" aria-label="Find your zodiac sign"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><svg viewBox="0 0 100 62" aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(64%,175px)"><polyline points="18,20 26,10 36,14 38,26 58,34 80,42 86,54 60,48 42,38" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8"/><polyline points="58,34 62,20" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".6"/><circle cx="18" cy="20" r="3.1" fill="#fff" opacity=".25"/><circle cx="18" cy="20" r="1.6" fill="#fff"/><circle cx="26" cy="10" r="3.1" fill="#fff" opacity=".25"/><circle cx="26" cy="10" r="1.6" fill="#fff"/><circle cx="36" cy="14" r="3.1" fill="#fff" opacity=".25"/><circle cx="36" cy="14" r="1.6" fill="#fff"/><circle cx="38" cy="26" r="3.1" fill="#fff" opacity=".25"/><circle cx="38" cy="26" r="1.6" fill="#fff"/><circle cx="58" cy="34" r="3.1" fill="#fff" opacity=".25"/><circle cx="58" cy="34" r="1.6" fill="#fff"/><circle cx="80" cy="42" r="3.1" fill="#fff" opacity=".25"/><circle cx="80" cy="42" r="1.6" fill="#fff"/><circle cx="86" cy="54" r="3.1" fill="#fff" opacity=".25"/><circle cx="86" cy="54" r="1.6" fill="#fff"/><circle cx="60" cy="48" r="3.1" fill="#fff" opacity=".25"/><circle cx="60" cy="48" r="1.6" fill="#fff"/><circle cx="42" cy="38" r="3.1" fill="#fff" opacity=".25"/><circle cx="42" cy="38" r="1.6" fill="#fff"/></svg><span class="mf-cta">Find your zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birthstone/" aria-label="Find your birthstone"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/13300176/pexels-photo-13300176.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Find your birthstone<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-flower/" aria-label="Find your birth flower"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your birth flower<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../lucky-number/" aria-label="Find your lucky number"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your lucky number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../moon-phase/" aria-label="Your birthday moon phase"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/673902/pexels-photo-673902.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your birthday moon phase<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../planet-age/" aria-label="Your age on Mars"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/20337597/pexels-photo-20337597.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your age on Mars<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-month/" aria-label="What your birth month says"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">What your birth month says<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../golden-birthday/" aria-label="Find your golden birthday"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your golden birthday<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+  </div>
+</section>
+
+</main>
+<script>
+(function () {
+  var F = window.FUN;
+  var $ = function (id) { return document.getElementById(id); };
+  var dS = $("xD"), mS = $("xM"), yS = $("xY");
+  for (var i = 1; i <= 31; i++) dS.add(new Option(i, i));
+  ["January","February","March","April","May","June","July","August","September","October","November","December"].forEach(function (m, ix) { mS.add(new Option(m, ix + 1)); });
+  var nowY = new Date().getFullYear();
+  for (var y = nowY; y >= 1900; y--) yS.add(new Option(y, y));
+  dS.value = "26"; mS.value = "1"; yS.value = "1990";
+  var qs = new URLSearchParams(location.search);
+  if (+qs.get("d") >= 1 && +qs.get("d") <= 31) dS.value = qs.get("d");
+  if (+qs.get("m") >= 1 && +qs.get("m") <= 12) mS.value = qs.get("m");
+  if (+qs.get("y") >= 1900 && +qs.get("y") <= nowY) yS.value = qs.get("y");
+  function bd() { return new Date(+yS.value, +mS.value - 1, +dS.value); }
+  var NAMES = ["Emma","Liam","Olivia","Noah","Grace","Mia","Amelia","Yuki"];
+  function show() {
+    var b = bd();
+    var g = F.goldenBirthday(b);
+    var now = new Date();
+    var passed = g.date < now;
+    var d10k = F.nthDay(b, 10000);
+    var d25k = F.nthDay(b, 25000);
+    var when = passed ? "happened on " + F.fmt(g.date) : "lands on " + F.fmt(g.date);
+    $("xCard").innerHTML = '<div class="glyph">\u2728</div><div class="name">Your golden birthday</div>' +
+      '<div class="when">' + F.fmt(b) + "</div>" +
+      '<div class="line">Turning ' + g.age + " on the " + F.ordinal(g.age) + "\u00a0" + g.age + " " + (passed ? "already " : "") + when.replace(" on ", ": ") + "</div>" +
+      '<div class="tags"><span>' + (passed ? "Golden: passed" : "Golden: coming") + '</span><span>10,000th day: ' + F.fmt(d10k) + "</span><span>25,000th day: " + F.fmt(d25k) + "</span></div>";
+    $("xOut").style.display = "block";
+  }
+  $("xGo").addEventListener("click", show);
+  [dS, mS, yS].forEach(function (s) { s.addEventListener("change", show); });
+  $("xRnd").addEventListener("click", function () {
+    dS.value = String(1 + Math.floor(Math.random() * 31));
+    mS.value = String(1 + Math.floor(Math.random() * 12));
+    yS.value = String(1975 + Math.floor(Math.random() * 35));
+    show();
+  });
+  show();
+})();
+</script>
+<script src="../theme.js" defer></script>
+</body>
+</html>

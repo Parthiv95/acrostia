@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday profile, what your birth date says about you | Acrostia</title>
+<meta name="description" content="Free birthday profile: your age in years, months and days, zodiac sign, Chinese zodiac, ruling planet, birthstone, birth flower, birth tree, birth number, life path and lucky color, day and number. Instant, no sign up.">
+<link rel="canonical" href="https://Parthiv95.github.io/acrostia/birthday-profile/">
+<meta property="og:title" content="Birthday profile | Acrostia">
+<meta property="og:description" content="Type a birth date, get the full birthday profile: zodiac, birthstone, birth flower, lucky number and more. Free.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="../fun-data.js?v=3"></script>
+<style>
+:root { --ink: #241d12; --paper: #fdf9f1; --gold: #e2a52a; --deep: #7a4a12; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Onest, sans-serif; color: var(--ink); background: var(--paper);
+  background-image: radial-gradient(2px 2px at 12% 18%, rgba(226,165,42,.5), transparent 60%), radial-gradient(2px 2px at 84% 12%, rgba(226,165,42,.4), transparent 60%), radial-gradient(2.5px 2.5px at 70% 40%, rgba(214,90,74,.25), transparent 60%), radial-gradient(2px 2px at 22% 70%, rgba(214,90,74,.22), transparent 60%), radial-gradient(2px 2px at 90% 78%, rgba(226,165,42,.35), transparent 60%); }
+header { display: flex; justify-content: space-between; align-items: center; max-width: 68rem; margin: 0 auto; padding: 18px 2rem; }
+.brand { display: inline-flex; gap: .5rem; align-items: center; font-family: Fraunces, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.spark { width: 20px; height: 20px; color: var(--gold); }
+.top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
+.top-cta:hover { background: var(--ink); color: var(--paper); }
+main { max-width: 68rem; margin: 0 auto; padding: 12px 2rem 70px; }
+h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2.1rem, 4.6vw, 3.2rem); margin: 16px 0 12px; letter-spacing: -.01em; }
+h1 em { font-style: italic; color: var(--deep); }
+.lede { font-size: 1.08rem; line-height: 1.65; color: #5c5344; max-width: 60ch; margin: 0 0 26px; }
+.tool { background: #fff; border: 1px solid #eadfca; border-radius: 22px; padding: 26px; box-shadow: 0 18px 44px rgba(122,74,18,.08); }
+.controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+.controls label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #8a7a5f; margin-bottom: 6px; }
+.controls input, .controls select { font: 600 1rem Onest, sans-serif; color: var(--ink); background: var(--paper); border: 1.5px solid #dccfae; border-radius: 12px; padding: .68rem .85rem; }
+.controls input { width: 170px; }
+.controls select { width: 108px; }
+.gold { background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 1rem Onest, sans-serif; padding: .72rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
+.gold:hover { transform: translateY(-1px); }
+.ghost { background: none; border: 1.5px solid #d8cba8; color: var(--ink); font: 600 .92rem Onest, sans-serif; padding: .68rem 1.2rem; border-radius: 999px; cursor: pointer; }
+.ghost:hover { border-color: var(--ink); }
+.profile { margin-top: 24px; display: none; grid-template-columns: 1.15fr .85fr; gap: 26px; }
+@media (max-width: 780px) { .profile { grid-template-columns: 1fr; } }
+.p-col { display: flex; flex-direction: column; gap: 12px; }
+.p-head { background: linear-gradient(135deg, #7a4a12, #b57718); border-radius: 16px; color: #fdf3dd; padding: 20px 22px; }
+.p-head .who { font-family: Fraunces, serif; font-size: 1.6rem; font-weight: 600; line-height: 1.15; }
+.p-head .when { margin-top: 6px; font-size: .95rem; opacity: .85; }
+.fact { background: var(--paper); border: 1px solid #eee3c8; border-radius: 14px; padding: 12px 16px; }
+.fact b { display: block; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: #8a7a5f; margin-bottom: 3px; font-weight: 600; }
+.fact span { font-size: 1.02rem; line-height: 1.45; }
+.fact span i { color: #6b5e49; font-style: normal; }
+.p-big { background: #fff; border: 1.5px solid #eadfca; border-radius: 16px; padding: 18px 20px; text-align: center; }
+.p-big .glyph { font-size: 3.2rem; line-height: 1; color: var(--deep); }
+.p-big .name { font-family: Fraunces, serif; font-size: 1.5rem; font-weight: 600; margin-top: 4px; }
+.p-big .dates { font-size: .85rem; color: #8a7a5f; margin-top: 2px; }
+.p-big .line { font-size: .95rem; line-height: 1.5; color: #5c5344; margin-top: 8px; }
+.p-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+.p-tags span { background: var(--paper); border: 1px solid #eadfca; border-radius: 999px; padding: .3rem .75rem; font-size: .8rem; font-weight: 600; color: var(--deep); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.card-wrap { display: none; margin-top: 30px; text-align: center; }
+#bpCard { width: min(430px, 100%); height: auto; border-radius: 20px; box-shadow: 0 24px 54px rgba(122,74,18,.2); }
+.card-hint { margin: 12px 0 0; font-size: .88rem; color: #8a7a5f; }
+.about { margin-top: 46px; max-width: 72ch; }
+.about h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 30px 0 10px; }
+.about p { line-height: 1.7; color: #4c4335; margin: 0 0 14px; }
+.links { margin-top: 26px; font-size: .95rem; line-height: 2; }
+.links a { color: var(--deep); font-weight: 600; }
+.faq dt { font-weight: 600; margin-top: 16px; }
+.faq dd { margin: 6px 0 0; line-height: 1.7; color: #4c4335; }
+@media (max-width: 640px) { header, main { padding-left: 1.1rem; padding-right: 1.1rem; } .controls input { width: 100%; flex: 1 1 150px; } }
+
+.more-sec { margin-top: 46px; }
+.more-h { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 0 0 16px; }
+.more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.mf-card { display: flex; text-decoration: none; }
+.mf-art { position: relative; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; min-height: 190px; border-radius: 18px; overflow: hidden; padding: .95rem; box-shadow: 0 14px 34px rgba(20,16,30,.16); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.mf-card:hover .mf-art { transform: translateY(-3px); }
+.mf-glyph { position: absolute; top: 14%; left: 0; right: 0; text-align: center; font-size: 3.4rem; line-height: 1; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.45); }
+.mf-cta { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: .6rem; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 .88rem Onest, sans-serif; padding: .62rem .95rem; border-radius: 999px; }
+.mf-cta svg { width: 18px; height: 18px; flex: 0 0 auto; }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
+  <a class="top-cta" href="../">Open the studio</a>
+</header>
+<main>
+<h1>Your <em>birthday profile</em>, the day you were born, read properly</h1>
+<p class="lede">Pick a birth date and get the whole picture: exact age, the weekday you arrived, your zodiac signs, ruling planet, birthstone, birth flower, birth tree, birth number, life path and your lucky color, day and number. Free, instant, no sign up.</p>
+
+<section class="tool" aria-label="Birthday profile tool">
+  <div class="controls">
+    <div><label for="bpName">Name (optional)</label><input id="bpName" maxlength="18" placeholder="e.g. Emma"></div>
+    <div><label for="bpD">Day</label><select id="bpD"></select></div>
+    <div><label for="bpM">Month</label><select id="bpM"></select></div>
+    <div><label for="bpY">Year</label><select id="bpY"></select></div>
+    <div><label for="bpPhoto">Your photo (optional)</label><input type="file" id="bpPhoto" accept="image/*" style="padding:.32rem"></div>
+    <button class="gold" id="bpGo" type="button">Show profile</button>
+    <button class="ghost" id="bpRnd" type="button">Surprise me</button>
+  </div>
+  <div class="profile" id="bpOut" aria-live="polite">
+    <div class="p-col" id="bpLeft"></div>
+    <div class="p-col" id="bpRight"></div>
+  </div>
+  <div class="card-wrap" id="bpCardWrap"><canvas id="bpCard" width="1080" height="1500"></canvas><p class="card-hint">Your card, ready to share. Add a photo above and it lands in the gold ring; with no photo, your birth flower takes the spot.</p></div>
+  <div class="actions" id="bpActs" style="display:none">
+    <button class="gold" id="bpPng" type="button">Download profile card</button>
+    <button class="ghost" id="bpCopy" type="button">Copy link</button>
+    <a class="ghost" id="bpWa" href="#" target="_blank" rel="noopener" style="text-decoration:none">Share on WhatsApp</a>
+  </div>
+</section>
+
+<section class="about">
+<h2>What a birthday profile tells you</h2>
+<p>Your birth date carries more than your age in years, months and days. The same date names your Western zodiac sign and its ruling planet, your Chinese zodiac animal, the birthstone and birth flower and birth tree of your month, the weekday you were born on, and a small stack of lucky things: your color, your day, your number. A birthday profile lines them all up in one place.</p>
+<p>Everything here is calculated from the date alone, so the same birthday always gives the same profile, and you can compare friends, family and famous birthdays without signing up for anything. When you are done, download the profile card and send it in a chat, or copy the link so they can read their own.</p>
+<p>Want the poem version of the same moment? The <a href="../" style="color:var(--deep);font-weight:600">Acrostia studio</a> turns a name into a personalized birthday poem on a downloadable card.</p>
+<h2>Questions people ask</h2>
+<dl class="faq">
+<dt>Is the profile the same every time?</dt>
+<dd>Yes. Every fact is derived from the birth date itself, so the same date always gives the same profile. Tap Surprise me if you want a random date to explore.</dd>
+<dt>Does the year matter?</dt>
+<dd>Yes, for your exact age, your weekday, your leap years count and your Chinese zodiac animal. The zodiac sign, birthstone, flower and tree depend on the day and month.</dd>
+<dt>Can I share it?</dt>
+<dd>Download the profile card as a picture, or copy the link: anyone who opens it sees the same profile prefilled, no typing needed.</dd>
+</dl>
+</section>
+
+<section class="more-sec" aria-label="More birthday fun">
+  <h2 class="more-h">More birthday fun</h2>
+  <div class="more-grid">
+    <a class="mf-card" href="../birthday-profile/" aria-label="Build a birthday profile"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Build a birthday profile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../zodiac/" aria-label="Find your zodiac sign"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><svg viewBox="0 0 100 62" aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(64%,175px)"><polyline points="18,20 26,10 36,14 38,26 58,34 80,42 86,54 60,48 42,38" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8"/><polyline points="58,34 62,20" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".6"/><circle cx="18" cy="20" r="3.1" fill="#fff" opacity=".25"/><circle cx="18" cy="20" r="1.6" fill="#fff"/><circle cx="26" cy="10" r="3.1" fill="#fff" opacity=".25"/><circle cx="26" cy="10" r="1.6" fill="#fff"/><circle cx="36" cy="14" r="3.1" fill="#fff" opacity=".25"/><circle cx="36" cy="14" r="1.6" fill="#fff"/><circle cx="38" cy="26" r="3.1" fill="#fff" opacity=".25"/><circle cx="38" cy="26" r="1.6" fill="#fff"/><circle cx="58" cy="34" r="3.1" fill="#fff" opacity=".25"/><circle cx="58" cy="34" r="1.6" fill="#fff"/><circle cx="80" cy="42" r="3.1" fill="#fff" opacity=".25"/><circle cx="80" cy="42" r="1.6" fill="#fff"/><circle cx="86" cy="54" r="3.1" fill="#fff" opacity=".25"/><circle cx="86" cy="54" r="1.6" fill="#fff"/><circle cx="60" cy="48" r="3.1" fill="#fff" opacity=".25"/><circle cx="60" cy="48" r="1.6" fill="#fff"/><circle cx="42" cy="38" r="3.1" fill="#fff" opacity=".25"/><circle cx="42" cy="38" r="1.6" fill="#fff"/></svg><span class="mf-cta">Find your zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birthstone/" aria-label="Find your birthstone"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/13300176/pexels-photo-13300176.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Find your birthstone<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-flower/" aria-label="Find your birth flower"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your birth flower<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../lucky-number/" aria-label="Find your lucky number"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your lucky number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../moon-phase/" aria-label="Your birthday moon phase"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/673902/pexels-photo-673902.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your birthday moon phase<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../planet-age/" aria-label="Your age on Mars"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/20337597/pexels-photo-20337597.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your age on Mars<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-month/" aria-label="What your birth month says"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">What your birth month says<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../golden-birthday/" aria-label="Find your golden birthday"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your golden birthday<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+  </div>
+</section>
+</main>
+<script>
+(function () {
+  var F = window.FUN;
+  var $ = function (id) { return document.getElementById(id); };
+  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var now = new Date();
+  var dSel = $("bpD"), mSel = $("bpM"), ySel = $("bpY");
+  for (var i = 1; i <= 31; i++) dSel.add(new Option(i, i));
+  MONTHS.forEach(function (m, ix) { mSel.add(new Option(m, ix + 1)); });
+  for (var y = now.getFullYear(); y >= 1900; y--) ySel.add(new Option(y, y));
+  dSel.value = "26"; mSel.value = "1"; ySel.value = String(now.getFullYear() - 30);
+
+  var qs = new URLSearchParams(location.search);
+  if (qs.get("n")) $("bpName").value = qs.get("n").slice(0, 18);
+  if (+qs.get("d") >= 1 && +qs.get("d") <= 31) dSel.value = qs.get("d");
+  if (+qs.get("m") >= 1 && +qs.get("m") <= 12) mSel.value = qs.get("m");
+  if (+qs.get("y") >= 1900 && +qs.get("y") <= now.getFullYear()) ySel.value = qs.get("y");
+
+  function data() {
+    var d = +dSel.value, m = +mSel.value, y = +ySel.value;
+    var bd = new Date(y, m - 1, d);
+    var z = F.signFor(m, d), ch = F.CHINESE[(y - 1900) % 12];
+    var st = F.STONES[m - 1], fl = F.FLOWERS[m - 1], tr = F.treeFor(m, d);
+    var age = F.ageBreakdown(bd, now);
+    var born = F.WEEKDAYS[["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][bd.getDay()]];
+    var bn = F.reduceNum(d), lp = F.lifePath(y, m, d);
+    var conception = new Date(bd.getTime() - 266 * 86400000);
+    return { bd: bd, d: d, m: m, y: y, z: z, ch: ch, st: st, fl: fl, tr: tr, age: age, born: born, bn: bn, lp: lp,
+      conception: conception, leaps: F.leapYearsSeen(bd, now), daysLived: F.daysBetween(bd, now), next: F.nextBirthdayIn(bd, now) };
+  }
+
+  var lastRows = null, lastWho = null;
+  function fact(k, v) { return '<div class="fact"><b>' + k + "</b><span>" + v + "</span></div>"; }
+  function show() {
+    var r = data();
+    var name = ($("bpName").value || "").trim();
+    var who = name ? name.charAt(0).toUpperCase() + name.slice(1) : "This date";
+    lastWho = who;
+    $("bpLeft").innerHTML =
+      '<div class="p-head"><div class="who">' + who + "\u2019s birthday profile</div>" +
+      '<div class="when">' + F.fmt(r.bd) + "</div></div>" +
+      fact("Age", r.age.y + " years, " + r.age.m + " months &amp; " + r.age.d + " days") +
+      fact("Born on a " + ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][r.bd.getDay()], r.born) +
+      fact("Leap years seen", r.leaps + (r.leaps === 1 ? " leap year" : " leap years") + " so far") +
+      fact("Days on earth", r.daysLived.toLocaleString() + " days and counting") +
+      fact("Date of conception", "probably " + F.fmt(r.conception)) +
+      fact("Next birthday", r.next === 0 ? "\ud83c\udf89 It is today!" : "in " + r.next + " days");
+    $("bpRight").innerHTML =
+      '<div class="p-big"><div class="glyph">' + r.z.glyph + '</div><div class="name">' + r.z.name + '</div>' +
+      '<div class="dates">' + MONTHS[r.z.from[0] - 1] + " " + r.z.from[1] + " to " + MONTHS[r.z.to[0] - 1] + " " + r.z.to[1] + '</div>' +
+      '<div class="line">' + r.z.line + '</div>' +
+      '<div class="p-tags"><span>' + r.z.element + '</span><span>' + r.z.planet + '</span><span>Lucky color: ' + r.z.color + '</span><span>Lucky day: ' + r.z.day + '</span><span>Lucky number: ' + r.z.number + '</span></div></div>' +
+      fact("Chinese zodiac", r.ch.name + " <i>\u00b7 " + r.ch.line + "</i>") +
+      fact("Birthstone", r.st.stone + " <i>\u00b7 " + r.st.line + "</i>") +
+      fact("Birth flower", r.fl.flower + " <i>\u00b7 " + r.fl.line + "</i>") +
+      fact("Birth tree", r.tr.name + " <i>\u00b7 " + r.tr.line + "</i>") +
+      fact("Birth number", r.bn + " <i>\u00b7 " + F.BIRTH_NUMBERS[r.bn] + "</i>") +
+      fact("Life path", r.lp + " <i>\u00b7 " + F.LIFE_PATHS[r.lp] + "</i>");
+    $("bpOut").style.display = "grid";
+    $("bpActs").style.display = "flex";
+    var msg = who + "\u2019s birthday profile (" + F.fmt(r.bd) + "): " + r.z.glyph + " " + r.z.name +
+      ", Chinese zodiac " + r.ch.name + ", birthstone " + r.st.stone + ", birth flower " + r.fl.flower +
+      ", lucky number " + r.z.number + ". See yours:";
+    $("bpWa").href = "https://wa.me/?text=" + encodeURIComponent(msg + " " + location.href.split("?")[0] + "?n=" + encodeURIComponent(name) + "&d=" + r.d + "&m=" + r.m + "&y=" + r.y);
+    lastRows = r;
+    renderCard();
+  }
+
+  $("bpGo").addEventListener("click", show);
+  [dSel, mSel, ySel].forEach(function (s) { s.addEventListener("change", show); });
+  $("bpName").addEventListener("keydown", function (e) { if (e.key === "Enter") show(); });
+  $("bpRnd").addEventListener("click", function () {
+    var names = ["Emma","Liam","Olivia","Noah","Grace","Mia","Amelia","Yuki","Sofia","Daniel"];
+    $("bpName").value = names[Math.floor(Math.random() * names.length)];
+    dSel.value = String(1 + Math.floor(Math.random() * 31));
+    mSel.value = String(1 + Math.floor(Math.random() * 12));
+    ySel.value = String(now.getFullYear() - Math.floor(Math.random() * 60) - 5);
+    show();
+  });
+  $("bpCopy").addEventListener("click", function () {
+    var r = lastRows || data();
+    var name = ($("bpName").value || "").trim();
+    var link = location.href.split("?")[0] + "?n=" + encodeURIComponent(name) + "&d=" + r.d + "&m=" + r.m + "&y=" + r.y;
+    (navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(function () {
+      $("bpCopy").textContent = "Link copied!";
+      setTimeout(function () { $("bpCopy").textContent = "Copy link"; }, 1800);
+    }, function () { window.prompt("Copy this link:", link); });
+  });
+  var userPhoto = null;
+  $("bpPhoto").addEventListener("change", function (e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () { userPhoto = rd.result; if (lastRows) renderCard(); };
+    rd.readAsDataURL(f);
+  });
+
+  function photoSrc(m) {
+    if (userPhoto) return userPhoto;
+    return "https://images.unsplash.com/" + F.FLOWERS_PHOTOS[m - 1] + "?auto=format&fit=crop&q=80&w=640&h=640";
+  }
+
+  function renderCard() {
+    var r = lastRows || data();
+    var name = lastWho || "This date";
+    var W = 1080, H = 1500, c = $("bpCard");
+    c.width = W; c.height = H;
+    var x = c.getContext("2d");
+    var WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][r.bd.getDay()];
+    var facts = [
+      ["Age", r.age.y + " years " + r.age.m + " mo"],
+      ["Born on a", WD],
+      ["Chinese zodiac", r.ch.name],
+      ["Birthstone", r.st.stone],
+      ["Birth flower", r.fl.flower],
+      ["Birth tree", r.tr.name],
+      ["Life path", String(r.lp)],
+      ["Lucky color", r.z.color],
+      ["Lucky day", r.z.day],
+      ["Lucky number", String(r.z.number)]
+    ];
+    function draw(img) {
+      x.fillStyle = "#fdf9f1"; x.fillRect(0, 0, W, H);
+      x.fillStyle = "rgba(226,165,42,.26)";
+      for (var py = 44; py < H; py += 46) for (var px = 44; px < W; px += 46) { x.beginPath(); x.arc(px, py, 3, 0, 7); x.fill(); }
+      x.fillStyle = "#e2a52a"; x.fillRect(0, H - 104, W, 78);
+      x.textAlign = "center";
+      x.fillStyle = "#b57718"; x.font = "600 27px Verdana, sans-serif";
+      x.fillText("B I R T H D A Y   P R O F I L E", W / 2, 132);
+      x.fillStyle = "#241d12"; x.font = "600 76px Fraunces, Georgia, serif";
+      x.fillText(name + "\u2019s big day", W / 2, 218);
+      x.fillStyle = "#8a7a5f"; x.font = "italic 34px Georgia, serif";
+      x.fillText(F.fmt(r.bd), W / 2, 270);
+      var pcx = W / 2, pcy = 524, pr = 190;
+      x.save();
+      x.beginPath(); x.arc(pcx, pcy, pr, 0, 7); x.clip();
+      if (img) {
+        var s = Math.max(2 * pr / img.width, 2 * pr / img.height);
+        x.drawImage(img, pcx - img.width * s / 2, pcy - img.height * s / 2, img.width * s, img.height * s);
+      } else {
+        x.fillStyle = "#f3e2bd"; x.fillRect(pcx - pr, pcy - pr, pr * 2, pr * 2);
+        x.fillStyle = "#b57718"; x.font = "150px Georgia, serif";
+        x.fillText("\u2740", pcx, pcy + 52);
+      }
+      x.restore();
+      x.beginPath(); x.arc(pcx, pcy, pr, 0, 7);
+      x.lineWidth = 10; x.strokeStyle = "#e2a52a"; x.stroke();
+      x.beginPath(); x.arc(pcx, pcy, pr + 16, 0, 7);
+      x.lineWidth = 2; x.strokeStyle = "#dccfae"; x.stroke();
+      x.fillStyle = "#241d12"; x.font = "600 46px Fraunces, Georgia, serif";
+      x.fillText(r.z.glyph + "  " + r.z.name, W / 2, 794);
+      x.fillStyle = "#8a7a5f"; x.font = "27px Verdana, sans-serif";
+      x.fillText(r.z.element + " \u00b7 ruled by " + r.z.planet, W / 2, 838);
+      x.textAlign = "left";
+      facts.forEach(function (f2, i) {
+        var col = i % 2, row = (i - col) / 2;
+        var xx = col === 0 ? 118 : 578;
+        var yy = 936 + row * 92;
+        x.fillStyle = "#8a7a5f"; x.font = "600 21px Verdana, sans-serif";
+        x.fillText(f2[0].toUpperCase(), xx, yy);
+        x.fillStyle = "#241d12"; x.font = "33px Georgia, serif";
+        x.fillText(f2[1], xx, yy + 40);
+        x.strokeStyle = "rgba(220,207,174,.6)"; x.lineWidth = 1;
+        x.beginPath(); x.moveTo(xx, yy + 58); x.lineTo(xx + 384, yy + 58); x.stroke();
+      });
+      x.textAlign = "center";
+      x.fillStyle = "#241c05"; x.font = "italic 30px Georgia, serif";
+      x.fillText("made with Acrostia", W / 2, H - 54);
+      x.strokeStyle = "#e2a52a"; x.lineWidth = 5;
+      x.strokeRect(26, 26, W - 52, H - 52);
+      x.strokeStyle = "#dccfae"; x.lineWidth = 2;
+      x.strokeRect(42, 42, W - 84, H - 84);
+    }
+    $("bpCardWrap").style.display = "block";
+    document.fonts.ready.then(function () {
+      var img = new Image();
+      if (!userPhoto) img.crossOrigin = "anonymous";
+      img.onload = function () { draw(img); };
+      img.onerror = function () { draw(null); };
+      img.src = photoSrc(r.m);
+    });
+  }
+
+  $("bpPng").addEventListener("click", function () {
+    var c = $("bpCard");
+    try {
+      c.toBlob(function (b) {
+        if (!b) return;
+        var a = document.createElement("a");
+        a.download = ((lastWho || "birthday").toLowerCase().replace(/\s+/g, "-")) + "-profile.png";
+        a.href = URL.createObjectURL(b);
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+        if (window.__goldBurst) window.__goldBurst(window.innerWidth / 2, window.innerHeight / 2);
+      }, "image/png");
+    } catch (e) {
+      $("bpPng").textContent = "Screenshot the card above to save it";
+    }
+  });
+
+  show();
+})();
+</script>
+<script src="../theme.js" defer></script>
+</body>
+</html>

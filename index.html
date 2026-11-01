@@ -248,6 +248,19 @@
   .fun-letter-text { margin: .4rem 0 0; color: #4a4560; font-size: .95rem; line-height: 1.5; transition: opacity .28s ease; }
   .fun-letter-text.swap { opacity: 0; }
   .art-secret { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.045) 0 2px, transparent 2px 10px), radial-gradient(ellipse at 50% -10%, #b83049, #7a1026 60%, #4a0815); justify-content: center; }
+  .art-profile { background-image: radial-gradient(rgba(122,74,18,.2) 1.5px, transparent 2px), radial-gradient(3px 3px at 12% 22%, rgba(214,90,74,.5), transparent 60%), radial-gradient(2.5px 2.5px at 88% 18%, rgba(226,165,42,.6), transparent 60%), radial-gradient(3px 3px at 78% 64%, rgba(127,192,174,.55), transparent 60%), radial-gradient(2.5px 2.5px at 18% 72%, rgba(226,165,42,.5), transparent 60%), radial-gradient(2px 2px at 50% 84%, rgba(214,90,74,.4), transparent 60%), linear-gradient(170deg, #f7ead2, #ecd9b4); background-size: 11px 11px, auto, auto, auto, auto, auto, auto; }
+  .art-profile .fun-script { color: #fff8ea; text-shadow: 0 3px 22px rgba(20,8,2,.55); }
+  .fc-wide { grid-column: 1 / -1; }
+  .fc-wide .fun-art { min-height: 340px; }
+  .fc-wide .fun-script { top: 16%; font-size: clamp(4.2rem, 12vw, 6.4rem); }
+  .fun-constel { display: block; width: min(250px, 62%); margin: 0 auto .4rem; opacity: .95; position: relative; }
+  .art-zodiac { background-image: radial-gradient(1.5px 1.5px at 20% 25%, rgba(255,255,255,.9), transparent 60%), radial-gradient(1.5px 1.5px at 70% 18%, rgba(255,255,255,.8), transparent 60%), radial-gradient(2px 2px at 40% 60%, rgba(255,255,255,.6), transparent 60%), radial-gradient(1.5px 1.5px at 82% 55%, rgba(255,255,255,.7), transparent 60%), radial-gradient(1.2px 1.2px at 60% 35%, rgba(255,255,255,.5), transparent 60%), linear-gradient(150deg, #241a3e, #4a3866 55%, #6b4a8f); justify-content: center; }
+  .art-stone { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 10px), radial-gradient(ellipse at 50% 120%, rgba(255,255,255,.14), transparent 55%), linear-gradient(160deg, #39442f, #2c3524); justify-content: center; }
+  .art-stone .fun-glyph { color: #f2b8b0; }
+  .art-flower { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 9px), radial-gradient(ellipse at 50% -10%, #c24058, #8c1a30 60%, #570a1c); justify-content: center; }
+  .art-lucky { background-image: radial-gradient(rgba(255,255,255,.18) 1px, transparent 1.6px), linear-gradient(160deg, #9a6512, #c98a1e); background-size: 10px 10px, auto; justify-content: center; }
+  .art-lucky .fun-glyph { font-family: "Fraunces", serif; font-weight: 700; }
+  .fun-glyph { position: relative; font-size: clamp(3.4rem, 8vw, 4.6rem); line-height: 1; color: #fff; text-shadow: 0 3px 18px rgba(0,0,0,.45); margin-bottom: 1.3rem; }
   .art-secret::before { content: ""; position: absolute; left: -18%; top: 34%; width: 136%; height: 34%; background: rgba(255,255,255,.09); border-radius: 50%; transform: rotate(-6deg); }
   .fun-secret-script { position: relative; font-family: "Fraunces", serif; font-style: italic; font-weight: 700; font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.15; color: #fff; text-align: center; text-shadow: 0 3px 14px rgba(0,0,0,.45); margin-bottom: 1.3rem; }
 
@@ -353,7 +366,8 @@
   .stat-num { font-size: 3rem; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
   @media (min-width:640px) { .stat-num { font-size: 3.75rem; } }
   @media (min-width:768px) { .stat-num { font-size: 4.5rem; } }
-  .stat-lbl { margin-top: .75rem; font-size: .875rem; color: rgba(255,255,255,.55); }
+  .stat-lbl { margin-top: .75rem; font-size: .95rem; font-weight: 600; color: rgba(255,255,255,.92); }
+  .stat-cap { margin: .4rem 0 0; font-size: .84rem; line-height: 1.55; color: rgba(255,255,255,.5); max-width: 30ch; }
 
   .niv-footer { position: relative; overflow: hidden; border-radius: 2rem 2rem 0 0; background: #0a0a0a; color: #fff; }
   .foot-inner { position: relative; z-index: 10; max-width: 88rem; margin-inline: auto; padding: 5rem 1.25rem 2.5rem; }
@@ -862,14 +876,12 @@
       </div>
 
       <div class="field">
-        <label>Background <span class="hint">scene art, real photos, or your own</span></label>
+        <label>Background <span class="hint">free photos, or your own</span></label>
         <div class="bg-tabs">
-          <button type="button" class="bg-tab" data-bt="art" aria-pressed="true">Art scenes</button>
-          <button type="button" class="bg-tab" data-bt="photo" aria-pressed="false">Photos</button>
+          <button type="button" class="bg-tab" data-bt="photo" aria-pressed="true">Photos</button>
           <button type="button" class="bg-tab" data-bt="mine" aria-pressed="false">My photo</button>
         </div>
-        <div class="scene-pick" id="scenePick"></div>
-        <div class="scene-pick" id="photoPick" hidden></div>
+        <div class="scene-pick" id="photoPick"></div>
         <div class="bg-actions" id="bgMineRow" hidden>
           <label class="btn btn-ghost bg-btn">Use my photo<input type="file" id="bgUpload" accept="image/*" hidden></label>
           <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Remove my photo</button>
@@ -955,6 +967,13 @@
 
 <section class="sec fun-sec" id="fun" aria-label="More fun with your name">
   <div class="fun-grid">
+    <article class="fun-card fc-wide">
+      <a class="fun-art art-profile" href="birthday-profile/" data-reveal aria-label="Open the birthday profile tool" style="background-image:linear-gradient(rgba(30,16,8,.25), rgba(24,12,6,.6)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=900&h=1200');background-size:cover;background-position:center">
+        <div class="fun-script" aria-hidden="true">Their big day?</div>
+        <span class="fun-cta"><span>Build their birthday<br>profile</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <h3 class="rise" data-rise>What does their birthday say about them?</h3>
+    </article>
     <article class="fun-card">
       <a class="fun-art art-nebula" href="name-meaning/" data-reveal aria-label="Open the name meaning tool">
         <div class="fun-script" aria-hidden="true">Your name?</div>
@@ -989,6 +1008,33 @@
         <span class="fun-cta"><span>Reveal the hidden secret<br>in your name</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <h3 class="rise" data-rise data-delay="360">What is the hidden secret in your name?</h3>
+    </article>
+    <article class="fun-card">
+      <a class="fun-art art-zodiac" href="zodiac/" data-reveal data-delay="480" aria-label="What is your zodiac sign?" style="background-image:linear-gradient(rgba(16,10,30,.25), rgba(12,8,24,.55)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&q=80&w=900&h=1200');background-size:cover;background-position:center">
+        <svg class="fun-constel" viewBox="0 0 100 62" aria-hidden="true"><polyline points="18,20 26,10 36,14 38,26 58,34 80,42 86,54 60,48 42,38" fill="none" stroke="rgba(255,255,255,.55)" stroke-width=".7"/><circle cx="18" cy="20" r="3.1" fill="#fff" opacity=".22"/><circle cx="18" cy="20" r="1.5" fill="#fff"/><circle cx="26" cy="10" r="3.1" fill="#fff" opacity=".22"/><circle cx="26" cy="10" r="1.5" fill="#fff"/><circle cx="36" cy="14" r="3.1" fill="#fff" opacity=".22"/><circle cx="36" cy="14" r="1.5" fill="#fff"/><circle cx="38" cy="26" r="3.1" fill="#fff" opacity=".22"/><circle cx="38" cy="26" r="1.5" fill="#fff"/><circle cx="58" cy="34" r="3.1" fill="#fff" opacity=".22"/><circle cx="58" cy="34" r="1.5" fill="#fff"/><circle cx="80" cy="42" r="3.1" fill="#fff" opacity=".22"/><circle cx="80" cy="42" r="1.5" fill="#fff"/><circle cx="86" cy="54" r="3.1" fill="#fff" opacity=".22"/><circle cx="86" cy="54" r="1.5" fill="#fff"/><circle cx="60" cy="48" r="3.1" fill="#fff" opacity=".22"/><circle cx="60" cy="48" r="1.5" fill="#fff"/><circle cx="42" cy="38" r="3.1" fill="#fff" opacity=".22"/><circle cx="42" cy="38" r="1.5" fill="#fff"/></svg><div class="fun-glyph" style="font-size:2rem;margin-bottom:1rem" aria-hidden="true">&#9800;</div>
+        <span class="fun-cta"><span>What is your zodiac sign</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <h3 class="rise" data-rise data-delay="480">What is your zodiac sign?</h3>
+    </article>
+    <article class="fun-card">
+      <a class="fun-art art-stone" href="birthstone/" data-reveal data-delay="600" aria-label="What is your birthstone?" style="background-image:linear-gradient(rgba(14,10,20,.2), rgba(10,6,16,.55)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=900&h=1200');background-size:cover;background-position:center">
+        
+        <span class="fun-cta"><span>What is your birthstone</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <h3 class="rise" data-rise data-delay="600">What is your birthstone?</h3>
+    </article>
+    <article class="fun-card">
+      <a class="fun-art art-flower" href="birth-flower/" data-reveal data-delay="720" aria-label="What is your birth flower?" style="background-image:linear-gradient(rgba(46,8,16,.3), rgba(28,4,10,.62)), url('https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=900&h=1200');background-size:cover;background-position:center">
+        <span class="fun-cta"><span>What is your birth flower</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <h3 class="rise" data-rise data-delay="720">What is your birth flower?</h3>
+    </article>
+    <article class="fun-card">
+      <a class="fun-art art-lucky" href="lucky-number/" data-reveal data-delay="840" aria-label="What are your lucky numbers?">
+        <div class="fun-glyph" aria-hidden="true">7</div>
+        <span class="fun-cta"><span>What are your lucky numbers</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <h3 class="rise" data-rise data-delay="840">What are your lucky numbers?</h3>
     </article>
   </div>
 </section>
@@ -1107,13 +1153,13 @@
 
 <section class="stats-sec">
   <div class="stats-panel" data-reveal>
-    <p class="eyebrow light">By the numbers</p>
-    <h2 class="stats-h2 rise" data-rise>The studio, measured</h2>
+    <p class="eyebrow light">Why Acrostia</p>
+    <h2 class="stats-h2 rise" data-rise>The short version</h2>
     <ul class="stats-grid">
-      <li data-reveal data-delay="0"><div class="stat-num"><span data-count="51">0</span>+</div><div class="stat-lbl">Occasions worldwide</div></li>
-      <li data-reveal data-delay="90"><div class="stat-num" data-count="408">0</div><div class="stat-lbl">Unique closers</div></li>
-      <li data-reveal data-delay="180"><div class="stat-num" data-count="103">0</div><div class="stat-lbl">A to Z words</div></li>
-      <li data-reveal data-delay="270"><div class="stat-num" data-count="23">0</div><div class="stat-lbl">Free backgrounds</div></li>
+      <li data-reveal data-delay="0"><div class="stat-num"><span data-count="51">0</span>+</div><div class="stat-lbl">Occasions for your moment</div><p class="stat-cap">Birthdays, weddings, Diwali, Eid and every hello in between.</p></li>
+      <li data-reveal data-delay="90"><div class="stat-num"><span data-count="1">0</span> min</div><div class="stat-lbl">From name to finished poem</div><p class="stat-cap">Type a name, keep the lines you like, download. Most people are done in a minute.</p></li>
+      <li data-reveal data-delay="180"><div class="stat-num"><span data-count="0">0</span></div><div class="stat-lbl">Sign ups, fees or watermarks</div><p class="stat-cap">No account, no paywall, nothing stamped across the card.</p></li>
+      <li data-reveal data-delay="270"><div class="stat-num"><span data-count="100">0</span>%</div><div class="stat-lbl">Yours to send or print</div><p class="stat-cap">The card downloads at greeting size, ready for WhatsApp or paper.</p></li>
     </ul>
   </div>
 </section>
@@ -2119,183 +2165,9 @@ function writePoem() {
 
 /* ---------------- card rendering ---------------- */
 
-const SCENE_MAP = {
-  birthday: "party", congrats: "party", holi: "party", bestfriend: "party", cousin: "party",
-  engagement: "hearts", anniversary: "hearts", valentine: "hearts", boyfriend: "hearts",
-  girlfriend: "hearts", couple: "hearts", wife: "hearts", husband: "hearts",
-  wedding: "dream", newhome: "dream", daughter: "dream", baby: "dream", niece: "dream", friendship: "dream",
-  christmas: "winter", hanukkah: "night", eid: "night", halloween: "night",
-  diwali: "festival", rakhi: "festival", navratri: "festival", newyear: "festival", lunarnewyear: "festival",
-  easter: "garden", getwell: "garden", teachersday: "garden", mother: "garden", sister: "garden",
-  mothersday: "garden", grandma: "garden", aunt: "garden", pet: "garden",
-  graduation: "sunset", newjob: "sunset", retirement: "sunset", goodluck: "sunset", farewell: "sunset",
-  son: "sunset", nephew: "sunset",
-  thanks: "autumn", thanksgiving: "autumn",
-  father: "mountains", brother: "mountains", fathersday: "mountains", grandpa: "mountains", uncle: "mountains"
-};
-
-const SCENES = {
-  sunset(t) {
-    return (
-      '<circle cx="235" cy="200" r="66" fill="#FFFFFF" opacity=".55" filter="url(#soft)"/>' +
-      '<circle cx="235" cy="200" r="42" fill="#FFF8DC" opacity=".8"/>' +
-      '<path d="M0 425 Q 115 378 232 420 T 460 415 V 620 H 0 Z" fill="' + t.ink + '" opacity=".13"/>' +
-      '<path d="M0 485 Q 150 440 270 482 T 460 475 V 620 H 0 Z" fill="' + t.ink + '" opacity=".2"/>' +
-      '<path d="M0 545 Q 170 505 310 545 T 460 538 V 620 H 0 Z" fill="' + t.ink + '" opacity=".3"/>' +
-      '<path d="M110 150 q 9 -9 18 0 q 9 -9 18 0" stroke="' + t.ink + '" stroke-width="3" fill="none" opacity=".45" stroke-linecap="round"/>' +
-      '<path d="M300 110 q 8 -8 16 0 q 8 -8 16 0" stroke="' + t.ink + '" stroke-width="3" fill="none" opacity=".4" stroke-linecap="round"/>' +
-      '<path d="M390 170 q 7 -7 14 0 q 7 -7 14 0" stroke="' + t.ink + '" stroke-width="2.5" fill="none" opacity=".35" stroke-linecap="round"/>'
-    );
-  },
-  night(t) {
-    let s = "";
-    [[40,60],[90,140],[150,50],[210,110],[260,60],[310,40],[360,100],[410,70],[60,220],[140,190],[250,200],[330,185],[420,220],[380,150],[110,90],[290,130]].forEach((p) => {
-      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#FFFFFF" opacity=".85"/>';
-    });
-    s += '<circle cx="340" cy="145" r="54" fill="#FFF9E0" opacity=".25" filter="url(#soft)"/>' +
-      '<circle cx="340" cy="145" r="30" fill="#FFF9E0" opacity=".9"/>' +
-      '<path d="M0 480 L 130 300 L 240 480 Z" fill="' + t.ink + '" opacity=".18"/>' +
-      '<path d="M140 500 L 300 280 L 460 500 Z" fill="' + t.ink + '" opacity=".26"/>' +
-      '<path d="M0 560 Q 230 520 460 555 V 620 H 0 Z" fill="' + t.ink + '" opacity=".35"/>';
-    return s;
-  },
-  garden(t) {
-    let s =
-      '<ellipse cx="95" cy="115" rx="70" ry="26" fill="#FFFFFF" opacity=".5" filter="url(#soft)"/>' +
-      '<ellipse cx="355" cy="85" rx="60" ry="22" fill="#FFFFFF" opacity=".4" filter="url(#soft)"/>';
-    [55, 125, 205, 285, 355, 425].forEach((x, i) => {
-      s += '<path d="M' + x + ' 620 Q ' + (x - 9) + ' 545 ' + x + ' 485" stroke="#5E8C3A" stroke-width="5" fill="none" opacity=".55"/>' +
-        '<circle cx="' + x + '" cy="473" r="14" fill="#FFFFFF" opacity=".8"/>' +
-        '<circle cx="' + x + '" cy="473" r="7" fill="' + (i % 2 ? "#F6A5B8" : "#FFE082") + '" opacity=".9"/>';
-    });
-    s += '<ellipse cx="185" cy="175" rx="9" ry="5" fill="#F6A5B8" opacity=".8"/>' +
-      '<ellipse cx="200" cy="175" rx="9" ry="5" fill="#F6A5B8" opacity=".8"/>' +
-      '<circle cx="192" cy="176" r="3.5" fill="' + t.ink + '" opacity=".6"/>' +
-      '<path d="M0 585 Q 230 555 460 585 V 620 H 0 Z" fill="#5E8C3A" opacity=".25"/>';
-    return s;
-  },
-  mountains(t) {
-    let s =
-      '<path d="M0 460 L 140 260 L 280 460 Z" fill="' + t.ink + '" opacity=".16"/>' +
-      '<path d="M120 480 L 290 230 L 460 480 Z" fill="' + t.ink + '" opacity=".24"/>' +
-      '<path d="M262 262 L 290 230 L 318 262 L 302 252 L 290 272 L 276 254 Z" fill="#FFFFFF" opacity=".8"/>' +
-      '<path d="M122 296 L 140 260 L 158 296 L 148 288 L 138 304 Z" fill="#FFFFFF" opacity=".7"/>' +
-      '<path d="M0 500 Q 230 470 460 498 V 620 H 0 Z" fill="#5E8C3A" opacity=".22"/>';
-    [[70, 500], [115, 500], [345, 500], [395, 500]].forEach((p) => {
-      s += '<path d="M' + p[0] + ' ' + (p[1] - 60) + ' L ' + (p[0] + 24) + ' ' + p[1] + ' L ' + (p[0] - 24) + ' ' + p[1] + ' Z" fill="#33691E" opacity=".45"/>' +
-        '<path d="M' + p[0] + ' ' + (p[1] - 85) + ' L ' + (p[0] + 17) + ' ' + (p[1] - 34) + ' L ' + (p[0] - 17) + ' ' + (p[1] - 34) + ' Z" fill="#33691E" opacity=".45"/>';
-    });
-    return s;
-  },
-  beach(t) {
-    return (
-      '<circle cx="240" cy="145" r="50" fill="#FFF3C4" opacity=".9"/>' +
-      '<circle cx="240" cy="145" r="72" fill="#FFF3C4" opacity=".3" filter="url(#soft)"/>' +
-      '<path d="M0 350 Q 115 325 230 348 T 460 342 V 620 H 0 Z" fill="#7EC8CE" opacity=".45"/>' +
-      '<path d="M0 375 Q 130 355 240 372 T 460 368" stroke="#FFFFFF" stroke-width="4" fill="none" opacity=".6"/>' +
-      '<path d="M0 405 Q 130 385 240 402 T 460 398" stroke="#FFFFFF" stroke-width="4" fill="none" opacity=".45"/>' +
-      '<path d="M0 440 Q 230 408 460 435 V 620 H 0 Z" fill="#F1DDA7" opacity=".55"/>' +
-      '<path d="M85 620 Q 92 540 80 490 L 100 490 Q 90 540 105 620 Z" fill="' + t.ink + '" opacity=".45"/>' +
-      '<path d="M90 488 Q 55 452 20 462 Q 55 478 90 490 Z" fill="#2E7D32" opacity=".55"/>' +
-      '<path d="M90 486 Q 90 440 60 425 Q 92 448 96 486 Z" fill="#2E7D32" opacity=".55"/>' +
-      '<path d="M92 488 Q 125 448 160 452 Q 128 470 96 490 Z" fill="#2E7D32" opacity=".55"/>' +
-      '<circle cx="330" cy="520" r="10" fill="#FFFFFF" opacity=".5"/>'
-    );
-  },
-  autumn(t) {
-    let s =
-      '<path d="M118 620 Q 126 525 108 462 L 142 462 Q 126 525 140 620 Z" fill="' + t.ink + '" opacity=".4"/>' +
-      '<circle cx="125" cy="425" r="56" fill="#E8964A" opacity=".45" filter="url(#soft)"/>' +
-      '<circle cx="178" cy="448" r="42" fill="#D2691E" opacity=".4" filter="url(#soft)"/>' +
-      '<circle cx="80" cy="452" r="38" fill="#E8964A" opacity=".38" filter="url(#soft)"/>';
-    [[210, 540], [250, 500], [300, 560], [340, 520], [390, 555], [420, 480], [180, 580], [280, 600]].forEach((p, i) => {
-      s += '<ellipse cx="' + p[0] + '" cy="' + p[1] + '" rx="8" ry="5" fill="' + (i % 2 ? "#D2691E" : "#E8964A") + '" opacity=".55" transform="rotate(' + (p[0] % 60) + ' ' + p[0] + ' ' + p[1] + ')"/>';
-    });
-    s += '<path d="M0 590 Q 230 565 460 590 V 620 H 0 Z" fill="' + t.ink + '" opacity=".18"/>';
-    return s;
-  },
-  winter(t) {
-    let s =
-      '<path d="M0 520 Q 230 485 460 515 V 620 H 0 Z" fill="#FFFFFF" opacity=".55"/>' +
-      '<path d="M0 570 Q 230 540 460 568 V 620 H 0 Z" fill="#FFFFFF" opacity=".75"/>';
-    [[85, 520], [135, 520], [330, 515], [385, 515]].forEach((p) => {
-      s += '<path d="M' + p[0] + ' ' + (p[1] - 70) + ' L ' + (p[0] + 26) + ' ' + p[1] + ' L ' + (p[0] - 26) + ' ' + p[1] + ' Z" fill="#33691E" opacity=".5"/>';
-    });
-    [[50, 80],[130, 150],[210, 60],[290, 130],[370, 70],[430, 160],[90, 240],[250, 230],[410, 260],[170, 300],[330, 320],[60, 380]].forEach((p) => {
-      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="4" fill="#FFFFFF" opacity=".9"/>';
-    });
-    return s;
-  },
-  festival(t) {
-    let s =
-      '<path d="M0 115 Q 230 185 460 105" stroke="' + t.ink + '" stroke-width="3" fill="none" opacity=".4"/>';
-    [[30, 133], [95, 155], [160, 168], [230, 172], [300, 158], [365, 138], [430, 118]].forEach((p) => {
-      s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="13" fill="#FFD54F" opacity=".3" filter="url(#soft)"/>' +
-        '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="#FFD54F" opacity=".95"/>';
-    });
-    [[355, 250], [110, 260]].forEach((c) => {
-      for (let a = 0; a < 8; a++) {
-        const ang = (Math.PI / 4) * a, x1 = c[0] + Math.cos(ang) * 14, y1 = c[1] + Math.sin(ang) * 14, x2 = c[0] + Math.cos(ang) * 34, y2 = c[1] + Math.sin(ang) * 34;
-        s += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#FFD54F" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>';
-      }
-      s += '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="6" fill="#FFE082" opacity=".9"/>';
-    });
-    s += '<path d="M0 560 Q 230 525 460 555 V 620 H 0 Z" fill="' + t.ink + '" opacity=".22"/>';
-    return s;
-  },
-  hearts(t) {
-    const hp = "M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z";
-    let s = "";
-    [[70, 200, 1.3], [160, 110, .8], [265, 85, 1.05], [345, 175, 1.5], [408, 84, .7], [215, 235, .6], [120, 320, .9], [330, 330, .7]].forEach((h, i) => {
-      s += '<path d="' + hp + '" fill="' + (i % 3 === 2 ? "#F8BBD0" : "#FFFFFF") + '" opacity=".5" transform="translate(' + h[0] + ' ' + h[1] + ') scale(' + h[2] + ') translate(-12 -14)"/>';
-    });
-    s += '<circle cx="230" cy="200" r="70" fill="#FFFFFF" opacity=".18" filter="url(#soft)"/>';
-    return s;
-  },
-  party(t) {
-    let s = "";
-    const cols = ["#F8BBD0", "#FFE082", "#A5D6A7", "#90CAF9", "#CE93D8"];
-    [[90, 170, "#F8BBD0"], [150, 120, "#90CAF9"], [330, 130, "#FFE082"], [390, 185, "#A5D6A7"]].forEach((b) => {
-      s += '<ellipse cx="' + b[0] + '" cy="' + b[1] + '" rx="30" ry="38" fill="' + b[2] + '" opacity=".65"/>' +
-        '<path d="M' + b[0] + ' ' + (b[1] + 38) + ' q 6 20 -2 40" stroke="' + t.ink + '" stroke-width="2" fill="none" opacity=".4"/>';
-    });
-    [[40, 300, 20], [200, 280, -30], [280, 320, 45], [420, 290, -15], [120, 360, 60], [360, 400, -40], [60, 470, 15], [250, 430, -55], [410, 480, 30], [170, 470, -20], [310, 500, 40], [90, 560, -35]].forEach((c, i) => {
-      s += '<rect x="' + c[0] + '" y="' + c[1] + '" width="14" height="7" rx="3" fill="' + cols[i % 5] + '" opacity=".8" transform="rotate(' + c[2] + ' ' + c[0] + ' ' + c[1] + ')"/>';
-    });
-    return s;
-  },
-  dream(t) {
-    let s = "";
-    [["#F8BBD0", 175], ["#FFE082", 150], ["#A5D6A7", 125], ["#90CAF9", 100]].forEach((r) => {
-      s += '<path d="M ' + (230 - r[1]) + ' 480 A ' + r[1] + ' ' + r[1] + ' 0 0 1 ' + (230 + r[1]) + ' 480" stroke="' + r[0] + '" stroke-width="15" fill="none" opacity=".45"/>';
-    });
-    s += '<ellipse cx="95" cy="480" rx="62" ry="26" fill="#FFFFFF" opacity=".7" filter="url(#soft)"/>' +
-      '<ellipse cx="365" cy="480" rx="62" ry="26" fill="#FFFFFF" opacity=".7" filter="url(#soft)"/>' +
-      '<ellipse cx="230" cy="150" rx="55" ry="20" fill="#FFFFFF" opacity=".5" filter="url(#soft)"/>' +
-      '<circle cx="390" cy="120" r="34" fill="#FFF3C4" opacity=".5" filter="url(#soft)"/>';
-    return s;
-  }
-};
-
-function sceneSvg(theme, kind) {
-  const body = SCENES[kind](theme);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="460" height="620" viewBox="0 0 460 620">' +
-    '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">' +
-    '<stop offset="0" stop-color="' + theme.c1 + '"/><stop offset="1" stop-color="' + theme.c2 + '"/>' +
-    '</linearGradient>' +
-    '<filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>' +
-    '</defs>' +
-    '<rect width="460" height="620" fill="url(#sky)"/>' + body + '</svg>';
-}
-
-function sceneDataUrl(theme) {
-  const kind = state.sceneOverride || SCENE_MAP[state.occasion] || "sunset";
-  return "data:image/svg+xml," + encodeURIComponent(sceneSvg(theme, kind));
-}
-
 function applyCardPattern(theme) {
   const pc = $("poemCard");
-  pc.style.backgroundImage = 'url("' + (state.customBg || state.photoBg || sceneDataUrl(theme)) + '")';
+  pc.style.backgroundImage = 'url("' + (state.customBg || state.photoBg || themePhotoSrc()) + '")';
   pc.style.backgroundSize = "cover";
   pc.style.backgroundPosition = "center";
 }
@@ -2365,33 +2237,47 @@ function retheme() {
 // Swap any "full" URL for a photo you prefer, e.g. from pexels.com,
 // keeping the same shape: ?auto=format&fit=crop&w=900&h=1200&q=80
 const PHOTO_BG = [
-  { label: "Golden sunset",   thumb: "photo-1470252649378-9c29740c9fa8", full: "photo-1470252649378-9c29740c9fa8" },
-  { label: "Mountain lake",   thumb: "photo-1506744038136-46273834b3fb", full: "photo-1506744038136-46273834b3fb" },
-  { label: "Sunlit forest",   thumb: "photo-1441974231531-c6227db76b6e", full: "photo-1441974231531-c6227db76b6e" },
-  { label: "Morning meadow",  thumb: "photo-1472214103451-9374bd1c798e", full: "photo-1472214103451-9374bd1c798e" },
-  { label: "Tropical beach",  thumb: "photo-1507525428034-b723cf961d3e", full: "photo-1507525428034-b723cf961d3e" },
-  { label: "Starry night",    thumb: "photo-1419242902214-272b3f66ee7a", full: "photo-1419242902214-272b3f66ee7a" },
-  { label: "Snowy peaks",     thumb: "photo-1519681393784-d120267933ba", full: "photo-1519681393784-d120267933ba" },
-  { label: "Spring blossoms", thumb: "photo-1522383225653-ed111181a951", full: "photo-1522383225653-ed111181a951" },
-  { label: "Wildflowers",     thumb: "photo-1490750967868-88aa4486c946", full: "photo-1490750967868-88aa4486c946" },
-  { label: "Confetti party",  thumb: "photo-1513151233558-d860c5398176", full: "photo-1513151233558-d860c5398176" },
-  { label: "Wedding day",     thumb: "photo-1519741497674-611481863552", full: "photo-1519741497674-611481863552" },
-  { label: "First light",     thumb: "photo-1469474968028-56623f02e42e", full: "photo-1469474968028-56623f02e42e" }
+  { label: "Confetti party",   id: "photo-1513151233558-d860c5398176", t: "birthday" },
+  { label: "Birthday cake",    id: "photo-1464349095431-e9a21285b5f3", t: "birthday" },
+  { label: "Party balloons",   id: "photo-1530103862676-de8c9debad1d", t: "birthday" },
+  { label: "Sparkler night",   id: "photo-1492684223066-81342ee5ff30", t: "festival" },
+  { label: "Wedding day",      id: "photo-1519741497674-611481863552", t: "love milestone" },
+  { label: "Pink rose",        id: "photo-1518895949257-7621c3c786d7", t: "love" },
+  { label: "Golden sunset",    id: "photo-1470252649378-9c29740c9fa8", t: "thanks" },
+  { label: "Golden sunrise",   id: "photo-1494548162494-384bba4ab999", t: "thanks heal" },
+  { label: "First light",      id: "photo-1469474968028-56623f02e42e", t: "thanks milestone" },
+  { label: "Mountain lake",    id: "photo-1506744038136-46273834b3fb", t: "milestone" },
+  { label: "Lake cabin",       id: "photo-1470770841072-f978cf4d019e", t: "family" },
+  { label: "Snowy peaks",      id: "photo-1519681393784-d120267933ba", t: "milestone" },
+  { label: "Mountain waterfall", id: "photo-1433086966358-54859d0ed716", t: "heal" },
+  { label: "Sunlit forest",    id: "photo-1441974231531-c6227db76b6e", t: "heal" },
+  { label: "Forest walk",      id: "photo-1447752875215-b2761acb3c5d", t: "heal school" },
+  { label: "Morning meadow",   id: "photo-1472214103451-9374bd1c798e", t: "school thanks" },
+  { label: "Wildflowers",      id: "photo-1490750967868-88aa4486c946", t: "family" },
+  { label: "Lavender fields",  id: "photo-1499002238440-d264edd596ec", t: "family heal" },
+  { label: "Spring blossoms",  id: "photo-1522383225653-ed111181a951", t: "family" },
+  { label: "Autumn road",      id: "photo-1476820865390-c52aeebb9891", t: "school" },
+  { label: "Winter pine",      id: "photo-1512389142860-9c449e58a543", t: "festival" },
+  { label: "Tropical beach",   id: "photo-1507525428034-b723cf961d3e", t: "friends" },
+  { label: "Starry night",     id: "photo-1419242902214-272b3f66ee7a", t: "spooky" },
+  { label: "Curious cat",      id: "photo-1514888286974-6c03e2ca1dba", t: "pet" },
+  { label: "Loyal friend",     id: "photo-1517849845537-4d257902454a", t: "pet friends" }
 ];
 const photoUrl = (id, thumb) =>
   "https://images.unsplash.com/" + id + "?auto=format&fit=crop&q=80&" + (thumb ? "w=120&h=120" : "w=900&h=1200");
 
-const SCENE_INFO = {
-  sunset: ["Sunset", "🌅"], night: ["Starry night", "🌙"], garden: ["Garden", "🌸"],
-  mountains: ["Mountains", "⛰️"], beach: ["Beach", "🏖️"], autumn: ["Autumn", "🍂"],
-  winter: ["Winter", "❄️"], festival: ["Festival", "🪔"], hearts: ["Hearts", "💗"],
-  party: ["Party", "🎉"], dream: ["Dream", "☁️"]
-};
+// deep link: /?bg=<photo id> preselects that photo (used by the backgrounds page)
+(function () {
+  const bgParam = new URLSearchParams(location.search).get("bg");
+  if (!bgParam) return;
+  const hit = PHOTO_BG.find((p) => p.id === bgParam);
+  if (hit) state.photoBg = photoUrl(hit.id, false);
+})();
 
-function syncSceneChips() {
-  document.querySelectorAll(".scene-chip").forEach((c) => {
-    c.setAttribute("aria-pressed", String((c.dataset.k || null) === state.sceneOverride));
-  });
+function themePhotoSrc() {
+  const kind = OCC_THEMES[state.occasion] || "birthday";
+  const hit = PHOTO_BG.find((p) => (p.t || "").split(" ").indexOf(kind) > -1);
+  return photoUrl(hit ? hit.id : PHOTO_BG[0].id, false);
 }
 
 function clearPhoto() {
@@ -2406,42 +2292,16 @@ function syncPhotoChips() {
   });
 }
 
-(function buildScenePick() {
-  const box = $("scenePick");
-  const makeBtn = (k, label) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "scene-chip";
-    b.dataset.k = k;
-    b.textContent = label;
-    b.addEventListener("click", () => {
-      if (k) state.sceneOverride = k; else state.sceneOverride = null;
-      state.photoBg = null;
-      clearPhoto();
-      syncSceneChips();
-      syncPhotoChips();
-      retheme();
-      if ($("nameInput").value.trim()) writePoem();
-    });
-    box.appendChild(b);
-    return b;
-  };
-  makeBtn("", "Auto scene").setAttribute("aria-pressed", "true");
-  Object.keys(SCENES).forEach((k) => {
-    makeBtn(k, SCENE_INFO[k][1] + " " + SCENE_INFO[k][0]).setAttribute("aria-pressed", "false");
-  });
-})();
-
 (function buildPhotoPick() {
   const box = $("photoPick");
   PHOTO_BG.forEach((p) => {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "photo-chip";
-    b.dataset.u = photoUrl(p.full, false);
+    b.dataset.u = photoUrl(p.id, false);
     b.setAttribute("aria-pressed", "false");
     const img = document.createElement("img");
-    img.src = photoUrl(p.thumb, true);
+    img.src = photoUrl(p.id, true);
     img.alt = "";
     img.loading = "lazy";
     b.appendChild(img);
@@ -2449,8 +2309,6 @@ function syncPhotoChips() {
     b.addEventListener("click", () => {
       if (state.photoBg === b.dataset.u) {
         state.photoBg = null;
-        state.sceneOverride = null;
-        syncSceneChips();
         syncPhotoChips();
         retheme();
         if ($("nameInput").value.trim()) writePoem();
@@ -2460,9 +2318,7 @@ function syncPhotoChips() {
       probe.onload = () => {
         clearPhoto();
         state.photoBg = b.dataset.u;
-        state.sceneOverride = null;
         b.style.opacity = "";
-        syncSceneChips();
         syncPhotoChips();
         retheme();
         if ($("nameInput").value.trim()) writePoem();
@@ -2472,18 +2328,18 @@ function syncPhotoChips() {
         syncPhotoChips();
         retheme();
         b.style.opacity = ".35";
-        b.title = "this photo could not load here, try the art scenes";
+        b.title = "this photo could not load, try another";
       };
       probe.src = b.dataset.u;
     });
     box.appendChild(b);
   });
+  syncPhotoChips();
 })();
 
 document.querySelectorAll(".bg-tab").forEach((t) => {
   t.addEventListener("click", () => {
     document.querySelectorAll(".bg-tab").forEach((x) => x.setAttribute("aria-pressed", String(x === t)));
-    $("scenePick").hidden = t.dataset.bt !== "art";
     $("photoPick").hidden = t.dataset.bt !== "photo";
     $("bgMineRow").hidden = t.dataset.bt !== "mine";
   });
@@ -2497,8 +2353,6 @@ $("bgUpload").addEventListener("change", (e) => {
     const applyBg = (dataUrl) => {
       state.customBg = dataUrl;
       state.photoBg = null;
-      state.sceneOverride = null;
-      syncSceneChips();
       syncPhotoChips();
       $("bgResetBtn").style.display = "";
       retheme();
@@ -2527,8 +2381,6 @@ $("bgUpload").addEventListener("change", (e) => {
 $("bgResetBtn").addEventListener("click", () => {
   clearPhoto();
   state.photoBg = null;
-  state.sceneOverride = null;
-  syncSceneChips();
   syncPhotoChips();
   retheme();
   if ($("nameInput").value.trim()) writePoem();
@@ -2838,7 +2690,7 @@ $("pngBtn").addEventListener("click", () => {
   finish();
   };
 
-  let bgSrc = state.customBg || state.photoBg || sceneDataUrl(theme);
+  let bgSrc = state.customBg || state.photoBg || themePhotoSrc();
   let remote = bgSrc === state.photoBg;
 
   const finish = () => {
@@ -2847,8 +2699,7 @@ $("pngBtn").addEventListener("click", () => {
     if (!href && remote) {
       // the remote photo blocked export, redraw with scene art instead
       remote = false;
-      bgSrc = sceneDataUrl(theme);
-      load(bgSrc, false);
+      load(null, false);
       return;
     }
     const a = document.createElement("a");
@@ -3729,27 +3580,39 @@ $("linkBtn").addEventListener("click", () => {
   (function stats() {
     var nums = qsa("[data-count]");
     if (!nums.length) return;
-    var done = new WeakSet();
-    function tick() {
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function animate(el) {
+      if (el.dataset.counted) return;
+      el.dataset.counted = "1";
+      var target = parseInt(el.getAttribute("data-count"), 10);
+      if (reduced) { el.textContent = target; return; }
+      var t0 = null;
+      function step(ts) {
+        if (t0 === null) t0 = ts;
+        var pr = Math.min(1, (ts - t0) / 1100);
+        pr = 1 - Math.pow(1 - pr, 3);
+        el.textContent = Math.round(pr * target);
+        if (pr < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    function check() {
       var vh = window.innerHeight;
       nums.forEach(function (el) {
-        if (done.has(el)) return;
+        if (el.dataset.counted) return;
         var r = el.getBoundingClientRect();
         if (r.bottom < 0 || r.top > vh) return;
-        var p = (vh - r.top) / (vh / 2 + r.height / 2);
-        p = Math.max(0, Math.min(1, p));
-        el.textContent = Math.round(p * parseInt(el.getAttribute("data-count"), 10));
-        if (p >= 1) done.add(el);
+        animate(el);
       });
     }
     var last = 0;
     function onScroll(now) {
       if (now - last < 30) return;
       last = now;
-      tick();
+      check();
     }
     window.addEventListener("scroll", function (e) { onScroll(performance.now()); }, { passive: true });
-    tick();
+    check();
   })();
 
   /* ---------- smooth scroll buttons ---------- */
@@ -3860,5 +3723,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+<script src="theme.js" defer></script>
 </body>
 </html>
