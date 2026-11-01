@@ -674,6 +674,16 @@
   .card-buttons .btn:hover { border-color: var(--ink); }
 
   .card-note { color: var(--muted); font-size: 0.85rem; text-align: center; max-width: 42ch; }
+  .fun-reco { margin: 2.2rem auto 0; text-align: center; max-width: 46rem; }
+  .fun-reco-label { font-family: "Fraunces", serif; font-weight: 600; font-size: .95rem; color: #1d1a2e; margin: 0 0 .8rem; }
+  .fun-reco-row { display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem; }
+  .fun-reco-row a { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid #E4DCCB; background: #fff; border-radius: 9999px; padding: .5rem 1rem; font: 600 .85rem "Onest", system-ui, sans-serif; color: #1d1a2e; text-decoration: none; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s; }
+  .fun-reco-row a:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(20,16,30,.1); }
+  .fun-reco-row a i { width: .55rem; height: .55rem; border-radius: 50%; flex: 0 0 auto; }
+  .fun-reco-row a:nth-child(1) i { background: #6b4a8f; }
+  .fun-reco-row a:nth-child(2) i { background: #46513a; }
+  .fun-reco-row a:nth-child(3) i { background: #d9b972; }
+  .fun-reco-row a:nth-child(4) i { background: #a3243a; }
 
   /* ---------- print ---------- */
   @media print {
@@ -970,6 +980,15 @@
         <button type="button" class="btn" id="waBtn">Share on WhatsApp</button>
       </div>
       <p class="card-note">The picture downloads at greeting-card size, ready to send on WhatsApp or print at home.</p>
+      <div class="fun-reco" aria-label="More name fun">
+        <p class="fun-reco-label">More name fun to explore</p>
+        <div class="fun-reco-row">
+          <a href="name-meaning/"><i aria-hidden="true"></i>What does your name mean?</a>
+          <a href="birth-date/"><i aria-hidden="true"></i>Birth date meaning</a>
+          <a href="first-letter/"><i aria-hidden="true"></i>First letter meaning</a>
+          <a href="name-secret/"><i aria-hidden="true"></i>Name secret</a>
+        </div>
+      </div>
     </section>
 
   </div>
