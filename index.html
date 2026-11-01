@@ -23,7 +23,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Great+Vibes&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Great+Vibes&family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     color-scheme: light;
@@ -671,7 +671,7 @@
   }
   .poem-card .flourish { margin: 18px auto; width: 130px; opacity: .55; }
   .poem-card .poem-body {
-    font-family: "Instrument Serif", serif; font-size: 1.13rem; line-height: 1.85;
+    font-family: var(--poem-font, "Instrument Serif", serif); font-size: 1.13rem; line-height: 1.85;
     font-weight: 400; white-space: pre-line;
   }
   .poem-card .poem-body .lead-letter { font-weight: 700; }
@@ -736,6 +736,33 @@
   .fun-card:nth-child(even) { transform: rotate(.5deg); }
   .fun-art { border-radius: 10px; box-shadow: 0 0 0 7px #fff, 0 0 0 8px rgba(28,35,51,.12), 0 24px 44px -22px rgba(28,35,51,.4); }
   .fun-card h3 { font-size: 1.3rem; font-style: italic; }
+.font-pick { display: flex; flex-wrap: wrap; gap: .55rem; }
+.font-chip { background: #fff; border: 1px solid #DCD2C2; border-radius: 999px; padding: .5rem 1.1rem; font-size: 1.15rem; color: var(--ink); cursor: pointer; box-shadow: 3px 3px 0 rgba(28,35,51,.06); transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s; }
+.font-chip:hover { transform: translateY(-2px); }
+.font-chip.is-on { border-color: var(--accent); box-shadow: 0 0 0 1.5px var(--accent), 3px 3px 0 rgba(28,35,51,.06); }
+.quick-start { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 30rem; background: #fff; border: 1px solid #DCD2C2; border-radius: 999px; padding: 7px 7px 7px 22px; box-shadow: 6px 6px 0 rgba(28,35,51,.08); margin-top: 2.1rem; }
+.quick-start input { flex: 1; min-width: 0; border: 0; background: transparent; box-shadow: none; padding: 4px 0; font: 500 1.05rem "Onest", sans-serif; color: var(--ink); outline: none; }
+.quick-start input::placeholder { color: #9A93A6; }
+.qs-go { flex: none; background: var(--ink); color: #FCF9F4; border: 0; border-radius: 999px; padding: .85rem 1.5rem; font: 600 .95rem "Onest", sans-serif; letter-spacing: .01em; cursor: pointer; transition: transform .25s cubic-bezier(.2,.8,.2,1), background .25s; }
+.qs-go:hover { background: #2A3450; transform: scale(1.04); }
+.cta-row { justify-content: flex-start; }
+.hero-fine-link { font: 500 .92rem "Onest", sans-serif; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
+.hero-fine-link:hover { color: var(--accent); }
+.hero-fine-note { font: 400 .82rem "Onest", sans-serif; color: var(--muted); }
+#how .how-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+@media (min-width: 640px) and (max-width: 1099px) { #how .how-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px) { #how .how-list { grid-template-columns: 1fr; } }
+#how .how-row { display: block; border: 1px solid #DCD2C2; border-radius: 14px; background: #fff; padding: 1.5rem 1.4rem 1.6rem; box-shadow: 6px 6px 0 rgba(28,35,51,.07); }
+#how .how-row.in:hover { background: #fff; padding: 1.5rem 1.4rem 1.6rem; transform: translateY(-4px); box-shadow: 6px 10px 0 rgba(28,35,51,.07); }
+#how .how-num { display: block; width: auto; font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; font-size: 2.3rem; line-height: 1; color: var(--accent); }
+#how .how-row h3 { margin: .7rem 0 0; font-size: 1.5rem; }
+#how .how-desc { display: block; max-width: none; margin: .45rem 0 1.1rem; font-size: .95rem; color: var(--muted); }
+#how .how-badge { width: 2.4rem; height: 2.4rem; background: var(--ink); }
+@media (max-width: 520px) {
+  .quick-start { flex-wrap: wrap; border-radius: 24px; padding: 10px 10px 10px 18px; }
+  .quick-start input { flex: 1 1 100%; padding: 6px 4px; }
+  .qs-go { width: 100%; padding-block: .9rem; }
+}
 </style>
 </head>
 <body>
@@ -807,15 +834,13 @@
         </span>
         <span class="rtext">51 occasions, worldwide</span>
       </div>
+      <div class="quick-start">
+        <input id="heroName" type="text" placeholder="Type a name, e.g. Emma" maxlength="14" aria-label="Name for the poem">
+        <button type="button" class="qs-go" id="heroGo">Write the poem</button>
+      </div>
       <div class="cta-row">
-        <button type="button" class="pill pill-dark" data-scroll="#studio">
-          <span class="pill-inner pa">Make a poem
-            <span class="pill-badge go-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </button>
-        <a class="pill pill-outline" href="backgrounds/">
-          <span class="pill-inner pp">Free backgrounds</span>
-        </a>
+        <a class="hero-fine-link" href="backgrounds/">Free backgrounds</a>
+        <span class="hero-fine-note">Free forever, no sign up</span>
       </div>
     </div>
 
@@ -926,6 +951,17 @@
         <div class="verse-pick" id="versePick" hidden>
           <button type="button" class="btn btn-ghost" id="verseA">Verse one</button>
           <button type="button" class="btn btn-ghost" id="verseB">Verse two</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label id="fontLabel">Pick a font</label>
+        <div class="font-pick" role="group" aria-labelledby="fontLabel">
+          <button type="button" class="font-chip is-on" data-font="keepsake" style="font-family:'Instrument Serif',serif" aria-pressed="true">Keepsake</button>
+          <button type="button" class="font-chip" data-font="storybook" style="font-family:'Playfair Display',serif" aria-pressed="false">Storybook</button>
+          <button type="button" class="font-chip" data-font="hand" style="font-family:'Caveat',cursive" aria-pressed="false">Handwritten</button>
+          <button type="button" class="font-chip" data-font="script" style="font-family:'Great Vibes',cursive" aria-pressed="false">Script</button>
+          <button type="button" class="font-chip" data-font="simple" style="font-family:'Onest',sans-serif" aria-pressed="false">Simple</button>
         </div>
       </div>
 
@@ -2087,7 +2123,7 @@ const CLOSERS = {
 
 /* ---------------- state & helpers ---------------- */
 
-const state = { occasion: "birthday", style: "acrostic", poem: null, customBg: null, photoBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
+const state = { occasion: "birthday", style: "acrostic", fontKey: "keepsake", poem: null, customBg: null, photoBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
 const $ = (id) => document.getElementById(id);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -2204,6 +2240,7 @@ function renderCard() {
   $("ornRow").textContent = theme.orn.join(" ");
   $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
   $("poemName").textContent = state.name;
+  applyPoemFont();
 
   const body = $("poemBody");
   body.innerHTML = "";
@@ -2466,6 +2503,33 @@ function setStyle(s) {
   $("versePick").hidden = s !== "rhyme";
 }
 
+/* ---------------- font picker (free Google Fonts) ---------------- */
+var POEM_FONTS = {
+  keepsake: { css: '"Instrument Serif", Georgia, serif', scale: 1 },
+  storybook: { css: '"Playfair Display", Georgia, serif', scale: .96 },
+  hand: { css: '"Caveat", cursive', scale: 1.32 },
+  script: { css: '"Great Vibes", cursive', scale: 1.5 },
+  simple: { css: '"Onest", sans-serif', scale: .95 }
+};
+function applyPoemFont() {
+  var f = POEM_FONTS[state.fontKey] || POEM_FONTS.keepsake;
+  var pc = $("poemCard");
+  if (pc) pc.style.setProperty("--poem-font", f.css);
+}
+function setFont(k) {
+  state.fontKey = k;
+  document.querySelectorAll(".font-chip").forEach(function (b) {
+    var on = b.getAttribute("data-font") === k;
+    b.classList.toggle("is-on", on);
+    b.setAttribute("aria-pressed", String(on));
+  });
+  applyPoemFont();
+  if (state.poem) renderCard();
+}
+document.querySelectorAll(".font-chip").forEach(function (b) {
+  b.addEventListener("click", function () { setFont(b.getAttribute("data-font")); });
+});
+
 function setVerse(v) {
   state.lastVerse = v;
   if (state.poem && state.poem.type === "rhyme") {
@@ -2632,7 +2696,8 @@ $("pngBtn").addEventListener("click", () => {
   ctx.globalAlpha = 1;
 
   // poem body
-  ctx.font = "42px Instrument Serif, Georgia, serif";
+  var pf = POEM_FONTS[state.fontKey] || POEM_FONTS.keepsake;
+  ctx.font = Math.round(42 * pf.scale) + "px " + pf.css;
   const wrapText = (str) => {
     const out = [];
     const words = str.split(" ");
@@ -2669,7 +2734,7 @@ $("pngBtn").addEventListener("click", () => {
   shown.forEach((line, i) => ctx.fillText(line, W / 2, startY + i * lh));
 
   if (closerLine) {
-    ctx.font = "italic 44px Instrument Serif, Georgia, serif";
+    ctx.font = "italic " + Math.round(44 * pf.scale) + "px " + pf.css;
     ctx.fillText(closerLine, W / 2, startY + shown.length * lh + 24);
   }
 
@@ -3740,6 +3805,25 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js").catch(function () {});
   });
 }
+</script>
+<script>
+(function () {
+  var input = document.getElementById("heroName"), go = document.getElementById("heroGo");
+  if (!input || !go) return;
+  function write() {
+    var v = input.value.trim();
+    if (!v) { input.focus(); return; }
+    var target = document.getElementById("nameInput");
+    if (target) target.value = v;
+    var btn = document.getElementById("writeBtn");
+    if (btn) btn.click();
+    var card = document.getElementById("poemCard");
+    if (card) card.parentElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    else { var studio = document.getElementById("studio"); if (studio) studio.scrollIntoView({ behavior: "smooth" }); }
+  }
+  go.addEventListener("click", write);
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); write(); } });
+})();
 </script>
 <script src="theme.js" defer></script>
 </body>
