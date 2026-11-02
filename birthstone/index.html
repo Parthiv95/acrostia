@@ -117,6 +117,9 @@ h1 em { font-style: italic; color: var(--accent); }
   var qs = new URLSearchParams(location.search);
   if (+qs.get("m") >= 1 && +qs.get("m") <= 12) mS.value = qs.get("m");
   var COLORS = ["#9b1b30","#5a4a8a","#3f8fa3","#cfd6dd","#2e7d4f","#efe7da","#9b1b30","#7ba05b","#22508f","#3a3f5c","#d99a2b","#2f8f7f"];
+  var PHOTOS = ["13307186","1121123","2942849","7568017","35451978","36806386","13307185","9037447","37702969","20689551","13303468","10029919"].map(function (id) {
+    return "url('https://images.pexels.com/photos/" + id + "/pexels-photo-" + id + ".jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop')";
+  });
   function gemSvg(color, size) {
     var h = Math.round(size * 0.9);
     return '<svg width="' + size + '" height="' + h + '" viewBox="0 0 100 90" aria-hidden="true" style="vertical-align:middle">'
@@ -130,6 +133,7 @@ h1 em { font-style: italic; color: var(--accent); }
   }
   function show() {
     var ix = +mS.value - 1, s = F.STONES[ix];
+    $("bCard").style.backgroundImage = 'linear-gradient(rgba(20,26,16,.45), rgba(14,18,12,.72)), ' + PHOTOS[ix];
     $("bCard").innerHTML = gemSvg(COLORS[ix], 108) + '<div class="name">' + s.stone + '</div>' +
       '<div class="when">' + s.m + "\u2019s birthstone</div>" +
       '<div class="line">' + s.line + '</div>' +
