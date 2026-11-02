@@ -307,6 +307,37 @@
   .ex-actions { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-top: 1.5rem; }
   @media (min-width:640px) { .ex-panel { padding: 3rem 2.5rem; } .ex-lines { font-size: 1.08rem; } }
 
+  /* ---------- night-sky mood for the examples explorer (Aetheris borrow) ---------- */
+  #samples {
+    color: #f0e8d8;
+    background-image:
+      radial-gradient(1px 1px at 18% 12%, rgba(255,255,255,.8), transparent 60%),
+      radial-gradient(1.5px 1.5px at 72% 8%, rgba(255,255,255,.7), transparent 60%),
+      radial-gradient(1px 1px at 42% 30%, rgba(255,255,255,.5), transparent 60%),
+      radial-gradient(1.5px 1.5px at 88% 38%, rgba(255,255,255,.6), transparent 60%),
+      radial-gradient(1px 1px at 8% 52%, rgba(255,255,255,.5), transparent 60%),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,.4), transparent 60%),
+      radial-gradient(1px 1px at 30% 88%, rgba(255,255,255,.45), transparent 60%),
+      radial-gradient(ellipse at 70% 10%, #2A1F3F, transparent 60%),
+      radial-gradient(ellipse at 20% 85%, #241B38, transparent 55%),
+      linear-gradient(#191330, #1A1428);
+  }
+  #samples .eyebrow-boxed { border-color: rgba(244,184,64,.4); }
+  #samples .eyebrow { color: #f4cf87; }
+  #samples .h2 { color: #f7f2e4; }
+  #samples .ex-sub { color: rgba(207,200,222,.75); }
+  #samples .ex-chip { background: rgba(244,184,64,.1); border-color: rgba(244,184,64,.35); color: #f4cf87; }
+  #samples .ex-chip:hover { background: rgba(244,184,64,.22); }
+  #samples .ex-chip[aria-pressed="true"] { background: #f4b840; border-color: #f4b840; color: #241C05; }
+  .ex-wrap { position: relative; }
+  .ex-wrap::before {
+    content: ""; position: absolute; left: 50%; top: 55%; width: min(46rem, 96%); height: 32rem;
+    transform: translate(-50%, -50%); pointer-events: none;
+    background: radial-gradient(closest-side, rgba(244,184,64,.2), rgba(244,184,64,.06) 55%, transparent 78%);
+  }
+  #samples .ex-panel { position: relative; border-color: rgba(244,184,64,.45); box-shadow: 0 30px 80px -30px rgba(5,2,12,.7), 0 0 70px -18px rgba(244,184,64,.4); }
+  #samples .ex-panel { color: var(--ink); }
+
   .how-list { max-width: 88rem; margin: 3rem auto 0; padding: 0 1.25rem 5rem; }
   @media (min-width:640px) { .how-list { padding-inline: 2rem; } }
   .how-row { display: flex; align-items: center; gap: 1rem; border-top: 1px solid #e6e5e2; border-radius: 1.25rem; padding: 1.5rem; background: rgba(241,240,238,0); transition: background .4s, padding .4s; opacity: 0; transform: translateY(24px); }
