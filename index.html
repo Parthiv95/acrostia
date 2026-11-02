@@ -318,6 +318,9 @@
       radial-gradient(ellipse at 20% 85%, #241B38, transparent 55%),
       linear-gradient(#191330, #1A1428);
   }
+  #samples { position: relative; overflow: hidden; }
+  #skyVid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  #samples .sec-head, #samples .ex-wrap { position: relative; z-index: 1; }
   #samples .eyebrow-boxed { border-color: rgba(244,184,64,.4); }
   #samples .eyebrow { color: #f4cf87; }
   #samples .h2 { color: #f7f2e4; }
@@ -1087,10 +1090,11 @@
       </a>
     </article>
   </div>
-  <p class="fun-more" data-reveal>Still curious? Try <a href="birth-date/">your birth number</a>, <a href="first-letter/">your first letter</a>, <a href="name-secret/">your name secret</a>, <a href="zodiac/">your zodiac sign</a>, <a href="birthstone/">your birthstone</a>, <a href="birth-flower/">your birth flower</a> or <a href="lucky-number/">your lucky numbers</a>.</p>
+  <p class="fun-more" data-reveal>Still curious? Try <a href="birth-date/">your birth number</a>, <a href="first-letter/">your first letter</a>, <a href="name-secret/">your name secret</a>, <a href="zodiac/">your zodiac sign</a>, <a href="birthstone/">your birthstone</a>, <a href="birth-flower/">your birth flower</a>, <a href="birthday-cake/">your name on a birthday cake</a> or <a href="lucky-number/">your lucky numbers</a>.</p>
 </section>
 
 <section class="sec" id="samples">
+  <video id="skyVid" muted loop playsinline autoplay aria-hidden="true"></video>
   <div class="sec-head">
     <span class="eyebrow-boxed"><span class="eyebrow" style="border:0">Examples</span></span>
     <h2 class="h2 rise jc" data-rise>Read full poems before you write one</h2>
@@ -2600,6 +2604,7 @@ function requirePoem() {
 (function initFunTiles() {
   var LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   var art = document.querySelector(".art-letters");
+  if (!art) return;
   for (var i = 0; i < 12; i++) {
     var s = document.createElement("span");
     s.className = "fun-scatter";
@@ -3867,5 +3872,51 @@ if ("serviceWorker" in navigator) {
 })();
 </script>
 <script src="theme.js" defer></script>
+<script>
+(function () {
+  var v = document.getElementById("skyVid");
+  if (!v || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var src = "https://stream.mux.com/01yW6GoUz01OTXk5w1Rt1MHkJWlCGIwj46SUONJZ4DJUE.m3u8";
+  v.removeAttribute("autoplay");
+  var done = false;
+  function fail() { done = true; if (v.parentNode) v.parentNode.removeChild(v); }
+  function useHls() {
+    if (done) return;
+    done = true;
+    var s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js";
+    s.onerror = fail;
+    s.onload = function () {
+      if (!window.Hls || !Hls.isSupported()) { fail(); return; }
+      var hls = new Hls();
+      hls.on(Hls.Events.ERROR, function (e, d) { if (d.fatal) fail(); });
+      hls.loadSource(src);
+      hls.attachMedia(v);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () { v.play().catch(function () {}); });
+    };
+    document.head.appendChild(s);
+  }
+  // try native HLS first (Safari, iOS); if the browser misreports support and
+  // the source errors, fall back to hls.js instead of giving up
+  v.addEventListener("error", function onNativeError() {
+    v.removeEventListener("error", onNativeError);
+    v.removeAttribute("src");
+    v.load();
+    useHls();
+  });
+  v.src = src;
+  var p = v.play();
+  if (p) p.catch(function (e) { if (e && e.name === "NotSupportedError") { v.removeAttribute("src"); v.load(); useHls(); } });
+  // save battery: only play while the band is near the viewport
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { if (!v.paused) v.play().catch(function () {}); else if (!v.ended) v.play().catch(function () {}); }
+        else v.pause();
+      });
+    }, { rootMargin: "200px" }).observe(v);
+  }
+})();
+</script>
 </body>
 </html>
