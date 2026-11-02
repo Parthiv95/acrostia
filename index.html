@@ -256,6 +256,7 @@
   .fc-wide { grid-column: 1 / -1; }
   .fc-wide .fun-art { min-height: 340px; }
   .fc-wide .fun-script { top: 16%; font-size: clamp(4.2rem, 12vw, 6.4rem); }
+  .fc-wide .fun-bd-text { max-width: 36rem; }
   .fun-constel { display: block; width: min(250px, 62%); margin: 0 auto .4rem; opacity: .95; position: relative; }
   .art-zodiac { background-image: radial-gradient(1.5px 1.5px at 20% 25%, rgba(255,255,255,.9), transparent 60%), radial-gradient(1.5px 1.5px at 70% 18%, rgba(255,255,255,.8), transparent 60%), radial-gradient(2px 2px at 40% 60%, rgba(255,255,255,.6), transparent 60%), radial-gradient(1.5px 1.5px at 82% 55%, rgba(255,255,255,.7), transparent 60%), radial-gradient(1.2px 1.2px at 60% 35%, rgba(255,255,255,.5), transparent 60%), linear-gradient(150deg, #241a3e, #4a3866 55%, #6b4a8f); }
   .art-stone { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 10px), radial-gradient(ellipse at 50% 120%, rgba(255,255,255,.14), transparent 55%), linear-gradient(160deg, #39442f, #2c3524); }
@@ -1081,9 +1082,9 @@
 
 <section class="sec fun-sec" id="fun" aria-label="More fun with your name">
   <div class="fun-grid">
-    <article class="fun-card fc-wide">
+    <article class="fun-card">
       <a class="fun-art art-profile" href="birthday-profile/" data-reveal aria-label="Open the birthday profile tool" style="background-image:linear-gradient(rgba(30,16,8,.25), rgba(24,12,6,.6)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=900&h=1200');background-size:cover;background-position:center">
-        <div class="fun-script" aria-hidden="true">Their big day?</div>
+        <div class="fun-script" aria-hidden="true">Birthday, decoded.</div>
         <span class="fun-cta"><span>Build their birthday profile</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
     </article>
@@ -1093,8 +1094,8 @@
         <span class="fun-cta"><span>Find your name's true meaning</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
     </article>
-    <article class="fun-card">
-      <a class="fun-art art-bday" href="birth-date/" data-reveal data-delay="120" aria-label="Open the birth date meaning tool" style="background-image:linear-gradient(rgba(30,16,8,.32), rgba(20,10,4,.6)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=900&h=1200');background-size:cover;background-position:center">
+    <article class="fun-card fc-wide">
+      <a class="fun-art art-bday" href="birth-date/" data-reveal data-delay="120" aria-label="Open the birth date meaning tool" style="background-image:linear-gradient(rgba(30,16,8,.32), rgba(20,10,4,.6)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=1600&h=900');background-size:cover;background-position:center">
         <div class="fun-kicker">What does your birthdate mean?</div>
         <div class="fun-bd">
           <div class="fun-ring"><span>26</span></div>
