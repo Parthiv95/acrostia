@@ -515,7 +515,7 @@
 
   /* ---------- layout ---------- */
   .studio {
-    display: grid; grid-template-columns: 400px 1fr; gap: 56px;
+    display: grid; grid-template-columns: 520px 1fr; gap: 44px;
     padding-bottom: 80px; align-items: start;
   }
   @media (max-width: 880px) {
@@ -808,6 +808,30 @@
     .group-tabs { gap: 6px; margin-bottom: 10px; }
     .group-tab { font-size: .8rem; padding: 5px 12px; }
   }
+
+  /* ---- five-stage studio workspace ---- */
+  .stepper { display: flex; gap: .8rem; margin: 0 0 1.5rem; padding: 0; list-style: none; border-bottom: 1px solid #E7DCC8; overflow-x: auto; scrollbar-width: none; }
+  .stepper::-webkit-scrollbar { display: none; }
+  .step-btn { display: inline-flex; align-items: center; gap: .4rem; background: none; border: 0; padding: .15rem 0 .6rem; font: 600 .9rem "Onest", sans-serif; color: var(--muted); cursor: pointer; white-space: nowrap; position: relative; transition: color .2s; }
+  .step-btn .step-n { font-family: "Fraunces", serif; font-style: italic; font-weight: 400; font-size: 1.1rem; color: var(--gold); transition: color .2s; }
+  .step-btn:hover { color: var(--ink); }
+  .step-btn.done { color: var(--ink); }
+  .step-btn.done .step-n { color: var(--accent); }
+  .step-btn.is-on { color: var(--ink); }
+  .step-btn.is-on .step-n { color: var(--accent); }
+  .step-btn.is-on::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); }
+  .stagepane { display: none; }
+  .stagepane.is-on { display: block; animation: paneIn .35s cubic-bezier(.2,.8,.2,1); }
+  @keyframes paneIn { from { opacity: 0; transform: translateY(8px); } }
+  .pane-nav { display: flex; justify-content: space-between; gap: .8rem; margin-top: 1.6rem; }
+  .pane-nav .btn { min-width: 7.5rem; }
+  #paneBack[disabled] { opacity: .35; cursor: default; }
+  .pane-hint { font: 400 .85rem "Onest", sans-serif; color: var(--muted); margin: .75rem 0 0; }
+  @media (max-width: 640px) {
+    .stepper { gap: .85rem; }
+    .step-btn { font-size: .87rem; padding-bottom: .5rem; }
+    .step-btn .step-n { font-size: 1rem; }
+  }
 </style>
 </head>
 <body>
@@ -932,72 +956,106 @@
   <div class="studio">
 
     <form class="panel" id="form" onsubmit="return false;">
-      <div class="field">
-        <label for="nameInput">Their name</label>
-        <input type="text" id="nameInput" placeholder="e.g. Emma" maxlength="20" autocomplete="off">
-      </div>
+      <ol class="stepper" id="stepper" aria-label="Poem steps">
+        <li><button type="button" class="step-btn is-on" data-step="1" aria-current="step"><span class="step-n">1</span>Person</button></li>
+        <li><button type="button" class="step-btn" data-step="2"><span class="step-n">2</span>Occasion</button></li>
+        <li><button type="button" class="step-btn" data-step="3"><span class="step-n">3</span>Poem style</button></li>
+        <li><button type="button" class="step-btn" data-step="4"><span class="step-n">4</span>Design</button></li>
+        <li><button type="button" class="step-btn" data-step="5"><span class="step-n">5</span>Finish</button></li>
+      </ol>
 
-      <div class="field" id="name2Row">
-        <label for="name2Input">& their partner <span class="hint">optional</span></label>
-        <input type="text" id="name2Input" placeholder="e.g. Noah" maxlength="20" autocomplete="off">
-      </div>
-
-      <div class="field">
-        <label>Background <span class="hint">free photos, or your own</span></label>
-        <div class="bg-tabs">
-          <button type="button" class="bg-tab" data-bt="photo" aria-pressed="true">Photos</button>
-          <button type="button" class="bg-tab" data-bt="mine" aria-pressed="false">My photo</button>
+      <section class="stagepane is-on" data-pane="1">
+        <div class="field">
+          <label for="nameInput">Their name</label>
+          <input type="text" id="nameInput" placeholder="e.g. Emma" maxlength="20" autocomplete="off">
         </div>
-        <div class="scene-pick" id="photoPick"></div>
-        <div class="bg-actions" id="bgMineRow" hidden>
-          <label class="btn btn-ghost bg-btn">Use my photo<input type="file" id="bgUpload" accept="image/*" hidden></label>
-          <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Remove my photo</button>
+
+        <div class="field" id="name2Row">
+          <label for="name2Input">& their partner <span class="hint">optional</span></label>
+          <input type="text" id="name2Input" placeholder="e.g. Noah" maxlength="20" autocomplete="off">
         </div>
-      </div>
+      </section>
 
-      <div class="field">
-        <label id="occLabel">What's the occasion?</label>
-        <div class="chips" id="occasionChips" role="group" aria-labelledby="occLabel"></div>
-      </div>
-
-      <div class="field">
-        <label id="styleLabel">Pick a style</label>
-        <div class="styles" role="group" aria-labelledby="styleLabel">
-          <button type="button" class="style-card" id="styleAcrostic" aria-pressed="true">
-            <strong>Acrostic</strong>
-            <small>Each letter of their name starts a line</small>
-          </button>
-          <button type="button" class="style-card" id="styleRhyme" aria-pressed="false">
-            <strong>Rhyming verse</strong>
-            <small>A short poem that carries their name</small>
-          </button>
+      <section class="stagepane" data-pane="2">
+        <div class="field">
+          <label id="occLabel">What's the occasion?</label>
+          <div class="chips" id="occasionChips" role="group" aria-labelledby="occLabel"></div>
         </div>
-        <div class="verse-pick" id="versePick" hidden>
-          <button type="button" class="btn btn-ghost" id="verseA">Verse one</button>
-          <button type="button" class="btn btn-ghost" id="verseB">Verse two</button>
+      </section>
+
+      <section class="stagepane" data-pane="3">
+        <div class="field">
+          <label id="styleLabel">Pick a style</label>
+          <div class="styles" role="group" aria-labelledby="styleLabel">
+            <button type="button" class="style-card" id="styleAcrostic" aria-pressed="true">
+              <strong>Acrostic</strong>
+              <small>Each letter of their name starts a line</small>
+            </button>
+            <button type="button" class="style-card" id="styleRhyme" aria-pressed="false">
+              <strong>Rhyming verse</strong>
+              <small>A short poem that carries their name</small>
+            </button>
+          </div>
+          <div class="verse-pick" id="versePick" hidden>
+            <button type="button" class="btn btn-ghost" id="verseA">Verse one</button>
+            <button type="button" class="btn btn-ghost" id="verseB">Verse two</button>
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label id="fontLabel">Pick a font</label>
-        <div class="font-pick" role="group" aria-labelledby="fontLabel">
-          <button type="button" class="font-chip is-on" data-font="keepsake" style="font-family:'Fraunces',serif" aria-pressed="true">Keepsake</button>
-          <button type="button" class="font-chip" data-font="storybook" style="font-family:'Playfair Display',serif" aria-pressed="false">Storybook</button>
-          <button type="button" class="font-chip" data-font="hand" style="font-family:'Caveat',cursive" aria-pressed="false">Handwritten</button>
-          <button type="button" class="font-chip" data-font="script" style="font-family:'Great Vibes',cursive" aria-pressed="false">Script</button>
-          <button type="button" class="font-chip" data-font="simple" style="font-family:'Onest',sans-serif" aria-pressed="false">Simple</button>
+        <div class="field">
+          <label id="voiceLabel">Pick a voice</label>
+          <div class="font-pick" role="group" aria-labelledby="voiceLabel" id="voicePick">
+            <button type="button" class="font-chip is-on" data-voice="heartfelt" aria-pressed="true">Heartfelt</button>
+            <button type="button" class="font-chip" data-voice="playful" aria-pressed="false">Playful</button>
+            <button type="button" class="font-chip" data-voice="grand" aria-pressed="false">Grand</button>
+            <button type="button" class="font-chip" data-voice="gentle" aria-pressed="false">Gentle</button>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="field">
-        <label for="fromInput">From <span class="hint">optional, signs the card</span></label>
-        <input type="text" id="fromInput" placeholder="e.g. Aunt Rhea" maxlength="30" autocomplete="off">
-      </div>
+      <section class="stagepane" data-pane="4">
+        <div class="field">
+          <label id="fontLabel">Pick a font</label>
+          <div class="font-pick" role="group" aria-labelledby="fontLabel">
+            <button type="button" class="font-chip is-on" data-font="keepsake" style="font-family:'Fraunces',serif" aria-pressed="true">Keepsake</button>
+            <button type="button" class="font-chip" data-font="storybook" style="font-family:'Playfair Display',serif" aria-pressed="false">Storybook</button>
+            <button type="button" class="font-chip" data-font="hand" style="font-family:'Caveat',cursive" aria-pressed="false">Handwritten</button>
+            <button type="button" class="font-chip" data-font="script" style="font-family:'Great Vibes',cursive" aria-pressed="false">Script</button>
+            <button type="button" class="font-chip" data-font="simple" style="font-family:'Onest',sans-serif" aria-pressed="false">Simple</button>
+          </div>
+        </div>
 
-      <div class="actions">
-        <button type="button" class="btn btn-primary" id="writeBtn">Write the poem</button>
-        <button type="button" class="btn btn-ghost" id="againBtn">Another take</button>
+        <div class="field">
+          <label>Background <span class="hint">free photos, or your own</span></label>
+          <div class="bg-tabs">
+            <button type="button" class="bg-tab" data-bt="photo" aria-pressed="true">Photos</button>
+            <button type="button" class="bg-tab" data-bt="mine" aria-pressed="false">My photo</button>
+          </div>
+          <div class="scene-pick" id="photoPick"></div>
+          <div class="bg-actions" id="bgMineRow" hidden>
+            <label class="btn btn-ghost bg-btn">Use my photo<input type="file" id="bgUpload" accept="image/*" hidden></label>
+            <button type="button" class="btn btn-ghost bg-btn" id="bgResetBtn" style="display:none">Remove my photo</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stagepane" data-pane="5">
+        <div class="field">
+          <label for="fromInput">From <span class="hint">optional, signs the card</span></label>
+          <input type="text" id="fromInput" placeholder="e.g. Aunt Rhea" maxlength="30" autocomplete="off">
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="writeBtn">Write the poem</button>
+          <button type="button" class="btn btn-ghost" id="againBtn">Another take</button>
+        </div>
+      </section>
+
+      <div class="pane-nav">
+        <button type="button" class="btn btn-ghost" id="paneBack">Back</button>
+        <button type="button" class="btn btn-primary" id="paneNext">Next</button>
       </div>
+      <p class="pane-hint" id="paneHint"></p>
     </form>
 
     <section class="stage" aria-live="polite">
@@ -1021,7 +1079,7 @@
       </div>
 
       <div class="card-buttons">
-        <button type="button" class="btn" id="pngBtn">Download as picture</button>
+        <button type="button" class="btn btn-primary" id="pngBtn">Download as picture</button>
         <button type="button" class="btn" id="printBtn">Print</button>
         <button type="button" class="btn" id="copyBtn">Copy text</button>
         <button type="button" class="btn" id="linkBtn">Copy link</button>
@@ -2130,8 +2188,8 @@ function pickTrait(L, g, occ, used, occUsed) {
   let pool = useOcc ? occBank : full;
   let trait = pick(pool);
   let guard = 0;
-  while (used.has(trait[0]) && guard < 10) { trait = pick(pool); guard++; }
-  if (used.has(trait[0]) && pool === occBank) { pool = full; guard = 0; trait = pick(pool); while (used.has(trait[0]) && guard < 10) { trait = pick(pool); guard++; } }
+  while ((used.has(trait[0]) || avoidWords.has(trait[0])) && guard < 12) { trait = pick(pool); guard++; }
+  if ((used.has(trait[0]) || avoidWords.has(trait[0])) && pool === occBank) { pool = full; guard = 0; trait = pick(pool); while ((used.has(trait[0]) || avoidWords.has(trait[0])) && guard < 12) { trait = pick(pool); guard++; } }
   used.add(trait[0]);
   if (occBank.some((t) => t[0] === trait[0])) occUsed.n++;
   return trait;
@@ -2153,9 +2211,34 @@ const CLOSERS = {
   eid: ["blessed, and a blessing to others","the joy of every gathering", "the heart of every celebration", "wrapped in love and blessings", "the crescent's favorite person", "the joy of every Eid morning", "sweet as sheer khurma", "a walking Eid blessing"]
 };
 
+/* ---------------- writing voices ---------------- */
+
+const P_ADJ = { heartfelt: "", playful: "playful", grand: "grand", gentle: "gentle" };
+const P_SUF = {
+  playful: ["obviously", "and everyone knows it", "no contest", "ask anyone", "as the confetti confirms", "certified", "and proudly so", "on the record"],
+  grand: ["as legends tell", "and history agrees", "as befits the name", "and the world takes notice", "as the portrait proves", "fit for a plaque"]
+};
+const P_CLOSERS = {
+  playful: ["the star of the party, obviously", "a ten out of ten, no debate", "the reason the playlist slaps", "certified fun, live in person", "the joke that always lands", "the main character, no audition needed", "the guest of honor, self-evidently", "zero chill, all charm"],
+  grand: ["a name the day will long remember", "a legend in comfortable shoes", "the title role of this story", "a name worthy of a portrait", "history's favorite guest tonight", "the headline act, as ever", "a name spoken with admiration", "the standard others are measured by"],
+  gentle: ["quietly wonderful, always", "soft-hearted and steady", "a calm place in a loud world", "kind in ways that stay", "gentle, and strong for it", "a warm light left on", "the quiet heart of the day", "loved more than words manage"]
+};
+const avoidWords = new Set();
+
+function maybeSuf() {
+  const bank = P_SUF[state.personality];
+  return bank && bank.length && Math.random() < 0.45 ? pick(bank) : "";
+}
+
+function pickCloser(occ) {
+  const p = state.personality;
+  if (p !== "heartfelt" && P_CLOSERS[p] && Math.random() < 0.75) return pick(P_CLOSERS[p]);
+  return pick(OCCASIONS[occ].closers || CLOSERS[occ]);
+}
+
 /* ---------------- state & helpers ---------------- */
 
-const state = { occasion: "birthday", style: "acrostic", fontKey: "keepsake", poem: null, customBg: null, photoBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
+const state = { occasion: "birthday", style: "acrostic", fontKey: "keepsake", personality: "heartfelt", poem: null, customBg: null, photoBg: null, sceneOverride: null, lastVerse: 0, name1: "", name2: "" };
 const $ = (id) => document.getElementById(id);
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -2167,7 +2250,7 @@ function buildAcrostic(name, occ) {
   const g = genderOf(name);
   return letters.map((L) => {
     const trait = pickTrait(L, g, occ, used, occUsed);
-    return { letter: L, word: trait[0], desc: trait[1] };
+    return { letter: L, word: trait[0], desc: trait[1], suf: maybeSuf() };
   });
 }
 
@@ -2184,12 +2267,12 @@ function buildAcrosticPair(n1, n2, occ) {
   const occUsed = { n: 0 };
   return inter.map((x) => {
     const trait = pickTrait(x.letter, genderOf(x.who), occ, used, occUsed);
-    return { letter: x.letter, word: trait[0], desc: trait[1], who: x.who };
+    return { letter: x.letter, word: trait[0], desc: trait[1], suf: maybeSuf(), who: x.who };
   });
 }
 
 function acrosticLine(l) {
-  return l.letter + " is for " + l.word + ", " + l.desc + (l.who ? " (" + l.who + ")" : "");
+  return l.letter + " is for " + l.word + ", " + l.desc + (l.suf ? ", " + l.suf : "") + (l.who ? " (" + l.who + ")" : "");
 }
 
 function rerollLine(idx) {
@@ -2200,12 +2283,15 @@ function rerollLine(idx) {
   const g = genderOf(line.who || state.name1);
   const bank = traitsFor(line.letter, g, occ);
   const occBank = occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][line.letter] ? OCC_TRAITS[occ][line.letter] : [];
-  let pool = occBank.filter((t) => t[0] !== line.word);
-  if (Math.random() > 0.45 || !pool.length) pool = bank.filter((t) => t[0] !== line.word);
+  const taken = new Set(state.poem.lines.map((l) => l.word));
+  let pool = occBank.filter((t) => t[0] !== line.word && !taken.has(t[0]));
+  if (Math.random() > 0.45 || !pool.length) pool = bank.filter((t) => t[0] !== line.word && !taken.has(t[0]));
+  if (!pool.length) pool = bank.filter((t) => t[0] !== line.word);
   if (!pool.length) return;
   const trait = pick(pool);
   line.word = trait[0];
   line.desc = trait[1];
+  line.suf = maybeSuf();
   renderCard();
 }
 
@@ -2240,10 +2326,11 @@ function writePoem() {
   const name2 = raw2 ? cap(raw2.replace(/[^a-zA-Z\s'-]/g, "")) : "";
   state.name1 = name;
   state.name2 = name2;
+  if (state.poem && state.poem.type === "acrostic") state.poem.lines.forEach((l) => avoidWords.add(l.word));
   const occTheme = OCC_THEMES[state.occasion] || "";
   state.poem = state.style === "acrostic"
-    ? { type: "acrostic", lines: name2 ? buildAcrosticPair(name, name2, occTheme) : buildAcrostic(name, occTheme), closer: pick(OCCASIONS[state.occasion].closers || CLOSERS[state.occasion]), occ: occTheme }
-    : { type: "rhyme", verse: state.lastVerse, text: buildRhyme(name, name2, state.lastVerse) };
+    ? { type: "acrostic", lines: name2 ? buildAcrosticPair(name, name2, occTheme) : buildAcrostic(name, occTheme), closer: pickCloser(state.occasion), occ: occTheme }
+    : { type: "rhyme", verse: state.lastVerse, text: buildRhyme(name, name2, state.lastVerse), closer: state.personality !== "heartfelt" ? pick(P_CLOSERS[state.personality]) : null };
   state.name = name2 ? name + " & " + name2 : name;
   renderCard();
   if (typeof syncUrl === "function") syncUrl();
@@ -2270,7 +2357,7 @@ function renderCard() {
   $("watermark").textContent = theme.orn[2];
   applyCardPattern(theme);
   $("ornRow").textContent = theme.orn.join(" ");
-  $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
+  $("occLabelCard").textContent = (P_ADJ[state.personality] ? "a " + P_ADJ[state.personality] + " " : "a ") + theme.label.toLowerCase() + " poem for";
   $("poemName").textContent = state.name;
   applyPoemFont();
 
@@ -2290,7 +2377,7 @@ function renderCard() {
       lead.className = "lead-letter";
       lead.textContent = l.letter;
       div.appendChild(lead);
-      div.appendChild(document.createTextNode(" is for " + l.word + ", " + l.desc + (l.who ? " (" + l.who + ")" : "")));
+      div.appendChild(document.createTextNode(" is for " + l.word + ", " + l.desc + (l.suf ? ", " + l.suf : "") + (l.who ? " (" + l.who + ")" : "")));
       div.addEventListener("click", () => rerollLine(idx));
       body.appendChild(div);
     });
@@ -2300,6 +2387,12 @@ function renderCard() {
     body.appendChild(closer);
   } else {
     body.textContent = state.poem.text;
+    if (state.poem.closer) {
+      const closer = document.createElement("div");
+      closer.className = "closer-line";
+      closer.textContent = state.name + ", " + state.poem.closer;
+      body.appendChild(closer);
+    }
   }
 
   const from = $("fromInput").value.trim();
@@ -2318,7 +2411,7 @@ function retheme() {
   $("watermark").textContent = theme.orn[2];
   applyCardPattern(theme);
   $("ornRow").textContent = theme.orn.join(" ");
-  $("occLabelCard").textContent = "a " + theme.label.toLowerCase() + " poem for";
+  $("occLabelCard").textContent = (P_ADJ[state.personality] ? "a " + P_ADJ[state.personality] + " " : "a ") + theme.label.toLowerCase() + " poem for";
   updateName2Visibility();
 }
 
@@ -2576,6 +2669,18 @@ function setVerse(v) {
   }
 }
 
+function setVoice(v) {
+  if (!P_ADJ.hasOwnProperty(v)) return;
+  state.personality = v;
+  document.querySelectorAll("#voicePick .font-chip").forEach((b) => {
+    const on = b.dataset.voice === v;
+    b.classList.toggle("is-on", on);
+    b.setAttribute("aria-pressed", String(on));
+  });
+  if (state.poem) writePoem();
+}
+document.querySelectorAll("#voicePick .font-chip").forEach((b) => b.addEventListener("click", () => setVoice(b.dataset.voice)));
+
 /* Guard for card actions: before a poem exists, guide instead of doing nothing */
 var noteResetTimer = null;
 function requirePoem() {
@@ -2659,15 +2764,16 @@ $("pngBtn").addEventListener("click", () => {
   if (!requirePoem()) return;
   const theme = OCCASIONS[state.occasion];
   const W = 1200, H = 1500;
-  const canvas = document.createElement("canvas");
+  let canvas = document.createElement("canvas");
   canvas.width = W; canvas.height = H;
-  const ctx = canvas.getContext("2d");
-
-  const grad = ctx.createLinearGradient(0, 0, W, H);
-  grad.addColorStop(0, theme.c1);
-  grad.addColorStop(1, theme.c2);
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
+  let ctx = canvas.getContext("2d");
+  /* a canvas that has drawn a tainted remote photo stays tainted forever, so the
+     art-only fallback gets a factory-fresh canvas */
+  const resetCanvas = () => {
+    canvas = document.createElement("canvas");
+    canvas.width = W; canvas.height = H;
+    ctx = canvas.getContext("2d");
+  };
 
   const rr = (x, y, w, h, rad) => {
     ctx.beginPath();
@@ -2681,6 +2787,11 @@ $("pngBtn").addEventListener("click", () => {
   };
 
   const paint = (img) => {
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, theme.c1);
+    grad.addColorStop(1, theme.c2);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
     if (img) {
       const r = Math.max(W / img.width, H / img.height);
       const w = img.width * r, h = img.height * r;
@@ -2820,6 +2931,7 @@ $("pngBtn").addEventListener("click", () => {
     if (!href && remote) {
       // the remote photo blocked export, redraw with scene art instead
       remote = false;
+      resetCanvas();
       load(null, false);
       return;
     }
@@ -2834,6 +2946,7 @@ $("pngBtn").addEventListener("click", () => {
   };
 
   const load = (src, isRemote) => {
+    if (!src) { paint(null); return; }
     const img = new Image();
     if (isRemote) img.crossOrigin = "anonymous";
     img.onload = () => paint(img);
@@ -2849,6 +2962,8 @@ $("pngBtn").addEventListener("click", () => {
 const urlParams = new URLSearchParams(location.search);
 if (urlParams.get("o") && OCCASIONS[urlParams.get("o")]) state.occasion = urlParams.get("o");
 if (urlParams.get("s") === "rhyme") setStyle("rhyme");
+if (urlParams.get("v") && P_ADJ[urlParams.get("v")]) setVoice(urlParams.get("v"));
+if (urlParams.get("f") && POEM_FONTS[urlParams.get("f")]) setFont(urlParams.get("f"));
 const urlName = cap((urlParams.get("n") || "Emma").replace(/[^a-zA-Z\s'-]/g, "").trim()) || "Emma";
 $("nameInput").value = urlName;
 const urlPartner = cap((urlParams.get("p") || "").replace(/[^a-zA-Z\s'-]/g, "").trim());
@@ -2871,6 +2986,8 @@ function syncUrl() {
   q.set("n", $("nameInput").value.trim());
   q.set("o", state.occasion);
   q.set("s", state.style);
+  if (state.personality !== "heartfelt") q.set("v", state.personality);
+if (state.fontKey && state.fontKey !== "keepsake") q.set("f", state.fontKey);
   if ($("name2Input").value.trim()) q.set("p", $("name2Input").value.trim());
   const next = location.pathname + "?" + q.toString();
   if (next !== location.pathname + location.search) history.replaceState(null, "", next);
@@ -2928,6 +3045,52 @@ $("linkBtn").addEventListener("click", () => {
     setTimeout(() => ($("linkBtn").textContent = "Copy link"), 1600);
   });
 });
+
+/* ---------- five-stage workspace: stepper + panes ---------- */
+(function () {
+  const panes = Array.from(document.querySelectorAll(".stagepane"));
+  const stepBtns = Array.from(document.querySelectorAll(".step-btn"));
+  const back = $("paneBack");
+  const next = $("paneNext");
+  const hint = $("paneHint");
+  const HINTS = {
+    1: "Who is the poem for? A second name appears for couples.",
+    2: "Pick what you are celebrating.",
+    3: "Letter-by-line acrostic, or a short rhyming verse.",
+    4: "Choose the type and the scene behind it.",
+    5: "Sign the card, then write the poem."
+  };
+  let step = 1;
+  function show(n) {
+    step = n;
+    panes.forEach((p) => p.classList.toggle("is-on", Number(p.dataset.pane) === n));
+    stepBtns.forEach((b) => {
+      const s2 = Number(b.dataset.step);
+      b.classList.toggle("is-on", s2 === n);
+      b.classList.toggle("done", s2 < n);
+      if (s2 === n) b.setAttribute("aria-current", "step");
+      else b.removeAttribute("aria-current");
+    });
+    back.disabled = n === 1;
+    next.hidden = n === panes.length;
+    hint.textContent = HINTS[n] || "";
+  }
+  stepBtns.forEach((b) => b.addEventListener("click", () => show(Number(b.dataset.step))));
+  back.addEventListener("click", () => { if (step > 1) show(step - 1); });
+  next.addEventListener("click", () => { if (step < panes.length) show(step + 1); });
+  show(1);
+  /* when a poem is written, land on the card on smaller screens */
+  $("writeBtn").addEventListener("click", () => {
+    if (!state.poem) return; // the empty-name guard fired, nothing was written
+    stepBtns.forEach((b) => b.classList.add("done"));
+    setTimeout(() => {
+      if (window.innerWidth < 1024) {
+        const card = document.querySelector(".card-backdrop");
+        if (card && card.scrollIntoView) card.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 80);
+  });
+})();
 </script>
 <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 <script>
@@ -2998,13 +3161,11 @@ $("linkBtn").addEventListener("click", () => {
     var FILL_MS = 1300;
     var fill = qs("#ldFill"), cnt = qs("#ldCount");
     var t0 = performance.now();
+    var finished = false;
     function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-    function tick(now) {
-      var p = Math.min(1, (now - t0) / FILL_MS);
-      var e = easeInOutCubic(p);
-      if (fill) fill.style.width = (e * 100) + "%";
-      if (cnt) cnt.textContent = String(Math.round(e * 100)).padStart(3, "0");
-      if (p < 1) { requestAnimationFrame(tick); return; }
+    function finish() {
+      if (finished) return;
+      finished = true;
       ld.classList.add("exit");
       setTimeout(function () {
         ld.classList.add("done");
@@ -3012,7 +3173,16 @@ $("linkBtn").addEventListener("click", () => {
         setReady();
       }, 750);
     }
-    requestAnimationFrame(tick);
+    /* interval, not rAF: background tabs throttle rAF to zero and the loader would stick at 100 */
+    var iv = setInterval(function () {
+      if (finished) { clearInterval(iv); return; }
+      var p = Math.min(1, (performance.now() - t0) / FILL_MS);
+      var e = easeInOutCubic(p);
+      if (fill) fill.style.width = (e * 100) + "%";
+      if (cnt) cnt.textContent = String(Math.round(e * 100)).padStart(3, "0");
+      if (p >= 1) { clearInterval(iv); finish(); }
+    }, 50);
+    setTimeout(finish, FILL_MS + 4000); /* hard safety: never hold the page hostage */
   })();
 
   /* ---------- Rise Wide: vanilla spring text for every [data-rise] heading ---------- */
