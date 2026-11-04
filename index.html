@@ -413,7 +413,10 @@
   @media (min-width:1024px) { .foot-cols { grid-template-columns: 2fr 1fr 1fr 1fr; } }
   .foot-brand { display: flex; align-items: center; gap: .5rem; font-size: 1.125rem; font-weight: 600; }
   .foot-brand .spark { width: 1.25rem; height: 1.25rem; color: #cf8047; }
-  .foot-tag { margin-top: .75rem; max-width: 20rem; font-size: .875rem; color: rgba(255,255,255,.55); }
+  .foot-acrostic { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .2rem; font-family: "Fraunces", serif; font-style: italic; font-weight: 400; font-size: 1.3rem; line-height: 1.45; color: rgba(255,255,255,.85); }
+  @media (min-width:1024px) { .foot-acrostic { font-size: 1.5rem; } }
+  .foot-acrostic .acro-letter { font-style: normal; font-weight: 600; color: #EFC48C; margin-right: .1em; }
+  .foot-colophon { margin-top: 1.25rem; font-size: .75rem; color: rgba(255,255,255,.4); }
   .foot-col h4 { font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .025em; color: rgba(255,255,255,.4); margin-bottom: 1rem; }
   .foot-col ul { display: flex; flex-direction: column; gap: .625rem; align-items: flex-start; }
   .foot-col a, .foot-col button { font-size: .875rem; color: rgba(255,255,255,.65); opacity: .75; transition: opacity .3s, transform .3s cubic-bezier(.2,.8,.2,1), color .3s; display: inline-block; padding: .375rem 0; }
@@ -424,7 +427,7 @@
   .foot-legal .links { display: flex; gap: 1.5rem; }
   .foot-legal a { color: rgba(255,255,255,.7); transition: color .3s; }
   .foot-legal a:hover { color: #fff; }
-  .foot-wm { position: absolute; inset-inline: 0; bottom: -1.5rem; z-index: 0; text-align: center; pointer-events: none; user-select: none; font-weight: 700; line-height: 1; font-size: clamp(4.5rem, 10vw, 9.5rem); color: rgba(255,255,255,.05); }
+  .foot-wm { position: absolute; inset-inline: 0; bottom: -1.5rem; z-index: 0; text-align: center; pointer-events: none; user-select: none; font-family: "Fraunces", serif; font-weight: 600; line-height: 1; font-size: clamp(4.5rem, 10vw, 9.5rem); color: rgba(255,255,255,.05); }
   @media (max-width:640px) { .foot-wm { font-size: 4.5rem; } }
 
   .nav-overlay { position: fixed; inset: 0; z-index: 115; display: flex; flex-direction: column; background: #0a0a0a; color: #fff; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility .45s; }
@@ -832,6 +835,135 @@
     .step-btn { font-size: .87rem; padding-bottom: .5rem; }
     .step-btn .step-n { font-size: 1rem; }
   }
+
+/* ===== Phase 6: approved homepage redesign ===== */
+:root {
+  --burg: #6E2436;
+  --burg-2: #7E2B40;
+  --blush: #F6DFE3;
+  --blush-2: #F3CBD9;
+  --ivory: #FBF4E8;
+}
+/* header additions */
+.nav-right { display: flex; align-items: center; gap: .6rem; }
+.nav-dd { position: relative; }
+.nav-dd-btn { display: inline-flex; align-items: center; gap: .3rem; }
+.dd-chev { width: .8rem; height: .8rem; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+.nav-dd.open .dd-chev { transform: rotate(180deg); }
+.nav-dd-menu { position: absolute; top: calc(100% + .9rem); left: 50%; transform: translateX(-50%); min-width: 17.5rem; background: #FFFDF9; border: 1px solid var(--line); border-radius: 1rem; box-shadow: 0 20px 44px -20px rgba(110,36,54,.28); padding: .5rem; display: none; z-index: 90; }
+.nav-dd-menu::before { content: ""; position: absolute; top: -.9rem; left: 0; right: 0; height: .9rem; }
+.nav-dd.open .nav-dd-menu { display: block; animation: ddIn .25s cubic-bezier(.16,1,.3,1) both; }
+@keyframes ddIn { from { opacity: 0; transform: translateX(-50%) translateY(6px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+.nav-dd-menu a, .nav-dd-menu button { display: flex; align-items: flex-start; gap: .7rem; width: 100%; text-align: left; padding: .6rem .7rem; border-radius: .75rem; color: var(--ink); text-decoration: none; opacity: 1; transition: background .2s; }
+.nav-dd-menu a:hover, .nav-dd-menu button:hover { background: #F9F1E4; opacity: 1; transform: none; }
+.dd-ico { width: 2rem; height: 2rem; flex: none; display: grid; place-items: center; border-radius: .6rem; background: #F9EFE2; color: var(--burg); }
+.dd-ico svg { width: 1rem; height: 1rem; }
+.dd-tx { display: flex; flex-direction: column; gap: .1rem; }
+.dd-tx strong { font-weight: 600; font-size: .875rem; }
+.dd-tx small { color: var(--muted); font-size: .74rem; }
+.search-btn { width: 2.3rem; height: 2.3rem; border-radius: 999px; border: 1px solid rgba(230,223,211,.9); background: rgba(255,255,255,.55); color: var(--ink); display: grid; place-items: center; transition: background .3s, transform .3s cubic-bezier(.2,.8,.2,1); }
+.search-btn:hover { background: rgba(255,255,255,.85); transform: translateY(-1px); }
+.search-btn svg { width: 1rem; height: 1rem; }
+.start-cta { border-radius: 999px; background: var(--burg); color: #FDF6EC; font-weight: 600; font-size: .875rem; padding: .62rem 1.15rem; display: inline-flex; gap: .45rem; align-items: center; box-shadow: 0 10px 22px -12px rgba(110,36,54,.55); transition: transform .3s cubic-bezier(.2,.8,.2,1), background .3s; }
+.start-cta:hover { transform: translateY(-1px); background: var(--burg-2); }
+.start-cta .sc-spark { width: .85rem; height: .85rem; color: #E7C97F; }
+@media (max-width: 480px) { .start-cta { padding: .55rem .85rem; font-size: .8rem; } }
+@media (min-width: 1024px) { .menu-btn { display: none; } }
+/* search overlay */
+.search-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(58,32,36,.45); backdrop-filter: blur(6px); display: none; align-items: flex-start; justify-content: center; padding: 12vh 1.25rem 0; }
+.search-overlay.open { display: flex; }
+.search-box { width: min(34rem, 100%); background: #FFFDF9; border: 1px solid var(--line); border-radius: 1.2rem; box-shadow: 0 30px 70px -30px rgba(40,16,22,.6); overflow: hidden; animation: sbIn .3s cubic-bezier(.16,1,.3,1) both; }
+@keyframes sbIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+.search-top { display: flex; align-items: center; gap: .6rem; padding: .9rem 1.1rem; border-bottom: 1px solid var(--line); }
+.search-top svg { width: 1.1rem; height: 1.1rem; color: var(--gold); flex: none; }
+.search-top input { flex: 1; border: 0; background: transparent; font: 500 1rem "Onest", sans-serif; color: var(--ink); outline: none; padding: 0; }
+.search-top input::placeholder { color: var(--muted); }
+.search-hint { padding: .45rem 1.1rem 0; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.search-results { max-height: 18rem; overflow: auto; padding: .5rem; }
+.search-results button { display: flex; align-items: center; gap: .7rem; width: 100%; text-align: left; padding: .6rem .7rem; border-radius: .75rem; transition: background .15s; }
+.search-results button:hover, .search-results button.sel { background: #F9F1E4; }
+.sr-kind { flex: none; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--burg); background: #F9EFE2; border-radius: 999px; padding: .3rem .6rem; }
+.sr-tx { display: flex; flex-direction: column; gap: .05rem; min-width: 0; }
+.sr-tx strong { font-size: .9rem; font-weight: 600; color: var(--ink); }
+.sr-tx small { font-size: .74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.search-empty { padding: 1.2rem; text-align: center; font-size: .9rem; color: var(--muted); }
+/* hero additions */
+.hero-kicker { font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; color: #A8794B; padding-top: .4rem; }
+.hero-sub { max-width: 33rem; font-size: 1.05rem; line-height: 1.7; color: var(--muted); margin-top: -1rem; }
+.hero-points { list-style: none; display: flex; flex-direction: column; gap: .55rem; margin: -.8rem 0 0; padding: 0; font-size: .9rem; font-weight: 500; color: var(--ink); }
+.hero-points li { display: flex; align-items: center; gap: .65rem; }
+.hp-ico { width: 1.9rem; height: 1.9rem; border-radius: 999px; background: #FBEEDD; color: #B98A2F; display: grid; place-items: center; flex: none; }
+.hp-ico svg { width: 1rem; height: 1rem; }
+.qs-go svg { width: 1.05rem; height: 1.05rem; flex: none; }
+/* hero scene */
+.hero-right { align-items: center; }
+.hero-scene { position: relative; width: 100%; max-width: 29rem; aspect-ratio: 1 / 1.02; margin: 0 auto; }
+@media (min-width: 1024px) { .hero-right { align-items: flex-end; } .hero-scene { margin-right: 0; } }
+.hs-sheet { position: absolute; border-radius: 10px; }
+.hs-sheet1 { width: 62%; height: 72%; left: 7%; top: 14%; background: linear-gradient(160deg, #EBDBBF, #E2CFAC); transform: rotate(-7deg); box-shadow: 0 16px 34px -20px rgba(90,60,30,.45); animation: hsIn .8s cubic-bezier(.16,1,.3,1) .2s both; }
+.hs-sheet2 { width: 65%; height: 76%; left: 17%; top: 9%; background: #FFFFFF; transform: rotate(4deg); box-shadow: 0 18px 40px -20px rgba(90,60,30,.35); animation: hsIn .8s cubic-bezier(.16,1,.3,1) .3s both; }
+.hs-card { position: absolute; left: 19%; top: 17%; width: 55%; background: var(--ivory); border-radius: 10px; padding: 8.5% 7% 6.5%; box-shadow: 0 24px 46px -22px rgba(110,36,54,.35), inset 0 0 0 1px rgba(219,199,158,.55); animation: hsIn .9s cubic-bezier(.16,1,.3,1) .42s both; }
+.hs-card-name { font-family: "Great Vibes", cursive; font-size: clamp(1.9rem, 3vw, 2.5rem); color: var(--burg); text-align: center; line-height: 1.1; }
+.hs-line { font-family: "Fraunces", Georgia, serif; font-size: clamp(.82rem, 1.35vw, 1rem); color: #4A3340; line-height: 1.8; }
+.hs-line em { font-style: italic; font-weight: 600; color: var(--burg); padding-right: .07em; }
+.hs-heart { display: block; width: 46%; margin: 7% auto 0; color: #C9A24B; }
+.hs-flower { position: absolute; left: -3%; top: 40%; width: 29%; animation: hsFloat 7s ease-in-out 1.2s infinite; }
+.hs-sprig { position: absolute; right: 3%; top: -5%; width: 17%; animation: hsFloat 8s ease-in-out 1.5s infinite; }
+.hs-bow { position: absolute; left: 7%; bottom: 6%; width: 21%; animation: hsFloat 7.5s ease-in-out 1.8s infinite; }
+.hs-pen { position: absolute; right: 5%; bottom: 12%; width: 8.5%; transform: rotate(9deg); animation: hsIn .8s cubic-bezier(.16,1,.3,1) .6s both, hsFloat 6.5s ease-in-out 2.1s infinite; }
+.hs-petal { position: absolute; width: 5.5%; opacity: .95; animation: hsFloat 6s ease-in-out infinite; }
+.hs-petal.p1 { --rot: -30deg; left: 13%; top: 6%; animation-delay: 1.4s; }
+.hs-petal.p2 { --rot: 40deg; right: 15%; top: 32%; animation-delay: 2.2s; }
+.hs-petal.p3 { --rot: 10deg; left: 3%; bottom: 1%; animation-delay: 1.8s; }
+.hs-petal.p4 { --rot: -70deg; right: 1%; top: 5%; animation-delay: 2.6s; }
+@keyframes hsFloat { 0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); } 50% { transform: translateY(-9px) rotate(var(--rot, 0deg)); } }
+@keyframes hsIn { from { opacity: 0; transform: translateY(18px) scale(.96) rotate(var(--rot, 0deg)); } to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--rot, 0deg)); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene, .hero-scene * , .nav-dd-menu, .search-box, .xp-card, .tools-strip, .tools-strip * { animation: none !important; }
+}
+@media (max-width: 640px) { .hero-scene { max-width: 24rem; } }
+/* explore section */
+.xp-sec { padding: 5rem 1.25rem 4.5rem; background: linear-gradient(180deg, rgba(246,223,227,.35), rgba(251,244,232,.65)); }
+@media (min-width: 640px) { .xp-sec { padding-inline: 2rem; } }
+.xp-head { display: flex; align-items: center; justify-content: center; gap: 1.4rem; }
+.xp-rule { height: 1px; width: clamp(2rem, 9vw, 5.5rem); }
+.xp-head .xp-rule:first-child { background: linear-gradient(90deg, transparent, #C9A24B); }
+.xp-head .xp-rule:last-child { background: linear-gradient(90deg, #C9A24B, transparent); }
+.xp-title { font-family: "Fraunces", Georgia, serif; font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 600; color: var(--burg); letter-spacing: -.01em; }
+.xp-sub { text-align: center; color: var(--muted); margin: 1rem auto 2.8rem; max-width: 36rem; font-size: 1rem; line-height: 1.65; }
+.xp-grid { display: grid; grid-template-columns: 1fr; gap: 1.4rem; }
+@media (min-width: 720px) { .xp-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .xp-grid { grid-template-columns: repeat(4, 1fr); } }
+.xp-card { background: #FFFDF8; border: 1px solid #EBDFC9; border-radius: 1.15rem; padding: 1rem 1.05rem 1.25rem; display: flex; flex-direction: column; gap: .55rem; text-decoration: none; color: var(--ink); box-shadow: 0 12px 28px -20px rgba(110,36,54,.28); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+.xp-card:hover { transform: translateY(-6px); box-shadow: 0 24px 44px -22px rgba(110,36,54,.4); }
+.xp-art { border-radius: .9rem; padding: .5rem .6rem; display: grid; place-items: center; margin-bottom: .35rem; background: #F8EFE2; }
+.xp-art svg { width: 100%; height: auto; max-width: 15rem; }
+.xp-art-zodiac { background: #EFE4D2; }
+.xp-art-book { background: #FAF6EC; }
+.xp-art-gift { background: #FBECEC; }
+.xp-h { font-family: "Fraunces", Georgia, serif; font-size: 1.22rem; font-weight: 600; color: var(--burg); }
+.xp-p { font-size: .88rem; color: var(--muted); line-height: 1.62; flex: 1; }
+.xp-cta { display: inline-flex; gap: .45rem; align-items: center; font-weight: 600; font-size: .84rem; color: #FDF6EC; background: var(--burg); border-radius: 999px; padding: .55rem 1.05rem; align-self: flex-start; transition: background .3s; }
+.xp-card:hover .xp-cta { background: var(--burg-2); }
+.xp-cta svg { width: .9rem; height: .9rem; }
+/* tools strip */
+.tools-strip { margin-top: 2.8rem; background: #FFFDF8; border: 1px solid #EBDFC9; border-radius: 1.2rem; padding: 1rem 1.15rem; display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1.15rem; box-shadow: 0 14px 30px -22px rgba(110,36,54,.25); }
+.ts-item { display: flex; align-items: center; gap: .55rem; }
+.ts-ico { width: 2.2rem; height: 2.2rem; border-radius: .7rem; background: #F9EFE2; color: var(--burg); display: grid; place-items: center; flex: none; }
+.ts-ico svg { width: 1.15rem; height: 1.15rem; }
+.ts-name { font-size: .8rem; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.ts-cap { margin: 0 0 .45rem; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: #8A6A3B; font-weight: 600; }
+.ts-more { margin-left: auto; background: transparent; border: 1.5px solid var(--burg); color: var(--burg); border-radius: 999px; padding: .5rem 1.1rem; font-weight: 600; font-size: .84rem; display: inline-flex; gap: .45rem; align-items: center; transition: background .3s, color .3s; }
+.ts-more:hover { background: var(--burg); color: #FDF6EC; }
+.ts-more:hover { background: var(--burg-2); }
+.ts-more svg { width: .9rem; height: .9rem; }
+@media (max-width: 1100px) { .ts-more { margin-left: 0; } }
+@media print { .xp-sec, .search-overlay { display: none !important; } }
+
+  /* Phase 6 QA fixes: mobile overflow containment (min-content of nowrap stepper
+     buttons propagated through flex/grid min-width:auto) + CTA nowrap */
+  .panel, .stepper, .stagepane, .field { min-width: 0; }
+  .start-cta { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -857,20 +989,40 @@
       <span>Acrostia</span>
     </button>
     <nav class="nav-links" aria-label="Main">
-      <button type="button" data-scroll="#studio">Studio</button>
-      <button type="button" data-scroll="#how">How it works</button>
+      <div class="nav-dd" data-dd>
+        <button type="button" class="nav-dd-btn" aria-expanded="false">Create<svg class="dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dd-menu">
+          <button type="button" data-scroll="#studio"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></span><span class="dd-tx"><strong>Write a poem</strong><small>Acrostic and rhyming verses</small></span></button>
+          <button type="button" data-scroll="#studio" data-open-stage="2"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="dd-tx"><strong>Pick an occasion</strong><small>61 moments, birthday to wedding</small></span></button>
+          <button type="button" data-scroll="#studio" data-open-stage="4"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.8L20 8l-4 4 .9 5.6L12 15l-4.9 2.6L8 12 4 8l5.6-1.2L12 2z"/></svg></span><span class="dd-tx"><strong>Design the keepsake</strong><small>Card styles, fonts, backgrounds</small></span></button>
+        </div>
+      </div>
+      <div class="nav-dd" data-dd>
+        <button type="button" class="nav-dd-btn" aria-expanded="false">Discover<svg class="dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="birthday-profile/"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="dd-tx"><strong>Birthday Ledger</strong><small>Zodiac, birthstone, numbers and more</small></span></a>
+          <a href="name-meaning/"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span><span class="dd-tx"><strong>Name meaning</strong><small>Letter-by-letter readings</small></span></a>
+          <a href="first-letter/"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8l7-5 7 5"/></svg></span><span class="dd-tx"><strong>First letter</strong><small>What your initial says</small></span></a>
+          <a href="name-secret/"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="dd-tx"><strong>Name secret</strong><small>The sealed reading</small></span></a>
+        </div>
+      </div>
+      <div class="nav-dd" data-dd>
+        <button type="button" class="nav-dd-btn" aria-expanded="false">Explore<svg class="dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-dd-menu">
+          <a href="words/"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span><span class="dd-tx"><strong>Word lists</strong><small>Words for every letter</small></span></a>
+          <a href="backgrounds/"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span><span class="dd-tx"><strong>Backgrounds</strong><small>Free card backgrounds</small></span></a>
+          <button type="button" data-scroll="#how"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span><span class="dd-tx"><strong>How it works</strong><small>Four steps, one minute</small></span></button>
+          <button type="button" data-scroll="#fun"><span class="dd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.8L20 8l-4 4 .9 5.6L12 15l-4.9 2.6L8 12 4 8l5.6-1.2L12 2z"/></svg></span><span class="dd-tx"><strong>More fun with names</strong><small>Readings, cakes and charms</small></span></button>
+        </div>
+      </div>
       <button type="button" data-scroll="#samples">Examples</button>
       <button type="button" data-scroll="#faq">FAQ</button>
-      <a href="words/">Word lists</a>
-      <a href="backgrounds/">Backgrounds</a>
     </nav>
     <div class="nav-right">
-      <div class="clock-chip" aria-hidden="true">
-        <span class="lbl">Local</span>
-        <span class="val" id="clockTime">9:41am</span>
-        <span class="dot">/</span>
-        <span class="dt" id="clockDate">12 March, 2025</span>
-      </div>
+      <button type="button" class="search-btn" id="searchBtn" aria-haspopup="dialog" aria-label="Search Acrostia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+      <button type="button" class="start-cta" data-scroll="#studio">Start Creating<svg class="spark sc-spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg></button>
       <button type="button" class="menu-btn" id="menuBtn" aria-haspopup="dialog">
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
@@ -883,7 +1035,6 @@
 
 <section class="niv-hero" id="home">
   <div class="liquid" aria-hidden="true">
-    <canvas id="fieldCv"></canvas>
     <canvas id="trailCv"></canvas>
   </div>
   <div class="hero-vignette" aria-hidden="true"></div>
@@ -891,42 +1042,76 @@
 
   <div class="hero-grid">
     <div class="hero-left">
+      <div class="hero-kicker">Personalized poetry &amp; creative keepsakes</div>
       <h1 class="hero-h1 rise" data-rise data-gate data-shimmer="poem">Every name hides a little poem.</h1>
-      <div class="rating-row">
-        <span class="rtext">61 occasions, from birthdays to weddings</span>
-      </div>
+      <p class="hero-sub">Create heartfelt poems, discover the stories behind names and birthdays, and turn them into lasting keepsakes.</p>
       <div class="quick-start">
         <input id="heroName" type="text" placeholder="Type a name, e.g. Emma" maxlength="14" aria-label="Name for the poem">
-        <button type="button" class="qs-go" id="heroGo">Write the poem</button>
+        <button type="button" class="qs-go" id="heroGo">Write the poem<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
-      <div class="cta-row">
-        <a class="hero-fine-link" href="backgrounds/">Free backgrounds</a>
-        <span class="hero-fine-note">Free forever, no sign up</span>
-      </div>
+      <ul class="hero-points" aria-label="What Acrostia gives you">
+        <li>
+          <span class="hp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h8a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H6V4z"/><path d="M6 4v13"/></svg></span>
+          <span>Acrostic and rhyming poems</span>
+        </li>
+        <li>
+          <span class="hp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span>
+          <span>Beautiful card designs</span>
+        </li>
+        <li>
+          <span class="hp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+          <span>Download and share instantly</span>
+        </li>
+      </ul>
     </div>
 
     <div class="hero-right">
-      <div class="hero-card" data-ready>
-        <div class="hero-card-row" id="hcCard" role="group" aria-label="Occasion highlights, tap to browse">
-          <div class="hero-card-tile">
-            <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg>
-          </div>
-          <div class="hero-card-panel">
-            <div class="hc-item">
-              <div class="hc-cap" id="hcCap">BIRTHDAYS</div>
-              <div class="hc-title" id="hcTitle">A poem for the party.</div>
-            </div>
-            <div class="hc-bot">
-              <div class="hc-dots" id="hcDots" aria-hidden="true"></div>
-              <div class="hc-arrows">
-                <button type="button" id="hcPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
-                <button type="button" id="hcNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-              </div>
-            </div>
-          </div>
+      <div class="hero-scene" aria-hidden="true">
+        <div class="hs-sheet hs-sheet1"></div>
+        <div class="hs-sheet hs-sheet2"></div>
+        <div class="hs-card">
+          <div class="hs-card-name">Emma</div>
+          <div class="hs-line"><em>E</em>nergetic and bright,</div>
+          <div class="hs-line"><em>M</em>aking days feel light,</div>
+          <div class="hs-line"><em>M</em>indful, kind and true,</div>
+          <div class="hs-line"><em>A</em> special gift to you.</div>
+          <svg class="hs-heart" viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 8 c4-6 10-2 8 3 c-2 5-8 6-8 6 s-6-1-8-6 c-2-5 4-9 8-3z" transform="translate(2,4)"/><path d="M28 12h10 M44 12h2"/><path d="M52 8 c4-6 10-2 8 3 c-2 5-8 6-8 6 s-6-1-8-6 c-2-5 4-9 8-3z" transform="translate(-2,4)"/></svg>
         </div>
+        <svg class="hs-flower" viewBox="0 0 120 120" fill="none">
+          <g stroke="#C95C82" stroke-width="1.4" fill="#F3CBD9">
+            <circle cx="30" cy="52" r="9"/><circle cx="44" cy="42" r="10"/><circle cx="58" cy="50" r="9"/><circle cx="46" cy="60" r="10"/><circle cx="62" cy="66" r="8"/><circle cx="72" cy="48" r="8"/><circle cx="36" cy="70" r="8"/>
+          </g>
+          <g stroke="#E7B9CB" stroke-width="1.2" fill="none"><circle cx="46" cy="52" r="4"/><circle cx="58" cy="58" r="3"/></g>
+          <g stroke="#7FA35C" stroke-width="1.6" fill="none" stroke-linecap="round">
+            <path d="M70 84 C60 92 46 94 34 88"/><path d="M80 78 C74 88 60 96 44 96"/>
+            <path d="M62 96 c8-6 20-6 26 2 c-8 6-20 4-26-2z" fill="#8FB36A"/>
+          </g>
+        </svg>
+        <svg class="hs-sprig" viewBox="0 0 80 100" fill="none" stroke="#9DB07C" stroke-width="1.6" stroke-linecap="round">
+          <path d="M40 96 C38 66 36 40 42 8"/>
+          <path d="M40 30 C30 26 24 16 24 8 C34 12 38 20 40 30z" fill="#B9CB94" stroke="none"/>
+          <path d="M42 46 C52 42 58 34 58 24 C48 28 44 36 42 46z" fill="#B9CB94" stroke="none"/>
+          <path d="M39 62 C29 58 23 50 23 42 C33 46 37 52 39 62z" fill="#B9CB94" stroke="none"/>
+          <path d="M41 78 C51 74 57 66 57 58 C47 62 43 68 41 78z" fill="#B9CB94" stroke="none"/>
+        </svg>
+        <svg class="hs-bow" viewBox="0 0 90 50" fill="none">
+          <path d="M45 24 C36 8 20 6 14 14 C8 22 16 32 30 30 Z" fill="#EBB7C6"/>
+          <path d="M45 24 C54 8 70 6 76 14 C82 22 74 32 60 30 Z" fill="#EBB7C6"/>
+          <path d="M38 30 C30 36 26 42 26 46 L36 40 Z" fill="#E3A6BA"/>
+          <path d="M52 30 C60 36 64 42 64 46 L54 40 Z" fill="#E3A6BA"/>
+          <circle cx="45" cy="26" r="6" fill="#D98AA6"/>
+        </svg>
+        <svg class="hs-pen" viewBox="0 0 60 160" fill="none">
+          <path d="M30 6 C26 6 24 12 24 20 L26 88 h8 L36 20 C36 12 34 6 30 6z" fill="#6E2436"/>
+          <path d="M24 88 h12 l-2 26 h-8 z" fill="#5A1C2C"/>
+          <path d="M26 114 h8 l-4 18 z" fill="#C9A24B"/>
+          <circle cx="30" cy="10" r="2" fill="#E7C97F"/>
+        </svg>
+        <svg class="hs-petal p1" viewBox="0 0 24 16"><path d="M2 12 C6 2 18 0 22 4 C18 12 8 16 2 12z" fill="#F0C6D4"/></svg>
+        <svg class="hs-petal p2" viewBox="0 0 24 16"><path d="M2 12 C6 2 18 0 22 4 C18 12 8 16 2 12z" fill="#F3CBD9"/></svg>
+        <svg class="hs-petal p3" viewBox="0 0 24 16"><path d="M2 12 C6 2 18 0 22 4 C18 12 8 16 2 12z" fill="#EBB7C6"/></svg>
+        <svg class="hs-petal p4" viewBox="0 0 24 16"><path d="M2 12 C6 2 18 0 22 4 C18 12 8 16 2 12z" fill="#F6DFE3"/></svg>
       </div>
-
     </div>
   </div>
 
@@ -935,6 +1120,105 @@
       <span>Free forever</span>
       <span class="hs-mid">No sign up, no ads</span>
       <span>Scroll to explore</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec xp-sec" id="explore">
+  <div class="niv-shell">
+    <div class="xp-head">
+      <span class="xp-rule" aria-hidden="true"></span>
+      <h2 class="xp-title rise" data-rise>Explore Acrostia</h2>
+      <span class="xp-rule" aria-hidden="true"></span>
+    </div>
+    <p class="xp-sub">Create, discover and keep what makes you and your loved ones unique.</p>
+    <div class="xp-grid">
+      <a class="xp-card" href="#studio">
+        <div class="xp-art xp-art-quill">
+          <svg viewBox="0 0 140 90" fill="none" aria-hidden="true">
+            <rect x="18" y="26" width="76" height="52" rx="3" fill="#FDFBF6" stroke="#E4D9C4"/>
+            <path d="M26 40 h44 M26 50 h36 M26 60 h44" stroke="#DCCDB2" stroke-width="2" stroke-linecap="round"/>
+            <path d="M118 8 C102 18 88 36 82 54 l10 4 C98 40 108 22 118 8z" fill="#F5E7D6" stroke="#C9A24B" stroke-width="1.4"/>
+            <path d="M82 54 l-6 16 12-8" stroke="#C9A24B" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M104 26 C96 36 88 46 84 54" stroke="#C9A24B" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="xp-h">The Poetry Studio</h3>
+        <p class="xp-p">Write an acrostic or rhyming poem for any name and occasion, then shape every line until it sings.</p>
+        <span class="xp-cta">Create a poem<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="xp-card" href="birthday-profile/">
+        <div class="xp-art xp-art-zodiac">
+          <svg viewBox="0 0 140 90" fill="none" aria-hidden="true">
+            <rect x="18" y="12" width="104" height="70" rx="8" fill="#2B2233"/>
+            <g stroke="#E7C97F" stroke-width="1.2" fill="none" opacity=".9">
+              <circle cx="70" cy="46" r="22"/><circle cx="70" cy="46" r="15"/>
+              <path d="M70 24 v6 M70 68 v-6 M48 46 h6 M92 46 h-6"/>
+              <path d="M55 31 l4 4 M85 31 l-4 4 M55 61 l4-4 M85 61 l-4-4"/>
+            </g>
+            <path d="M64 50 l4-8 4 8 M70 42 v12" stroke="#F3D9A0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="42" cy="26" r="1.4" fill="#F6E8C8"/><circle cx="98" cy="30" r="1.2" fill="#F6E8C8"/><circle cx="44" cy="66" r="1.2" fill="#F6E8C8"/><circle cx="100" cy="64" r="1.4" fill="#F6E8C8"/>
+          </svg>
+        </div>
+        <h3 class="xp-h">Birthday Discovery</h3>
+        <p class="xp-p">Birth trees, zodiac signs, birthstones, moon phases, life paths. Your birthday in thirteen readings, one shared ledger.</p>
+        <span class="xp-cta">Discover now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="xp-card" href="name-meaning/">
+        <div class="xp-art xp-art-book">
+          <svg viewBox="0 0 140 90" fill="none" aria-hidden="true">
+            <path d="M70 20 C60 14 44 12 30 16 v50 c14-4 30-2 40 4 C80 64 96 62 110 66 v-50 C96 12 80 14 70 20z" fill="#FDFBF6" stroke="#E4D9C4"/>
+            <path d="M70 20 v50" stroke="#DCCDB2" stroke-width="2"/>
+            <text x="52" y="52" font-family="Fraunces, Georgia, serif" font-size="26" font-style="italic" fill="#B98A2F" text-anchor="middle">A</text>
+            <text x="90" y="52" font-family="Fraunces, Georgia, serif" font-size="26" font-style="italic" fill="#B98A2F" text-anchor="middle">A</text>
+            <path d="M36 30 h24 M36 38 h20 M82 30 h24 M82 38 h20" stroke="#DCCDB2" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="xp-h">Name Discovery</h3>
+        <p class="xp-p">Read a name letter by letter, see what the first letter whispers, and unlock the sealed name secret.</p>
+        <span class="xp-cta">Explore names<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="xp-card" href="#studio" data-open-stage="4">
+        <div class="xp-art xp-art-gift">
+          <svg viewBox="0 0 140 90" fill="none" aria-hidden="true">
+            <rect x="44" y="34" width="52" height="40" rx="3" fill="#F6DFE3"/>
+            <rect x="44" y="34" width="52" height="10" rx="3" fill="#EFC3CF"/>
+            <path d="M66 34 h8 v40 h-8z" fill="#C2426E"/>
+            <path d="M66 32 C60 20 48 20 48 27 c0 7 12 5 18 5z" fill="#E7A9BB"/>
+            <path d="M74 32 C80 20 92 20 92 27 c0 7-12 5-18 5z" fill="#E7A9BB"/>
+            <rect x="30" y="42" width="30" height="34" rx="3" fill="#FDFBF6" stroke="#E4D9C4" transform="rotate(-10 45 59)"/>
+            <rect x="84" y="44" width="28" height="32" rx="3" fill="#FBF1DE" stroke="#E4D9C4" transform="rotate(9 98 60)"/>
+            <path d="M40 52 h12 M86 56 h10" stroke="#DCCDB2" stroke-width="2" stroke-linecap="round" transform="rotate(-10 45 59)"/>
+          </svg>
+        </div>
+        <h3 class="xp-h">Keepsake Studio</h3>
+        <p class="xp-p">Choose the card style, fonts and backgrounds, add a photo, and download or print a keepsake that lasts.</p>
+        <span class="xp-cta">Create a keepsake<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    <p class="ts-cap">Coming soon</p>
+      <div class="tools-strip">
+      <div class="ts-item">
+        <span class="ts-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 8l10 6 10-6"/><path d="M17 3l3 3-3 3-3-3z" fill="#F6DFE3"/></svg></span>
+        <span class="ts-name">Love Letter Creator</span>
+      </div>
+      <div class="ts-item">
+        <span class="ts-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+        <span class="ts-name">Invitation Maker</span>
+      </div>
+      <div class="ts-item">
+        <span class="ts-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h1.6a1.4 1.4 0 0 1 0 2.8H9V8z M9 10.8V16" stroke-width="1.5"/><path d="M9 13h2.6" stroke-width="1.5"/></svg></span>
+        <span class="ts-name">Name Art Studio</span>
+      </div>
+      <div class="ts-item">
+        <span class="ts-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 C10 4 6 4 4 6 v12 c2-2 6-2 8 0 C14 16 18 16 20 18 V6 C18 4 14 4 12 6z"/><path d="M12 6v12"/></svg></span>
+        <span class="ts-name">Story Creator</span>
+      </div>
+      <div class="ts-item">
+        <span class="ts-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20 c0-4 3-6.5 6.5-6.5 s6.5 2.5 6.5 6.5"/><path d="M16 5.2 a3.5 3.5 0 0 1 0 5.6 M18 13.8 c2.4 1 3.5 3 3.5 6.2"/></svg></span>
+        <span class="ts-name">Friendship Creator</span>
+      </div>
+      <button type="button" class="ts-more" data-scroll="#fun">More to Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
   </div>
 </section>
@@ -1221,7 +1505,13 @@
           <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg>
           <span>Acrostia</span>
         </div>
-        <p class="foot-tag">A little print shop for celebrations. Every name deserves a poem. Made with ❤️ for celebrations big and small.</p>
+        <p class="foot-acrostic" aria-label="Acrostia is an acrostic: no occasion too small, a name is all it takes, make a poem from its letters, every line a keepsake.">
+          <span class="acro-line"><span class="acro-letter">N</span>o occasion too small,</span>
+          <span class="acro-line"><span class="acro-letter">a</span> name is all it takes;</span>
+          <span class="acro-line"><span class="acro-letter">m</span>ake a poem from its letters,</span>
+          <span class="acro-line"><span class="acro-letter">e</span>very line a keepsake.</span>
+        </p>
+        <p class="foot-colophon">Set in Fraunces and Onest. Made with ❤️ for celebrations big and small.</p>
         <!-- Newsletter slot: paste your Mailchimp, Buttondown or Substack embed form here to start collecting emails -->
       </div>
       <div class="foot-col">
@@ -1280,6 +1570,7 @@
   </div>
   <div class="nav-bot">
     <span id="navTime">9:41am</span>
+    <a href="birthday-profile/">Birthday Ledger</a>
     <a href="words/">Word lists</a>
     <a href="backgrounds/">Backgrounds</a>
     <button type="button" data-contact>Start a poem</button>
@@ -4039,6 +4330,160 @@ if ("serviceWorker" in navigator) {
   }
   go.addEventListener("click", write);
   input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); write(); } });
+})();
+</script>
+<script>
+/* ===== Phase 6: header dropdowns, search overlay, stage deep-links ===== */
+(function () {
+  var dds = Array.prototype.slice.call(document.querySelectorAll("[data-dd]"));
+  function closeAll(except) {
+    dds.forEach(function (dd) {
+      if (dd !== except) {
+        dd.classList.remove("open");
+        var b = dd.querySelector(".nav-dd-btn");
+        if (b) b.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+  dds.forEach(function (dd) {
+    var btn = dd.querySelector(".nav-dd-btn");
+    if (!btn) return;
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = dd.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      closeAll(dd);
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("[data-dd]")) closeAll(null);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeAll(null);
+  });
+
+  /* deep-link a studio stage: data-open-stage="N" clicks the matching stepper button */
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-open-stage]");
+    if (!el) return;
+    var n = el.getAttribute("data-open-stage");
+    var step = document.querySelector('.step-btn[data-step="' + n + '"]');
+    if (step) step.click();
+  });
+
+  /* search overlay over a static page index */
+  var PAGE_INDEX = [
+    { k: "Create", t: "The Poetry Studio", s: "Acrostic and rhyming poems for any name", h: "#studio" },
+    { k: "Create", t: "Pick an occasion", s: "61 moments from birthday to wedding", h: "#studio", stage: 2 },
+    { k: "Create", t: "Design the keepsake", s: "Card styles, fonts, backgrounds and photos", h: "#studio", stage: 4 },
+    { k: "Discover", t: "Birthday Ledger", s: "Thirteen birthday readings in one hub", h: "birthday-profile/" },
+    { k: "Discover", t: "Name meaning", s: "Letter-by-letter name readings", h: "name-meaning/" },
+    { k: "Discover", t: "First letter", s: "What your initial says", h: "first-letter/" },
+    { k: "Discover", t: "Name secret", s: "The sealed reading", h: "name-secret/" },
+    { k: "Explore", t: "Word lists", s: "Words for every letter", h: "words/" },
+    { k: "Explore", t: "Backgrounds", s: "Free card backgrounds", h: "backgrounds/" },
+    { k: "Explore", t: "How it works", s: "Four steps, one minute", h: "#how" },
+    { k: "Explore", t: "More fun with names", s: "Readings, cakes and charms", h: "#fun" },
+    { k: "Birthday", t: "Birth tree", s: "Your Celtic tree", h: "birth-tree/" },
+    { k: "Birthday", t: "Chinese zodiac", s: "Your lunar animal sign", h: "chinese-zodiac/" },
+    { k: "Birthday", t: "Life path number", s: "Numerology from your birth date", h: "life-path/" },
+    { k: "Birthday", t: "Birthstone", s: "Your month gemstone", h: "birthstone/" },
+    { k: "Birthday", t: "Zodiac sign", s: "Your star sign", h: "zodiac/" },
+    { k: "Birthday", t: "Birth flower", s: "Your month flower", h: "birth-flower/" },
+    { k: "Birthday", t: "Birth month", s: "What your month reveals", h: "birth-month/" },
+    { k: "Birthday", t: "Birthday number", s: "Numerology of the day", h: "birth-date/" },
+    { k: "Birthday", t: "Lucky number", s: "Your lucky digits", h: "lucky-number/" },
+    { k: "Birthday", t: "Moon phase", s: "The moon on your birthday", h: "moon-phase/" },
+    { k: "Birthday", t: "Planet age", s: "Your age on other planets", h: "planet-age/" },
+    { k: "Birthday", t: "Golden birthday", s: "The birthday that matches your age", h: "golden-birthday/" },
+    { k: "Birthday", t: "Birthday cake", s: "A cake with your candles", h: "birthday-cake/" },
+    { k: "Sections", t: "Examples", s: "Poems to make one like", h: "#samples" },
+    { k: "Sections", t: "FAQ", s: "Questions and answers", h: "#faq" }
+  ];
+
+  var overlay = document.createElement("div");
+  overlay.className = "search-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", "Search Acrostia");
+  overlay.innerHTML = '<div class="search-box"><div class="search-top">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>' +
+    '<input id="searchInput" type="text" placeholder="Search tools, birthdays, names..." aria-label="Search Acrostia" autocomplete="off">' +
+    "</div>" +
+    '<div class="search-hint">Jump to</div>' +
+    '<div class="search-results" id="searchResults" role="listbox"></div></div>';
+  document.body.appendChild(overlay);
+
+  var input = overlay.querySelector("#searchInput");
+  var results = overlay.querySelector("#searchResults");
+  var sel = -1;
+
+  function rowHtml(p) {
+    return '<button type="button" role="option"><span class="sr-kind">' + p.k + '</span><span class="sr-tx"><strong>' + p.t + "</strong><small>" + p.s + "</small></span></button>";
+  }
+  function render(list, q) {
+    sel = -1;
+    if (!list.length) {
+      results.innerHTML = '<div class="search-empty">No match. Try a birthday word like "tree" or "zodiac".</div>';
+      return;
+    }
+    results.innerHTML = list.slice(0, 8).map(function (p) { return rowHtml(p); }).join("");
+    Array.prototype.forEach.call(results.querySelectorAll("button"), function (b, i) {
+      b.addEventListener("click", function () { go(list[i]); });
+    });
+  }
+  function go(p) {
+    if (!p) return;
+    closeSearch();
+    if (p.stage) {
+      var step = document.querySelector('.step-btn[data-step="' + p.stage + '"]');
+      if (step) step.click();
+    }
+    if (p.h.charAt(0) === "#") {
+      var el = document.querySelector(p.h);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      location.href = p.h;
+    }
+  }
+  function filter(q) {
+    q = q.trim().toLowerCase();
+    if (!q) return PAGE_INDEX.slice(0, 7);
+    return PAGE_INDEX.filter(function (p) {
+      return (p.t + " " + p.s + " " + p.k).toLowerCase().indexOf(q) !== -1;
+    });
+  }
+  function openSearch() {
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    render(filter(""), "");
+    setTimeout(function () { input.focus(); }, 30);
+  }
+  function closeSearch() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+    input.value = "";
+    sel = -1;
+  }
+  var sbtn = document.getElementById("searchBtn");
+  if (sbtn) sbtn.addEventListener("click", openSearch);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) closeSearch(); });
+  input.addEventListener("input", function () { render(filter(input.value), input.value); });
+  input.addEventListener("keydown", function (e) {
+    var list = filter(input.value);
+    if (e.key === "Escape") { closeSearch(); return; }
+    if (e.key === "Enter") { e.preventDefault(); go(list[0] || null); return; }
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      var rows = results.querySelectorAll("button");
+      if (!rows.length) return;
+      sel = e.key === "ArrowDown" ? Math.min(sel + 1, rows.length - 1) : Math.max(sel - 1, 0);
+      Array.prototype.forEach.call(rows, function (b, i) { b.classList.toggle("sel", i === sel); });
+    }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && overlay.classList.contains("open")) closeSearch();
+  });
 })();
 </script>
 <script src="theme.js" defer></script>

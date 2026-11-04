@@ -14,7 +14,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="../fun-data.js?v=3"></script>
+<script src="../fun-data.js?v=5"></script>
+<script src="../birthday-context.js?v=4"></script>
 <style>
 :root { --ink: #2b1d10; --paper: #fdf6ec; --gold: #e2a52a; --accent: #b57718; }
 * { box-sizing: border-box; }
@@ -24,6 +25,10 @@ header { display: flex; justify-content: space-between; align-items: center; max
 .spark { width: 20px; height: 20px; color: var(--gold); }
 .top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
 .top-cta:hover { background: var(--ink); color: var(--paper); }
+.top-links { display: flex; align-items: center; gap: .55rem; }
+.hub-link { font: 600 .92rem Onest, sans-serif; color: var(--ink); text-decoration: none; padding: .5rem .3rem; opacity: .78; }
+@media (max-width: 520px) { header { flex-wrap: wrap; } .top-links { flex-wrap: wrap; justify-content: flex-end; row-gap: .35rem; } }
+.hub-link:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
 main { max-width: 60rem; margin: 0 auto; padding: 12px 2rem 70px; }
 h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2rem, 4.4vw, 3rem); margin: 16px 0 12px; letter-spacing: -.01em; }
 h1 em { font-style: italic; color: var(--accent); }
@@ -75,7 +80,7 @@ h1 em { font-style: italic; color: var(--accent); }
 <body>
 <header>
   <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
-  <a class="top-cta" href="../">Open the studio</a>
+  <nav class="top-links" aria-label="Site"><a class="hub-link" href="../birthday-profile/">Birthday</a><a class="top-cta" href="../">Open the studio</a></nav>
 </header>
 <main>
 <h1>Your <em>lucky numbers</em>, by name and birthday</h1>
@@ -102,12 +107,15 @@ h1 em { font-style: italic; color: var(--accent); }
     <a class="mf-card" href="../zodiac/" aria-label="Find your zodiac sign"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><svg viewBox="0 0 100 62" aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(64%,175px)"><polyline points="18,20 26,10 36,14 38,26 58,34 80,42 86,54 60,48 42,38" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8"/><polyline points="58,34 62,20" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".6"/><circle cx="18" cy="20" r="3.1" fill="#fff" opacity=".25"/><circle cx="18" cy="20" r="1.6" fill="#fff"/><circle cx="26" cy="10" r="3.1" fill="#fff" opacity=".25"/><circle cx="26" cy="10" r="1.6" fill="#fff"/><circle cx="36" cy="14" r="3.1" fill="#fff" opacity=".25"/><circle cx="36" cy="14" r="1.6" fill="#fff"/><circle cx="38" cy="26" r="3.1" fill="#fff" opacity=".25"/><circle cx="38" cy="26" r="1.6" fill="#fff"/><circle cx="58" cy="34" r="3.1" fill="#fff" opacity=".25"/><circle cx="58" cy="34" r="1.6" fill="#fff"/><circle cx="80" cy="42" r="3.1" fill="#fff" opacity=".25"/><circle cx="80" cy="42" r="1.6" fill="#fff"/><circle cx="86" cy="54" r="3.1" fill="#fff" opacity=".25"/><circle cx="86" cy="54" r="1.6" fill="#fff"/><circle cx="60" cy="48" r="3.1" fill="#fff" opacity=".25"/><circle cx="60" cy="48" r="1.6" fill="#fff"/><circle cx="42" cy="38" r="3.1" fill="#fff" opacity=".25"/><circle cx="42" cy="38" r="1.6" fill="#fff"/></svg><span class="mf-cta">Find your zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../birthstone/" aria-label="Find your birthstone"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/13300176/pexels-photo-13300176.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Find your birthstone<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../birth-flower/" aria-label="Find your birth flower"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your birth flower<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../lucky-number/" aria-label="Find your lucky number"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your lucky number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-date/" aria-label="What your birth date means"><span class="mf-art" style="background:linear-gradient(160deg, #565149, #312e27)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-family:Georgia,serif;font-size:3rem;line-height:1;color:#f3ecd9;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#9671;</span><span class="mf-cta">What your birth date means<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../moon-phase/" aria-label="Your birthday moon phase"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/673902/pexels-photo-673902.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your birthday moon phase<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../planet-age/" aria-label="Your age on Mars"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/20337597/pexels-photo-20337597.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your age on Mars<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../birth-month/" aria-label="What your birth month says"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">What your birth month says<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../golden-birthday/" aria-label="Find your golden birthday"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your golden birthday<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../birthday-cake/" aria-label="Write your name on a cake"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/33759172/pexels-photo-33759172.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your name on a cake<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../birth-tree/" aria-label="Find your birth tree"><span class="mf-art" style="background:linear-gradient(160deg,#2f5c2a,#122a0e)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#f2f7ee;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#127795;</span><span class="mf-cta">Find your birth tree<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../chinese-zodiac/" aria-label="Your Chinese zodiac sign"><span class="mf-art" style="background:linear-gradient(160deg,#a3271a,#570f08)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#fdf2ec;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#127877;</span><span class="mf-cta">Your Chinese zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+    <a class="mf-card" href="../life-path/" aria-label="Your life path number"><span class="mf-art" style="background:linear-gradient(160deg,#24356b,#101a3d)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#eef1fa;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#128099;</span><span class="mf-cta">Your life path number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
   </div>
 </section>
 </main>
@@ -121,6 +129,11 @@ h1 em { font-style: italic; color: var(--accent); }
   if (qs.get("n")) $("lN").value = qs.get("n").slice(0, 18);
   if (+qs.get("d") >= 1 && +qs.get("d") <= 31) dS.value = qs.get("d");
   if (+qs.get("m") >= 1 && +qs.get("m") <= 12) mS.value = qs.get("m");
+  var bdc = window.BDAY ? window.BDAY.get() : null;
+  if (bdc && !qs.get("n") && bdc.n) $("lN").value = bdc.n;
+  if (bdc && !qs.get("d") && bdc.d) dS.value = String(bdc.d);
+  if (bdc && !qs.get("m") && bdc.m) mS.value = String(bdc.m);
+  function saveBd() { if (window.BDAY) BDAY.set({ d: +dS.value, m: +mS.value, n: ($("lN").value || "").trim() }); }
   function show() {
     var d = +dS.value, m = +mS.value, name = ($("lN").value || "").trim();
     var z = F.signFor(m, d), bn = F.reduceNum(d);
@@ -137,14 +150,15 @@ h1 em { font-style: italic; color: var(--accent); }
       '<div class="tags"><span>Birth number: ' + bn + '</span><span>' + z.glyph + " " + z.name + '</span><span>Lucky color: ' + z.color + '</span><span>Lucky day: ' + z.day + '</span><span>Sign number: ' + z.number + '</span></div>';
     $("lOut").style.display = "block";
   }
-  $("lGo").addEventListener("click", show);
-  [dS, mS].forEach(function (s) { s.addEventListener("change", show); });
-  $("lN").addEventListener("keydown", function (e) { if (e.key === "Enter") show(); });
+  $("lGo").addEventListener("click", function () { saveBd(); show(); });
+  [dS, mS].forEach(function (s) { s.addEventListener("change", function () { saveBd(); show(); }); });
+  $("lN").addEventListener("keydown", function (e) { if (e.key === "Enter") { saveBd(); show(); } });
   $("lRnd").addEventListener("click", function () {
     var names = ["Emma","Liam","Olivia","Noah","Grace","Mia","Amelia","Yuki"];
     $("lN").value = names[Math.floor(Math.random() * names.length)];
-    dS.value = String(1 + Math.floor(Math.random() * 31));
     mS.value = String(1 + Math.floor(Math.random() * 12));
+    dS.value = String(1 + Math.floor(Math.random() * [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][+mS.value - 1]));
+    saveBd();
     show();
   });
   show();

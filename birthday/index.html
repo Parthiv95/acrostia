@@ -10,28 +10,92 @@
 <meta property="og:description" content="Free personalized birthday name poems on themed art cards. Instant download.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="../birthday-context.js?v=4"></script>
 <style>
-body { font-family: Georgia, serif; margin: 0; background: #FBF8F3; color: #3A3A3A; }
-main { max-width: 640px; margin: 0 auto; padding: 48px 24px; }
-h1 { font-size: 2rem; margin: 0 0 12px; }
-.btn { display: inline-block; background: #E91E63; color: #fff; text-decoration: none; padding: 14px 26px; border-radius: 999px; font-weight: bold; margin: 18px 0; }
-.links { margin-top: 28px; font-size: .95rem; line-height: 2; }
-.links a { color: #6B2D4E; }
-
-.about { margin-top: 36px; }
-.about p { line-height: 1.7; margin: 0 0 14px; }
-.sample { background: #fff; border: 1px solid #E8E0D4; border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-style: italic; white-space: pre-line; line-height: 1.8; }
-.faq h2 { font-size: 1.35rem; margin: 32px 0 10px; }
+:root { --ink: #241d12; --paper: #fdf9f1; --gold: #e2a52a; --deep: #7a4a12; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Onest, sans-serif; color: var(--ink); background: var(--paper); }
+header { display: flex; justify-content: space-between; align-items: center; max-width: 60rem; margin: 0 auto; padding: 18px 2rem; }
+.brand { display: inline-flex; gap: .5rem; align-items: center; font-family: Fraunces, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.spark { width: 20px; height: 20px; color: var(--gold); }
+.top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
+.top-cta:hover { background: var(--ink); color: var(--paper); }
+.top-links { display: flex; align-items: center; gap: .55rem; }
+.hub-link { font: 600 .92rem Onest, sans-serif; color: var(--ink); text-decoration: none; padding: .5rem .3rem; opacity: .78; }
+@media (max-width: 520px) { header { flex-wrap: wrap; } .top-links { flex-wrap: wrap; justify-content: flex-end; row-gap: .35rem; } }
+.hub-link:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+main { max-width: 60rem; margin: 0 auto; padding: 12px 2rem 70px; }
+h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2rem, 4.4vw, 3rem); margin: 16px 0 12px; letter-spacing: -.01em; }
+.lede { font-size: 1.08rem; line-height: 1.65; color: #6b6152; max-width: 62ch; margin: 0 0 14px; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 22px 0 8px; }
+.gold { display: inline-block; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; text-decoration: none; padding: .8rem 1.6rem; border-radius: 999px; font: 700 .98rem Onest, sans-serif; }
+.ghost { display: inline-block; background: none; border: 1.5px solid #d8cdb8; color: var(--ink); font: 600 .92rem Onest, sans-serif; padding: .68rem 1.3rem; border-radius: 999px; text-decoration: none; }
+.ghost:hover { border-color: var(--ink); }
+.discover { margin-top: 52px; }
+.discover > h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.9rem; margin: 0 0 10px; letter-spacing: -.01em; }
+.discover > p { line-height: 1.7; color: #6b6152; max-width: 68ch; margin: 0 0 24px; }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px 22px; }
+.cat { display: flex; align-items: baseline; gap: .65rem; padding: .55rem .1rem; border-bottom: 1px dashed #e2d7c2; text-decoration: none; color: var(--ink); }
+.cat:hover { border-bottom-style: solid; border-bottom-color: var(--deep); }
+.cat:hover .cat-name { color: var(--deep); }
+.cat-glyph { font-size: 1.1rem; color: var(--gold); flex: 0 0 auto; transform: translateY(1px); }
+.cat-name { font-family: Fraunces, serif; font-weight: 600; font-size: 1.02rem; white-space: nowrap; }
+.cat-desc { font-size: .88rem; color: #6b6152; }
+.privacy-note { margin-top: 16px; font-size: .85rem; color: #857a69; }
+.privacy-note a { color: var(--deep); }
+.about { margin-top: 52px; max-width: 72ch; }
+.about p { line-height: 1.7; color: #4f483c; margin: 0 0 14px; }
+.sample { background: #fff; border: 1px solid #e8e0d4; border-radius: 14px; padding: 18px 20px; margin: 20px 0; font-style: italic; white-space: pre-line; line-height: 1.9; color: #4f483c; }
+.faq h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.35rem; margin: 32px 0 10px; }
 .faq dl { margin: 0; }
-.faq dt { font-weight: bold; margin-top: 16px; }
-.faq dd { margin: 6px 0 0; line-height: 1.7; }
+.faq dt { font-weight: 600; margin-top: 16px; color: var(--ink); }
+.faq dd { margin: 6px 0 0; line-height: 1.7; color: #4f483c; }
+.btn { display: inline-block; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; text-decoration: none; padding: .8rem 1.6rem; border-radius: 999px; font: 700 .98rem Onest, sans-serif; margin: 18px 0; }
+.links { margin-top: 28px; font-size: .95rem; line-height: 2; }
+.links a { color: var(--deep); }
+.rise { display: flex; flex-wrap: wrap; column-gap: .3em; }
+.rise .w { display: inline-block; will-change: transform, opacity; }
+@media (max-width: 640px) { header, main { padding-left: 1.1rem; padding-right: 1.1rem; } .cat-name { white-space: normal; } }
 </style>
 </head>
 <body>
+<header>
+  <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
+  <nav class="top-links" aria-label="Site"><a class="hub-link" href="../birthday-profile/">Birthday</a><a class="top-cta" href="../">Open the studio</a></nav>
+</header>
 <main>
-<h1>Birthday name poem</h1>
-<p>Every name hides a poem. Type a name, choose the birthday theme, and Acrostia writes a personalized poem, an acrostic in the classic "J is for Joy" style or a warm rhyming verse, and paints it onto a themed card you can download as a picture, print, or copy. Free, instant, no sign up.</p>
-<p>Pick the words that sound like them, then download the finished card and send it in a chat or print it at home.</p>
+<h1 class="rise" data-rise>Birthday name poem</h1>
+<p class="lede"><p>Every name hides a poem. Type a name, choose the birthday theme, and Acrostia writes a personalized poem, an acrostic in the classic "J is for Joy" style or a warm rhyming verse, and paints it onto a themed card you can download as a picture, print, or copy. Free, instant, no sign up.</p></p>
+<p class="lede"><p>Pick the words that sound like them, then download the finished card and send it in a chat or print it at home.</p></p>
+<div class="cta-row">
+  <a class="gold" href="../?o=birthday">Make a birthday name poem</a>
+  <a class="ghost" href="../birthday-profile/">Open Birthday Discovery</a>
+</div>
+<section class="discover" aria-label="Birthday discovery tools">
+<h2 class="rise" data-rise>Birthday Discovery</h2>
+<p>Birthday Discovery is a set of thirteen free birthday tools around the poem studio. Enter a birth date once and every tool remembers it for the session, so a name typed in the zodiac sign tool is still there when you open the moon phase tool. Everything runs in your browser, nothing is stored after you close the tab, and nothing is sent to a server.</p>
+<div class="cat-grid">
+<a class="cat" href="../birthday-profile/"><span class="cat-glyph" aria-hidden="true">✦</span><span class="cat-name">Birthday profile</span><span class="cat-desc">the full reading in one page</span></a>
+<a class="cat" href="../zodiac/"><span class="cat-glyph" aria-hidden="true">✧</span><span class="cat-name">Zodiac sign</span><span class="cat-desc">which of the twelve fits your exact date</span></a>
+<a class="cat" href="../birthstone/"><span class="cat-glyph" aria-hidden="true">◆</span><span class="cat-name">Birthstone</span><span class="cat-desc">the gem your birth month is famous for</span></a>
+<a class="cat" href="../birth-flower/"><span class="cat-glyph" aria-hidden="true">❀</span><span class="cat-name">Birth flower</span><span class="cat-desc">the flower the calendar pairs with your month</span></a>
+<a class="cat" href="../birth-month/"><span class="cat-glyph" aria-hidden="true">❋</span><span class="cat-name">Birth month</span><span class="cat-desc">what the month says about people born in it</span></a>
+<a class="cat" href="../birth-date/"><span class="cat-glyph" aria-hidden="true">◇</span><span class="cat-name">Birth date</span><span class="cat-desc">the personality of your day of the month</span></a>
+<a class="cat" href="../lucky-number/"><span class="cat-glyph" aria-hidden="true">7</span><span class="cat-name">Lucky number</span><span class="cat-desc">the numbers pinned to your name and date</span></a>
+<a class="cat" href="../moon-phase/"><span class="cat-glyph" aria-hidden="true">☾</span><span class="cat-name">Moon phase</span><span class="cat-desc">the moon in the sky the night you were born</span></a>
+<a class="cat" href="../planet-age/"><span class="cat-glyph" aria-hidden="true">☉</span><span class="cat-name">Planet age</span><span class="cat-desc">how old you would be on each planet</span></a>
+<a class="cat" href="../golden-birthday/"><span class="cat-glyph" aria-hidden="true">✷</span><span class="cat-name">Golden birthday</span><span class="cat-desc">the birthday that matches your birth date</span></a>
+<a class="cat" href="../birthday-cake/"><span class="cat-glyph" aria-hidden="true">◆</span><span class="cat-name">Birthday cake</span><span class="cat-desc">any name piped in icing on a cake</span></a>
+<a class="cat" href="../birth-tree/"><span class="cat-glyph" aria-hidden="true">&#127795;</span><span class="cat-name">Birth tree</span><span class="cat-desc">the tree of your Celtic birth window</span></a>
+<a class="cat" href="../chinese-zodiac/"><span class="cat-glyph" aria-hidden="true">&#127877;</span><span class="cat-name">Chinese zodiac</span><span class="cat-desc">your animal sign, accurate to the Lunar New Year</span></a>
+<a class="cat" href="../life-path/"><span class="cat-glyph" aria-hidden="true">&#128099;</span><span class="cat-name">Life path</span><span class="cat-desc">the number your full birth date adds up to</span></a>
+</div>
+<p class="privacy-note">Your birth date stays in this browser session only. Read how the birthday tools handle data in the <a href="../cookie-policy/">cookie policy</a>.</p>
+</section>
 <!-- acrostia-enriched -->
 <section class="about">
 <p>A Birthday marks the kind of day people photograph. The cake, the group photo, the small speech someone gives with a glass raised. A name poem fits that moment because it is about the person, not the calendar: their name spelled out into lines that say what friends and family actually feel but rarely put into words.</p>
@@ -91,6 +155,79 @@ h1 { font-size: 2rem; margin: 0 0 12px; }
 <p class="links"><strong>Other occasions:</strong> <a href="../engagement/">Engagement</a> <a href="../wedding/">Wedding</a> <a href="../anniversary/">Anniversary</a> <a href="../graduation/">Graduation</a> <a href="../newjob/">New Job</a> <a href="../newhome/">New Home</a> <a href="../retirement/">Retirement</a> <a href="../congrats/">Congratulations</a> <a href="../christmas/">Christmas</a> <a href="../newyear/">New Year</a> <a href="../lunarnewyear/">Lunar New Year</a> <a href="../easter/">Easter</a> <a href="../thanksgiving/">Thanksgiving</a> <a href="../hanukkah/">Hanukkah</a> <a href="../valentine/">Valentine's Day</a> <a href="../halloween/">Halloween</a> <a href="../eid/">Eid</a> <a href="../diwali/">Diwali</a> <a href="../holi/">Holi</a> <a href="../rakhi/">Rakhi</a> <a href="../navratri/">Navratri</a> <a href="../thanks/">Thank You</a> <a href="../getwell/">Get Well</a></p>
 <p><a href="../">All 61 occasions at Acrostia</a></p>
 </main>
+<script>
+(function () {
+  var springs = [], springRunning = false;
+  function splitRise(el) {
+    var words = [];
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          var parts = ch.textContent.split(/(\s+)/);
+          var frag = document.createDocumentFragment();
+          parts.forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+            var w = document.createElement("span");
+            w.className = "w";
+            w.textContent = part;
+            frag.appendChild(w);
+            words.push(w);
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1) walk(ch);
+      });
+    })(el);
+    var stagger = parseInt(el.getAttribute("data-stagger") || "110", 10);
+    return words.map(function (w, i) {
+      w.style.opacity = "0";
+      return { el: w, y: 36, vy: 0, o: 0, vo: 0, t0: performance.now() + i * stagger, started: false };
+    });
+  }
+  function springStep(items, now) {
+    var T = 170, FR = 24, DT = 1 / 60, settled = true;
+    items.forEach(function (it) {
+      if (now < it.t0) { settled = false; return; }
+      it.started = true;
+      var ay = T * (0 - it.y) - FR * it.vy;
+      var ao = T * (1 - it.o) - FR * it.vo;
+      it.vy += ay * DT; it.y += it.vy * DT;
+      it.vo += ao * DT; it.o += it.vo * DT;
+      if (Math.abs(it.vy) > 0.001 || Math.abs(it.y) > 0.001 || Math.abs(it.vo) > 0.001 || Math.abs(it.o) > 0.001 || it.o < 0.999) settled = false;
+      it.el.style.transform = "translateY(" + it.y.toFixed(3) + "px)";
+      it.el.style.opacity = Math.max(0, Math.min(1, it.o)).toFixed(3);
+    });
+    return settled;
+  }
+  function pumpSprings() {
+    if (springRunning) return;
+    springRunning = true;
+    (function loop(now) {
+      springs = springs.filter(function (items) {
+        var keep = items.some(function (it) { return !it.started; });
+        return !springStep(items, now) || keep;
+      });
+      if (springs.length) requestAnimationFrame(loop);
+      else springRunning = false;
+    })(performance.now());
+  }
+  (function initRise() {
+    var heads = Array.prototype.slice.call(document.querySelectorAll("[data-rise]"));
+    if (!heads.length) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (typeof IntersectionObserver !== "function") return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        springs.push(splitRise(en.target));
+        pumpSprings();
+      });
+    }, { threshold: 0.2 });
+    heads.forEach(function (h) { io.observe(h); });
+  })();
+})();
+</script>
 <script src="../theme.js" defer></script>
 </body>
 </html>

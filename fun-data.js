@@ -98,7 +98,9 @@ window.FUN = (function () {
     6: "the caretaker: warm, responsible, family at the center",
     7: "the thinker: private, sharp, drawn to big questions",
     8: "the achiever: ambitious, disciplined, plays the long game",
-    9: "the old soul: generous, idealistic, feels the whole world"
+    9: "the old soul: generous, idealistic, feels the whole world",
+    11: "the intuitive: visionary and magnetic, reads what others hide",
+    22: "the master builder: big dreams plus the discipline to build them"
   };
 
   var LIFE_PATHS = {
@@ -148,6 +150,61 @@ window.FUN = (function () {
     while (s > 9 && s !== 11 && s !== 22 && s !== 33) s = digitsum(s);
     return s;
   }
+  /* Lunar New Year day (MMDD) per year, the boundary of the Chinese zodiac year.
+     1900-1980 verified against the Hong Kong Observatory Gregorian-Lunar calendar
+     tables (www.hko.gov.hk/en/gts/time/calendar/text/files/T{year}e.txt); 1900 also
+     attested by independent conversion tables. 1981-2030 cross-checked against
+     published Chinese New Year tables (travelchinaguide, chinesenewyear.net).
+     Years outside the table use a documented late-January fallback. */
+  var LNY = [
+    "0131","0219","0208","0129","0216","0204","0125","0213", /* 1900-1907 */
+    "0202","0122","0210","0130","0218","0206","0126","0214", /* 1908-1915 */
+    "0203","0123","0211","0201","0220","0208","0128","0216", /* 1916-1923 */
+    "0205","0124","0213","0202","0123","0210","0130","0217", /* 1924-1931 */
+    "0206","0126","0214","0204","0124","0211","0131","0219", /* 1932-1939 */
+    "0208","0127","0215","0205","0125","0213","0202","0122", /* 1940-1947 */
+    "0210","0129","0217","0206","0127","0214","0203","0124", /* 1948-1955 */
+    "0212","0131","0218","0208","0128","0215","0205","0125", /* 1956-1963 */
+    "0213","0202","0121","0209","0130","0217","0206","0127", /* 1964-1971 */
+    "0215","0203","0123","0211","0131","0218","0207","0128", /* 1972-1979 */
+    "0216","0205","0125","0213","0202","0220","0209","0129", /* 1980-1987 */
+    "0217","0206","0127","0215","0204","0123","0210","0131", /* 1988-1995 */
+    "0219","0207","0128","0216","0205","0124","0212","0201", /* 1996-2003 */
+    "0122","0209","0129","0218","0207","0126","0214","0203", /* 2004-2011 */
+    "0123","0210","0131","0219","0208","0128","0216","0205", /* 2012-2019 */
+    "0125","0212","0201","0122","0210","0129","0217","0206", /* 2020-2027 */
+    "0126","0213","0203"                                     /* 2028-2030 */
+  ];
+
+  function chineseFor(y, m, d) {
+    var t = LNY[y - 1900];
+    if (!t) return undefined; /* outside 1900-2030: no verified boundary, so no guess */
+    var before = m < +t.slice(0, 2) || (m === +t.slice(0, 2) && d < +t.slice(2, 4));
+    return CHINESE[(((before ? y - 1 : y) - 1900) % 12 + 12) % 12];
+  }
+
+  /* Same year range as the verified lunar table, so every accepted birth date
+     also gets an accurate Chinese zodiac. */
+  function validDate(y, m, d) {
+    y = +y; m = +m; d = +d;
+    if (y < 1900 || y > 2030 || m < 1 || m > 12 || d < 1 || d > 31) return false;
+    var t = new Date(y, m - 1, d);
+    return t.getFullYear() === y && t.getMonth() === m - 1 && t.getDate() === d;
+  }
+
+  /* Deterministic lucky numbers: zodiac number, reduced birth day, reduced name sum. */
+  function luckyNumbers(m, d, name) {
+    var out = [signFor(m, d).number, reduceNum(d)];
+    if (name) {
+      var w = String(name).toUpperCase().replace(/[^A-Z]/g, ""), sum = 0;
+      for (var i = 0; i < w.length; i++) sum += w.charCodeAt(i) - 64;
+      if (sum) out.push(reduceNum(sum));
+    }
+    return out.filter(function (v, i, a) { return a.indexOf(v) === i; });
+  }
+
+  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
   function daysBetween(a, b) { return Math.floor((b - a) / 86400000); }
   function leapYearsSeen(bd, now) {
     var n = 0, y = bd.getFullYear();
@@ -168,13 +225,14 @@ window.FUN = (function () {
     if (t <= now) t = new Date(now.getFullYear() + 1, bd.getMonth(), bd.getDate());
     return daysBetween(now, t);
   }
-  function fmt(d) { return d.getDate() + ordinal(d.getDate()) + " " + ["January","February","March","April","May","June","July","August","September","October","November","December"][d.getMonth()] + " " + d.getFullYear(); }
+  function fmt(d) { return d.getDate() + ordinal(d.getDate()) + " " + MONTHS[d.getMonth()] + " " + d.getFullYear(); }
   function ordinal(n) { var s = ["th","st","nd","rd"], v = n % 100; return s[(v - 20) % 10] || s[v] || s[0]; }
 
   return {
     ZODIAC: ZODIAC, STONES: STONES, FLOWERS: FLOWERS, TREES: TREES, CHINESE: CHINESE,
     BIRTH_NUMBERS: BIRTH_NUMBERS, LIFE_PATHS: LIFE_PATHS, WEEKDAYS: WEEKDAYS,
     signFor: signFor, treeFor: treeFor, reduceNum: reduceNum, lifePath: lifePath,
+    chineseFor: chineseFor, validDate: validDate, luckyNumbers: luckyNumbers, MONTHS: MONTHS,
     daysBetween: daysBetween, leapYearsSeen: leapYearsSeen, ageBreakdown: ageBreakdown,
     nextBirthdayIn: nextBirthdayIn, fmt: fmt, ordinal: ordinal
   };
