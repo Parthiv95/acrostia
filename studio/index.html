@@ -206,7 +206,7 @@
   <div class="wrap">
     <div class="bench is-on" data-bench="1">
       <span class="lbl">Name</span>
-      <input class="bin" id="nm" type="text" aria-label="Their name" placeholder="Noah" value="Noah" style="width:11rem" autocomplete="off">
+      <input class="bin" id="nm" type="text" maxlength="16" aria-label="Their name" placeholder="Noah" value="Noah" style="width:11rem" autocomplete="off">
       <span class="lbl">Second</span>
       <input class="bin" id="nm2" type="text" aria-label="Second name, for couples" placeholder="for couples" style="width:9.5rem" autocomplete="off">
       <span class="lbl">From</span>
@@ -673,6 +673,20 @@
       wrap.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
     });
     bed.addEventListener('pointerleave', function () { t0 = Date.now(); });
+  }
+
+  function fitName() {
+    var card = document.getElementById('cardEl');
+    if (!card || !cName) return;
+    cName.style.fontSize = '';
+    cName.style.whiteSpace = 'nowrap';
+    var avail = card.clientWidth * 0.86;
+    var base = parseFloat(getComputedStyle(cName).fontSize) || 34;
+    var size = base, guard = 0;
+    while (cName.scrollWidth > avail && size > base * 0.62 && guard < 60) {
+      size -= 1; cName.style.fontSize = size + 'px'; guard++;
+    }
+    if (cName.scrollWidth > avail) cName.style.whiteSpace = 'normal';
   }
 
   function fitCard() {

@@ -225,7 +225,7 @@
     <p class="lede">Write an acrostic or a rhyming verse for someone you love, set it on card you could print, and send it in under a minute.</p>
 
     <form class="search" onsubmit="return false">
-      <input id="heroName" type="text" placeholder="Type a name, e.g. Emma" aria-label="Name for the poem">
+      <input id="heroName" type="text" maxlength="16" placeholder="Type a name, e.g. Emma" aria-label="Name for the poem">
       <button class="pill" type="submit">Write the poem
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </button>
@@ -470,9 +470,17 @@ var OCC_SLUG = "birthday";
     var figH = art.clientHeight;
     if (!figH) return;
     var maxH = figH * 0.9;
-    // the script name shrinks past seven letters
-    var letters = (nmEl.textContent || '').replace(/[^\p{L}]/gu, '').length;
-    nmEl.style.fontSize = letters > 7 ? (8.4 * Math.pow(7 / letters, 0.55)).toFixed(2) + 'cqw' : '';
+    // shrink the script name until it actually fits the card, measured not guessed
+    nmEl.style.fontSize = '';
+    nmEl.style.whiteSpace = 'nowrap';
+    var cardEl = document.getElementById('cardEl');
+    var avail = (cardEl ? cardEl.clientWidth : 260) * 0.86;
+    var base = parseFloat(getComputedStyle(nmEl).fontSize) || 34;
+    var size = base, guard = 0;
+    while (nmEl.scrollWidth > avail && size > base * 0.62 && guard < 60) {
+      size -= 1; nmEl.style.fontSize = size + 'px'; guard++;
+    }
+    if (nmEl.scrollWidth > avail) nmEl.style.whiteSpace = 'normal';
     // then the lines, until the card fits
     ul.style.fontSize = '';
     var size = parseFloat(getComputedStyle(ul).fontSize) || 15;
