@@ -328,9 +328,10 @@
   if (st.from && fromIn) fromIn.value = st.from;
   if (A) A.voice(st.voice);
 
-  function cleanName(v) {
-    return (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s+/g, ' ').trim().slice(0, NAME_MAX);
+  function stripInvalid(v) {
+    return (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s{2,}/g, ' ').slice(0, NAME_MAX);
   }
+  function cleanName(v) { return stripInvalid(v).trim(); }
   function poemName(v) {
     var letters = (v || '').replace(/[^\p{L}]/gu, '');
     if (letters.length <= POEM_MAX) return v;
@@ -513,17 +514,19 @@
   }
 
   nameIn.addEventListener('input', function () {
-    var c = cleanName(nameIn.value);
-    if (c !== nameIn.value) nameIn.value = c;
-    st.name = c || 'Noah';
+    var live = stripInvalid(nameIn.value);
+    if (live !== nameIn.value) nameIn.value = live;
+    st.name = live.trim() || 'Noah';
     render(); syncUrl();
   });
+  nameIn.addEventListener('blur', function () { nameIn.value = cleanName(nameIn.value); st.name = nameIn.value || 'Noah'; });
   name2In.addEventListener('input', function () {
-    var c = cleanName(name2In.value);
-    if (c !== name2In.value) name2In.value = c;
-    st.name2 = c;
+    var live = stripInvalid(name2In.value);
+    if (live !== name2In.value) name2In.value = live;
+    st.name2 = live.trim();
     render();
   });
+  name2In.addEventListener('blur', function () { name2In.value = cleanName(name2In.value); st.name2 = name2In.value; render(); });
   var kid = document.getElementById('kidTone');
   if (kid) kid.addEventListener('change', function () {
     st.voice = kid.checked ? 'playful' : 'gentle';

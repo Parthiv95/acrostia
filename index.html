@@ -445,9 +445,10 @@ var OCC_SLUG = "birthday";
   if (!inp || !nm || !po) return;
   var NAME_MAX = 40;   // how much of the name we accept at all
   var POEM_MAX = 20;   // how many letters we will put on one card
-  function cleanName(v) {
-    return (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s+/g, ' ').trim().slice(0, NAME_MAX);
+  function stripInvalid(v) {
+    return (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s{2,}/g, ' ').slice(0, NAME_MAX);
   }
+  function cleanName(v) { return stripInvalid(v).trim(); }
   function poemName(v) {
     var letters = (v || '').replace(/[^\p{L}]/gu, '');
     if (letters.length <= POEM_MAX) return v;
@@ -519,14 +520,16 @@ var OCC_SLUG = "birthday";
   }
 
   inp.addEventListener('input', function () {
-    var capped = cleanName(inp.value);
-    if (capped !== inp.value) inp.value = capped;
-    var v = capped || 'Emma';
+    // never trim mid-typing: a trailing space is how you start the next word
+    var live = stripInvalid(inp.value);
+    if (live !== inp.value) inp.value = live;
+    var v = live.trim() || 'Emma';
     nm.textContent = v;
     renderPoem(v);
     columnise();
     fitCard();
   });
+  inp.addEventListener('blur', function () { inp.value = cleanName(inp.value); });
   addEventListener('resize', fitCard);
   renderPoem(inp.value.trim() || 'Emma');
   columnise();
