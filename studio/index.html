@@ -375,12 +375,18 @@
   }
 
   var PAIR_OCC = ['couple', 'engagement', 'wedding', 'anniversary', 'valentine', 'silver-anniversary'];
+  // each script sets the name and the poem body, the way the old build did
   var FONT_MAP = {
-    script: "clamp(2.4rem,4vw,3.4rem) 'Great Vibes', cursive",
-    keepsake: "italic 400 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
-    simple: "600 clamp(1.5rem,2.4vw,2rem) Fraunces, Georgia, serif",
-    hand: "clamp(2rem,3.2vw,2.6rem) 'Bradley Hand', 'Segoe Script', cursive",
-    storybook: "300 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif"
+    script:    { name: "clamp(2.4rem,4vw,3.4rem) 'Great Vibes', cursive",
+                 body: "Fraunces, Georgia, serif", style: "normal", spacing: "0" },
+    keepsake:  { name: "italic 400 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
+                 body: "italic 400 Fraunces, Georgia, serif", style: "italic", spacing: "0" },
+    simple:    { name: "600 clamp(1.5rem,2.4vw,2rem) Fraunces, Georgia, serif",
+                 body: "Inter, system-ui, sans-serif", style: "normal", spacing: ".01em" },
+    hand:      { name: "clamp(2rem,3.2vw,2.6rem) 'Bradley Hand', 'Segoe Script', cursive",
+                 body: "'Bradley Hand', 'Segoe Script', cursive", style: "normal", spacing: "0" },
+    storybook: { name: "300 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
+                 body: "Georgia, 'Iowan Old Style', serif", style: "normal", spacing: ".015em" }
   };
 
   function render() {
@@ -570,8 +576,15 @@
   });
 
   function applyFont() {
-    cName.style.font = FONT_MAP[st.font] || FONT_MAP.script;
+    var f = FONT_MAP[st.font] || FONT_MAP.script;
+    cName.style.font = f.name;
     cName.style.letterSpacing = st.font === 'simple' ? '.06em' : '0';
+    cPoem.style.fontFamily = f.body;
+    cPoem.style.fontStyle = f.style;
+    cPoem.style.letterSpacing = f.spacing;
+    var closer = document.getElementById('cCloser');
+    if (closer) closer.style.fontFamily = f.body;
+    if (typeof fitCard === 'function') fitCard();
   }
   document.querySelectorAll('.fopt').forEach(function (b) {
     b.addEventListener('click', function () {
