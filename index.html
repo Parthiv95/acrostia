@@ -228,7 +228,7 @@
     <p class="lede">Write an acrostic or a rhyming verse for someone you love, set it on card you could print, and send it in under a minute.</p>
 
     <form class="search" onsubmit="return false">
-      <input id="heroName" type="text" maxlength="16" placeholder="Type a name, e.g. Emma" aria-label="Name for the poem">
+      <input id="heroName" type="text" maxlength="40" placeholder="Type a name, e.g. Emma" aria-label="Name for the poem">
       <button class="pill" type="submit">Write the poem
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </button>
@@ -443,10 +443,16 @@ var OCC_SLUG = "birthday";
   var nm = document.getElementById('cardName');
   var po = document.getElementById('cardPoem');
   if (!inp || !nm || !po) return;
-  var MAXL = 14;              // hard cap: no card may need more than 14 lines
+  var NAME_MAX = 40;   // how much of the name we accept at all
+  var POEM_MAX = 20;   // how many letters we will put on one card
   function cleanName(v) {
-    var s = (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s+/g, ' ').trim();
-    return s.slice(0, MAXL);
+    return (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s+/g, ' ').trim().slice(0, NAME_MAX);
+  }
+  function poemName(v) {
+    var letters = (v || '').replace(/[^\p{L}]/gu, '');
+    if (letters.length <= POEM_MAX) return v;
+    var first = (v || '').split(' ')[0].replace(/[^\p{L}]/gu, '');
+    return first.length && first.length <= POEM_MAX ? first : letters.slice(0, POEM_MAX);
   }
 
   function renderPoem(v) {
@@ -456,7 +462,7 @@ var OCC_SLUG = "birthday";
     window.Acrostia.voice('gentle');
     var letters = clean.replace(/[^\p{L}]/gu, '').length;
     var short = letters > 6;   // long names drop the clause so the type stays legible
-    po.innerHTML = window.Acrostia.acrostic(clean, 'birthday').map(function (l) {
+    po.innerHTML = window.Acrostia.acrostic(poemName(clean), 'birthday').map(function (l) {
       var line = '<li><b>' + l.letter + '</b> is for ' + l.word;
       if (!short) line += ', ' + l.desc + (l.suf ? ', ' + l.suf : '');
       if (l.who) line += ' (' + l.who + ')';
