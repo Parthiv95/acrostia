@@ -133,6 +133,12 @@
 
   .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
   .skip:focus{left:0}
+
+  /* couple pages: two sheets, wider measure, shorter section */
+  .srow{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:clamp(20px,3vw,44px) !important}
+  .spoem .nm{font-size:clamp(1.45rem,1.8vw,1.7rem)}
+  .spoem ol{font-size:.87rem;line-height:1.64}
+  .spoem ol .who{color:var(--ink-40);font-size:.85em}
 </style>
 </head>
 <body>
@@ -231,20 +237,6 @@
         <li><b>U</b> is for Upstanding, honorable in all things (Arjun)</li>
         <li><b>A</b> is for Adventurous, first to say yes to anything (Priya)</li>
         <li><b>N</b> is for Nice, pleasant to all you meet (Arjun)</li>
-      </ol>
-      <button class="u-link">Make one like this</button>
-    </article>
-    <article class="spoem">
-      <div class="nm">Maya &amp; Dev</div>
-      <div class="tag">Acrostic · Valentine&#x27;s Day</div>
-      <ol>
-        <li><b>M</b> is for Marvelous, wonderful in every way (Maya)</li>
-        <li><b>D</b> is for Dynamic, energy that moves rooms (Dev)</li>
-        <li><b>A</b> is for Able, potential to achieve big (Maya)</li>
-        <li><b>E</b> is for Enthusiastic, excited by every opportunity (Dev)</li>
-        <li><b>Y</b> is for Youthful, full of energy and cheer (Maya)</li>
-        <li><b>V</b> is for Valiant, brave of heart (Dev)</li>
-        <li><b>A</b> is for Amazing, wonderfully, unmistakably you (Maya)</li>
       </ol>
       <button class="u-link">Make one like this</button>
     </article>

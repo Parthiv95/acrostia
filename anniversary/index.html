@@ -133,6 +133,12 @@
 
   .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
   .skip:focus{left:0}
+
+  /* couple pages: two sheets, wider measure, shorter section */
+  .srow{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:clamp(20px,3vw,44px) !important}
+  .spoem .nm{font-size:clamp(1.45rem,1.8vw,1.7rem)}
+  .spoem ol{font-size:.87rem;line-height:1.64}
+  .spoem ol .who{color:var(--ink-40);font-size:.85em}
 </style>
 </head>
 <body>
@@ -231,20 +237,6 @@
         <li><b>U</b> is for Unique, one of a kind (Arjun)</li>
         <li><b>A</b> is for Attentive, notices what others miss (Priya)</li>
         <li><b>N</b> is for Novel, a fresh take, always (Arjun)</li>
-      </ol>
-      <button class="u-link">Make one like this</button>
-    </article>
-    <article class="spoem">
-      <div class="nm">Maya &amp; Dev</div>
-      <div class="tag">Acrostic · Anniversary</div>
-      <ol>
-        <li><b>M</b> is for Motivated, driven from within (Maya)</li>
-        <li><b>D</b> is for Dazzling, hard to look away from (Dev)</li>
-        <li><b>A</b> is for Attentive, notices what others miss (Maya)</li>
-        <li><b>E</b> is for Energetic, full of life and spirit (Dev)</li>
-        <li><b>Y</b> is for Yearning, always reaching higher (Maya)</li>
-        <li><b>V</b> is for Valued, missed the moment they leave (Dev)</li>
-        <li><b>A</b> is for Admirable, admired by everyone around (Maya)</li>
       </ol>
       <button class="u-link">Make one like this</button>
     </article>
