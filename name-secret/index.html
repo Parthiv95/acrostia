@@ -1,150 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What is your name secret? Reveal the hidden meaning | Acrostia</title>
 <meta name="description" content="Type your name and reveal its secret: the hidden power, lucky number and natural talent your name carries. Free, instant, no sign up.">
-<link rel="canonical" href="https://Parthiv95.github.io/acrostia/name-secret/">
-<meta property="og:title" content="What is your name secret? | Acrostia">
-<meta property="og:description" content="Type your name and reveal the hidden power, lucky number and talent it carries.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<link rel="canonical" href="https://acrostia.example/name-secret/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-body { margin: 0; font-family: Georgia, serif; color: #f3e6e6; background: #520a1a; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 2px, transparent 2px 10px), radial-gradient(ellipse at 50% -10%, #8f2138, #7a1026 55%, #3d0612 100%); background-attachment: fixed; }
-main { max-width: 640px; margin: 0 auto; padding: 40px 22px 60px; }
-.top a { color: #f0d9d9; text-decoration: none; font-family: Verdana, sans-serif; font-size: .9rem; }
-h1 { font-style: italic; font-size: 2.1rem; margin: 6px 0 10px; line-height: 1.25; color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.45); }
-.intro { color: #eccfcf; line-height: 1.7; }
-.tool { background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.22); border-radius: 18px; padding: 24px 20px; margin: 26px 0; }
-.row { display: flex; gap: .6rem; flex-wrap: wrap; }
-.row input { flex: 1 1 220px; background: rgba(255,255,255,.94); border: 0; border-radius: 999px; padding: .85rem 1.2rem; font: 600 1rem Georgia, serif; color: #40101c; }
-.gold { background: linear-gradient(to bottom, #f4b840, #e29e22); color: #241c05; font: 700 1rem Verdana, sans-serif; padding: .85rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
-.gold:hover { transform: translateY(-1px); }
-.chips { margin-top: 14px; }
-.chips p { color: rgba(240,217,217,.65); font-family: Verdana, sans-serif; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 8px; }
-.chip { background: rgba(255,255,255,.1); color: #f0d9d9; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: .35rem .8rem; margin: 0 .3rem .45rem 0; font: 600 .85rem Verdana, sans-serif; cursor: pointer; }
-.chip:hover { background: rgba(255,255,255,.22); }
-.sealed { margin-top: 20px; text-align: center; }
-.seal-btn { display: inline-block; font-size: 2.6rem; line-height: 1; background: none; border: 2px solid rgba(244,184,64,.6); color: #f4b840; border-radius: 50%; width: 5rem; height: 5rem; cursor: pointer; }
-.seal-btn:hover { transform: scale(1.06); }
-.seal-hint { color: rgba(240,217,217,.7); font-style: italic; margin-top: .6rem; }
-.result { margin-top: 20px; background: rgba(255,255,255,.07); border: 1px solid rgba(244,184,64,.4); border-radius: 14px; padding: 20px; line-height: 1.7; display: none; }
-.result.show { display: block; animation: riseIn .5s ease; }
-@keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.result h2 { margin: 0 0 8px; font-style: italic; color: #fff; font-size: 1.3rem; }
-.result .num { color: #f4b840; font-weight: bold; }
-.result .talent { margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,.25); font-style: italic; }
-.about { color: #eccfcf; line-height: 1.7; margin-top: 34px; }
-.about h2 { color: #fff; font-size: 1.35rem; margin: 30px 0 8px; }
-.sample { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-style: italic; line-height: 1.9; color: #f7e8e8; }
-.btn { display: inline-block; background: linear-gradient(to bottom, #f4b840, #e29e22); color: #241c05; text-decoration: none; padding: 14px 26px; border-radius: 999px; font: bold 1rem Verdana, sans-serif; margin: 18px 0; }
-.links { margin-top: 28px; font-size: .95rem; line-height: 2; color: #eccfcf; }
-.links a { color: #f4cf87; }
-.faq dt { color: #fff; font-weight: bold; margin-top: 16px; }
-.faq dd { margin: 6px 0 0; line-height: 1.7; color: #eccfcf; }
+  :root{
+    --ivory:#FFF8F3; --ivory-2:#FBF1E9; --burg:#6B1F2D; --burg-2:#84293A; --gold:#C89A4B; --gold-deep:#8A6420;
+    --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E; --plum:#241826; --ivory-lt:#F6E9E4;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;overflow-x:hidden;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;background:var(--burg);color:#FFF6F0;border:0;border-radius:999px;padding:.7rem 1.3rem;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .25s,transform .25s}
+  .pill:hover{background:var(--burg-2);transform:translateY(-1px)}
+  .pill svg{width:.85rem;height:.85rem}
+  .u-link{font-size:.78rem;font-weight:600;color:var(--burg);border-bottom:1px solid rgba(107,31,45,.35);padding-bottom:.15rem}
+  .eyebrow{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+
+  header{background:rgba(255,248,243,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold-deep)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:#3C2F33;font-weight:500}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(180,140,120,.35);background:rgba(255,255,255,.6);display:grid;place-items:center;color:#5B4A4E;cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
+
+  .crumb{padding:1.2rem 0 .2rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40)}
+  .crumb a:hover{color:var(--burg)}
+  .crumb span{margin:0 .5rem;color:rgba(200,154,75,.6)}
+
+  .seal-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding-block:clamp(10px,1.6vw,22px) clamp(30px,4vw,52px)}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2.1rem,3.8vw,3.4rem);line-height:1.03;letter-spacing:-.03em;margin-top:.85rem}
+  h1 em{font-style:italic;color:var(--burg)}
+  .lede{margin-top:1rem;font-size:.98rem;line-height:1.66;color:var(--ink-60);max-width:42ch}
+  .entry{margin-top:1.5rem;display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem .4rem .4rem 1.2rem;max-width:440px}
+  .entry input{min-width:0;flex:1;border:0;outline:none;background:transparent;font-size:.95rem;color:var(--ink)}
+  .cross{margin-top:1.3rem;display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.8rem}
+  .cross a{color:var(--ink-60);border-bottom:1px solid var(--line-soft);padding-bottom:.15rem}
+  .cross a:hover{color:var(--burg)}
+
+  .letterbox{justify-self:center;width:min(420px,100%)}
+  .env{position:relative;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border:1px solid rgba(200,154,75,.45);padding:clamp(28px,3.6vw,44px) clamp(20px,3vw,34px) clamp(24px,3vw,36px);box-shadow:0 40px 70px -40px rgba(60,30,35,.55);text-align:center;transition:opacity .4s,transform .4s}
+  .env::after{content:"";position:absolute;inset:9px;border:1px solid rgba(200,154,75,.35);pointer-events:none}
+  .env .to{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-40)}
+  .env .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.8rem,4.6vw,3.8rem);color:var(--gold-deep);margin-top:.9rem;line-height:1}
+  .env .rule{width:64px;height:1px;background:rgba(200,154,75,.6);margin:1.1rem auto 0}
+  .env .hint{margin-top:1.2rem;font-size:.82rem;color:var(--ink-60);font-style:italic}
+  .seal{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);width:68px;height:68px;border-radius:999px;background:radial-gradient(circle at 34% 30%,#8E3145,#5E1A27 68%,#4A141F);display:grid;place-items:center;color:rgba(255,240,225,.9);box-shadow:0 10px 22px -10px rgba(94,26,39,.8),0 0 0 5px rgba(94,26,39,.14);cursor:pointer;border:0;transition:transform .25s}
+  .seal:hover{transform:translateX(-50%) scale(1.05)}
+  .seal svg{width:26px;height:26px}
+
+  .revealed{display:none;gap:clamp(14px,1.8vw,20px);grid-template-columns:1fr;width:100%}
+  .revealed.is-on{display:grid}
+  .rev{border:1px solid rgba(200,154,75,.45);background:linear-gradient(180deg,#2E1E31,#281929);padding:1.15rem 1.2rem;position:relative}
+  .rev::before{content:"";position:absolute;top:0;left:1.2rem;right:1.2rem;height:2px;background:var(--gold)}
+  .rev i{font-style:normal;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+  .rev b{display:block;margin-top:.55rem;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.15rem,1.8vw,1.45rem);color:#FBF3EC;line-height:1.2}
+  .rev span{display:block;margin-top:.4rem;font-size:.8rem;line-height:1.55;color:rgba(246,233,228,.62)}
+  .rev .num{font-family:"Great Vibes",cursive;font-size:clamp(2.6rem,4vw,3.4rem);color:var(--gold);font-weight:400}
+
+  .again{margin-top:1.1rem;text-align:center}
+
+  footer{background:var(--burg);color:#F7E4E3;padding:1.1rem 0 1.5rem;margin-top:clamp(18px,2.6vw,34px)}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;flex-wrap:wrap;color:rgba(247,228,227,.8)}
+  .legal a{color:rgba(247,228,227,.85)}
+
+  @media (max-width:900px){
+    nav{display:none}
+    .seal-stage{grid-template-columns:1fr;gap:3rem}
+    .letterbox{order:2}
+    .entry{flex-direction:column;align-items:stretch;border-radius:16px;padding:.55rem;gap:.5rem}
+    .entry input{padding:.55rem .8rem}
+    .entry .pill{width:100%}
+  }
 </style>
 </head>
 <body>
-<main>
-<p class="top"><a href="../">&larr; Back to Acrostia</a>
-</p>
-<h1>What is your name secret?</h1>
-<p class="intro">Every name hides something: a power, a lucky number, a talent the person carrying it may not have noticed yet. Type a name and break the seal. Free, instant, no sign up.</p>
+<a class="skip" href="#main">Skip to content</a>
 
-<section class="tool">
-  <div class="row">
-    <input id="nsInput" maxlength="14" placeholder="Type a name, e.g. Olivia" aria-label="Your name">
-    <button class="gold" id="nsBtn" type="button">Reveal the secret</button>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#samples">Examples</a><a href="../#faq">FAQ</a></nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
   </div>
-  <div class="chips">
-    <p>Try popular names from around the world</p>
-    <button class="chip" type="button">Olivia</button>
-    <button class="chip" type="button">Muhammad</button>
-    <button class="chip" type="button">Emma</button>
-    <button class="chip" type="button">Amelia</button>
-    <button class="chip" type="button">Liam</button>
-    <button class="chip" type="button">Sophia</button>
-    <button class="chip" type="button">Isabella</button>
-    <button class="chip" type="button">Yuki</button>
+</header>
+
+<section class="wrap" id="main">
+  <p class="crumb"><a href="#">Home</a><span>/</span><a href="#">Name Discovery</a><span>/</span>Name secret</p>
+
+  <div class="seal-stage">
+    <div>
+      <p class="eyebrow">Name Discovery · 03 of 03</p>
+      <h1>Every name hides one <em>secret.</em></h1>
+      <p class="lede">An essence, a lucky number, and a talent the owner has probably never admitted to. The same name always hides the same secret. Type one and break the seal.</p>
+      <form class="entry" onsubmit="return false">
+        <input id="nm" type="text" aria-label="Type a name" placeholder="Type a name, e.g. Arjun" value="Arjun" autocomplete="off">
+        <button class="pill" type="submit">Prepare the seal
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <div class="cross">
+        <a href="#">Read the name letter by letter →</a>
+        <a href="#">What the first letter whispers →</a>
+      </div>
+    </div>
+
+    <div class="letterbox">
+      <div class="env" id="env">
+        <p class="to">For the bearer of the name</p>
+        <p class="nm" id="envName">Arjun</p>
+        <div class="rule"></div>
+        <p class="hint">One secret per name. It never changes.</p>
+        <button class="seal" id="sealBtn" aria-label="Break the seal">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+        </button>
+      </div>
+      <div class="revealed" id="revealed">
+        <div class="rev"><i>The essence</i><b id="rEssence">Rain on warm stone</b><span>If this name were a day, this is the weather it would bring with it.</span></div>
+        <div class="rev"><i>The lucky number</i><span class="num" id="rNum">7</span><span>Count it in dates, seats and queues. It keeps appearing for a reason.</span></div>
+        <div class="rev"><i>The hidden talent</i><b id="rTalent">reading a room in one glance</b><span>The one they deny having, and everyone else has watched them use.</span></div>
+        <div class="again"><button class="u-link" id="again" style="background:none;border:0;cursor:pointer">Seal another name</button></div>
+      </div>
+    </div>
   </div>
-  <div class="sealed" id="nsSealed">
-    <button class="seal-btn" id="nsSeal" type="button" aria-label="Break the seal and reveal the secret">&#128274;</button>
-    <p class="seal-hint">or type a name above and press Reveal</p>
-  </div>
-  <div class="result" id="nsOut" aria-live="polite"></div>
 </section>
 
-<section class="about">
-<h2>Hidden in plain sight</h2>
-<p>A name is the word a person hears most often in their life, said by the people who know them best. Small wonder people have always suspected it carries something extra: numerologists reduce it to a number, astrologers weigh it against the stars, and the rest of us just notice that certain names suit their owners perfectly.</p>
-<div class="sample">The secret in EMMA: The Heart.<br>Lucky number 7. Hidden talent: you make strangers feel like old friends in minutes.</div>
-<p>The reading here is deterministic, which is a fancy way of saying the same name always reveals the same secret. That makes it shareable: compare yours with a partner, check the baby name shortlist, settle the group chat.</p>
-<h2>Questions people ask</h2>
-<dl class="faq">
-<dt>Will the secret change?</dt>
-<dd>No. The same name always reveals the same secret, so you and your friends see matching readings for matching names.</dd>
-<dt>Is my name stored anywhere?</dt>
-<dd>No. Everything happens in your browser: nothing is typed to a server, nothing is saved.</dd>
-<dt>Can I put the secret on a card?</dt>
-<dd>Yes. The <a href="../">Acrostia studio</a> builds a full poem from the name, on a themed card you can download, print or send on WhatsApp.</dd>
-</dl>
-</section>
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
 
-<a class="btn" href="../">Make your name poem</a>
-<p class="links"><strong>More name fun:</strong> <a href="../name-meaning/">What does your name mean?</a> <a href="../birth-date/">What does your birth date mean?</a> <a href="../first-letter/">First letter of your name meaning</a></p>
-</main>
 <script>
 (function () {
-  var E = [
-    ["1", "The Leader", "Your name carries the number 1: independence, first steps, and the courage to walk ahead even when nobody follows yet."],
-    ["2", "The Peacemaker", "Your name carries the number 2: calm, intuition, and the rare gift of making both sides feel heard."],
-    ["3", "The Spark", "Your name carries the number 3: words, humor and color. Rooms rearrange themselves when you walk in."],
-    ["4", "The Builder", "Your name carries the number 4: patience, craft and the stubbornness to make things last."],
-    ["5", "The Free Spirit", "Your name carries the number 5: movement, curiosity and a restlessness that always finds the interesting road."],
-    ["6", "The Heart", "Your name carries the number 6: loyalty, warmth and the gravity that holds a family or a friend group together."],
-    ["7", "The Seeker", "Your name carries the number 7: depth, questions and a rich quiet inner world that few are allowed into."],
-    ["8", "The Achiever", "Your name carries the number 8: ambition, strategy and the drive to build something with your name on it."],
-    ["9", "The Old Soul", "Your name carries the number 9: idealism, generosity and wisdom that seems to have arrived before you did."]
-  ];
-  var T = [
-    "you can read a room before anyone in it speaks",
-    "you make strangers feel like old friends in minutes",
-    "you turn chaos into plans without breaking stride",
-    "you remember every small detail people tell you, and they feel it",
-    "you find the funny in the heaviest week",
-    "you say the thing everyone was thinking, kindly"
-  ];
-  var input = document.getElementById("nsInput"), btn = document.getElementById("nsBtn"), out = document.getElementById("nsOut"), sealed = document.getElementById("nsSealed");
-  function reduce(n) { while (n > 9) { n = String(n).split("").reduce(function (a, d) { return a + Number(d); }, 0); } return n; }
-  function reveal() {
-    var name = input.value.trim().replace(/[^a-zA-Z]/g, "");
-    if (!name) { input.focus(); input.placeholder = "Type a name first"; return; }
-    var up = name.toUpperCase();
-    var sum = up.split("").reduce(function (a, L) { return a + (L.charCodeAt(0) - 64); }, 0);
-    var e = E[reduce(sum) - 1];
-    var lucky = reduce(sum + 7);
-    var talent = T[(up.charCodeAt(0) - 65) % T.length];
-    document.getElementById("nsSeal").textContent = "\u{1F513}";
-    sealed.querySelector(".seal-hint").textContent = "The seal is broken. Type another name to seal it again.";
-    out.innerHTML =
-      "<h2>The secret in " + up + "</h2>" +
-      "<p><span class=\"num\">" + e[0] + ".</span> " + e[2] + "</p>" +
-      "<p>Lucky number <span class=\"num\">" + lucky + "</span>. Hidden talent: " + talent + ".</p>" +
-      "<p style=\"margin-bottom:0;\"><a href=\"../\" style=\"color:#f4cf87;\">Turn " + name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() + " into a poem &rarr;</a></p>";
-    out.classList.add("show");
+  var ESSENCE = ["Cinnamon and old paper","Rain on warm stone","A library at dusk","Woodsmoke and citrus","Cold rivers, warm coats","Bread cooling on a sill","Thunder two hills away","Ink still wet on the page","A lantern in a long hallway","September light","A train window in October","Salt air and clean towels"];
+  var TALENT = ["finding the four-leaf one","remembering birthdays without a calendar","making strangers talk","giving the perfect gift twice","reading a room in one glance","falling asleep anywhere","knowing the word you meant","arriving exactly when needed","making leftovers taste deliberate","whistling a room calm","naming that song in two notes","packing a car perfectly"];
+  var nm = document.getElementById('nm'), envName = document.getElementById('envName'),
+      env = document.getElementById('env'), revealed = document.getElementById('revealed'),
+      rEssence = document.getElementById('rEssence'), rNum = document.getElementById('rNum'),
+      rTalent = document.getElementById('rTalent'), sealBtn = document.getElementById('sealBtn'),
+      again = document.getElementById('again');
+  function hash(s) {
+    var h = 7;
+    for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) >>> 0; }
+    return h;
   }
-  btn.addEventListener("click", reveal);
-  document.getElementById("nsSeal").addEventListener("click", function () {
-    if (!input.value.trim()) input.value = "Emma";
-    reveal();
+  function current() { return nm.value.trim() || 'Arjun'; }
+  function prep() { envName.textContent = current(); }
+  function open_() {
+    var h = hash(current().toLowerCase());
+    rEssence.textContent = ESSENCE[h % ESSENCE.length];
+    rNum.textContent = (h % 9) + 1;
+    rTalent.textContent = TALENT[(h >> 3) % TALENT.length];
+    env.style.display = 'none';
+    revealed.classList.add('is-on');
+  }
+  nm.addEventListener('input', function () {
+    prep();
+    env.style.display = '';
+    revealed.classList.remove('is-on');
   });
-  input.addEventListener("keydown", function (e) { if (e.key === "Enter") reveal(); });
-  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
-    c.addEventListener("click", function () { input.value = c.textContent; reveal(); });
+  sealBtn.addEventListener('click', open_);
+  again.addEventListener('click', function () {
+    env.style.display = '';
+    revealed.classList.remove('is-on');
   });
+  prep();
+  if (new URLSearchParams(location.search).get("open") === "1") open_();
 })();
 </script>
-<script src="../theme.js" defer></script>
+
 </body>
 </html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acrostia — The Press</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FFF8F3; --ivory-2:#FBF1E9; --blush:#FBE3E8; --blush-2:#F6D7DE;
+    --burg:#6B1F2D; --burg-2:#84293A; --gold:#C89A4B; --gold-deep:#8A6420;
+    --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;overflow-x:hidden;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p,figure{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;background:var(--burg);color:#FFF6F0;border:0;border-radius:999px;padding:.68rem 1.3rem;font-size:.82rem;font-weight:600;cursor:pointer;box-shadow:0 8px 18px -10px rgba(107,31,45,.7);transition:background .25s,transform .25s}
+  .pill:hover{background:var(--burg-2);transform:translateY(-1px)}
+  .pill svg{width:.85rem;height:.85rem}
+  .u-link{border:0;background:none;font-size:.78rem;font-weight:600;color:var(--burg);cursor:pointer;padding:0;border-bottom:1px solid rgba(107,31,45,.35);padding-bottom:.15rem}
+  .u-link:hover{border-color:var(--burg)}
+  .eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+
+  header{background:rgba(255,248,243,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600;letter-spacing:-.02em}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold-deep)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:#3C2F33;font-weight:500}
+  nav a:hover{color:var(--burg)}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(180,140,120,.35);background:rgba(255,255,255,.6);display:grid;place-items:center;color:#5B4A4E;cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
+
+  /* ---------- title row ---------- */
+  .titlerow{display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;padding-block:1.4rem 0;flex-wrap:wrap}
+  .titlerow h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.5rem,2.4vw,2.1rem);letter-spacing:-.025em}
+  .titlerow h1 em{font-style:italic;color:var(--burg)}
+  .titlerow .eyebrow{margin-bottom:.3rem}
+
+  /* ---------- the press ---------- */
+  .press{position:relative}
+  .rail{display:flex;justify-content:center;gap:clamp(1rem,3vw,3rem);padding:1.1rem .5rem 1rem;border-bottom:1px solid var(--line-soft);flex-wrap:nowrap;overflow-x:auto}
+  .r-step{appearance:none;border:0;background:none;cursor:pointer;display:flex;align-items:baseline;gap:.5rem;color:var(--ink-40);white-space:nowrap;padding:0}
+  .r-step .n{font-family:Fraunces,Georgia,serif;font-style:italic;font-size:1.05rem;color:var(--gold-deep);transition:color .2s}
+  .r-step .t{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .r-step.is-on{color:var(--burg)}
+  .r-step.is-on .n{color:var(--burg)}
+  .r-step.is-done{color:var(--ink-60)}
+  .r-step.is-done .n{color:var(--gold-deep)}
+
+  .bed{position:relative;background:
+      radial-gradient(120% 90% at 50% 0%,var(--blush) 0%,var(--blush-2) 58%,var(--ivory) 100%);
+      border-bottom:1px solid var(--line-soft);
+      display:grid;justify-items:center;padding:clamp(28px,4.5vw,64px) 18px clamp(56px,6vw,84px);perspective:1500px}
+  .bed .grain{position:absolute;inset:0;background-image:url('../assets/floral/plate-900.jpg');background-size:cover;background-position:50% 30%;opacity:.05;mix-blend-mode:multiply;pointer-events:none}
+  .card-wrap{width:min(430px,92vw);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;will-change:transform;position:relative;z-index:1}
+  .card{background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(26px,3.2vw,42px) clamp(18px,2.4vw,34px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 40px 70px -38px rgba(96,44,54,.55);position:relative;transform-style:preserve-3d}
+  .card::after{content:"";position:absolute;inset:9px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
+  .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.7rem,4.4vw,3.6rem);text-align:center;color:var(--gold-deep);line-height:1;transform:translateZ(24px)}
+  .card .occ-line{margin-top:.55rem;text-align:center;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(16px)}
+  .card .rule{width:58px;height:1px;background:rgba(200,154,75,.6);margin:.9rem auto 0;transform:translateZ(14px)}
+  .card ul{list-style:none;margin:1.2rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:clamp(.94rem,1.2vw,1.06rem);line-height:1.85;color:#3B2B2E;text-align:center;transform:translateZ(10px)}
+  .card ul b{font-weight:600;color:var(--burg);margin-right:.3em}
+  .card .heart{display:block;width:13px;margin:1.1rem auto 0;color:#C9557B;transform:translateZ(8px)}
+  .bed-cap{position:absolute;bottom:1.05rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);z-index:1;white-space:nowrap}
+
+  /* ---------- bench ---------- */
+  .bench{position:relative;z-index:2;max-width:1080px;margin:-34px auto 0;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 44px -34px rgba(107,31,45,.5);padding:.95rem clamp(14px,2vw,26px);display:none;align-items:center;flex-wrap:wrap;gap:.7rem 1rem}
+  .bench.is-on{display:flex}
+  .bench .lbl{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40);font-weight:600;margin-right:.2rem}
+  .bin{border:1px solid rgba(180,140,120,.35);border-radius:10px;background:var(--ivory);padding:.55rem .8rem;font-size:.95rem;font-family:Fraunces,Georgia,serif;color:var(--ink);outline:none;min-width:0}
+  .bin:focus{border-color:var(--gold)}
+  .bin::placeholder{color:rgba(44,32,36,.32);font-style:italic}
+  .chip{appearance:none;border:1px solid rgba(180,140,120,.4);background:#fff;border-radius:999px;padding:.42rem .85rem;font-size:.8rem;color:#4A3A3E;cursor:pointer;transition:all .2s}
+  .chip:hover{border-color:var(--gold)}
+  .chip.is-on{background:var(--burg);border-color:var(--burg);color:#FFF6F0}
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;background:var(--ivory);border:1px solid rgba(180,140,120,.3);border-radius:11px;padding:.3rem}
+  .seg button{appearance:none;border:0;background:transparent;border-radius:8px;padding:.5rem .9rem;font-size:.84rem;font-weight:600;color:var(--ink-60);cursor:pointer}
+  .seg button.is-on{background:#fff;color:var(--burg);box-shadow:0 4px 12px -8px rgba(107,31,45,.5)}
+  .sw{width:2.1rem;height:2.1rem;border-radius:999px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(180,140,120,.4);cursor:pointer}
+  .sw.is-on{box-shadow:0 0 0 2px var(--burg)}
+  .fopt{appearance:none;background:#fff;border:1px solid rgba(180,140,120,.35);border-radius:9px;padding:.4rem .7rem;cursor:pointer;font-size:1.05rem}
+  .fopt.is-on{border-color:var(--burg);box-shadow:0 0 0 1px var(--burg)}
+  .bench .spacer{flex:1}
+  .bench .step-cta{display:flex;align-items:center;gap:.8rem;margin-left:auto}
+  .quiet{border:0;background:none;color:var(--ink-40);font-size:.76rem;font-weight:600;cursor:pointer;padding:.4rem 0}
+  .quiet:hover{color:var(--burg)}
+  .upl{appearance:none;border:1px dashed rgba(180,140,120,.55);border-radius:9px;background:var(--ivory);padding:.5rem .8rem;font-size:.78rem;color:var(--ink-40);cursor:pointer}
+
+  .hintrow{max-width:1080px;margin:.8rem auto 0;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:0 clamp(4px,1vw,10px)}
+  .hintrow p{font-size:.8rem;color:var(--ink-60)}
+  .hintrow .progress{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;white-space:nowrap}
+
+  .trust{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding-block:1.05rem;display:flex;gap:clamp(14px,2.4vw,40px);flex-wrap:wrap;justify-content:center;font-size:.78rem;color:var(--ink-60);margin-top:clamp(26px,3vw,40px)}
+  .trust span{display:inline-flex;align-items:center;gap:.45rem}
+  .trust svg{width:.95rem;height:.95rem;color:var(--gold-deep)}
+
+  footer{background:var(--burg);color:#F7E4E3;padding:1.2rem 0 1.6rem;margin-top:clamp(24px,3vw,40px)}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;color:rgba(247,228,227,.8);flex-wrap:wrap}
+  .legal a{color:rgba(247,228,227,.85)}
+
+  @media (max-width:900px){
+    nav{display:none}
+    .rail{justify-content:flex-start;gap:1.3rem;padding-left:clamp(18px,3vw,44px)}
+    .bench{margin-top:-26px}
+    .bench .step-cta{margin-left:0;width:100%}
+    .bench .step-cta .pill{flex:1}
+    .hintrow{flex-direction:column;align-items:flex-start;gap:.3rem}
+  }
+  @media (prefers-reduced-motion:reduce){ .card-wrap{transition:none} }
+
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+</style>
+</head>
+<body>
+<a class="skip" href="#"bed"">Skip to content</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#samples">Examples</a><a href="../#faq">FAQ</a></nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap titlerow">
+  <div>
+    <p class="eyebrow">The Poetry Studio</p>
+    <h1>Set a name, take a <em>poem.</em></h1>
+  </div>
+  <a class="u-link" href="#">See finished examples</a>
+</div>
+
+<section class="press">
+  <div class="rail" role="tablist">
+    <button class="r-step is-on" data-step="1"><span class="n">1</span><span class="t">Name</span></button>
+    <button class="r-step" data-step="2"><span class="n">2</span><span class="t">Occasion</span></button>
+    <button class="r-step" data-step="3"><span class="n">3</span><span class="t">Voice</span></button>
+    <button class="r-step" data-step="4"><span class="n">4</span><span class="t">Paper</span></button>
+    <button class="r-step" data-step="5"><span class="n">5</span><span class="t">Print</span></button>
+  </div>
+
+  <div class="bed" id="bed">
+    <div class="grain"></div>
+    <div class="card-wrap" id="cardWrap">
+      <div class="card" id="cardEl">
+        <div class="nm" id="cName">Noah</div>
+        <div class="occ-line" id="cOcc">For a birthday</div>
+        <div class="rule"></div>
+        <ul id="cPoem">
+          <li><b>N</b>ever too busy for anyone,</li>
+          <li><b>O</b>pen hearted and open handed,</li>
+          <li><b>A</b>lways the warmest one in the room,</li>
+          <li><b>H</b>eart first, always.</li>
+        </ul>
+        <svg class="heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-9.4-9.1C1.2 8.2 3.4 5 6.8 5c2 0 3.7 1.1 4.5 2.7l.7 1.4.7-1.4C13.5 6.1 15.2 5 17.2 5c3.4 0 5.6 3.2 4.2 6.9C19.5 16.3 12 21 12 21z"/></svg>
+      </div>
+    </div>
+    <p class="bed-cap" id="bedCap">Live card · gentle voice</p>
+  </div>
+
+  <div class="wrap">
+    <div class="bench is-on" data-bench="1">
+      <span class="lbl">Name</span>
+      <input class="bin" id="nm" type="text" aria-label="Their name" placeholder="Noah" value="Noah" style="width:11rem" autocomplete="off">
+      <span class="lbl">Second</span>
+      <input class="bin" id="nm2" type="text" aria-label="Second name, for couples" placeholder="for couples" style="width:9.5rem" autocomplete="off">
+      <span class="lbl">From</span>
+      <input class="bin" id="from" type="text" aria-label="From, who sends the card" placeholder="who sends it" style="width:9.5rem" autocomplete="off">
+      <div class="step-cta"><button class="pill" data-goto="2">Occasion <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+
+    <div class="bench" data-bench="2">
+      <span class="lbl">Occasion</span>
+      <button class="chip is-on">Birthday</button><button class="chip">Wedding</button><button class="chip">Anniversary</button><button class="chip">Diwali</button><button class="chip">Christmas</button><button class="chip">Eid</button><button class="chip">New baby</button><button class="chip">Graduation</button><button class="chip">Get well</button><button class="chip">Thank you</button>
+      <div class="step-cta"><button class="quiet" data-goto="1">Back</button><button class="pill" data-goto="3">Voice <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+
+    <div class="bench" data-bench="3">
+      <span class="lbl">Form</span>
+      <div class="seg"><button class="is-on">Acrostic</button><button>Rhyming</button></div>
+      <span class="lbl">Voice</span>
+      <button class="chip v is-on">Gentle</button><button class="chip v">Playful</button><button class="chip v">Heartfelt</button><button class="chip v">Grand</button>
+      <div class="step-cta"><button class="quiet" data-goto="2">Back</button><button class="pill" data-goto="4">Paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+
+    <div class="bench" data-bench="4">
+      <span class="lbl">Tone</span>
+      <button class="sw is-on" style="background:#FFFDF8"></button>
+      <button class="sw" style="background:#FBE3E8"></button>
+      <button class="sw" style="background:#EFD49A"></button>
+      <button class="sw" style="background:#D9C7B2"></button>
+      <span class="lbl">Script</span>
+      <button class="fopt is-on" style="font-family:'Great Vibes',cursive">Noah</button>
+      <button class="fopt" style="font-family:Fraunces,serif;font-style:italic">Noah</button>
+      <button class="fopt" data-cap="1" style="font-family:Fraunces,serif;font-weight:600;letter-spacing:.05em">NOAH</button>
+      <span class="lbl">Photo</span>
+      <button class="upl">Upload yours</button>
+      <div class="step-cta"><button class="quiet" data-goto="3">Back</button><button class="pill" data-goto="5">Print <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+
+    <div class="bench" data-bench="5">
+      <button class="pill">Download as picture</button>
+      <button class="quiet">Print</button>
+      <button class="quiet">Copy text</button>
+      <button class="quiet">Copy link</button>
+      <button class="quiet">WhatsApp</button>
+      <div class="step-cta"><button class="quiet" data-goto="4">Back</button><button class="u-link">Start over</button></div>
+    </div>
+
+    <div class="hintrow">
+      <p id="hint">One name or two for a couple. The card rewrites as you type.</p>
+      <span class="progress" id="prog">Step 1 of 5</span>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg>Names never leave your browser</span>
+  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M4 19h16"/></svg>Free, no watermark</span>
+  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>About twenty seconds</span>
+</section>
+
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var LINES = {
+    A:"lways the warmest one in the room,", B:"rings the party wherever you go,", C:"alm in a way that settles everyone,",
+    D:"oes the small things that matter most,", E:"nergetic and bright,", F:"unny without even trying,",
+    G:"enerous with time and with praise,", H:"eart first, always,", I:"nfectiously curious,",
+    J:"oy seems to follow you around,", K:"ind in the ways that count,", L:"ights up a dull afternoon,",
+    M:"aking days feel light,", N:"ever too busy for anyone,", O:"pen hearted and open handed,",
+    P:"atient beyond all reason,", Q:"uirky in the best possible way,", R:"are and quietly remarkable,",
+    S:"teadier than the tide,", T:"he one everybody calls first,", U:"nfailingly kind,", V:"ery easy to love,",
+    W:"arms every room you enter,", X:" marks the spot, and so do you,", Y:"ou make it look effortless,", Z:"estful and wild at once."
+  };
+  var HINTS = {
+    1:"One name or two for a couple. The card rewrites as you type.",
+    2:"Sixty occasions in the full list. Ten favourites here.",
+    3:"Acrostic reads down the name. Rhyming carries it.",
+    4:"Paper tone, the script for the name, or your own photograph.",
+    5:"Greeting-card size, no watermark, yours to keep."
+  };
+  var name = document.getElementById('nm'), cName = document.getElementById('cName'),
+      cPoem = document.getElementById('cPoem'), cOcc = document.getElementById('cOcc'),
+      bedCap = document.getElementById('bedCap'), hint = document.getElementById('hint'),
+      prog = document.getElementById('prog');
+  var steps = document.querySelectorAll('.r-step'), benches = document.querySelectorAll('.bench'),
+      occs = document.querySelectorAll('[data-bench="2"] .chip'), voices = document.querySelectorAll('.v'),
+      gotos = document.querySelectorAll('[data-goto]');
+  var occ = 'a birthday', voice = 'gentle', cur = 1;
+
+  function poemFor(n) {
+    var out = '', letters = (n || 'Noah').replace(/[^a-z]/gi, '').slice(0, 4).split('');
+    if (!letters.length) letters = ['N','o','a','h'];
+    letters.forEach(function (L) {
+      var line = LINES[L.toUpperCase()] || 'o very easy to love,';
+      out += '<li><b>' + L.toUpperCase() + '</b>' + line.slice(1) + '</li>';
+    });
+    return out;
+  }
+  function render() {
+    var v = name.value.trim() || 'Noah';
+    cName.textContent = v;
+    cPoem.innerHTML = poemFor(v);
+    cOcc.textContent = 'For ' + occ;
+    bedCap.textContent = 'Live card · ' + voice + ' voice';
+  }
+  name.addEventListener('input', render);
+  name.addEventListener('input', function () {
+    var v = name.value.trim() || 'Noah';
+    document.querySelectorAll('.fopt').forEach(function (f) { f.textContent = f.dataset.cap === '1' ? v.toUpperCase() : v; });
+  });
+  occs.forEach(function (c) { c.addEventListener('click', function () {
+    occs.forEach(function (x) { x.classList.remove('is-on'); });
+    c.classList.add('is-on'); occ = c.textContent.toLowerCase(); render();
+  }); });
+  voices.forEach(function (c) { c.addEventListener('click', function () {
+    voices.forEach(function (x) { x.classList.remove('is-on'); });
+    c.classList.add('is-on'); voice = c.textContent.toLowerCase(); render();
+  }); });
+  function goStep(n) {
+    cur = n;
+    steps.forEach(function (b, i) {
+      b.classList.toggle('is-on', i === n - 1);
+      b.classList.toggle('is-done', i < n - 1);
+    });
+    benches.forEach(function (s) { s.classList.toggle('is-on', +s.dataset.bench === n); });
+    hint.textContent = HINTS[n];
+    prog.textContent = 'Step ' + n + ' of 5';
+  }
+  steps.forEach(function (b) { b.addEventListener('click', function () { goStep(+b.dataset.step); }); });
+  gotos.forEach(function (b) { b.addEventListener('click', function () { goStep(+b.dataset.goto); }); });
+  var qstep = +new URLSearchParams(location.search).get('step');
+  if (qstep >= 1 && qstep <= 5) goStep(qstep);
+
+  var bed = document.getElementById('bed'), wrap = document.getElementById('cardWrap');
+  var pose = new URLSearchParams(location.search).get('pose');
+  var fine = matchMedia('(pointer:fine)').matches;
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (pose === 'tilt') { wrap.style.setProperty('--rx', '7deg'); wrap.style.setProperty('--ry', '-10deg'); }
+  if (!fine || reduced || pose) return;
+  var raf, t0 = Date.now();
+  function idle() {
+    var t = (Date.now() - t0) / 1000;
+    wrap.style.setProperty('--rx', (Math.sin(t * .6) * 2).toFixed(2) + 'deg');
+    wrap.style.setProperty('--ry', (Math.cos(t * .45) * 2.6).toFixed(2) + 'deg');
+    raf = requestAnimationFrame(idle);
+  }
+  raf = requestAnimationFrame(idle);
+  bed.addEventListener('pointermove', function (e) {
+    cancelAnimationFrame(raf);
+    var r = bed.getBoundingClientRect();
+    wrap.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
+    wrap.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
+  });
+  bed.addEventListener('pointerleave', function () { cancelAnimationFrame(raf); t0 = Date.now(); raf = requestAnimationFrame(idle); });
+})();
+</script>
+
+</body>
+</html>

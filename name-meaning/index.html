@@ -1,129 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What does your name mean? Free name meaning reading | Acrostia</title>
 <meta name="description" content="Type any name and get a free letter-by-letter meaning reading: what each letter of your name says about you. Instant, no sign up.">
-<link rel="canonical" href="https://Parthiv95.github.io/acrostia/name-meaning/">
-<meta property="og:title" content="What does your name mean? | Acrostia">
-<meta property="og:description" content="Free letter-by-letter name meaning reading. Type a name, learn what it says about you.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://acrostia.example/name-meaning/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-body { margin: 0; font-family: Georgia, serif; color: #3A3A3A; background: #14101e; background-image: radial-gradient(1px 1px at 18% 12%, rgba(255,255,255,.8), transparent 60%), radial-gradient(1.5px 1.5px at 72% 8%, rgba(255,255,255,.7), transparent 60%), radial-gradient(1px 1px at 42% 30%, rgba(255,255,255,.5), transparent 60%), radial-gradient(1.5px 1.5px at 88% 38%, rgba(255,255,255,.6), transparent 60%), radial-gradient(1px 1px at 8% 52%, rgba(255,255,255,.5), transparent 60%), radial-gradient(ellipse at 70% 10%, #2a1f3f, transparent 60%), radial-gradient(ellipse at 20% 80%, #241b38, transparent 55%), linear-gradient(#14101e, #1a1428); background-attachment: fixed; }
-main { max-width: 640px; margin: 0 auto; padding: 40px 22px 60px; }
-.top a { color: #f3e9dc; text-decoration: none; font-family: Verdana, sans-serif; font-size: .9rem; }
-h1 { color: #f7f2e4; font-size: 2.1rem; margin: 6px 0 10px; line-height: 1.2; }
-.script { font-family: "Great Vibes", cursive; font-size: 2.6rem; color: #f4b840; display: block; line-height: 1.1; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
-.intro { color: #cfc8de; line-height: 1.7; }
-.tool { background: rgba(255,255,255,.06); border: 1px solid rgba(244,184,64,.35); border-radius: 18px; padding: 24px 20px; margin: 26px 0; backdrop-filter: blur(4px); }
-.row { display: flex; gap: .6rem; flex-wrap: wrap; }
-.row input { flex: 1 1 220px; background: rgba(255,255,255,.92); border: 0; border-radius: 999px; padding: .85rem 1.2rem; font: 600 1rem Georgia, serif; color: #241c30; }
-.gold { display: inline-flex; align-items: center; gap: .5rem; background: linear-gradient(to bottom, #f4b840, #e29e22); color: #241c05; font: 700 1rem Verdana, sans-serif; padding: .85rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
-.gold:hover { transform: translateY(-1px); }
-.chips { margin-top: 14px; }
-.chips p { color: #a99fc4; font-family: Verdana, sans-serif; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 8px; }
-.chip { background: rgba(244,184,64,.14); color: #f4cf87; border: 1px solid rgba(244,184,64,.4); border-radius: 999px; padding: .35rem .8rem; margin: 0 .35rem .45rem 0; font: 600 .85rem Verdana, sans-serif; cursor: pointer; }
-.chip:hover { background: rgba(244,184,64,.28); }
-.result { margin-top: 20px; }
-.letter-line { display: flex; align-items: baseline; gap: .8rem; padding: .55rem 0; border-bottom: 1px dashed rgba(255,255,255,.14); }
-.letter-line .l { font-family: "Great Vibes", cursive; font-size: 1.9rem; color: #f4b840; min-width: 1.4em; text-align: center; }
-.letter-line .w { color: #f7f2e4; font-weight: bold; }
-.letter-line .d { color: #b7aed0; font-size: .95rem; }
-.verdict { margin-top: 18px; background: rgba(244,184,64,.1); border: 1px solid rgba(244,184,64,.35); border-radius: 12px; padding: 14px 16px; color: #f0e8d8; line-height: 1.65; font-style: italic; }
-.about { color: #b9b1ce; line-height: 1.7; margin-top: 34px; }
-.about h2 { color: #f7f2e4; font-size: 1.35rem; margin: 30px 0 8px; }
-.sample { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-style: italic; line-height: 1.9; color: #ddd5ec; }
-.btn { display: inline-block; background: linear-gradient(to bottom, #f4b840, #e29e22); color: #241c05; text-decoration: none; padding: 14px 26px; border-radius: 999px; font: bold 1rem Verdana, sans-serif; margin: 18px 0; }
-.links { margin-top: 28px; font-size: .95rem; line-height: 2; color: #cfc8de; }
-.links a { color: #f4cf87; }
-.faq dt { color: #f0e8d8; font-weight: bold; margin-top: 16px; }
-.faq dd { margin: 6px 0 0; line-height: 1.7; color: #b9b1ce; }
+  :root{
+    --ivory:#FFF8F3; --ivory-2:#FBF1E9; --burg:#6B1F2D; --gold:#C89A4B; --gold-deep:#8A6420;
+    --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E; --plum:#241826; --ivory-lt:#F6E9E4;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;overflow-x:hidden;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;background:var(--burg);color:#FFF6F0;border:0;border-radius:999px;padding:.7rem 1.3rem;font-size:.82rem;font-weight:600;cursor:pointer}
+  .pill:hover{background:#84293A}
+  .pill svg{width:.85rem;height:.85rem}
+  .u-link{font-size:.78rem;font-weight:600;color:var(--burg);border-bottom:1px solid rgba(107,31,45,.35);padding-bottom:.15rem}
+  .eyebrow{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+
+  header{background:rgba(255,248,243,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold-deep)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:#3C2F33;font-weight:500}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(180,140,120,.35);background:rgba(255,255,255,.6);display:grid;place-items:center;color:#5B4A4E;cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
+
+  .crumb{padding:1.2rem 0 .2rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40)}
+  .crumb a:hover{color:var(--burg)}
+  .crumb span{margin:0 .5rem;color:rgba(200,154,75,.6)}
+
+  .sheet{padding-block:clamp(10px,1.6vw,22px) clamp(26px,3.4vw,46px)}
+  .headrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.6rem;align-items:end}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2.1rem,3.8vw,3.3rem);line-height:1.03;letter-spacing:-.03em;margin-top:.85rem}
+  h1 em{font-style:italic;color:var(--burg)}
+  .lede{margin-top:1rem;font-size:.98rem;line-height:1.64;color:var(--ink-60);max-width:44ch}
+  .entry{margin-top:1.5rem;display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem .4rem .4rem 1.2rem;max-width:440px}
+  .entry input{min-width:0;flex:1;border:0;outline:none;background:transparent;font-size:.95rem;color:var(--ink)}
+  .bigname{font-family:"Great Vibes",cursive;font-size:clamp(3.4rem,7vw,6rem);color:var(--gold-deep);line-height:1;text-align:right}
+
+  .letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:clamp(10px,1.4vw,18px);margin-top:clamp(22px,3vw,38px)}
+  .cell{border:1px solid var(--line);background:#fff;padding:1rem 1rem .9rem;position:relative}
+  .cell b{display:grid;place-items:center;width:2.4rem;height:2.4rem;border:1px solid rgba(200,154,75,.5);background:linear-gradient(160deg,#FFFEFA,#F6EDDF);font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.2rem}
+  .cell span{display:block;margin-top:.55rem;font-size:.78rem;line-height:1.5;color:var(--ink-60)}
+
+  .verdict{background:var(--plum);color:var(--ivory-lt);padding-block:clamp(30px,4vw,52px)}
+  .verdict .eyebrow{color:var(--gold)}
+  .verdict h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.5rem,2.4vw,2.1rem);letter-spacing:-.02em;margin-top:.8rem;color:#FBF3EC}
+  .verdict h2 em{font-style:italic;color:var(--gold)}
+  .vgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,36px);margin-top:clamp(20px,2.6vw,32px);border-top:1px solid rgba(200,154,75,.35)}
+  .vcell{padding-top:1.1rem}
+  .vcell i{font-style:normal;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+  .vcell b{display:block;margin-top:.5rem;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.15rem;color:#FBF3EC}
+  .vcell span{display:block;margin-top:.4rem;font-size:.84rem;line-height:1.6;color:rgba(246,233,228,.66)}
+  .vfoot{margin-top:clamp(20px,2.6vw,30px);display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+  .vfoot .u-link{color:var(--gold);border-color:rgba(200,154,75,.5)}
+
+  .bridge{padding-block:clamp(26px,3.4vw,44px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.6rem;align-items:center}
+  .bridge h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em}
+  .bridge h2 em{font-style:italic;color:var(--burg)}
+
+  footer{background:var(--burg);color:#F7E4E3;padding:1.1rem 0 1.5rem;margin-top:clamp(18px,2.6vw,34px)}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;flex-wrap:wrap;color:rgba(247,228,227,.8)}
+  .legal a{color:rgba(247,228,227,.85)}
+
+  @media (max-width:900px){
+    nav{display:none}
+    .headrow{grid-template-columns:1fr}
+    .bigname{text-align:left}
+    .vgrid{grid-template-columns:1fr}
+    .bridge{grid-template-columns:1fr}
+    .entry{flex-direction:column;align-items:stretch;border-radius:16px;padding:.55rem;gap:.5rem}
+    .entry input{padding:.55rem .8rem}
+    .entry .pill{width:100%}
+  }
 </style>
 </head>
 <body>
-<main>
-<p class="top"><a href="../">&larr; Back to Acrostia</a></p>
-<h1><span class="script">Your name?</span> What does your name mean?</h1>
-<p class="intro">Every name carries a hidden reading. Type your name and Acrostia spells out what each letter says about you, letter by letter, the way classic name-meaning books do. Free, instant, no sign up.</p>
+<a class="skip" href="#main">Skip to content</a>
 
-<section class="tool" aria-label="Name meaning tool">
-  <div class="row">
-    <input id="nmInput" maxlength="14" placeholder="Type a name, e.g. Emma" aria-label="Your name">
-    <button class="gold" id="nmBtn" type="button">What does it mean?</button>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#samples">Examples</a><a href="../#faq">FAQ</a></nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
   </div>
-  <div class="chips">
-    <p>Try popular names from around the world</p>
-    <button class="chip" type="button">Olivia</button>
-    <button class="chip" type="button">Muhammad</button>
-    <button class="chip" type="button">Emma</button>
-    <button class="chip" type="button">Amelia</button>
-    <button class="chip" type="button">Liam</button>
-    <button class="chip" type="button">Sophia</button>
-    <button class="chip" type="button">Isabella</button>
-    <button class="chip" type="button">Yuki</button>
+</header>
+
+<section class="wrap" id="main">
+  <p class="crumb"><a href="#">Home</a><span>/</span><a href="#">Name Discovery</a><span>/</span>Name meaning</p>
+
+  <div class="sheet">
+    <div class="headrow">
+      <div>
+        <p class="eyebrow">Name Discovery · 02 of 03</p>
+        <h1>A name, read letter by <em>letter.</em></h1>
+        <p class="lede">Each letter carries its line, and the whole carries a verdict. Type any name and read the sheet it makes.</p>
+        <form class="entry" onsubmit="return false">
+          <input id="nm" type="text" aria-label="Type a name" placeholder="Type a name, e.g. Priya" value="Priya" autocomplete="off">
+          <button class="pill" type="submit">Read it
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+      </div>
+      <div class="bigname" id="bigName">Priya</div>
+    </div>
+
+    <div class="letters" id="letters"></div>
   </div>
-  <div class="result" id="nmOut" aria-live="polite"></div>
 </section>
 
-<section class="about">
-<h2>Your name, spelled out in meaning</h2>
-<p>A name is the first gift anyone receives, and like most gifts it comes without instructions. A name meaning reading writes the instructions: each letter of the name starts one line, and each line names something true about the person carrying it. Emma reads as Energetic, Marvelous, Merry and Able. Liam reads as Loyal, Inspiring, Able and Motivated.</p>
-<div class="sample">E is for Energetic, full of life and spirit<br>M is for Marvelous, wonderful in every way<br>M is for Merry, cheer that never quits<br>A is for Able, potential to achieve big</div>
-<p>The reading also looks at the shape of the name: how many letters, how many vowels, where the weight falls. Names rich in vowels read as feelers. Names packed with consonants read as doers. Short names rarely need a second introduction; long names tend to come with stories attached.</p>
-<h2>Questions people ask</h2>
-<dl class="faq">
-<dt>Is the reading the same every time?</dt>
-<dd>Yes. The same name always gives the same reading, so you can compare names, share yours, and send friends to check theirs.</dd>
-<dt>Can I turn the reading into a poem?</dt>
-<dd>Yes. The <a href="../">Acrostia studio</a> turns any name into a full poem on a themed card you can download, print or send on WhatsApp.</dd>
-<dt>Does it work for any name in the world?</dt>
-<dd>Any name spelled with the 26 English letters works, from Amelia to Yuki. Names with accents are matched to their closest letter.</dd>
-</dl>
+<section class="verdict">
+  <div class="wrap">
+    <p class="eyebrow">The verdict</p>
+    <h2>What the whole name <em>says.</em></h2>
+    <div class="vgrid">
+      <div class="vcell"><i>Vowels</i><b id="vVow">2 of 5</b><span id="vVowT">A balanced name: enough openness to be warm, enough consonant to be taken seriously.</span></div>
+      <div class="vcell"><i>Length</i><b id="vLen">5 letters</b><span id="vLenT">Middle-length names wear well: short enough to shout across a park, long enough to sign properly.</span></div>
+      <div class="vcell"><i>Letter of note</i><b id="vKey">Y</b><span id="vKeyT">The rarest letter in the name usually owns the story. Here it is Y, the one that can be both vowel and consonant.</span></div>
+    </div>
+    <div class="vfoot">
+      <a class="u-link" href="#">Turn this reading into a poem</a>
+      <a class="u-link" href="#">Break the name's seal</a>
+    </div>
+  </div>
 </section>
 
-<a class="btn" href="../">Make your name poem</a>
-<p class="links"><strong>More name fun:</strong> <a href="../birth-date/">What does your birth date mean?</a> <a href="../first-letter/">First letter of your name meaning</a> <a href="../name-secret/">What is your name secret?</a></p>
-</main>
+<section class="wrap bridge">
+  <h2>Every reading ends in a <em>card.</em></h2>
+  <a class="pill" href="#">Open the studio
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
+
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
+
 <script>
 (function () {
-  var T = {
-    A: ["Able", "potential to achieve big"], B: ["Brave", "facing every challenge head-on"], C: ["Creative", "full of fresh ideas"],
-    D: ["Determined", "never giving up"], E: ["Energetic", "full of life and spirit"], F: ["Friendly", "a friend to everyone"],
-    G: ["Generous", "sharing without counting"], H: ["Honored", "respected by all"], I: ["Inspiring", "pushing others to dream"],
-    J: ["Joyful", "spreading happiness wherever you go"], K: ["Kind", "gentle in word and deed"], L: ["Loyal", "standing by people always"],
-    M: ["Motivated", "driven from within"], N: ["Noble", "in thought and in action"], O: ["Optimistic", "seeing the bright side always"],
-    P: ["Passionate", "burning with purpose"], Q: ["Quick-witted", "ready with a smile and a line"], R: ["Reliable", "a promise kept"],
-    S: ["Sincere", "honest at heart"], T: ["Talented", "gifted in many ways"], U: ["Unstoppable", "nothing stands in your way"],
-    V: ["Valiant", "brave of heart"], W: ["Wise", "beyond your years"], X: ["X-factor", "that special spark you carry"],
-    Y: ["Young-at-heart", "with smiling eyes"], Z: ["Zealous", "enthusiastic in all you do"]
+  var L = {
+    A:"Arrives first and sets the tone.", B:"Builds quietly, then all at once.",
+    C:"Calm outside, counting inside.", D:"Does what others meant to do.",
+    E:"Energy you can hear next door.", F:"Funny at the right moment.",
+    G:"Grows on people permanently.", H:"Holds it all together.",
+    I:"Insists on knowing why.", J:"Joy that arrives early.",
+    K:"Kind in the ways that count.", L:"Lights up dull afternoons.",
+    M:"Made of small dependable miracles.", N:"Never too busy for anyone.",
+    O:"Open hearted, open handed.", P:"Patient beyond reason.",
+    Q:"Quirky in the best way.", R:"Rare, quietly remarkable.",
+    S:"Steadier than the tide.", T:"The one everybody calls first.",
+    U:"Unfailingly kind.", V:"Very easy to love.",
+    W:"Warms every room entered.", X:"Marks the spot.",
+    Y:"Both vowel and consonant.", Z:"Zestful at all times."
   };
-  var input = document.getElementById("nmInput"), btn = document.getElementById("nmBtn"), out = document.getElementById("nmOut");
-  function show() {
-    var name = input.value.trim().replace(/[^a-zA-Z]/g, "");
-    if (!name) { input.focus(); input.placeholder = "Type a name first"; return; }
-    var up = name.toUpperCase(), letters = up.split(""), vowels = (up.match(/[AEIOU]/g) || []).length, n = letters.length;
-    var html = letters.map(function (L) {
-      var t = T[L];
-      return '<div class="letter-line"><span class="l">' + L + '</span><span><span class="w">' + t[0] + '</span> <span class="d">' + t[1] + "</span></span></div>";
-    }).join("");
-    var shape;
-    if (vowels > n / 2) shape = "Your name is rich in vowels: the mark of a feeler. You read the room before you read the agenda.";
-    else if (vowels < n / 2) shape = "Your name is rich in consonants: the mark of a doer. You think first, then you move.";
-    else shape = "Your name balances vowels and consonants: head and heart pull evenly, which is rarer than it sounds.";
-    var len = n <= 3 ? " Short and striking: names this size rarely need a second introduction." : n <= 6 ? " A classic length: easy to say, hard to forget." : n <= 9 ? " A grand name: it fills a page and a room." : " A royal name: names this long usually come with stories attached.";
-    out.innerHTML = html + '<p class="verdict">' + name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() + ", " + n + " letters. " + shape + len + "</p>";
+  var nm = document.getElementById('nm'), bigName = document.getElementById('bigName'),
+      letters = document.getElementById('letters'),
+      vVow = document.getElementById('vVow'), vVowT = document.getElementById('vVowT'),
+      vLen = document.getElementById('vLen'), vLenT = document.getElementById('vLenT'),
+      vKey = document.getElementById('vKey'), vKeyT = document.getElementById('vKeyT');
+  var FREQ = 'ETAOINSHRDLCUMWFGYPBVKJXQZ';
+  function render() {
+    var v = (nm.value.trim() || 'Priya');
+    bigName.textContent = v;
+    var chars = v.replace(/[^a-z]/gi, '').split('');
+    var html = '';
+    chars.forEach(function (c) {
+      var k = c.toUpperCase();
+      html += '<div class="cell"><b>' + k + '</b><span>' + (L[k] || 'A letter all its own.') + '</span></div>';
+    });
+    letters.innerHTML = html || '<div class="cell"><b>P</b><span>Patient beyond reason.</span></div>';
+    var vowels = chars.filter(function (c) { return 'aeiouAEIOU'.indexOf(c) >= 0; }).length;
+    var n = chars.length || 5;
+    vVow.textContent = vowels + ' of ' + n;
+    vVowT.textContent = vowels / n > 0.45
+      ? 'An open, vowel-rich name. People hear music in it before they hear the meaning.'
+      : (vowels / n < 0.3
+        ? 'A grounded, consonant-led name. It sounds decided before it finishes.'
+        : 'A balanced name: enough openness to be warm, enough consonant to be taken seriously.');
+    vLen.textContent = n + (n === 1 ? ' letter' : ' letters');
+    vLenT.textContent = n <= 4 ? 'Short names get remembered whole, and shouted across parks.'
+      : (n <= 7 ? 'Middle-length names wear well: easy to shout, proper to sign.'
+      : 'Long names carry a story in every introduction, and patience in every signature.');
+    var rare = chars.slice().sort(function (a, b) { return FREQ.indexOf(b.toUpperCase()) - FREQ.indexOf(a.toUpperCase()); })[0];
+    var rk = rare ? rare.toUpperCase() : 'P';
+    vKey.textContent = rk;
+    vKeyT.textContent = 'The rarest letter in the name usually owns the story. Here it is ' + rk + ', ' + (L[rk] || 'a letter all its own.').toLowerCase();
   }
-  btn.addEventListener("click", show);
-  input.addEventListener("keydown", function (e) { if (e.key === "Enter") show(); });
-  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
-    c.addEventListener("click", function () { input.value = c.textContent; show(); });
-  });
-  input.value = "Emma"; show();
+  nm.addEventListener('input', render);
+  render();
 })();
 </script>
-<script src="../theme.js" defer></script>
+
 </body>
 </html>

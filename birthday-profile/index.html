@@ -1,654 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Birthday profile, what your birth date says about you | Acrostia</title>
 <meta name="description" content="Free birthday profile: your age in years, months and days, zodiac sign, Chinese zodiac, ruling planet, birthstone, birth flower, birth tree, birth number, life path and lucky color, day and number. Instant, no sign up.">
-<link rel="canonical" href="https://Parthiv95.github.io/acrostia/birthday-profile/">
-<meta property="og:title" content="Birthday profile | Acrostia">
-<meta property="og:description" content="Type a birth date, get the full birthday profile: zodiac, birthstone, birth flower, lucky number and more. Free.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://acrostia.example/birthday-profile/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="../fun-data.js?v=5"></script>
-<script src="../birthday-context.js?v=4"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-:root { --ink: #241d12; --paper: #fdf9f1; --gold: #e2a52a; --deep: #7a4a12; }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Onest, sans-serif; color: var(--ink); background: var(--paper);
-  background-image: radial-gradient(2px 2px at 12% 18%, rgba(226,165,42,.5), transparent 60%), radial-gradient(2px 2px at 84% 12%, rgba(226,165,42,.4), transparent 60%), radial-gradient(2.5px 2.5px at 70% 40%, rgba(214,90,74,.25), transparent 60%), radial-gradient(2px 2px at 22% 70%, rgba(214,90,74,.22), transparent 60%), radial-gradient(2px 2px at 90% 78%, rgba(226,165,42,.35), transparent 60%); }
-header { display: flex; justify-content: space-between; align-items: center; max-width: 68rem; margin: 0 auto; padding: 18px 2rem; }
-.brand { display: inline-flex; gap: .5rem; align-items: center; font-family: Fraunces, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
-.spark { width: 20px; height: 20px; color: var(--gold); }
-.top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
-.top-cta:hover { background: var(--ink); color: var(--paper); }
-main { max-width: 68rem; margin: 0 auto; padding: 12px 2rem 70px; }
-h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2.1rem, 4.6vw, 3.2rem); margin: 16px 0 12px; letter-spacing: -.01em; }
-h1 em { font-style: italic; color: var(--deep); }
-.lede { font-size: 1.08rem; line-height: 1.65; color: #5c5344; max-width: 60ch; margin: 0 0 26px; }
-.tool { background: #fff; border: 1px solid #eadfca; border-radius: 22px; padding: 26px; box-shadow: 0 18px 44px rgba(122,74,18,.08); }
-.controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
-.controls label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #8a7a5f; margin-bottom: 6px; }
-.controls input, .controls select { font: 600 1rem Onest, sans-serif; color: var(--ink); background: var(--paper); border: 1.5px solid #dccfae; border-radius: 12px; padding: .68rem .85rem; }
-.controls input { width: 170px; }
-.controls select { width: 108px; }
-.bd-msg { display: none; margin-top: 16px; font: 600 .95rem Onest, sans-serif; color: #9c3d20; background: rgba(220, 110, 80, .1); border: 1.5px solid rgba(200, 100, 70, .4); border-radius: 12px; padding: .7rem 1rem; }
-.gold { background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 1rem Onest, sans-serif; padding: .72rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
-.gold:hover { transform: translateY(-1px); }
-.ghost { background: none; border: 1.5px solid #d8cba8; color: var(--ink); font: 600 .92rem Onest, sans-serif; padding: .68rem 1.2rem; border-radius: 999px; cursor: pointer; }
-.ghost:hover { border-color: var(--ink); }
-.profile { margin-top: 24px; display: none; grid-template-columns: 1.15fr .85fr; gap: 26px; }
-@media (max-width: 780px) { .profile { grid-template-columns: 1fr; } }
-.p-col { display: flex; flex-direction: column; gap: 12px; }
-.p-head { background: linear-gradient(135deg, #7a4a12, #b57718); border-radius: 16px; color: #fdf3dd; padding: 20px 22px; }
-.p-head .who { font-family: Fraunces, serif; font-size: 1.6rem; font-weight: 600; line-height: 1.15; }
-.p-head .when { margin-top: 6px; font-size: .95rem; opacity: .85; }
-.fact { background: var(--paper); border: 1px solid #eee3c8; border-radius: 14px; padding: 12px 16px; }
-.fact b { display: block; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: #8a7a5f; margin-bottom: 3px; font-weight: 600; }
-.fact span { font-size: 1.02rem; line-height: 1.45; }
-.fact span i { color: #6b5e49; font-style: normal; }
-.p-big { background: #fff; border: 1.5px solid #eadfca; border-radius: 16px; padding: 18px 20px; text-align: center; }
-.p-big .glyph { font-size: 3.2rem; line-height: 1; color: var(--deep); }
-.p-big .name { font-family: Fraunces, serif; font-size: 1.5rem; font-weight: 600; margin-top: 4px; }
-.p-big .dates { font-size: .85rem; color: #8a7a5f; margin-top: 2px; }
-.p-big .line { font-size: .95rem; line-height: 1.5; color: #5c5344; margin-top: 8px; }
-.p-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
-.p-tags span { background: var(--paper); border: 1px solid #eadfca; border-radius: 999px; padding: .3rem .75rem; font-size: .8rem; font-weight: 600; color: var(--deep); }
-.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
-.card-wrap { display: none; margin-top: 30px; text-align: center; }
-#bpCard { width: min(430px, 100%); height: auto; border-radius: 20px; box-shadow: 0 24px 54px rgba(122,74,18,.2); }
-.card-hint { margin: 12px 0 0; font-size: .88rem; color: #8a7a5f; }
-.about { margin-top: 46px; max-width: 72ch; }
-.about h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 30px 0 10px; }
-.about p { line-height: 1.7; color: #4c4335; margin: 0 0 14px; }
-.links { margin-top: 26px; font-size: .95rem; line-height: 2; }
-.links a { color: var(--deep); font-weight: 600; }
-.faq dt { font-weight: 600; margin-top: 16px; }
-.faq dd { margin: 6px 0 0; line-height: 1.7; color: #4c4335; }
-@media (max-width: 640px) { header, main { padding-left: 1.1rem; padding-right: 1.1rem; } .controls input { width: 100%; flex: 1 1 150px; } }
+  :root{
+    --plum:#241826; --plum-2:#2E1E31; --ivory-lt:#F6E9E4;
+    --gold:#C89A4B; --gold-deep:#8A6420; --burg:#6B1F2D;
+    --ivory:#FFF8F3; --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;overflow-x:hidden;background:var(--plum);color:var(--ivory-lt);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;background:var(--gold);color:#241826;border:0;border-radius:999px;padding:.72rem 1.35rem;font-size:.84rem;font-weight:600;cursor:pointer;transition:background .25s,transform .25s}
+  .pill:hover{background:#D9AE5F;transform:translateY(-1px)}
+  .pill svg{width:.85rem;height:.85rem}
+  .u-link{border:0;background:none;font-size:.78rem;font-weight:600;color:var(--gold);cursor:pointer;padding:0;border-bottom:1px solid rgba(200,154,75,.5);padding-bottom:.15rem}
+  .u-link:hover{border-color:var(--gold)}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--gold);color:#241826;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
 
+  header{background:rgba(36,24,38,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(200,154,75,.3);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600;color:var(--ivory-lt)}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:rgba(246,233,228,.75);font-weight:500}
+  nav a:hover{color:var(--gold)}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(200,154,75,.4);background:rgba(246,233,228,.06);display:grid;place-items:center;color:var(--ivory-lt);cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
 
-.mast { margin: 8px 0 6px; text-align: center; }
-.mast-top { height: 6px; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--ink); }
-.mast-title { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(1.6rem, 3.4vw, 2.3rem); margin: 12px 0 2px; letter-spacing: .01em; }
-.mast-date { font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #8a7a5f; }
-.mast-bottom { height: 5px; margin-top: 10px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-.rise { display: flex; flex-wrap: wrap; column-gap: .3em; }
-.rise .w { display: inline-block; will-change: transform, opacity; }
-.share-panel { display: none; margin-top: 14px; background: var(--paper); border: 1.5px dashed #d8cba8; border-radius: 14px; padding: 14px 16px; }
-.sp-note { margin: 0 0 10px; font-size: .9rem; line-height: 1.55; color: #5c5344; }
-.share-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-#bpLink { flex: 1 1 250px; min-width: 0; font: 500 .84rem ui-monospace, Menlo, Consolas, monospace; color: var(--ink); background: #fff; border: 1px solid #dccfae; border-radius: 10px; padding: .55rem .7rem; }
-.more-sec { margin-top: 46px; }
-.more-h { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 0 0 16px; }
-.hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 14px; }
-.hub-tile { position: relative; display: flex; flex-direction: column; min-height: 168px; padding: 16px 17px; border-radius: 18px; text-decoration: none; color: #fdf6e8; overflow: hidden; box-shadow: 0 14px 34px rgba(20,16,30,.16); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
-.hub-tile:hover, .hub-tile:focus-visible { transform: translateY(-3px); }
-.hub-glyph { font-size: 2.3rem; line-height: 1; opacity: .92; }
-.hub-name { font-family: Fraunces, serif; font-weight: 600; font-size: 1.16rem; margin-top: auto; }
-.hub-sub { font-size: .84rem; line-height: 1.45; opacity: .85; }
+  .hero{position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(85% 70% at 78% 0%,rgba(200,154,75,.15),transparent 55%);pointer-events:none}
+  .hero .wrap{position:relative;z-index:1;padding-block:clamp(16px,2.4vw,30px) clamp(34px,4.4vw,60px)}
+  .crumb{padding:1.1rem 0 .2rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,233,228,.45)}
+  .crumb a:hover{color:var(--gold)}
+  .crumb span{margin:0 .5rem;color:rgba(200,154,75,.5)}
+  .eyebrow{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2.3rem,4.4vw,3.9rem);line-height:1.0;letter-spacing:-.03em;margin-top:.9rem;color:#FBF3EC}
+  h1 em{font-style:italic;color:var(--gold)}
+  .lede{margin-top:1.1rem;font-size:1.02rem;line-height:1.66;color:rgba(246,233,228,.68);max-width:48ch}
+  .entry{margin-top:1.7rem;display:flex;align-items:center;gap:.6rem;max-width:480px}
+  .entry input{flex:1;min-width:0;background:rgba(246,233,228,.06);border:1px solid rgba(200,154,75,.4);border-radius:999px;padding:.78rem 1.2rem;color:var(--ivory-lt);font-size:.95rem;outline:none}
+  .entry input::placeholder{color:rgba(246,233,228,.4)}
+  .entry input:focus{border-color:var(--gold)}
+  .micro{margin-top:.9rem;font-size:.74rem;color:rgba(246,233,228,.45)}
+
+  .tiles{background:var(--plum-2);border-top:1px solid rgba(200,154,75,.25);border-bottom:1px solid rgba(200,154,75,.25);padding-block:clamp(30px,3.6vw,50px)}
+  .tiles-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem}
+  .tiles-head h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.4rem,2.2vw,1.9rem);letter-spacing:-.02em}
+  .tiles-head h2 em{font-style:italic;color:var(--gold)}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.2vw,16px)}
+  .tile{position:relative;border:1px solid rgba(200,154,75,.35);padding:1.15rem 1.1rem 1.05rem;display:flex;flex-direction:column;gap:.45rem;transition:border-color .25s,transform .25s,background .25s;background:transparent}
+  .tile::before{content:"";position:absolute;top:0;left:1.1rem;right:1.1rem;height:2px;background:var(--tacc,var(--gold));opacity:.85}
+  .tile:hover{border-color:var(--gold);transform:translateY(-3px);background:rgba(246,233,228,.03)}
+  .tile i{font-style:normal;font-size:.56rem;letter-spacing:.2em;color:var(--gold)}
+  .tile b{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.08rem;letter-spacing:-.01em;color:#FBF3EC}
+  .tile span{font-size:.76rem;line-height:1.5;color:rgba(246,233,228,.6)}
+  .tile .go{margin-top:auto;padding-top:.7rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+
+  .how{background:var(--ivory);color:var(--ink);padding-block:clamp(32px,4vw,56px)}
+  .how-in{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,64px)}
+  .how h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.6rem,2.6vw,2.2rem);letter-spacing:-.02em;line-height:1.1}
+  .how h2 em{font-style:italic;color:var(--burg)}
+  .how .sub{margin-top:.9rem;font-size:.95rem;line-height:1.65;color:var(--ink-60);max-width:32ch}
+  .how ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+  .how ol li{display:grid;grid-template-columns:44px 1fr;gap:1rem;padding:1.05rem .2rem;border-bottom:1px solid var(--line-soft);align-items:baseline}
+  .how ol li i{font-family:Fraunces,Georgia,serif;font-style:italic;font-size:1.25rem;color:var(--gold-deep)}
+  .how ol li b{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.02rem;display:block}
+  .how ol li p{margin-top:.2rem;font-size:.84rem;line-height:1.55;color:var(--ink-60)}
+  .how .u-link{color:var(--burg);border-color:rgba(107,31,45,.35)}
+
+  footer{background:#1A101C;color:rgba(246,233,228,.6);padding:1.1rem 0 1.5rem}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;flex-wrap:wrap}
+  .legal a{color:rgba(246,233,228,.75)}
+
+  @media (max-width:900px){
+    nav{display:none}
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .how-in{grid-template-columns:1fr;gap:2rem}
+    .entry{flex-direction:column;align-items:stretch}
+    .entry .pill{width:100%}
+  }
 </style>
 </head>
-<body data-bd-hub>
-<header>
-  <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
-  <a class="top-cta" href="../">Open the studio</a>
-</header>
-<main>
-<div class="mast">
-  <div class="mast-top"></div>
-  <div class="mast-title">The Birthday Ledger</div>
-  <div class="mast-date"><span id="mastDate"></span></div>
-  <div class="mast-bottom"></div>
-</div>
-<h1 class="rise" data-rise>Your <em>birthday profile</em>, the day you were born, read properly</h1>
-<p class="lede">Pick a birth date and get the whole picture: exact age, the weekday you arrived, your zodiac signs, ruling planet, birthstone, birth flower, birth tree, birth number, life path and your lucky color, day and number. Free, instant, no sign up.</p>
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-<section class="tool" aria-label="Birthday profile tool">
-  <div class="controls">
-    <div><label for="bpName">Name (optional)</label><input id="bpName" maxlength="18" placeholder="e.g. Emma"></div>
-    <div><label for="bpD">Day</label><select id="bpD"></select></div>
-    <div><label for="bpM">Month</label><select id="bpM"></select></div>
-    <div><label for="bpY">Year</label><select id="bpY"></select></div>
-    <div><label for="bpPhoto">Your photo (optional)</label><input type="file" id="bpPhoto" accept="image/*" style="padding:.32rem"></div>
-    <button class="gold" id="bpGo" type="button">Show profile</button>
-    <button class="ghost" id="bpRnd" type="button">Surprise me</button>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#samples">Examples</a><a href="../#faq">FAQ</a></nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
   </div>
-  <div class="bd-msg" id="bpMsg" role="alert"></div>
-  <div class="profile" id="bpOut" aria-live="polite">
-    <div class="p-col" id="bpLeft"></div>
-    <div class="p-col" id="bpRight"></div>
+</header>
+
+<section class="hero" id="main">
+  <div class="wrap">
+    <p class="crumb"><a href="#">Home</a><span>/</span>Birthday Discovery</p>
+    <p class="eyebrow">The Birthday Ledger</p>
+    <h1>The whole profile, in <em>one ledger.</em></h1>
+    <p class="lede">A birth tree from a Celtic date window, a stone for the month, the phase of the moon that night, a number for the day. Thirteen free readings of one date, kept in one ledger you can come back to.</p>
+    <form class="entry" onsubmit="return false">
+      <input type="date" aria-label="Your birth date">
+      <button class="pill" type="submit">Open my ledger
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+    <p class="micro">Nothing is stored. The readings run in your browser.</p>
   </div>
-  <div class="card-wrap" id="bpCardWrap"><canvas id="bpCard" width="1080" height="1500"></canvas><p class="card-hint">Your card, ready to share. Add a photo above and it lands in the gold ring; with no photo, your birth flower takes the spot.</p></div>
-  <div class="actions" id="bpActs" style="display:none">
-    <button class="gold" id="bpPng" type="button">Download profile card</button>
-    <button class="ghost" id="bpShare" type="button">Create share link</button>
-  </div>
-  <div class="share-panel" id="bpSharePanel">
-    <p class="sp-note"><strong>Sharing is your choice.</strong> The link below carries the name and birth date you entered, so anyone who opens it sees this same profile. It contains nothing else, and nothing is sent anywhere until you copy or share it.</p>
-    <div class="share-row">
-      <input id="bpLink" readonly aria-label="Share link">
-      <button class="ghost" id="bpCopy" type="button">Copy link</button>
-      <a class="ghost" id="bpWa" href="#" target="_blank" rel="noopener" style="text-decoration:none">Open on WhatsApp</a>
+</section>
+
+<section class="tiles">
+  <div class="wrap">
+    <div class="tiles-head">
+      <h2>Thirteen readings, one <em>date.</em></h2>
+      <a class="u-link" href="#">How the ledger is kept</a>
+    </div>
+    <div class="grid">
+      <a class="tile" href="#" style="--tacc:#C89A4B"><i>01</i><b>Birth tree</b><span>The Celtic tree that owns your date window.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#C7D3E2"><i>02</i><b>Zodiac</b><span>Your sign, and the temperament it was given.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#D98CA6"><i>03</i><b>Birthstone</b><span>The month's stone and what it has always meant.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#A6BC7B"><i>04</i><b>Birth flower</b><span>The flower assigned to your month, and why.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#C89A4B"><i>05</i><b>Birth month</b><span>What your month says about the year you arrived.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#D98CA6"><i>06</i><b>Birth date</b><span>The day number, read on its own terms.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#C7D3E2"><i>07</i><b>Lucky number</b><span>The number that keeps appearing in your dates.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#A6BC7B"><i>08</i><b>Moon phase</b><span>The moon over the night you were born.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#C7D3E2"><i>09</i><b>Planet age</b><span>Your age on Mercury, Venus and Mars.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#C89A4B"><i>10</i><b>Life path</b><span>The numerologist's sum of your whole date.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#D98CA6"><i>11</i><b>Chinese zodiac</b><span>Your animal year, with the exact boundary.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#A6BC7B"><i>12</i><b>Golden birthday</b><span>The year your age matches your day. Did it pass?</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#C89A4B"><i>13</i><b>Name on a cake</b><span>The name, written in candles and icing.</span><span class="go">Read →</span></a>
+      <a class="tile" href="#" style="--tacc:#D98CA6"><i>＋</i><b>Then, a poem</b><span>Any reading can be turned into a card.</span><span class="go">Write →</span></a>
     </div>
   </div>
 </section>
 
-<section class="about">
-<h2 class="rise" data-rise>What a birthday profile tells you</h2>
-<p>Your birth date carries more than your age in years, months and days. The same date names your Western zodiac sign and its ruling planet, your Chinese zodiac animal, the birthstone and birth flower and birth tree of your month, the weekday you were born on, and a small stack of lucky things: your color, your day, your number. A birthday profile lines them all up in one place.</p>
-<p>Everything here is calculated from the date alone, so the same birthday always gives the same profile, and you can compare friends, family and famous birthdays without signing up for anything. When you are done, download the profile card and send it in a chat, or create a share link. The link carries the name and birth date you typed and is built only when you ask for it.</p>
-<p>Want the poem version of the same moment? The <a href="../" style="color:var(--deep);font-weight:600">Acrostia studio</a> turns a name into a personalized birthday poem on a downloadable card.</p>
-<h2 class="rise" data-rise>Questions people ask</h2>
-<dl class="faq">
-<dt>Is the profile the same every time?</dt>
-<dd>Yes. Every fact is derived from the birth date itself, so the same date always gives the same profile. Tap Surprise me if you want a random date to explore.</dd>
-<dt>Does the year matter?</dt>
-<dd>Yes, for your exact age, your weekday, your leap years count and your Chinese zodiac animal. The zodiac sign, birthstone, flower and tree depend on the day and month.</dd>
-<dt>Can I share it?</dt>
-<dd>Yes, and sharing stays in your hands. Tap Create share link to see the exact link first: it carries the name and birth date you entered, so anyone who opens it sees the same profile prefilled. Copy it or open WhatsApp only when you are ready. You can also download the profile card as a picture.</dd>
-</dl>
-</section>
-
-<section class="more-sec" aria-label="Every birthday reading">
-  <h2 class="more-h rise" data-rise>Pick a page of the paper</h2>
-  <div class="hub-grid">
-    <a class="hub-tile" href="../zodiac/" style="background:linear-gradient(155deg,#2a2050,#151132)">
-      <span class="hub-glyph" aria-hidden="true">✦</span>
-      <span class="hub-name">Zodiac signs</span>
-      <span class="hub-sub">Your star sign, element and ruling planet</span>
-    </a>
-    <a class="hub-tile" href="../birthstone/" style="background:linear-gradient(155deg,#1f5040,#0e2c22)">
-      <span class="hub-glyph" aria-hidden="true">❖</span>
-      <span class="hub-name">Birthstone</span>
-      <span class="hub-sub">The gem your birth month is set with</span>
-    </a>
-    <a class="hub-tile" href="../birth-flower/" style="background:linear-gradient(155deg,#7e2a44,#471427)">
-      <span class="hub-glyph" aria-hidden="true">✿</span>
-      <span class="hub-name">Birth flower</span>
-      <span class="hub-sub">The flower and meaning of your month</span>
-    </a>
-    <a class="hub-tile" href="../birth-month/" style="background:linear-gradient(155deg,#4b2b52,#2a1830)">
-      <span class="hub-glyph" aria-hidden="true">❋</span>
-      <span class="hub-name">Birth month</span>
-      <span class="hub-sub">What the month itself says about you</span>
-    </a>
-    <a class="hub-tile" href="../birth-date/" style="background:linear-gradient(155deg,#565149,#312e27)">
-      <span class="hub-glyph" aria-hidden="true">◇</span>
-      <span class="hub-name">Birth date</span>
-      <span class="hub-sub">The day-stone reading of your calendar day</span>
-    </a>
-    <a class="hub-tile" href="../lucky-number/" style="background:linear-gradient(155deg,#b1780f,#7d4f06)">
-      <span class="hub-glyph" aria-hidden="true">7</span>
-      <span class="hub-name">Lucky number</span>
-      <span class="hub-sub">Your number, lucky color and lucky day</span>
-    </a>
-    <a class="hub-tile" href="../moon-phase/" style="background:linear-gradient(155deg,#1d2747,#0d1122)">
-      <span class="hub-glyph" aria-hidden="true">☾</span>
-      <span class="hub-name">Moon phase</span>
-      <span class="hub-sub">The moon you were born under</span>
-    </a>
-    <a class="hub-tile" href="../planet-age/" style="background:linear-gradient(155deg,#3d2456,#211234)">
-      <span class="hub-glyph" aria-hidden="true">☉</span>
-      <span class="hub-name">Planet age</span>
-      <span class="hub-sub">Your age on Mars, Venus and beyond</span>
-    </a>
-    <a class="hub-tile" href="../golden-birthday/" style="background:linear-gradient(155deg,#caa21a,#8f6f12)">
-      <span class="hub-glyph" aria-hidden="true">✷</span>
-      <span class="hub-name">Golden birthday</span>
-      <span class="hub-sub">When your age meets your birth date</span>
-    </a>
-    <a class="hub-tile" href="../birthday-cake/" style="background:linear-gradient(155deg,#4d301e,#2a1a0e)">
-      <span class="hub-glyph" aria-hidden="true">🎂</span>
-      <span class="hub-name">Name on a cake</span>
-      <span class="hub-sub">Write any name in birthday icing</span>
-    </a>
-    <a class="hub-tile" href="../birth-tree/" style="background:linear-gradient(155deg,#2f5c2a,#142c10)">
-      <span class="hub-glyph" aria-hidden="true">&#127795;</span>
-      <span class="hub-name">Birth tree</span>
-      <span class="hub-sub">The tree that rules your birth window</span>
-    </a>
-    <a class="hub-tile" href="../chinese-zodiac/" style="background:linear-gradient(155deg,#a3271a,#571009)">
-      <span class="hub-glyph" aria-hidden="true">&#127877;</span>
-      <span class="hub-name">Chinese zodiac</span>
-      <span class="hub-sub">Your animal sign by the lunar calendar</span>
-    </a>
-    <a class="hub-tile" href="../life-path/" style="background:linear-gradient(155deg,#24356b,#101a3d)">
-      <span class="hub-glyph" aria-hidden="true">&#128099;</span>
-      <span class="hub-name">Life path</span>
-      <span class="hub-sub">The number your birth date adds up to</span>
-    </a>
+<section class="how">
+  <div class="wrap how-in">
+    <div>
+      <h2>How the ledger is <em>kept.</em></h2>
+      <p class="sub">One date in, thirteen readings out, each on its own page with its source named.</p>
+      <a class="u-link" href="#">Start with the birth tree</a>
+    </div>
+    <ol>
+      <li><i>1</i><div><b>Give the date.</b><p>Any date, not only your own. The ledger works for grandchildren and great-grandparents.</p></div></li>
+      <li><i>2</i><div><b>Read what applies.</b><p>Thirteen readings, each a short page with the tradition behind it. No accounts, no trackers.</p></div></li>
+      <li><i>3</i><div><b>Keep what is true.</b><p>Every reading ends in a card: turn the stone, the tree or the moon into a poem for the name.</p></div></li>
+    </ol>
   </div>
 </section>
-</main>
-<script>
-(function () {
-  var F = window.FUN;
-  var $ = function (id) { return document.getElementById(id); };
-  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  var now = new Date();
-  var dSel = $("bpD"), mSel = $("bpM"), ySel = $("bpY");
-  for (var i = 1; i <= 31; i++) dSel.add(new Option(i, i));
-  MONTHS.forEach(function (m, ix) { mSel.add(new Option(m, ix + 1)); });
-  for (var y = now.getFullYear(); y >= 1900; y--) ySel.add(new Option(y, y));
-  dSel.value = "26"; mSel.value = "1"; ySel.value = String(now.getFullYear() - 30);
 
-  var qs = new URLSearchParams(location.search);
-  if (qs.get("n")) $("bpName").value = qs.get("n").slice(0, 18);
-  if (+qs.get("d") >= 1 && +qs.get("d") <= 31) dSel.value = qs.get("d");
-  if (+qs.get("m") >= 1 && +qs.get("m") <= 12) mSel.value = qs.get("m");
-  if (+qs.get("y") >= 1900 && +qs.get("y") <= now.getFullYear()) ySel.value = qs.get("y");
-  var bdc = window.BDAY ? window.BDAY.get() : null;
-  if (bdc && !qs.get("n") && bdc.n) $("bpName").value = bdc.n;
-  if (bdc && !qs.get("d") && bdc.d) dSel.value = String(bdc.d);
-  if (bdc && !qs.get("m") && bdc.m) mSel.value = String(bdc.m);
-  if (bdc && !qs.get("y") && bdc.y) ySel.value = String(bdc.y);
-  function saveBd() { if (window.BDAY) BDAY.set({ d: +dSel.value, m: +mSel.value, y: +ySel.value, n: ($("bpName").value || "").trim() }); }
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
 
-  function data() {
-    var d = +dSel.value, m = +mSel.value, y = +ySel.value;
-    var bd = new Date(y, m - 1, d);
-    var z = F.signFor(m, d), ch = F.chineseFor(y, m, d);
-    var st = F.STONES[m - 1], fl = F.FLOWERS[m - 1], tr = F.treeFor(m, d);
-    var age = F.ageBreakdown(bd, now);
-    var born = F.WEEKDAYS[["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][bd.getDay()]];
-    var bn = F.reduceNum(d), lp = F.lifePath(y, m, d);
-    var conception = new Date(bd.getTime() - 266 * 86400000);
-    return { bd: bd, d: d, m: m, y: y, z: z, ch: ch, st: st, fl: fl, tr: tr, age: age, born: born, bn: bn, lp: lp,
-      conception: conception, leaps: F.leapYearsSeen(bd, now), daysLived: F.daysBetween(bd, now), next: F.nextBirthdayIn(bd, now) };
-  }
-
-  var lastRows = null, lastWho = null;
-  function fact(k, v) { return '<div class="fact"><b>' + k + "</b><span>" + v + "</span></div>"; }
-  function failMsg(why) {
-    $("bpMsg").textContent = why === "future" ? "That date is in the future. A birth date can be today at the latest." : "That date does not exist on the calendar. Pick a day the month really has.";
-    $("bpMsg").style.display = "block";
-    $("bpOut").style.display = "none";
-    $("bpActs").style.display = "none";
-    $("bpCardWrap").style.display = "none";
-    $("bpSharePanel").style.display = "none";
-    $("bpShare").textContent = "Create share link";
-  }
-  function show() {
-    var el = window.BDAY && BDAY.eligible(+dSel.value, +mSel.value, +ySel.value);
-    if (el && !el.ok) { failMsg(el.why); return; }
-    $("bpMsg").style.display = "none";
-    var r = data();
-    var name = ($("bpName").value || "").trim();
-    var who = name ? name.charAt(0).toUpperCase() + name.slice(1) : "This date";
-    lastWho = who;
-    $("bpLeft").innerHTML =
-      '<div class="p-head"><div class="who">' + who + "\u2019s birthday profile</div>" +
-      '<div class="when">' + F.fmt(r.bd) + "</div></div>" +
-      fact("Age", r.age.y + " years, " + r.age.m + " months &amp; " + r.age.d + " days") +
-      fact("Born on a " + ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][r.bd.getDay()], r.born) +
-      fact("Leap years seen", r.leaps + (r.leaps === 1 ? " leap year" : " leap years") + " so far") +
-      fact("Days on earth", r.daysLived.toLocaleString() + " days and counting") +
-      fact("Date of conception", "probably " + F.fmt(r.conception)) +
-      fact("Next birthday", r.next === 0 ? "\ud83c\udf89 It is today!" : "in " + r.next + " days");
-    $("bpRight").innerHTML =
-      '<div class="p-big"><div class="glyph">' + r.z.glyph + '</div><div class="name">' + r.z.name + '</div>' +
-      '<div class="dates">' + MONTHS[r.z.from[0] - 1] + " " + r.z.from[1] + " to " + MONTHS[r.z.to[0] - 1] + " " + r.z.to[1] + '</div>' +
-      '<div class="line">' + r.z.line + '</div>' +
-      '<div class="p-tags"><span>' + r.z.element + '</span><span>' + r.z.planet + '</span><span>Lucky color: ' + r.z.color + '</span><span>Lucky day: ' + r.z.day + '</span><span>Lucky number: ' + r.z.number + '</span></div></div>' +
-      fact("Chinese zodiac", r.ch.name + " <i>\u00b7 " + r.ch.line + "</i>") +
-      fact("Birthstone", r.st.stone + " <i>\u00b7 " + r.st.line + "</i>") +
-      fact("Birth flower", r.fl.flower + " <i>\u00b7 " + r.fl.line + "</i>") +
-      fact("Birth tree", r.tr.name + " <i>\u00b7 " + r.tr.line + "</i>") +
-      fact("Birth number", r.bn + " <i>\u00b7 " + F.BIRTH_NUMBERS[r.bn] + "</i>") +
-      fact("Life path", r.lp + " <i>\u00b7 " + F.LIFE_PATHS[r.lp] + "</i>");
-    $("bpOut").style.display = "grid";
-    $("bpActs").style.display = "flex";
-    lastRows = r;
-    if ($("bpSharePanel").style.display === "block") updateShare();
-    renderCard();
-  }
-
-  $("bpGo").addEventListener("click", function () { saveBd(); show(); });
-  [dSel, mSel, ySel].forEach(function (s) { s.addEventListener("change", function () { saveBd(); show(); }); });
-  $("bpName").addEventListener("keydown", function (e) { if (e.key === "Enter") { saveBd(); show(); } });
-  $("bpRnd").addEventListener("click", function () {
-    var names = ["Emma","Liam","Olivia","Noah","Grace","Mia","Amelia","Yuki","Sofia","Daniel"];
-    $("bpName").value = names[Math.floor(Math.random() * names.length)];
-    ySel.value = String(now.getFullYear() - Math.floor(Math.random() * 60) - 5);
-    mSel.value = String(1 + Math.floor(Math.random() * 12));
-    var DIM = [31, +ySel.value % 4 === 0 && (+ySel.value % 100 !== 0 || +ySel.value % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][+mSel.value - 1];;
-    dSel.value = String(1 + Math.floor(Math.random() * DIM));
-    saveBd();
-    show();
-  });
-  function shareLink() {
-    var r = lastRows || data();
-    var name = ($("bpName").value || "").trim();
-    return location.href.split("?")[0] + "?n=" + encodeURIComponent(name) + "&d=" + r.d + "&m=" + r.m + "&y=" + r.y;
-  }
-  function updateShare() {
-    var r = lastRows || data();
-    var name = ($("bpName").value || "").trim();
-    var link = shareLink();
-    $("bpLink").value = link;
-    var msg = (name ? name.charAt(0).toUpperCase() + name.slice(1) : "This date") + "\u2019s birthday profile (" + F.fmt(r.bd) + "): " + r.z.glyph + " " + r.z.name +
-      ", Chinese zodiac " + r.ch.name + ", birthstone " + r.st.stone + ", birth flower " + r.fl.flower +
-      ", lucky number " + r.z.number + ". See yours: " + link;
-    $("bpWa").href = "https://wa.me/?text=" + encodeURIComponent(msg);
-  }
-  $("bpShare").addEventListener("click", function () {
-    var p = $("bpSharePanel");
-    var open = p.style.display === "block";
-    p.style.display = open ? "none" : "block";
-    $("bpShare").textContent = open ? "Create share link" : "Hide share link";
-    if (!open) { updateShare(); $("bpLink").focus(); $("bpLink").select(); }
-  });
-  $("bpCopy").addEventListener("click", function () {
-    var link = $("bpLink").value || shareLink();
-    (navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(function () {
-      $("bpCopy").textContent = "Copied!";
-      setTimeout(function () { $("bpCopy").textContent = "Copy link"; }, 1800);
-    }, function () { window.prompt("Copy this link:", link); });
-  });
-  var userPhoto = null;
-  $("bpPhoto").addEventListener("change", function (e) {
-    var f = e.target.files[0];
-    if (!f) return;
-    var rd = new FileReader();
-    rd.onload = function () { userPhoto = rd.result; if (lastRows) renderCard(); };
-    rd.readAsDataURL(f);
-  });
-
-  function photoSrc(m) {
-    if (userPhoto) return userPhoto;
-    return "https://images.unsplash.com/" + F.FLOWERS_PHOTOS[m - 1] + "?auto=format&fit=crop&q=80&w=640&h=640";
-  }
-
-  function renderCard() {
-    var r = lastRows || data();
-    var name = lastWho || "This date";
-    var W = 1080, H = 1500, c = $("bpCard");
-    c.width = W; c.height = H;
-    var x = c.getContext("2d");
-    var WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][r.bd.getDay()];
-    var MON = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    var title = name + "’s big day";
-
-    function fitTitle(txt, size, max) {
-      var s = size;
-      x.font = "600 " + s + "px Fraunces, Georgia, serif";
-      while (s > 30 && x.measureText(txt).width > max) { s -= 2; x.font = "600 " + s + "px Fraunces, Georgia, serif"; }
-      return s;
-    }
-    function wrapWords(txt, font, maxW) {
-      x.font = font;
-      var words = txt.split(" "), lines = [], cur = "";
-      words.forEach(function (w2) {
-        var t = cur ? cur + " " + w2 : w2;
-        if (x.measureText(t).width > maxW && cur) { lines.push(cur); cur = w2; } else cur = t;
-      });
-      if (cur) lines.push(cur);
-      return lines;
-    }
-    function section(title2, yTop) {
-      x.textAlign = "left";
-      x.fillStyle = "#b57718"; x.font = "600 22px Verdana, sans-serif";
-      x.fillText(title2, 100, yTop);
-      x.strokeStyle = "rgba(226,165,42,.55)"; x.lineWidth = 1.5;
-      x.beginPath(); x.moveTo(100 + x.measureText(title2).width + 20, yTop - 7); x.lineTo(W - 100, yTop - 7); x.stroke();
-    }
-    function cell(k, v, xx, yy, w) {
-      x.textAlign = "left";
-      x.fillStyle = "#8a7a5f"; x.font = "600 20px Verdana, sans-serif";
-      x.fillText(k.toUpperCase(), xx, yy);
-      var fs = 30;
-      x.font = fs + "px Georgia, serif";
-      while (fs > 19 && x.measureText(v).width > w) { fs -= 1; x.font = fs + "px Georgia, serif"; }
-      x.fillStyle = "#241d12";
-      x.fillText(v, xx, yy + 38);
-      x.strokeStyle = "rgba(220,207,174,.6)"; x.lineWidth = 1;
-      x.beginPath(); x.moveTo(xx, yy + 56); x.lineTo(xx + w, yy + 56); x.stroke();
-    }
-
-    function draw(img) {
-      var bg = x.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, "#fffdf6"); bg.addColorStop(1, "#f8efdb");
-      x.fillStyle = bg; x.fillRect(0, 0, W, H);
-      var g1 = x.createRadialGradient(150, 130, 20, 150, 130, 540);
-      g1.addColorStop(0, "rgba(244,200,90,.2)"); g1.addColorStop(1, "rgba(244,200,90,0)");
-      x.fillStyle = g1; x.fillRect(0, 0, W, 720);
-      var g2 = x.createRadialGradient(W - 130, H - 280, 20, W - 130, H - 280, 580);
-      g2.addColorStop(0, "rgba(224,122,88,.11)"); g2.addColorStop(1, "rgba(224,122,88,0)");
-      x.fillStyle = g2; x.fillRect(0, H - 820, W, 820);
-      var seed = 20261114;
-      function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
-      var cols = ["rgba(226,165,42,.38)", "rgba(214,110,76,.28)", "rgba(122,158,98,.28)", "rgba(96,134,182,.26)", "rgba(226,165,42,.26)"];
-      for (var ci = 0; ci < 80; ci++) {
-        var cx2 = 60 + rnd() * (W - 120), cy2 = 60 + rnd() * (H - 210);
-        var sz = 3 + rnd() * 6;
-        x.save(); x.translate(cx2, cy2); x.rotate(rnd() * Math.PI);
-        x.fillStyle = cols[Math.floor(rnd() * cols.length)];
-        var kind = rnd();
-        if (kind < .45) x.fillRect(-sz, -sz * .4, sz * 2, sz * .8);
-        else if (kind < .8) { x.beginPath(); x.arc(0, 0, sz * .6, 0, 7); x.fill(); }
-        else { x.beginPath(); x.moveTo(0, -sz); x.lineTo(sz, sz); x.lineTo(-sz, sz); x.closePath(); x.fill(); }
-        x.restore();
-      }
-      function sprig(sx, sy, rot) {
-        x.save(); x.translate(sx, sy); x.rotate(rot);
-        x.strokeStyle = "rgba(196,148,52,.5)"; x.lineWidth = 3;
-        x.beginPath(); x.moveTo(0, 0); x.quadraticCurveTo(75, 10, 150, 60); x.stroke();
-        x.fillStyle = "rgba(196,148,52,.42)";
-        [26, 54, 84, 116, 142].forEach(function (t, ti) {
-          x.save(); x.translate(t, t * .13 + t * t * .0018); x.rotate(ti % 2 ? -.9 : .5);
-          x.beginPath(); x.ellipse(10, 0, 15, 5.5, 0, 0, 7); x.fill(); x.restore();
-        });
-        x.restore();
-      }
-      sprig(0, 0, 0); sprig(W, 0, Math.PI / 2); sprig(W, H - 104, Math.PI); sprig(0, H - 104, -Math.PI / 2);
-      x.fillStyle = "#e2a52a"; x.fillRect(0, H - 104, W, 78);
-
-      /* header */
-      x.textAlign = "center";
-      x.fillStyle = "#b57718"; x.font = "600 26px Verdana, sans-serif";
-      x.fillText("B I R T H D A Y   P R O F I L E", W / 2, 122);
-      x.fillStyle = "#241d12";
-      x.font = "600 " + fitTitle(title, 72, 880) + "px Fraunces, Georgia, serif";
-      x.fillText(title, W / 2, 202);
-      x.fillStyle = "#8a7a5f"; x.font = "italic 32px Georgia, serif";
-      x.fillText(F.fmt(r.bd) + "  ·  born on a " + WD, W / 2, 252);
-
-      /* photo left */
-      var pcx = 292, pcy = 458, pr = 156;
-      x.save();
-      x.beginPath(); x.arc(pcx, pcy, pr, 0, 7); x.clip();
-      if (img) {
-        var s = Math.max(2 * pr / img.width, 2 * pr / img.height);
-        x.drawImage(img, pcx - img.width * s / 2, pcy - img.height * s / 2, img.width * s, img.height * s);
-      } else {
-        x.fillStyle = "#f3e2bd"; x.fillRect(pcx - pr, pcy - pr, pr * 2, pr * 2);
-        x.fillStyle = "#b57718"; x.font = "130px Georgia, serif";
-        x.fillText("❀", pcx, pcy + 46);
-      }
-      x.restore();
-      x.beginPath(); x.arc(pcx, pcy, pr, 0, 7);
-      x.save(); x.shadowColor = "rgba(226,165,42,.55)"; x.shadowBlur = 26;
-      x.lineWidth = 9; x.strokeStyle = "#e2a52a"; x.stroke(); x.restore();
-      x.beginPath(); x.arc(pcx, pcy, pr + 15, 0, 7);
-      x.lineWidth = 2; x.strokeStyle = "#dccfae"; x.stroke();
-
-      /* zodiac panel right */
-      var zx = 716;
-      x.fillStyle = "#241d12"; x.font = "92px Georgia, serif";
-      x.fillText(r.z.glyph, zx, 402);
-      x.font = "600 " + fitTitle(r.z.name, 56, 460) + "px Fraunces, Georgia, serif";
-      x.fillText(r.z.name, zx, 476);
-      x.fillStyle = "#b57718"; x.font = "600 23px Verdana, sans-serif";
-      x.fillText(MON[r.z.from[0] - 1] + " " + r.z.from[1] + " to " + MON[r.z.to[0] - 1] + " " + r.z.to[1], zx, 512);
-      x.fillStyle = "#8a7a5f"; x.font = "25px Verdana, sans-serif";
-      x.fillText(r.z.element + " · ruled by " + r.z.planet, zx, 550);
-      /* tagline stays inside the right panel (left edge clear of the photo ring) */
-      var zl = wrapWords(r.z.line, "italic 24px Georgia, serif", 460).slice(0, 2);
-      x.font = "italic 24px Georgia, serif";
-      x.fillStyle = "#8a7a5f";
-      zl.forEach(function (ln, li) { x.fillText(ln, zx, 586 + li * 30); });
-
-      /* paper sheet behind the facts */
-      x.fillStyle = "rgba(255,253,246,.72)";
-      x.strokeStyle = "rgba(214,201,168,.6)"; x.lineWidth = 1.5;
-      x.beginPath();
-      if (x.roundRect) x.roundRect(72, 632, W - 144, 760, 26); else x.rect(72, 632, W - 144, 760);
-      x.fill(); x.stroke();
-
-      /* the basics */
-      section("THE BASICS", 662);
-      cell("Age", r.age.y + " years, " + r.age.m + " months, " + r.age.d + " days", 100, 706, 420);
-      cell("Born on a", WD, 560, 706, 420);
-      cell("Days on earth", r.daysLived.toLocaleString() + " and counting", 100, 798, 420);
-      cell("Next birthday", r.next === 0 ? "It is today!" : "in " + r.next + " days", 560, 798, 420);
-      cell("Leap years seen", r.leaps + (r.leaps === 1 ? " leap year so far" : " leap years so far"), 100, 890, 420);
-      cell("Date of conception", "probably " + F.fmt(r.conception), 560, 890, 420);
-
-      /* signs and numbers */
-      section("SIGNS AND NUMBERS", 988);
-      cell("Star sign", r.z.glyph + " " + r.z.name, 100, 1032, 420);
-      cell("Chinese zodiac", r.ch.name, 560, 1032, 420);
-      cell("Birth number", r.bn + " · " + F.BIRTH_NUMBERS[r.bn].split(":")[0], 100, 1124, 420);
-      cell("Life path", r.lp + " · " + F.LIFE_PATHS[r.lp], 560, 1124, 420);
-
-      /* born in month */
-      section("BORN IN " + MON[r.m - 1].toUpperCase(), 1222);
-      cell("Birthstone", r.st.stone, 100, 1266, 262);
-      cell("Birth flower", r.fl.flower, 393, 1266, 262);
-      cell("Birth tree", r.tr.name, 686, 1266, 294);
-
-      /* lucky strip */
-      x.fillStyle = "rgba(226,165,42,.16)";
-      x.fillRect(100, 1336, W - 200, 46);
-      x.textAlign = "center";
-      var lucky = "Lucky color " + r.z.color + "  ·  Lucky day " + r.z.day + "  ·  Lucky number " + r.z.number;
-      var lfs = 25;
-      x.font = "600 " + lfs + "px Verdana, sans-serif";
-      while (lfs > 17 && x.measureText(lucky).width > W - 240) { lfs -= 1; x.font = "600 " + lfs + "px Verdana, sans-serif"; }
-      x.fillStyle = "#241d12";
-      x.fillText(lucky, W / 2, 1367);
-
-      /* footer */
-      x.fillStyle = "#241c05"; x.font = "italic 30px Georgia, serif";
-      x.fillText("made with Acrostia", W / 2, H - 54);
-      x.strokeStyle = "#e2a52a"; x.lineWidth = 5;
-      x.strokeRect(26, 26, W - 52, H - 52);
-      x.strokeStyle = "#dccfae"; x.lineWidth = 2;
-      x.strokeRect(42, 42, W - 84, H - 84);
-    }
-    $("bpCardWrap").style.display = "block";
-    document.fonts.ready.then(function () {
-      var img = new Image();
-      if (!userPhoto) img.crossOrigin = "anonymous";
-      img.onload = function () { draw(img); };
-      img.onerror = function () { draw(null); };
-      img.src = photoSrc(r.m);
-    });
-  }
-
-  $("bpPng").addEventListener("click", function () {
-    var c = $("bpCard");
-    try {
-      c.toBlob(function (b) {
-        if (!b) return;
-        var a = document.createElement("a");
-        a.download = ((lastWho || "birthday").toLowerCase().replace(/\s+/g, "-")) + "-profile.png";
-        a.href = URL.createObjectURL(b);
-        a.click();
-        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-        if (window.__goldBurst) window.__goldBurst(window.innerWidth / 2, window.innerHeight / 2);
-      }, "image/png");
-    } catch (e) {
-      $("bpPng").textContent = "Screenshot the card above to save it";
-    }
-  });
-
-  (function () {
-    var md = $("mastDate");
-    if (!md) return;
-    var n = new Date();
-    md.textContent = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][n.getDay()] + ", " + n.getDate() + " " + MONTHS[n.getMonth()] + " " + n.getFullYear();
-  })();
-
-  /* Rise Wide: spring word entrance for every [data-rise] heading */
-  var springs = [], springRunning = false;
-  function splitRise(el) {
-    var words = [];
-    (function walk(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
-        if (ch.nodeType === 3) {
-          var parts = ch.textContent.split(/(\s+)/);
-          var frag = document.createDocumentFragment();
-          parts.forEach(function (part) {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
-            var w = document.createElement("span");
-            w.className = "w";
-            w.textContent = part;
-            frag.appendChild(w);
-            words.push(w);
-          });
-          node.replaceChild(frag, ch);
-        } else if (ch.nodeType === 1) walk(ch);
-      });
-    })(el);
-    var stagger = parseInt(el.getAttribute("data-stagger") || "110", 10);
-    return words.map(function (w, i) {
-      w.style.opacity = "0";
-      return { el: w, y: 36, vy: 0, o: 0, vo: 0, t0: performance.now() + i * stagger, started: false };
-    });
-  }
-  function springStep(items, now) {
-    var T = 170, FR = 24, DT = 1 / 60, settled = true;
-    items.forEach(function (it) {
-      if (now < it.t0) { settled = false; return; }
-      it.started = true;
-      var ay = T * (0 - it.y) - FR * it.vy;
-      var ao = T * (1 - it.o) - FR * it.vo;
-      it.vy += ay * DT; it.y += it.vy * DT;
-      it.vo += ao * DT; it.o += it.vo * DT;
-      if (Math.abs(it.vy) > 0.001 || Math.abs(it.y) > 0.001 || Math.abs(it.vo) > 0.001 || Math.abs(it.o) > 0.001 || it.o < 0.999) settled = false;
-      it.el.style.transform = "translateY(" + it.y.toFixed(3) + "px)";
-      it.el.style.opacity = Math.max(0, Math.min(1, it.o)).toFixed(3);
-    });
-    return settled;
-  }
-  function pumpSprings() {
-    if (springRunning) return;
-    springRunning = true;
-    (function loop(now) {
-      springs = springs.filter(function (items) {
-        var keep = items.some(function (it) { return !it.started; });
-        return !springStep(items, now) || keep;
-      });
-      if (springs.length) requestAnimationFrame(loop);
-      else springRunning = false;
-    })(performance.now());
-  }
-  (function initRise() {
-    var heads = Array.prototype.slice.call(document.querySelectorAll("[data-rise]"));
-    if (!heads.length) return;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (typeof IntersectionObserver !== "function") return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        io.unobserve(en.target);
-        springs.push(splitRise(en.target));
-        pumpSprings();
-      });
-    }, { threshold: 0.2 });
-    heads.forEach(function (h) { io.observe(h); });
-  })();
-
-  show();
-})();
-</script>
-<script src="../theme.js" defer></script>
 </body>
 </html>

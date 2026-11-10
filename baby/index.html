@@ -1,96 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Baby name poem, personalized and free | Acrostia</title>
 <meta name="description" content="Type a name and get a free personalized baby poem on a beautiful themed card. Acrostic or rhyming, instant, no sign up. Download as a picture.">
-<link rel="canonical" href="https://Parthiv95.github.io/acrostia/baby/">
-<meta property="og:title" content="Baby name poem | Acrostia">
-<meta property="og:description" content="Free personalized baby name poems on themed art cards. Instant download.">
+<link rel="canonical" href="https://acrostia.example/baby/">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
+<meta property="og:title" content="Birthday name poem, personalized and free | Acrostia">
+<meta property="og:description" content="Type a name and get a free personalized baby poem on a beautiful themed card.">
+<meta property="og:image" content="https://acrostia.example/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Is it really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The poem, the card and the download are free, with no account and no watermark."}},
+ {"@type":"Question","name":"Can I write one for a child?","acceptedAnswer":{"@type":"Answer","text":"Yes. Turn on the playful tone in the studio and the lines come out lighter."}},
+ {"@type":"Question","name":"Can I print it at home?","acceptedAnswer":{"@type":"Answer","text":"Yes. The download is a greeting-card sized image at print resolution."}}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-body { font-family: Georgia, serif; margin: 0; background: #FBF8F3; color: #3A3A3A; }
-main { max-width: 640px; margin: 0 auto; padding: 48px 24px; }
-h1 { font-size: 2rem; margin: 0 0 12px; }
-.btn { display: inline-block; background: #E91E63; color: #fff; text-decoration: none; padding: 14px 26px; border-radius: 999px; font-weight: bold; margin: 18px 0; }
-.links { margin-top: 28px; font-size: .95rem; line-height: 2; }
-.links a { color: #6B2D4E; }
+  :root{
+    --ivory:#FFF8F3; --ivory-2:#FBF1E9; --blush:#FBE3E8; --blush-2:#F6D7DE;
+    --acc:#E7DCC8; --acc-ink:#5C4326;
+    --burg:#6B1F2D; --burg-2:#84293A; --gold:#C89A4B; --gold-deep:#8A6420;
+    --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E;
+    --plum:#241826;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;overflow-x:hidden;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p,figure{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;background:var(--burg);color:#FFF6F0;border:0;border-radius:999px;padding:.7rem 1.3rem;font-size:.82rem;font-weight:600;cursor:pointer;box-shadow:0 8px 18px -10px rgba(107,31,45,.7);transition:background .25s,transform .25s}
+  .pill:hover{background:var(--burg-2);transform:translateY(-1px)}
+  .pill svg{width:.85rem;height:.85rem}
+  .u-link{border:0;background:none;font-size:.78rem;font-weight:600;color:var(--burg);cursor:pointer;padding:0;border-bottom:1px solid rgba(107,31,45,.35);padding-bottom:.15rem}
+  .u-link:hover{border-color:var(--burg)}
+  .eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
 
-.about { margin-top: 36px; }
-.about p { line-height: 1.7; margin: 0 0 14px; }
-.sample { background: #fff; border: 1px solid #E8E0D4; border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-style: italic; white-space: pre-line; line-height: 1.8; }
-.faq h2 { font-size: 1.35rem; margin: 32px 0 10px; }
-.faq dl { margin: 0; }
-.faq dt { font-weight: bold; margin-top: 16px; }
-.faq dd { margin: 6px 0 0; line-height: 1.7; }
+  header{background:rgba(255,248,243,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600;letter-spacing:-.02em}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold-deep)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:#3C2F33;font-weight:500}
+  nav a:hover{color:var(--burg)}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(180,140,120,.35);background:rgba(255,255,255,.6);display:grid;place-items:center;color:#5B4A4E;cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
+
+  .crumb{padding:1.1rem 0 .2rem;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-40)}
+  .crumb a:hover{color:var(--burg)}
+  .crumb span{margin:0 .5rem;color:rgba(200,154,75,.6)}
+
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:clamp(20px,3.4vw,56px);align-items:center;padding-block:clamp(16px,2.4vw,34px) clamp(28px,3.6vw,52px)}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2.4rem,4.4vw,3.9rem);line-height:1.0;letter-spacing:-.03em;margin-top:.9rem}
+  h1 .script{font-family:"Great Vibes",cursive;color:var(--acc-ink);font-weight:400;font-size:1.12em;letter-spacing:0}
+  .lede{margin-top:1.1rem;font-size:1.02rem;line-height:1.64;color:var(--ink-60);max-width:42ch}
+  .entry{margin-top:1.7rem;display:flex;align-items:center;gap:.6rem;background:#fff;border-radius:999px;padding:.4rem .4rem .4rem 1.25rem;border:1px solid var(--line);box-shadow:0 12px 26px -20px rgba(107,31,45,.55);max-width:480px}
+  .entry input{min-width:0;flex:1;border:0;outline:none;background:transparent;font-size:.98rem;color:var(--ink);padding:.6rem 0}
+  .entry input::placeholder{color:rgba(44,32,36,.38)}
+  .micro{margin-top:1rem;font-size:.74rem;letter-spacing:.05em;color:var(--ink-40)}
+
+  .bed{background:linear-gradient(180deg,var(--acc),color-mix(in srgb,var(--acc) 55%, var(--ivory)));border:1px solid var(--line-soft);border-radius:18px;padding:clamp(24px,3vw,44px) clamp(16px,2.4vw,36px);display:grid;justify-items:center;perspective:1300px}
+  .card{width:min(380px,100%);background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(24px,2.8vw,38px) clamp(16px,2.2vw,30px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 34px 60px -36px rgba(96,44,54,.55);position:relative;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;transform-style:preserve-3d}
+  .card::after{content:"";position:absolute;inset:8px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
+  .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.5rem,3.8vw,3.3rem);text-align:center;color:var(--gold-deep);line-height:1;transform:translateZ(20px)}
+  .card .occ-line{margin-top:.5rem;text-align:center;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(14px)}
+  .card .rule{width:54px;height:1px;background:rgba(200,154,75,.6);margin:.85rem auto 0;transform:translateZ(12px)}
+  .card ul{list-style:none;margin:1.1rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:clamp(.92rem,1.1vw,1.02rem);line-height:1.8;color:#3B2B2E;text-align:center;transform:translateZ(8px)}
+  .card ul b{font-weight:600;color:var(--burg);margin-right:.3em}
+  .card .heart{display:block;width:12px;margin:1rem auto 0;color:#C9557B;transform:translateZ(6px)}
+  .bed-cap{margin-top:1rem;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-60)}
+
+  .disc{background:var(--plum);color:#F6E9E4}
+  .disc .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.6rem;padding-block:1.15rem;flex-wrap:wrap}
+  .disc p{font-family:Fraunces,Georgia,serif;font-size:clamp(1.05rem,1.6vw,1.35rem);letter-spacing:-.01em}
+  .disc p em{font-style:italic;color:var(--gold)}
+  .disc .u-link{color:var(--gold);border-color:rgba(200,154,75,.5)}
+
+  .samples{padding-block:clamp(34px,4vw,56px)}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,30px)}
+  .sec-head h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.5rem,2.3vw,2rem);letter-spacing:-.02em}
+  .sec-head h2 em{font-style:italic;color:var(--burg)}
+  .srow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,36px)}
+  .spoem{border-top:2px solid var(--acc);padding-top:1.1rem;display:flex;flex-direction:column}
+  .spoem .nm{font-family:"Great Vibes",cursive;font-size:1.9rem;color:var(--gold-deep);line-height:1}
+  .spoem .tag{margin-top:.35rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-40)}
+  .spoem ol{list-style:none;margin:1rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:.94rem;line-height:1.72;color:#3B2B2E;flex:1}
+  .spoem ol b{color:var(--burg);font-weight:600}
+  .spoem .u-link{margin-top:1.1rem;align-self:flex-start}
+
+  .faq{background:var(--ivory-2);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding-block:clamp(30px,3.6vw,50px)}
+  .faq h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.4rem,2.1vw,1.85rem);letter-spacing:-.02em;max-width:22ch}
+  .faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,3vw,56px);align-items:start}
+  details{border-top:1px solid var(--line-soft);padding:1.05rem 0}
+  details:last-of-type{border-bottom:1px solid var(--line-soft)}
+  summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1.4rem;align-items:baseline;font-family:Fraunces,Georgia,serif;font-size:1.06rem;font-weight:500}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:Inter,sans-serif;color:var(--ink-40);transition:transform .3s,color .3s;font-size:.95rem}
+  details[open] summary::after{transform:rotate(45deg);color:var(--burg)}
+  details p{margin:.75rem 0 0;font-size:.9rem;line-height:1.7;color:var(--ink-60);max-width:56ch}
+
+  .more{padding-block:clamp(30px,3.6vw,50px)}
+  .more-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 2.2rem;border-top:1px solid var(--line-soft)}
+  .more-grid a{display:flex;justify-content:space-between;align-items:baseline;padding:.68rem 0;border-bottom:1px solid rgba(200,154,75,.22);font-size:.86rem;color:var(--ink-60)}
+  .more-grid a:hover{color:var(--burg)}
+  .more-foot{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem}
+
+  footer{background:var(--burg);color:#F7E4E3;padding:1.1rem 0 1.5rem;margin-top:clamp(20px,3vw,36px)}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;color:rgba(247,228,227,.8);flex-wrap:wrap}
+  .legal a{color:rgba(247,228,227,.85)}
+
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+
+  @media (max-width:900px){
+    nav{display:none}
+    .hero{grid-template-columns:1fr;gap:1.6rem}
+    .bed{order:-1}
+    .srow{grid-template-columns:1fr}
+    .faq-grid{grid-template-columns:1fr;gap:1.4rem}
+    .more-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.4rem}
+    .entry{flex-direction:column;align-items:stretch;border-radius:16px;padding:.55rem;gap:.5rem}
+    .entry input{padding:.55rem .8rem}
+    .entry .pill{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){ .card{transition:none} }
+
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
 </style>
 </head>
 <body>
-<main>
-<h1>Baby name poem</h1>
-<p>Every name hides a poem. Type a name, choose the baby theme, and Acrostia writes a personalized poem, an acrostic in the classic "J is for Joy" style or a warm rhyming verse, and paints it onto a themed card you can download as a picture, print, or copy. Free, instant, no sign up.</p>
-<p>A keepsake for the newest name in the family, sweet enough to print and frame.</p>
-<!-- acrostia-enriched -->
-<section class="about">
-<p>A Baby marks the kind of day people photograph. The cake, the group photo, the small speech someone gives with a glass raised. A name poem fits that moment because it is about the person, not the calendar: their name spelled out into lines that say what friends and family actually feel but rarely put into words.</p>
-<p>Acrostia writes it for you. Type the name, and the Baby poem builds itself line by line, each line starting with a letter of their name, the way homemade acrostic poems have worked for generations. Prefer something that rhymes out loud? Switch to the rhyming style and the poem keeps their name at its center either way.</p>
-<p>The finished Baby poem lands on a themed card you can download as a picture, print at home, or drop straight into a chat. It costs nothing, takes about a minute, and reads like it took an evening to write.</p>
-<div class="sample">C is for the candles, bright and wide,<br>H is for the happiness you hide,<br>R is for the reason we all cheer:</div>
+<a class="skip" href="#"bed"">Skip to content</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#samples">Examples</a><a href="../#faq">FAQ</a></nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="crumb"><a href="#">Home</a><span>/</span><a href="#">Occasions</a><span>/</span><span id="crumbOcc">Baby</span></p>
+</div>
+
+<section class="wrap hero">
+  <div>
+    <p class="eyebrow" id="eyebrowOcc">Occasion · Baby</p>
+    <h1><span id="h1lead">Baby name poem,</span> <span class="script">in their name.</span></h1>
+    <p class="lede" id="lede">Type a name and get a free personalized baby poem on a beautiful themed card. Acrostic or rhyming, instant, no sign up. Download it, print it, or send it on WhatsApp.</p>
+    <form class="entry" onsubmit="return false">
+      <input id="nm" type="text" aria-label="Their name" placeholder="Type a name, e.g. Aisha" autocomplete="off">
+      <button class="pill" type="submit">Write the poem
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+    <p class="micro">Free · no sign up · ready in about twenty seconds</p>
+  </div>
+
+  <div>
+    <div class="bed" id="bed">
+      <div class="card" id="cardEl">
+        <div class="nm" id="cName">Aisha</div>
+        <div class="occ-line" id="cOcc">Baby</div>
+        <div class="rule"></div>
+        <ul id="cPoem">
+          <li><b>A</b>lways first on the phone when it matters,</li>
+          <li><b>I</b>nquisitive about everyone else,</li>
+          <li><b>S</b>illy on a Tuesday, wise on a Sunday,</li>
+          <li><b>H</b>olding the whole group together, gently.</li>
+        </ul>
+        <svg class="heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-9.4-9.1C1.2 8.2 3.4 5 6.8 5c2 0 3.7 1.1 4.5 2.7l.7 1.4.7-1.4C13.5 6.1 15.2 5 17.2 5c3.4 0 5.6 3.2 4.2 6.9C19.5 16.3 12 21 12 21z"/></svg>
+      </div>
+      <p class="bed-cap">Live card · acrostic</p>
+    </div>
+  </div>
+</section>
+
+<section class="disc">
+  <div class="wrap">
+    <p id="bannerLine">Their birthday, read <em>thirteen ways.</em></p>
+    <a class="u-link" href="#">Open Birthday Discovery</a>
+  </div>
+</section>
+
+<section class="wrap samples">
+  <div class="sec-head">
+    <h2>Read one before you <em>write one.</em></h2>
+    <p class="eyebrow" id="samplesLabel" style="letter-spacing:.18em">Three finished baby poems</p>
+  </div>
+  <div class="srow">
+    <article class="spoem">
+      <div class="nm">Daniel</div>
+      <div class="tag">Rhyming · Baby</div>
+      <ol>
+        <li><b>D</b>efinitely the funniest one left in the family,</li>
+        <li><b>A</b>lways game for one more round,</li>
+        <li><b>N</b>ever lets anyone carry anything alone,</li>
+        <li><b>I</b>mpossible not to be glad he is around.</li>
+      </ol>
+      <button class="u-link">Make one like this</button>
+    </article>
+    <article class="spoem">
+      <div class="nm">Meera</div>
+      <div class="tag">Acrostic · Baby</div>
+      <ol>
+        <li><b>M</b>ade of questions and quiet courage,</li>
+        <li><b>E</b>ager to be bigger than yesterday,</li>
+        <li><b>E</b>very card she draws is the right one,</li>
+        <li><b>R</b>eads the room before anyone speaks.</li>
+      </ol>
+      <button class="u-link">Make one like this</button>
+    </article>
+    <article class="spoem">
+      <div class="nm">Noah</div>
+      <div class="tag">Acrostic · heartfelt</div>
+      <ol>
+        <li><b>G</b>rew the tomatoes everyone remembers,</li>
+        <li><b>R</b>emembers every name we forget,</li>
+        <li><b>A</b>lways a chair left open at his table,</li>
+        <li><b>N</b>ever once made a fuss of it.</li>
+      </ol>
+      <button class="u-link">Make one like this</button>
+    </article>
+  </div>
+</section>
+
 <section class="faq">
-<h2>Baby name poem, questions people ask</h2>
-<dl>
-<dt>What is a Baby name poem?</dt><dd>A short poem built from a person's name: each letter of the name starts one line, written for a Baby. It is the classic acrostic style, and Acrostia also offers a rhyming verse option.</dd><dt>How long does it take?</dt><dd>About a minute. Type the name, read the poem, reroll any line you want different, and download the card as an image. No account, no payment.</dd><dt>Can I print it or send it on WhatsApp?</dt><dd>Yes. Download the card as a picture and print it at home, or tap Share on WhatsApp to send the poem and link in one go.</dd>
-</dl>
+  <div class="wrap faq-grid">
+    <h2>Birthday name poems, questions people ask</h2>
+    <div>
+      <details open>
+        <summary>Is it really free?</summary>
+        <p>Yes. The poem, the card and the download are free, with no account and no watermark.</p>
+      </details>
+      <details>
+        <summary>Can I write one for a child?</summary>
+        <p>Yes. Turn on the playful tone in the studio and the lines come out lighter and easier to read aloud.</p>
+      </details>
+      <details>
+        <summary>Can I print it at home?</summary>
+        <p>Yes. The download is a greeting-card sized image at print resolution, so it holds up on A5 and on a phone screen.</p>
+      </details>
+    </div>
+  </div>
 </section>
+
+<section class="wrap more">
+  <div class="more-foot">
+    <h2 style="font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em">More occasions</h2>
+    <p class="eyebrow" style="letter-spacing:.18em">All sixty, one studio</p>
+  </div>
+  <div class="more-grid">
+    <a href="/anniversary/">Anniversary <span>→</span></a>
+    <a href="/aunt/">Aunt <span>→</span></a>
+    <a href="/baby/">Baby <span>→</span></a>
+    <a href="/baby-shower/">Baby Shower <span>→</span></a>
+    <a href="/bar-mitzvah/">Bar Mitzvah <span>→</span></a>
+    <a href="/bestfriend/">Best Friend <span>→</span></a>
+    <a href="/boyfriend/">Boyfriend <span>→</span></a>
+    <a href="/brother/">Brother <span>→</span></a>
+    <a href="/christmas/">Christmas <span>→</span></a>
+    <a href="/congrats/">Congrats <span>→</span></a>
+    <a href="/couple/">Couple <span>→</span></a>
+    <a href="/cousin/">Cousin <span>→</span></a>
+    <a href="/daughter/">Daughter <span>→</span></a>
+    <a href="/diwali/">Diwali <span>→</span></a>
+    <a href="/easter/">Easter <span>→</span></a>
+    <a href="/eid/">Eid <span>→</span></a>
+    <a href="/engagement/">Engagement <span>→</span></a>
+    <a href="/farewell/">Farewell <span>→</span></a>
+    <a href="/father/">Father <span>→</span></a>
+    <a href="/fathersday/">Father's Day <span>→</span></a>
+    <a href="/friendship/">Friendship <span>→</span></a>
+    <a href="/getwell/">Get Well <span>→</span></a>
+    <a href="/girlfriend/">Girlfriend <span>→</span></a>
+    <a href="/goodluck/">Good Luck <span>→</span></a>
+    <a href="/graduation/">Graduation <span>→</span></a>
+    <a href="/grandma/">Grandma <span>→</span></a>
+    <a href="/grandpa/">Grandpa <span>→</span></a>
+    <a href="/grandparents-day/">Grandparents' Day <span>→</span></a>
+    <a href="/halloween/">Halloween <span>→</span></a>
+    <a href="/hanukkah/">Hanukkah <span>→</span></a>
+    <a href="/holi/">Holi <span>→</span></a>
+    <a href="/husband/">Husband <span>→</span></a>
+    <a href="/karwa-chauth/">Karwa Chauth <span>→</span></a>
+    <a href="/lunarnewyear/">Lunar New Year <span>→</span></a>
+    <a href="/mother/">Mother <span>→</span></a>
+    <a href="/mothersday/">Mother's Day <span>→</span></a>
+    <a href="/naming-ceremony/">Naming Ceremony <span>→</span></a>
+    <a href="/navratri/">Navratri <span>→</span></a>
+    <a href="/nephew/">Nephew <span>→</span></a>
+    <a href="/newhome/">New Home <span>→</span></a>
+    <a href="/newjob/">New Job <span>→</span></a>
+    <a href="/newyear/">New Year <span>→</span></a>
+    <a href="/niece/">Niece <span>→</span></a>
+    <a href="/pet/">Pet <span>→</span></a>
+    <a href="/prom/">Prom <span>→</span></a>
+    <a href="/quinceanera/">Quinceanera <span>→</span></a>
+    <a href="/rakhi/">Rakhi <span>→</span></a>
+    <a href="/retirement/">Retirement <span>→</span></a>
+    <a href="/silver-anniversary/">Silver Anniversary <span>→</span></a>
+    <a href="/sister/">Sister <span>→</span></a>
+    <a href="/son/">Son <span>→</span></a>
+    <a href="/sweet-16/">Sweet 16 <span>→</span></a>
+    <a href="/teacher-appreciation/">Teacher Appreciation <span>→</span></a>
+    <a href="/teachersday/">Teachers' Day <span>→</span></a>
+    <a href="/thanks/">Thanks <span>→</span></a>
+    <a href="/thanksgiving/">Thanksgiving <span>→</span></a>
+    <a href="/uncle/">Uncle <span>→</span></a>
+    <a href="/valentine/">Valentine <span>→</span></a>
+    <a href="/wedding/">Wedding <span>→</span></a>
+    <a href="/wife/">Wife <span>→</span></a>
+  </div>
 </section>
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@graph": [
-  {
-   "@type": "FAQPage",
-   "mainEntity": [
-    {
-     "@type": "Question",
-     "name": "What is a Baby name poem?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "A short poem built from a person's name: each letter of the name starts one line, written for a Baby. It is the classic acrostic style, and Acrostia also offers a rhyming verse option."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "How long does it take?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "About a minute. Type the name, read the poem, reroll any line you want different, and download the card as an image. No account, no payment."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Can I print it or send it on WhatsApp?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. Download the card as a picture and print it at home, or tap Share on WhatsApp to send the poem and link in one go."
-     }
+
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var LINES = {
+    A:"lways the warmest one in the room,", B:"rings the party wherever you go,", C:"alm in a way that settles everyone,",
+    D:"oes the small things that matter most,", E:"nergetic and bright,", F:"unny without even trying,",
+    G:"enerous with time and with praise,", H:"eart first, always,", I:"nfectiously curious,",
+    J:"oy seems to follow you around,", K:"ind in the ways that count,", L:"ights up a dull afternoon,",
+    M:"aking days feel light,", N:"ever too busy for anyone,", O:"pen hearted and open handed,",
+    P:"atient beyond all reason,", Q:"uirky in the best possible way,", R:"are and quietly remarkable,",
+    S:"teadier than the tide,", T:"he one everybody calls first,", U:"nfailingly kind,", V:"ery easy to love,",
+    W:"arms every room you enter,", X:" marks the spot, and so do you,", Y:"ou make it look effortless,", Z:"estful and wild at once."
+  };
+  var OCCS = {
+    birthday:{acc:'#F6D7DE', ink:'#6B1F2D', name:'Birthday', occ:'for baby', h1:'Birthday name poem,'},
+    diwali:{acc:'#EFD49A', ink:'#5C3A10', name:'Diwali', occ:'for Diwali', h1:'Diwali name poem,'},
+    eid:{acc:'#D9C7E2', ink:'#44235A', name:'Eid', occ:'for Eid', h1:'Eid name poem,'},
+    christmas:{acc:'#CFD8C4', ink:'#2E4027', name:'Christmas', occ:'for Christmas', h1:'Christmas name poem,'},
+    valentine:{acc:'#F2CFD8', ink:'#7A2440', name:'Valentine', occ:'for Valentine', h1:'Valentine name poem,'},
+    holi:{acc:'#F4D06F', ink:'#6B4A0E', name:'Holi', occ:'for Holi', h1:'Holi name poem,'},
+    hanukkah:{acc:'#C7D3E2', ink:'#24406B', name:'Hanukkah', occ:'for Hanukkah', h1:'Hanukkah name poem,'},
+    lunarnewyear:{acc:'#E7B9B9', ink:'#7A1F1F', name:'Lunar New Year', occ:'for Lunar New Year', h1:'Lunar New Year name poem,'},
+    thanksgiving:{acc:'#E3C9A8', ink:'#6B3A10', name:'Thanksgiving', occ:'for Thanksgiving', h1:'Thanksgiving name poem,'},
+    halloween:{acc:'#CBB7D9', ink:'#3E2A52', name:'Halloween', occ:'for Halloween', h1:'Halloween name poem,'}
+  };
+  var LEDLE = 'Type a name and get a free personalized {OCC} poem on a beautiful themed card. Acrostic or rhyming, instant, no sign up. Download it, print it, or send it on WhatsApp.';
+  function ledeFor(o){ return LEDLE.replace('{OCC}', o === 'Birthday' ? 'birthday' : o); }
+  var q = new URLSearchParams(location.search).get('occ');
+  if (q && OCCS[q]) {
+    var o = OCCS[q];
+    document.documentElement.style.setProperty('--acc', o.acc);
+    document.documentElement.style.setProperty('--acc-ink', o.ink);
+    document.getElementById('crumbOcc').textContent = o.name;
+    document.getElementById('eyebrowOcc').textContent = 'Occasion · ' + o.name;
+    document.getElementById('h1lead').textContent = o.h1;
+    document.getElementById('cOcc').textContent = 'For ' + o.name.toLowerCase();
+    document.title = o.name + ' name poem, personalized and free | Acrostia';
+    document.getElementById('lede').textContent = ledeFor(o.name);
+    document.getElementById('samplesLabel').textContent = 'Three finished ' + o.name.toLowerCase() + ' poems';
+    if (q !== 'birthday') {
+      document.getElementById('bannerLine').innerHTML = 'One name, <em>thirteen birthday readings,</em> all free.';
     }
-   ]
-  },
-  {
-   "@type": "WebPage",
-   "name": "Baby name poem | Acrostia",
-   "description": "Free personalized baby name poems. Type a name, get a themed card instantly."
   }
- ]
-}
+  var name = document.getElementById('nm'), cName = document.getElementById('cName'), cPoem = document.getElementById('cPoem');
+  function poemFor(n) {
+    var out = '', letters = (n || 'Aisha').replace(/[^a-z]/gi, '').slice(0, 4).split('');
+    if (!letters.length) letters = ['A','i','s','h'];
+    letters.forEach(function (L) {
+      var line = LINES[L.toUpperCase()] || 'o very easy to love,';
+      out += '<li><b>' + L.toUpperCase() + '</b>' + line.slice(1) + '</li>';
+    });
+    return out;
+  }
+  name.addEventListener('input', function () {
+    var v = name.value.trim() || 'Aisha';
+    cName.textContent = v;
+    cPoem.innerHTML = poemFor(v);
+  });
+  var bed = document.getElementById('bed'), card = document.getElementById('cardEl');
+  var fine = matchMedia('(pointer:fine)').matches;
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fine && !reduced) {
+    bed.addEventListener('pointermove', function (e) {
+      var r = bed.getBoundingClientRect();
+      card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 12).toFixed(2) + 'deg');
+      card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 10).toFixed(2) + 'deg');
+    });
+    bed.addEventListener('pointerleave', function () {
+      card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg');
+    });
+  }
+})();
 </script>
 
-<a class="btn" href="../?o=baby">Make a baby name poem</a>
-<p class="links"><strong>Other occasions:</strong> <a href="../birthday/">Birthday</a> <a href="../engagement/">Engagement</a> <a href="../wedding/">Wedding</a> <a href="../anniversary/">Anniversary</a> <a href="../graduation/">Graduation</a> <a href="../newjob/">New Job</a> <a href="../newhome/">New Home</a> <a href="../retirement/">Retirement</a> <a href="../congrats/">Congratulations</a> <a href="../christmas/">Christmas</a> <a href="../newyear/">New Year</a> <a href="../lunarnewyear/">Lunar New Year</a> <a href="../easter/">Easter</a> <a href="../thanksgiving/">Thanksgiving</a> <a href="../hanukkah/">Hanukkah</a> <a href="../valentine/">Valentine's Day</a> <a href="../halloween/">Halloween</a> <a href="../eid/">Eid</a> <a href="../diwali/">Diwali</a> <a href="../holi/">Holi</a> <a href="../rakhi/">Rakhi</a> <a href="../navratri/">Navratri</a> <a href="../thanks/">Thank You</a></p>
-<p><a href="../">All 61 occasions at Acrostia</a></p>
-</main>
-<script src="../theme.js" defer></script>
 </body>
 </html>

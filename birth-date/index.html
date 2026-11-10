@@ -1,271 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What does your birth date mean? Free birthday number reading | Acrostia</title>
 <meta name="description" content="Type the day of the month you were born, 1 to 31, and get a free birth date meaning: what your birthday number says about you. Instant, no sign up.">
-<link rel="canonical" href="https://Parthiv95.github.io/acrostia/birth-date/">
-<meta property="og:title" content="What does your birth date mean? | Acrostia">
-<meta property="og:description" content="Free birth date meaning: what your birthday number 1 to 31 says about you.">
+<link rel="canonical" href="https://acrostia.example/birth-date/">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://Parthiv95.github.io/acrostia/og-image.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Birthstone by month, what your stone says | Acrostia">
+<meta property="og:description" content="Your birthstone by month, what it has meant for centuries, and a poem to match.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="../fun-data.js?v=5"></script>
-<script src="../birthday-context.js?v=4"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-:root { --ink: #2b331e; --paper: #f4f6ea; --gold: #e2a52a; --deep: #51663a; }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Onest, sans-serif; color: var(--ink); background: var(--paper);
-  background-image: radial-gradient(rgba(43,51,30,.16) 1px, transparent 1.6px), radial-gradient(2px 2px at 14% 20%, rgba(226,165,42,.45), transparent 60%), radial-gradient(2px 2px at 86% 14%, rgba(81,102,58,.3), transparent 60%), radial-gradient(2.5px 2.5px at 70% 74%, rgba(81,102,58,.22), transparent 60%); background-size: 9px 9px, auto, auto, auto; }
-header { display: flex; justify-content: space-between; align-items: center; max-width: 60rem; margin: 0 auto; padding: 18px 2rem; }
-.brand { display: inline-flex; gap: .5rem; align-items: center; font-family: Fraunces, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
-.spark { width: 20px; height: 20px; color: var(--gold); }
-.top-cta { font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); border-radius: 999px; padding: .5rem 1.1rem; }
-.top-cta:hover { background: var(--ink); color: var(--paper); }
-.top-links { display: flex; align-items: center; gap: .55rem; }
-.hub-link { font: 600 .92rem Onest, sans-serif; color: var(--ink); text-decoration: none; padding: .5rem .3rem; opacity: .78; }
-@media (max-width: 520px) { header { flex-wrap: wrap; } .top-links { flex-wrap: wrap; justify-content: flex-end; row-gap: .35rem; } }
-.hub-link:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
-main { max-width: 60rem; margin: 0 auto; padding: 12px 2rem 70px; }
-h1 { font-family: Fraunces, serif; font-weight: 600; font-size: clamp(2rem, 4.4vw, 3rem); margin: 16px 0 12px; letter-spacing: -.01em; }
-h1 em { font-style: italic; color: var(--deep); }
-.lede { font-size: 1.08rem; line-height: 1.65; color: #5b6350; max-width: 60ch; margin: 0 0 26px; }
-.tool { background: #fff; border: 1px solid #dde3cd; border-radius: 22px; padding: 26px; box-shadow: 0 18px 44px rgba(43,51,30,.08); position: relative; }
-.corner { position: absolute; font-size: 1.2rem; color: rgba(81,102,58,.45); }
-.tool .corner.tl { top: .6rem; left: .9rem; }
-.tool .corner.tr { top: .6rem; right: .9rem; }
-.stage { display: flex; justify-content: center; margin-bottom: 18px; }
-.ring { width: 116px; height: 116px; border-radius: 50%; border: 2px solid var(--deep); outline: 5px solid rgba(81,102,58,.22); outline-offset: 5px; display: grid; place-items: center; font-family: Fraunces, serif; font-size: 2.8rem; font-weight: 600; color: var(--deep); background: radial-gradient(circle at 32% 28%, #f8f9ef, #e7ecd6); box-shadow: 0 10px 26px rgba(43,51,30,.14); }
-.row { display: flex; gap: .6rem; flex-wrap: wrap; justify-content: center; }
-.row input { flex: 1 1 150px; max-width: 190px; background: var(--paper); border: 1.5px solid #dde3cd; border-radius: 999px; padding: .82rem 1.2rem; font: 600 1rem Onest, sans-serif; color: var(--ink); text-align: center; }
-.gold { background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 1rem Onest, sans-serif; padding: .72rem 1.5rem; border-radius: 999px; border: 0; cursor: pointer; }
-.gold:hover { transform: translateY(-1px); }
-.chips { margin-top: 16px; text-align: center; }
-.chips p { color: #5b6350; font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; margin: 0 0 8px; }
-.chip { background: rgba(81,102,58,.1); color: var(--deep); border: 1px solid rgba(81,102,58,.35); border-radius: 999px; padding: .35rem .8rem; margin: 0 .3rem .45rem 0; font: 600 .85rem Onest, sans-serif; cursor: pointer; }
-.chip:hover { background: rgba(81,102,58,.22); }
-.result { margin-top: 20px; background: var(--paper); border: 1px solid #dde3cd; border-radius: 14px; padding: 16px 18px; color: #414b34; line-height: 1.7; }
-.result strong { display: block; margin-bottom: 6px; color: var(--ink); font-family: Fraunces, serif; font-size: 1.15rem; }
-.about { margin-top: 46px; max-width: 72ch; }
-.about h2 { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 30px 0 10px; }
-.about p { line-height: 1.7; color: #4b5440; margin: 0 0 14px; }
-.sample { background: #fff; border: 1px solid #dde3cd; border-radius: 14px; padding: 16px 18px; margin: 20px 0; font-style: italic; line-height: 1.9; color: #414b34; }
-.faq dt { color: var(--ink); font-weight: 600; margin-top: 16px; }
-.faq dd { margin: 6px 0 0; line-height: 1.7; color: #4b5440; }
-.faq a { color: var(--deep); font-weight: 600; }
-.btn-row { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { display: inline-block; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; text-decoration: none; padding: .8rem 1.6rem; border-radius: 999px; font: 700 .98rem Onest, sans-serif; }
-.ghost { background: none; border: 1.5px solid #cdd5b8; color: var(--ink); font: 600 .92rem Onest, sans-serif; padding: .68rem 1.2rem; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-block; }
-.ghost:hover { border-color: var(--ink); }
-.links { margin-top: 26px; font-size: .95rem; line-height: 2; }
-.links a { color: var(--deep); font-weight: 600; }
-.more-sec { margin-top: 46px; }
-.more-h { font-family: Fraunces, serif; font-weight: 600; font-size: 1.5rem; margin: 0 0 16px; }
-.rise { display: flex; flex-wrap: wrap; column-gap: .3em; }
-.rise .w { display: inline-block; will-change: transform, opacity; }
-.more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
-.mf-card { display: flex; text-decoration: none; }
-.mf-art { position: relative; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; min-height: 190px; border-radius: 18px; overflow: hidden; padding: .95rem; box-shadow: 0 14px 34px rgba(20,16,30,.16); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
-.mf-card:hover .mf-art { transform: translateY(-3px); }
-.mf-cta { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: .6rem; background: linear-gradient(to bottom, #f0b23a, #dc9418); color: #241c05; font: 700 .88rem Onest, sans-serif; padding: .62rem .95rem; border-radius: 999px; }
-.mf-cta svg { width: 18px; height: 18px; flex: 0 0 auto; }
-@media (max-width: 640px) { header, main { padding-left: 1.1rem; padding-right: 1.1rem; } .ring { width: 100px; height: 100px; font-size: 2.4rem; } }
+  :root{
+    --plum:#241826; --plum-2:#2E1E31; --ink-ivory:#F6E9E4; --ivory-dim:rgba(246,233,228,.66);
+    --gold:#C89A4B; --gold-deep:#8A6420; --burg:#6B1F2D; --blush:#FBE3E8;
+    --ivory:#FFF8F3; --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;overflow-x:hidden;background:var(--plum);color:var(--ink-ivory);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p,figure{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;background:var(--gold);color:#241826;border:0;border-radius:999px;padding:.7rem 1.3rem;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .25s,transform .25s}
+  .pill:hover{background:#D9AE5F;transform:translateY(-1px)}
+  .pill svg{width:.85rem;height:.85rem}
+  .u-link{border:0;background:none;font-size:.78rem;font-weight:600;color:var(--gold);cursor:pointer;padding:0;border-bottom:1px solid rgba(200,154,75,.5);padding-bottom:.15rem}
+  .u-link:hover{border-color:var(--gold)}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--gold);color:#241826;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+
+  header{background:rgba(36,24,38,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(200,154,75,.3);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600;letter-spacing:-.02em;color:var(--ink-ivory)}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:rgba(246,233,228,.75);font-weight:500}
+  nav a:hover{color:var(--gold)}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(200,154,75,.4);background:rgba(246,233,228,.06);display:grid;place-items:center;color:var(--ink-ivory);cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
+
+  .crumb{padding:1.2rem 0 .2rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,233,228,.45)}
+  .crumb a:hover{color:var(--gold)}
+  .crumb span{margin:0 .5rem;color:rgba(200,154,75,.5)}
+
+  .ledger{position:relative;overflow:hidden}
+  .ledger::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 70% at 82% 0%,rgba(200,154,75,.14),transparent 55%);pointer-events:none}
+  .ledger .wrap{position:relative;z-index:1;padding-block:clamp(14px,2vw,26px) clamp(30px,4vw,54px)}
+  .eyebrow{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.02;letter-spacing:-.03em;margin-top:.9rem;color:#FBF3EC}
+  h1 em{font-style:italic;color:var(--gold)}
+  .lede{margin-top:1.05rem;font-size:1rem;line-height:1.66;color:var(--ivory-dim);max-width:46ch}
+  .entry{margin-top:1.6rem;display:flex;align-items:center;gap:.6rem;max-width:440px}
+  .entry input{flex:1;min-width:0;background:rgba(246,233,228,.06);border:1px solid rgba(200,154,75,.4);border-radius:999px;padding:.75rem 1.15rem;color:var(--ink-ivory);font-size:.95rem;outline:none;font-family:Inter,sans-serif}
+  .entry input::placeholder{color:rgba(246,233,228,.4)}
+  .entry input:focus{border-color:var(--gold)}
+  .micro{margin-top:.9rem;font-size:.74rem;color:rgba(246,233,228,.45)}
+
+  .months{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.8rem;max-width:760px}
+  .mchip{appearance:none;border:1px solid rgba(200,154,75,.35);background:transparent;color:rgba(246,233,228,.7);border-radius:999px;padding:.45rem .85rem;font-size:.78rem;cursor:pointer;transition:all .2s}
+  .mchip:hover{border-color:var(--gold);color:var(--gold)}
+  .mchip.is-on{background:var(--gold);border-color:var(--gold);color:#241826;font-weight:600}
+
+  /* the entry card */
+  .entrycard{position:relative;background:linear-gradient(180deg,#2E1E31,#281929);border:1px solid rgba(200,154,75,.45);padding:clamp(22px,3vw,40px);margin-top:clamp(26px,3.4vw,46px);max-width:760px}
+  .entrycard::after{content:"";position:absolute;inset:8px;border:1px solid rgba(200,154,75,.28);pointer-events:none}
+  .entrycard .eno{font-family:Inter,sans-serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+  .entrycard .stone{font-family:"Great Vibes",cursive;font-size:clamp(2.6rem,4.4vw,4rem);color:var(--gold);line-height:1;margin-top:.8rem}
+  .entrycard .range{margin-top:.5rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(246,233,228,.5)}
+  .entrycard .body{margin-top:1.3rem;font-family:Fraunces,Georgia,serif;font-size:1.02rem;line-height:1.75;color:rgba(246,233,228,.82);max-width:52ch}
+  .entrycard .body b{color:var(--gold);font-weight:600}
+  .entrycard .acts{margin-top:1.6rem;display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+
+  /* readings rail */
+  .rail-sec{background:var(--plum-2);border-top:1px solid rgba(200,154,75,.25);border-bottom:1px solid rgba(200,154,75,.25);padding-block:1.9rem}
+  .rail-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem}
+  .rail-head h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.25rem;letter-spacing:-.01em}
+  .rail{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0}
+  .rail a{display:flex;flex-direction:column;gap:.3rem;padding:.75rem .5rem;border-left:1px solid rgba(246,233,228,.1);font-size:.74rem;color:rgba(246,233,228,.6)}
+  .rail a i{font-style:normal;font-size:.56rem;letter-spacing:.16em;color:var(--gold)}
+  .rail a:hover{color:var(--gold)}
+  .rail a.is-on{color:#FBF3EC}
+  .rail a.is-on i{color:var(--gold)}
+
+  /* poem bridge on ivory */
+  .bridge{background:var(--ivory);color:var(--ink);padding-block:clamp(34px,4.4vw,60px)}
+  .bridge-in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);align-items:center}
+  .bridge h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.6rem,2.6vw,2.2rem);letter-spacing:-.02em;line-height:1.12}
+  .bridge h2 em{font-style:italic;color:var(--burg)}
+  .bridge .sub{margin-top:.9rem;font-size:.95rem;line-height:1.65;color:var(--ink-60);max-width:34ch}
+  .bridge .entry2{margin-top:1.5rem;display:flex;gap:.6rem;max-width:460px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem .4rem .4rem 1.2rem}
+  .bridge .entry2 input{min-width:0;flex:1;border:0;outline:none;background:transparent;font-size:.95rem;color:var(--ink)}
+  .bridge .entry2 .pill{background:var(--burg);color:#FFF6F0}
+  .bridge .entry2 .pill:hover{background:var(--burg)}
+  .card{background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(24px,2.8vw,38px) clamp(16px,2.2vw,30px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 34px 60px -36px rgba(20,8,14,.6);position:relative;max-width:400px;justify-self:center;width:100%}
+  .card::after{content:"";position:absolute;inset:8px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
+  .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.4rem,3.6vw,3.1rem);text-align:center;color:var(--gold-deep);line-height:1}
+  .card .occ-line{margin-top:.5rem;text-align:center;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40)}
+  .card .rule{width:54px;height:1px;background:rgba(200,154,75,.6);margin:.85rem auto 0}
+  .card ul{list-style:none;margin:1.1rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:.98rem;line-height:1.8;color:#3B2B2E;text-align:center}
+  .card ul b{font-weight:600;color:var(--burg);margin-right:.3em}
+  .card .heart{display:block;width:12px;margin:1rem auto 0;color:#C9557B}
+
+  footer{background:#1A101C;color:rgba(246,233,228,.6);padding:1.1rem 0 1.5rem}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;flex-wrap:wrap}
+  .legal a{color:rgba(246,233,228,.75)}
+
+  @media (max-width:900px){
+    nav{display:none}
+    .bridge-in{grid-template-columns:1fr;gap:2rem}
+    .rail{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .entry{flex-direction:column;align-items:stretch}
+    .entry .pill{width:100%}
+  }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+
 <header>
-  <a class="brand" href="../"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 C12.8 7.2 16.8 11.2 22 12 C16.8 12.8 12.8 16.8 12 22 C11.2 16.8 7.2 12.8 2 12 C7.2 11.2 11.2 7.2 12 2 Z"/></svg><span>Acrostia</span></a>
-  <nav class="top-links" aria-label="Site"><a class="hub-link" href="../birthday-profile/">Birthday</a><a class="top-cta" href="../">Open the studio</a></nav>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#samples">Examples</a><a href="../#faq">FAQ</a></nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
+  </div>
 </header>
-<main>
-<h1 class="rise" data-rise>What does your <em>birth date</em> mean?</h1>
-<p class="lede">Numbers carry personalities. Type the day of the month you were born, from 1 to 31, and read what yours says about you. Free, instant, no sign up.</p>
-<section class="tool" aria-label="Birth date meaning finder">
-  <span class="corner tl" aria-hidden="true">&#10088;&#10088;</span>
-  <span class="corner tr" aria-hidden="true">&#10089;&#10089;</span>
-  <div class="stage"><div class="ring"><span id="bdNum">26</span></div></div>
-  <div class="row">
-    <input id="bdInput" type="number" inputmode="numeric" min="1" max="31" placeholder="1-31" aria-label="Day of the month you were born">
-    <button class="gold" id="bdBtn" type="button">What does it mean?</button>
-  </div>
-  <div class="chips">
-    <p>Popular birthdays people check</p>
-    <button class="chip" type="button">1</button>
-    <button class="chip" type="button">5</button>
-    <button class="chip" type="button">10</button>
-    <button class="chip" type="button">16</button>
-    <button class="chip" type="button">22</button>
-    <button class="chip" type="button">26</button>
-  </div>
-  <div class="result" id="bdOut" aria-live="polite"></div>
-</section>
-<section class="about">
-<h2 class="rise" data-rise>Your birthday number</h2>
-<p>Your birth date number is one of the oldest bits of name fun on the internet, and one of the most shared. The day of the month you arrived, 1 through 31, carries a personality: 1s were born to lead, 5s collect new places like souvenirs, 26s keep a calm exterior and a curious heart.</p>
-<div class="sample">Born on the 5th: the adventurer.<br>Routine is your enemy, and you collect new places, people and ideas like others collect souvenirs.</div>
-<p>People check their own number, then their partner's, then their child's. Birthdays are the one date everyone knows by heart, which is why a birth date reading travels so well in chats: it costs nothing to try and it lands like it was written for you, because it was.</p>
-<h2 class="rise" data-rise>Questions people ask</h2>
-<dl class="faq">
-<dt>Is this numerology?</dt>
-<dd>It is name fun in the classic birthday-number style, written warm and positive on purpose. Take what delights you.</dd>
-<dt>Can I share my result?</dt>
-<dd>Copy the text, or better, send a poem instead: the <a href="../">Acrostia studio</a> turns a name into a full poem on a themed card you can download or send on WhatsApp.</dd>
-<dt>Why 1 to 31?</dt>
-<dd>Months run 28 to 31 days, so every real birthday falls from 1 to 31. The 29, 30 and 31 readings belong to the long months.</dd>
-</dl>
-<div class="btn-row"><a class="btn" href="../">Make your name poem</a><a class="ghost" href="../birthday-profile/">Build a birthday profile</a></div>
-<p class="links"><strong>More name fun:</strong> <a href="../name-meaning/">What does your name mean?</a> <a href="../first-letter/">First letter of your name meaning</a> <a href="../name-secret/">What is your name secret?</a></p>
-</section>
-<section class="more-sec" aria-label="More birthday fun">
-  <h2 class="more-h rise" data-rise>More birthday fun</h2>
-  <div class="more-grid">
-    <a class="mf-card" href="../birthday-profile/" aria-label="Build a birthday profile"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Build a birthday profile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../zodiac/" aria-label="Find your zodiac sign"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><svg viewBox="0 0 100 62" aria-hidden="true" style="position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(64%,175px)"><polyline points="18,20 26,10 36,14 38,26 58,34 80,42 86,54 60,48 42,38" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8"/><polyline points="58,34 62,20" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".6"/><circle cx="18" cy="20" r="3.1" fill="#fff" opacity=".25"/><circle cx="18" cy="20" r="1.6" fill="#fff"/><circle cx="26" cy="10" r="3.1" fill="#fff" opacity=".25"/><circle cx="26" cy="10" r="1.6" fill="#fff"/><circle cx="36" cy="14" r="3.1" fill="#fff" opacity=".25"/><circle cx="36" cy="14" r="1.6" fill="#fff"/><circle cx="38" cy="26" r="3.1" fill="#fff" opacity=".25"/><circle cx="38" cy="26" r="1.6" fill="#fff"/><circle cx="58" cy="34" r="3.1" fill="#fff" opacity=".25"/><circle cx="58" cy="34" r="1.6" fill="#fff"/><circle cx="80" cy="42" r="3.1" fill="#fff" opacity=".25"/><circle cx="80" cy="42" r="1.6" fill="#fff"/><circle cx="86" cy="54" r="3.1" fill="#fff" opacity=".25"/><circle cx="86" cy="54" r="1.6" fill="#fff"/><circle cx="60" cy="48" r="3.1" fill="#fff" opacity=".25"/><circle cx="60" cy="48" r="1.6" fill="#fff"/><circle cx="42" cy="38" r="3.1" fill="#fff" opacity=".25"/><circle cx="42" cy="38" r="1.6" fill="#fff"/></svg><span class="mf-cta">Find your zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../birthstone/" aria-label="Find your birthstone"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/13300176/pexels-photo-13300176.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Find your birthstone<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../birth-flower/" aria-label="Find your birth flower"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your birth flower<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../birth-month/" aria-label="What your birth month says"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">What your birth month says<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../lucky-number/" aria-label="Find your lucky number"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your lucky number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../moon-phase/" aria-label="Your birthday moon phase"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/673902/pexels-photo-673902.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your birthday moon phase<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../planet-age/" aria-label="Your age on Mars"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/20337597/pexels-photo-20337597.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your age on Mars<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../golden-birthday/" aria-label="Find your golden birthday"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your golden birthday<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../birthday-cake/" aria-label="Write your name on a cake"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/33759172/pexels-photo-33759172.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your name on a cake<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../birth-tree/" aria-label="Find your birth tree"><span class="mf-art" style="background:linear-gradient(160deg,#2f5c2a,#122a0e)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#f2f7ee;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#127795;</span><span class="mf-cta">Find your birth tree<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../chinese-zodiac/" aria-label="Your Chinese zodiac sign"><span class="mf-art" style="background:linear-gradient(160deg,#a3271a,#570f08)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#fdf2ec;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#127877;</span><span class="mf-cta">Your Chinese zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    <a class="mf-card" href="../life-path/" aria-label="Your life path number"><span class="mf-art" style="background:linear-gradient(160deg,#24356b,#101a3d)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#eef1fa;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#128099;</span><span class="mf-cta">Your life path number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+
+<section class="ledger" id="main">
+  <div class="wrap">
+    <p class="crumb"><a href="#">Home</a><span>/</span><a href="#">Birthday Discovery</a><span>/</span><span id="crumbStone">Birth date</span></p>
+    <p class="eyebrow">The Birthday Ledger · Reading 06 of 13</p>
+    <h1>Your birth date, read on its <em>own terms.</em></h1>
+    <p class="lede">Every month has a stone that people have carried, gifted and believed in for centuries. Pick a month, read its entry, then take the stone's meaning straight into a poem.</p>
+
+    <div class="months" id="months"></div>
+
+    <article class="entrycard">
+      <p class="eno" id="eNo">Entry · Date</p>
+      <div class="stone" id="eStone">10</div>
+      <p class="range" id="eRange">the tenth day, a compound number</p>
+      <p class="body" id="eBody">The day number matters more than people expect. Ten reads as <b>one and zero at once,</b> the finished self beside the open door, which is why so many ten-days are described as both settled and restless.</p>
+      <div class="acts">
+        <a class="u-link" href="#poem">Write a topaz poem for someone</a>
+        <a class="u-link" href="#">See it on a card</a>
+      </div>
+    </article>
   </div>
 </section>
-</main>
+
+<section class="rail-sec">
+  <div class="wrap">
+    <div class="rail-head">
+      <h2>The thirteen readings</h2>
+      <a class="u-link" href="#">Open the full ledger</a>
+    </div>
+    <div class="rail">
+      <a href="#"><i>01</i>Birth tree</a>
+      <a href="#"><i>02</i>Zodiac</a>
+      <a href="#"><i>03</i>Birthstone</a>
+      <a href="#"><i>04</i>Birth flower</a>
+      <a href="#"><i>05</i>Birth month</a>
+      <a class="is-on" href="#"><i>06</i>Birth date</a>
+      <a href="#"><i>07</i>Lucky number</a>
+      <a href="#"><i>08</i>Moon phase</a>
+      <a href="#"><i>09</i>Planet age</a>
+      <a href="#"><i>10</i>Life path</a>
+      <a href="#"><i>11</i>Chinese zodiac</a>
+      <a href="#"><i>12</i>Golden birthday</a>
+      <a href="#"><i>13</i>Name on a cake</a>
+    </div>
+  </div>
+</section>
+
+<section class="bridge" id="poem">
+  <div class="wrap bridge-in">
+    <div>
+      <h2>Turn the stone into a <em>poem.</em></h2>
+      <p class="sub">The studio writes the stone's meaning into the verse, so the card carries both the name and the month.</p>
+      <form class="entry2" onsubmit="return false">
+        <input id="nm" type="text" aria-label="Their name" placeholder="Type a name, e.g. Tara" autocomplete="off">
+        <button class="pill" type="submit">Write the poem
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </div>
+    <div class="card">
+      <div class="nm" id="cName">Tara</div>
+      <div class="occ-line" id="cOcc">Topaz child, for a November birthday</div>
+      <div class="rule"></div>
+      <ul id="cPoem">
+        <li><b>T</b>ranquil as a topaz in the light,</li>
+        <li><b>A</b>lways the warmest one in the room,</li>
+        <li><b>R</b>are and quietly remarkable,</li>
+        <li><b>A</b> November child, steady and bright.</li>
+      </ul>
+      <svg class="heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-9.4-9.1C1.2 8.2 3.4 5 6.8 5c2 0 3.7 1.1 4.5 2.7l.7 1.4.7-1.4C13.5 6.1 15.2 5 17.2 5c3.4 0 5.6 3.2 4.2 6.9C19.5 16.3 12 21 12 21z"/></svg>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
+
 <script>
 (function () {
-  var BD = {
-    1: "You were born to lead. You like doing things your own way, and your confidence quietly pulls people along with you.",
-    2: "You are the peacemaker. You feel everything deeply, and people come to you when they need calm and honest advice.",
-    3: "You are pure expression. Words, jokes, stories: you light up every room, and boredom never survives around you.",
-    4: "You are the builder. Steady, practical and dependable, you turned plans into things that actually last.",
-    5: "You are the adventurer. Routine is your enemy, and you collect new places, people and ideas like others collect souvenirs.",
-    6: "You are the caretaker. Family and friends are your center of gravity, and you give love with both hands.",
-    7: "You are the thinker. You live a rich inner life, ask the questions others skip, and need quiet like other people need air.",
-    8: "You are built for big things. Ambitious and sharp with plans, you climb until the view satisfies you.",
-    9: "You are the giver. Idealistic and warm-hearted, you feel for strangers as easily as for friends.",
-    10: "You are a natural number one. Independent, charming and a little competitive, you were never going to follow anyone's queue.",
-    11: "You are the intuitive. You read rooms and moods instantly, and your instincts are often scarily right.",
-    12: "You are the charmer. Versatile and social, you can talk to anyone and find the fun in any plan.",
-    13: "You are practical with a spark of rebellion. You work harder than most, but always on your own terms.",
-    14: "You are the curious one. Variety is your fuel: new food, new roads, new ideas, all welcome.",
-    15: "You are warmth itself. An artistic streak, a family heart, and the friend everyone calls first with good news.",
-    16: "You are quietly deep. Thoughtful and intuitive, you show the world a calm surface and keep a rich world underneath.",
-    17: "You are quiet strength. Highly determined and ambitious, you win without needing to make noise about it.",
-    18: "You are the idealist. Strong-willed and generous, you fight for the people and the things you believe in.",
-    19: "You are a self-starter. Brave, opinionated and decisive, you would rather apologize than ask permission.",
-    20: "You are the diplomat. Sensitive and loyal, you feel the room's mood first and protect the people in it.",
-    21: "You are the spark. Energetic and charismatic, plans start moving the moment you walk in.",
-    22: "You are the master builder. You dream bigger than everyone and, unusually, you also do the work to make it real.",
-    23: "You are freedom itself. Witty, adventurous and hard to pin down, life with you is never boring.",
-    24: "You are the heart of the home. Nurturing and reliable, people feel safe the moment they are near you.",
-    25: "You are the gentle analyst. You think everything through, feel deeply, and surprise people with quiet wisdom.",
-    26: "You are frank and expressive. You do what your heart tells you, keep a calm exterior, and rarely lose your temper. You love to explore new places and learn.",
-    27: "You are the original. Strong-minded and artistic, you see angles nobody else notices and you trust your own taste.",
-    28: "You are the pioneer. Independent and warm-hearted, you lead the way and make it look easy.",
-    29: "You are the deep feeler. Highly intuitive and idealistic, you experience life in colors others do not see.",
-    30: "You are the performer. Expressive and fun-loving, you turn ordinary afternoons into stories worth retelling.",
-    31: "You are self-reliant. Private, determined and steady, you do not need a crowd to know exactly who you are."
+  var STONES = {
+    1:['Garnet','January','the stone people carried for <b>safe travel and steady resolve,</b> given to friends setting out on long journeys'],
+    2:['Amethyst','February','the stone of <b>clear heads and calm evenings,</b> worn by anyone who wanted their temper kept in order'],
+    3:['Aquamarine','March','the <b>sailor\'s stone,</b> believed to keep water calm and the person carrying it level in a storm'],
+    4:['Diamond','April','the stone of <b>unbreakable bonds,</b> which is why it ended up on rings and never really left'],
+    5:['Emerald','May','the stone of <b>spring and second sight,</b> said to sharpen the eyes and soften the tongue'],
+    6:['Pearl','June','the only stone made by a living thing, carried for <b>gentleness and long love</b>'],
+    7:['Ruby','July','the stone of <b>warm blood and courage,</b> set into armour by people who meant it'],
+    8:['Peridot','August','the <b>evening stone,</b> said to keep its colour after dark and ward off bad dreams'],
+    9:['Sapphire','September','the stone of <b>truth and quiet judgment,</b> the one you gave someone you trusted entirely'],
+    10:['Opal','October','the stone of <b>every colour at once,</b> carried by people who liked their luck mixed'],
+    11:['Topaz','November','the stone people carried for <b>calm and clear sight,</b> slipped into the pockets of sailors and given at births'],
+    12:['Turquoise','December','the <b>friendship stone,</b> given to protect the person you could not travel with']
   };
-  var F = window.FUN;
-  var input = document.getElementById("bdInput"), btn = document.getElementById("bdBtn"), out = document.getElementById("bdOut"), num = document.getElementById("bdNum");
-  var bdc = window.BDAY ? window.BDAY.get() : null;
-  if (bdc && bdc.d) input.value = String(bdc.d);
-  function saveBd(d) { if (window.BDAY && d >= 1 && d <= 31) BDAY.set({ d: d }); }
-  function show(day) {
-    var d = parseInt(day, 10);
-    if (!d || d < 1 || d > 31) d = 26;
-    num.textContent = d;
-    out.innerHTML = "<strong>Born on the " + d + F.ordinal(d) + "</strong>" + BD[d];
-  }
-  btn.addEventListener("click", function () { saveBd(parseInt(input.value, 10)); show(input.value); });
-  input.addEventListener("keydown", function (e) { if (e.key === "Enter") { saveBd(parseInt(input.value, 10)); show(input.value); } });
-  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
-    c.addEventListener("click", function () { input.value = c.textContent; saveBd(parseInt(c.textContent, 10)); show(c.textContent); });
+  var NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var LINES = {
+    A:"lways the warmest one in the room,", B:"rings the party wherever you go,", C:"alm in a way that settles everyone,",
+    D:"oes the small things that matter most,", E:"nergetic and bright,", F:"unny without even trying,",
+    G:"enerous with time and with praise,", H:"eart first, always,", I:"nfectiously curious,",
+    J:"oy seems to follow you around,", K:"ind in the ways that count,", L:"ights up a dull afternoon,",
+    M:"aking days feel light,", N:"ever too busy for anyone,", O:"pen hearted and open handed,",
+    P:"atient beyond all reason,", Q:"uirky in the best possible way,", R:"are and quietly remarkable,",
+    S:"teadier than the tide,", T:"ranquil as a topaz in the light,", U:"nfailingly kind,", V:"ery easy to love,",
+    W:"arms every room you enter,", X:" marks the spot, and so do you,", Y:"ou make it look effortless,", Z:"estful and wild at once."
+  };
+  var months = document.getElementById('months');
+  var eNo = document.getElementById('eNo'), eStone = document.getElementById('eStone'),
+      eRange = document.getElementById('eRange'), eBody = document.getElementById('eBody'),
+      crumb = document.getElementById('crumbStone'), cOcc = document.getElementById('cOcc');
+  var cur = new Date().getMonth() + 1;
+  var q = +new URLSearchParams(location.search).get('m');
+  if (q >= 1 && q <= 12) cur = q;
+
+  NAMES.forEach(function (n, i) {
+    var b = document.createElement('button');
+    b.className = 'mchip'; b.type = 'button'; b.textContent = n;
+    b.addEventListener('click', function () { set(i + 1); });
+    months.appendChild(b);
   });
-  show(input.value || 26);
+  function set(m) {
+    cur = m;
+    var st = STONES[m];
+    eNo.textContent = 'Entry · ' + st[1];
+    eStone.textContent = st[0];
+    eRange.textContent = st[1] + ', by the modern list';
+    eBody.innerHTML = 'The stone people carried for ' + st[2] + '. Old lists agree on the feeling more than the fact, which is usually how traditions work. ' + st[0] + ' remains the ' + st[1] + ' stone on nearly every list printed since 1912.';
+    crumb.textContent = 'Birthstone';
+    cOcc.textContent = st[0] + ' child, for a ' + st[1].toLowerCase() + ' birthday';
+    document.querySelectorAll('.mchip').forEach(function (c, i) { c.classList.toggle('is-on', i === m - 1); });
+  }
+  set(cur);
+
+  var name = document.getElementById('nm'), cName = document.getElementById('cName'), cPoem = document.getElementById('cPoem');
+  name.addEventListener('input', function () {
+    var v = name.value.trim() || 'Tara';
+    cName.textContent = v;
+    var out = '', letters = v.replace(/[^a-z]/gi, '').slice(0, 4).split('');
+    if (!letters.length) letters = ['T','a','r','a'];
+    letters.forEach(function (L) {
+      var line = LINES[L.toUpperCase()] || 'o very easy to love,';
+      out += '<li><b>' + L.toUpperCase() + '</b>' + line.slice(1) + '</li>';
+    });
+    cPoem.innerHTML = out;
+  });
 })();
 </script>
-<script>
-(function () {
-  var springs = [], springRunning = false;
-  function splitRise(el) {
-    var words = [];
-    (function walk(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
-        if (ch.nodeType === 3) {
-          var parts = ch.textContent.split(/(\s+)/);
-          var frag = document.createDocumentFragment();
-          parts.forEach(function (part) {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
-            var w = document.createElement("span");
-            w.className = "w";
-            w.textContent = part;
-            frag.appendChild(w);
-            words.push(w);
-          });
-          node.replaceChild(frag, ch);
-        } else if (ch.nodeType === 1) walk(ch);
-      });
-    })(el);
-    var stagger = parseInt(el.getAttribute("data-stagger") || "110", 10);
-    return words.map(function (w, i) {
-      w.style.opacity = "0";
-      return { el: w, y: 36, vy: 0, o: 0, vo: 0, t0: performance.now() + i * stagger, started: false };
-    });
-  }
-  function springStep(items, now) {
-    var T = 170, FR = 24, DT = 1 / 60, settled = true;
-    items.forEach(function (it) {
-      if (now < it.t0) { settled = false; return; }
-      it.started = true;
-      var ay = T * (0 - it.y) - FR * it.vy;
-      var ao = T * (1 - it.o) - FR * it.vo;
-      it.vy += ay * DT; it.y += it.vy * DT;
-      it.vo += ao * DT; it.o += it.vo * DT;
-      if (Math.abs(it.vy) > 0.001 || Math.abs(it.y) > 0.001 || Math.abs(it.vo) > 0.001 || Math.abs(it.o) > 0.001 || it.o < 0.999) settled = false;
-      it.el.style.transform = "translateY(" + it.y.toFixed(3) + "px)";
-      it.el.style.opacity = Math.max(0, Math.min(1, it.o)).toFixed(3);
-    });
-    return settled;
-  }
-  function pumpSprings() {
-    if (springRunning) return;
-    springRunning = true;
-    (function loop(now) {
-      springs = springs.filter(function (items) {
-        var keep = items.some(function (it) { return !it.started; });
-        return !springStep(items, now) || keep;
-      });
-      if (springs.length) requestAnimationFrame(loop);
-      else springRunning = false;
-    })(performance.now());
-  }
-  (function initRise() {
-    var heads = Array.prototype.slice.call(document.querySelectorAll("[data-rise]"));
-    if (!heads.length) return;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (typeof IntersectionObserver !== "function") return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        io.unobserve(en.target);
-        springs.push(splitRise(en.target));
-        pumpSprings();
-      });
-    }, { threshold: 0.2 });
-    heads.forEach(function (h) { io.observe(h); });
-  })();
-})();
-</script>
-<script src="../theme.js" defer></script>
+
 </body>
 </html>
