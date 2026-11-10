@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Write an acrostic or rhyming poem for any name and occasion, choose the paper, and download the card. Free, no sign up.">
+<link rel="canonical" href="https://parthiv95.github.io/acrostia/studio/">
 <title>Acrostia — The Press</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,6 +74,9 @@
   .card ul li + li{margin-top:.18em}
   .card ul b{font-weight:600;color:var(--burg);display:inline-block;width:1.05em;text-indent:0}
   .card .heart{display:block;width:13px;margin:1.1rem auto 0;color:#C9557B;transform:translateZ(8px)}
+  .card .closer{margin:1.1rem auto 0;max-width:30ch;text-align:center;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:.9rem;line-height:1.5;color:var(--burg);transform:translateZ(10px)}
+  .card .fromline{margin:.7rem auto 0;text-align:center;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(8px)}
+  .card .closer:empty,.card .fromline:empty{display:none}
   .bed-cap{position:absolute;bottom:1.05rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);z-index:1;white-space:nowrap}
 
   /* ---------- bench ---------- */
@@ -148,7 +153,7 @@
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="/">
+    <a class="brand" href="../">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
       Acrostia
     </a>
@@ -190,6 +195,8 @@
           <li><b>A</b>lways the warmest one in the room,</li>
           <li><b>H</b>eart first, always.</li>
         </ul>
+        <div class="closer" id="cCloser"></div>
+        <div class="fromline" id="cFrom"></div>
         <svg class="heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-9.4-9.1C1.2 8.2 3.4 5 6.8 5c2 0 3.7 1.1 4.5 2.7l.7 1.4.7-1.4C13.5 6.1 15.2 5 17.2 5c3.4 0 5.6 3.2 4.2 6.9C19.5 16.3 12 21 12 21z"/></svg>
       </div>
     </div>
@@ -246,9 +253,11 @@
         <label class="bgthumb up" title="Use your own photo">Yours<input type="file" id="bgUpload" accept="image/*" hidden></label>
       </div>
       <span class="lbl">Script</span>
-      <button class="fopt is-on" style="font-family:'Great Vibes',cursive">Noah</button>
-      <button class="fopt" style="font-family:Fraunces,serif;font-style:italic">Noah</button>
-      <button class="fopt" data-cap="1" style="font-family:Fraunces,serif;font-weight:600;letter-spacing:.05em">NOAH</button>
+      <button class="fopt is-on" data-f="script" style="font-family:'Great Vibes',cursive">Noah</button>
+      <button class="fopt" data-f="keepsake" style="font-family:Fraunces,serif;font-style:italic">Noah</button>
+      <button class="fopt" data-f="simple" data-cap="1" style="font-family:Fraunces,serif;font-weight:600;letter-spacing:.05em">NOAH</button>
+      <button class="fopt" data-f="hand" style="font-family:'Bradley Hand','Segoe Script',cursive">Noah</button>
+      <button class="fopt" data-f="storybook" style="font-family:Fraunces,serif;font-weight:300;letter-spacing:.02em">Noah</button>
       <span class="lbl">Photo</span>
       <button class="upl">Upload yours</button>
       <div class="step-cta"><button class="quiet" data-goto="3">Back</button><button class="pill" data-goto="5">Print <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
@@ -295,13 +304,13 @@
   var qs = new URLSearchParams(location.search);
   var st = {
     name: qs.get('n') || 'Noah',
-    name2: '',
-    from: '',
+    name2: qs.get('n2') || '',
+    from: qs.get('from') || '',
     occ: OCC_MAP[(qs.get('o') || 'birthday').toLowerCase()] || 'birthday',
     style: (qs.get('s') === 'rhyming' ? 'rhyme' : 'acrostic'),
     voice: qs.get('v') || 'gentle',
     verse: 0,
-    font: 'vibes'
+    font: qs.get('f') || 'script'
   };
 
   var el = function (id) { return document.getElementById(id); };
@@ -310,6 +319,8 @@
   var hint = el('hint'), prog = el('prog');
 
   nameIn.value = st.name;
+  if (st.name2 && name2In) name2In.value = st.name2;
+  if (st.from && fromIn) fromIn.value = st.from;
   if (A) A.voice(st.voice);
 
   function cardLines() {
@@ -342,11 +353,37 @@
     return t;
   }
 
+  var PAIR_OCC = ['couple', 'engagement', 'wedding', 'anniversary', 'valentine', 'silver-anniversary'];
+  var FONT_MAP = {
+    script: "clamp(2.4rem,4vw,3.4rem) 'Great Vibes', cursive",
+    keepsake: "italic 400 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
+    simple: "600 clamp(1.5rem,2.4vw,2rem) Fraunces, Georgia, serif",
+    hand: "clamp(2rem,3.2vw,2.6rem) 'Bradley Hand', 'Segoe Script', cursive",
+    storybook: "300 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif"
+  };
+
   function render() {
     syncChips();
+    var isPair = PAIR_OCC.indexOf(st.occ) !== -1;
+    if (name2In) {
+      name2In.disabled = !isPair;
+      name2In.placeholder = isPair ? 'for couples' : 'couples occasions only';
+      if (!isPair && st.name2) { st.name2 = ''; name2In.value = ''; }
+    }
+    var cCloser = document.getElementById('cCloser');
+    var cFrom = document.getElementById('cFrom');
+    var verseBtn = document.getElementById('verseBtn');
     cName.textContent = st.name2 ? st.name + ' & ' + st.name2 : st.name;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
     lastLines = cardLines();
+    if (cCloser) {
+      var isRhyme = st.style === 'rhyme';
+      cCloser.textContent = (!isRhyme && A && A.closer) ? (st.name2 ? st.name + ' & ' + st.name2 : st.name) + ', ' + A.closer(st.occ) : '';
+      cPoem.classList.toggle('has-closer', !isRhyme);
+      cCloser.style.display = (!isRhyme && st.voice !== 'heartfelt') || (!isRhyme) ? '' : 'none';
+    }
+    if (cFrom) cFrom.textContent = st.from ? 'from ' + st.from : '';
+    if (verseBtn) verseBtn.style.display = st.style === 'rhyme' ? '' : 'none';
     var out = '';
     if (st.style === 'rhyme') {
       lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
@@ -359,6 +396,8 @@
     cPoem.classList.toggle('is-verse', st.style === 'rhyme');
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' + st.voice + ' voice' + (st.bg ? ' · your paper' : '');
     nameIn.value = st.name;
+  if (st.name2 && name2In) name2In.value = st.name2;
+  if (st.from && fromIn) fromIn.value = st.from;
     if (st.style !== 'rhyme' && A) {
       Array.prototype.forEach.call(cPoem.querySelectorAll('.line-reroll'), function (el) {
         function swap() {
@@ -453,7 +492,13 @@
     render();
     syncUrl();
   });
-  fromIn.addEventListener('input', function () { st.from = fromIn.value.trim(); });
+  fromIn.addEventListener('input', function () { st.from = fromIn.value.trim(); render(); });
+  var verseBtn = document.getElementById('verseBtn');
+  if (verseBtn) verseBtn.addEventListener('click', function () {
+    var n = (A && A.verseCount) ? A.verseCount(st.occ) : 2;
+    st.verse = (st.verse + 1) % Math.max(1, n);
+    render();
+  });
 
   document.querySelectorAll('[data-bench="2"] .chip').forEach(function (c) {
     c.addEventListener('click', function () {
@@ -483,16 +528,22 @@
     });
   });
 
-  var FONTS = { vibes: "2.4rem 'Great Vibes', cursive", ital: "italic 400 2rem Fraunces, Georgia, serif", caps: "600 1.6rem Fraunces, Georgia, serif" };
-  document.querySelectorAll('.fopt').forEach(function (b, i) {
+  function applyFont() {
+    cName.style.font = FONT_MAP[st.font] || FONT_MAP.script;
+    cName.style.letterSpacing = st.font === 'simple' ? '.06em' : '0';
+  }
+  document.querySelectorAll('.fopt').forEach(function (b) {
     b.addEventListener('click', function () {
       document.querySelectorAll('.fopt').forEach(function (x) { x.classList.remove('is-on'); });
       b.classList.add('is-on');
-      st.font = i === 0 ? 'vibes' : i === 1 ? 'ital' : 'caps';
-      cName.style.font = FONTS[st.font];
-      cName.style.letterSpacing = st.font === 'caps' ? '.06em' : '0';
+      st.font = b.dataset.f || 'script';
+      applyFont();
+      var u = new URL(location.href);
+      u.searchParams.set('f', st.font);
+      history.replaceState(null, '', u);
     });
   });
+  applyFont();
 
   document.querySelectorAll('.sw').forEach(function (b) {
     b.addEventListener('click', function () {
