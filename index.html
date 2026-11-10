@@ -73,9 +73,12 @@
   .poem-card .nm{font-family:"Great Vibes",cursive;font-size:8.4cqw;line-height:1;text-align:center;color:var(--gold-deep);transform:translateZ(26px)}
   .poem-card .rule{width:26%;height:1px;background:rgba(200,154,75,.6);margin:2.5cqw auto 0;transform:translateZ(18px)}
   .poem-card ul{list-style:none;margin:2.8cqw 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:2.24cqw;line-height:1.7;color:#3B2B2E;transform:translateZ(12px)}
-  .poem-card ul b{font-weight:600;color:var(--burg);margin-right:.34em}
+  .poem-card ul li{padding-left:1.05em;text-indent:-1.05em}
+  .poem-card ul li + li{margin-top:.18em}
+  .poem-card ul b{font-weight:600;color:var(--burg);display:inline-block;width:1.05em;text-indent:0}
   .poem-card .heart{display:block;width:2.8cqw;height:2.8cqw;margin:2.9cqw auto 0;color:#C9557B;transform:translateZ(8px)}
   .hero-art{container-type:inline-size}
+  .poem-wrap{max-height:100%}
 
   /* ---------- sample band ---------- */
   .sample{background:var(--blush);border-top:1px solid rgba(200,154,75,.3);border-bottom:1px solid rgba(200,154,75,.3);padding-block:clamp(34px,4vw,56px)}
@@ -437,16 +440,59 @@ var OCC_SLUG = "birthday";
   var nm = document.getElementById('cardName');
   var po = document.getElementById('cardPoem');
   if (!inp || !nm || !po) return;
+  function renderPoem(v) {
+    if (!window.Acrostia) return;
+    var clean = (v || '').replace(/[^\p{L}\s'&-]/gu, '').trim();
+    if (!clean) return;
+    window.Acrostia.voice('gentle');
+    var letters = clean.replace(/[^\p{L}]/gu, '').length;
+    var short = letters > 6;   // long names drop the clause so the type stays legible
+    po.innerHTML = window.Acrostia.acrostic(clean, 'birthday').map(function (l) {
+      var line = '<li><b>' + l.letter + '</b> is for ' + l.word;
+      if (!short) line += ', ' + l.desc + (l.suf ? ', ' + l.suf : '');
+      if (l.who) line += ' (' + l.who + ')';
+      return line + '</li>';
+    }).join('');
+  }
+
+  var pre = new URLSearchParams(location.search).get('name');
+  if (pre) {
+    var v0 = pre.trim().slice(0, 18);
+    if (v0) { inp.value = v0; nm.textContent = v0; renderPoem(v0); }
+  }
+
+  function fitCard() {
+    var art = document.getElementById('art');
+    var card = document.getElementById('card');
+    var nmEl = document.getElementById('cardName');
+    var ul = document.getElementById('cardPoem');
+    if (!art || !card || !ul || !nmEl) return;
+    var figH = art.clientHeight;
+    if (!figH) return;
+    var maxH = figH * 0.9;
+    // the script name shrinks past seven letters
+    var letters = (nmEl.textContent || '').replace(/[^\p{L}]/gu, '').length;
+    nmEl.style.fontSize = letters > 7 ? (8.4 * Math.pow(7 / letters, 0.55)).toFixed(2) + 'cqw' : '';
+    // then the lines, until the card fits
+    ul.style.fontSize = '';
+    var size = parseFloat(getComputedStyle(ul).fontSize) || 15;
+    var guard = 0;
+    while (card.scrollHeight > maxH && size > 6 && guard < 60) {
+      size -= 0.4;
+      ul.style.fontSize = size + 'px';
+      guard++;
+    }
+  }
+
   inp.addEventListener('input', function () {
     var v = inp.value.trim() || 'Emma';
     nm.textContent = v;
-    if (window.Acrostia) {
-      window.Acrostia.voice('gentle');
-      po.innerHTML = window.Acrostia.acrostic(v, 'birthday').map(function (l) {
-        return '<li><b>' + l.letter + '</b> is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '') + '</li>';
-      }).join('');
-    }
+    renderPoem(v);
+    fitCard();
   });
+  addEventListener('resize', fitCard);
+  renderPoem(inp.value.trim() || 'Emma');
+  fitCard();
 })();
 </script>
 <script>

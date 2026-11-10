@@ -68,7 +68,9 @@
   .card .occ-line{margin-top:.55rem;text-align:center;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(16px)}
   .card .rule{width:58px;height:1px;background:rgba(200,154,75,.6);margin:.9rem auto 0;transform:translateZ(14px)}
   .card ul{list-style:none;margin:1.2rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:clamp(.94rem,1.2vw,1.06rem);line-height:1.85;color:#3B2B2E;text-align:center;transform:translateZ(10px)}
-  .card ul b{font-weight:600;color:var(--burg);margin-right:.3em}
+  .card ul li{padding-left:1.05em;text-indent:-1.05em}
+  .card ul li + li{margin-top:.18em}
+  .card ul b{font-weight:600;color:var(--burg);display:inline-block;width:1.05em;text-indent:0}
   .card .heart{display:block;width:13px;margin:1.1rem auto 0;color:#C9557B;transform:translateZ(8px)}
   .bed-cap{position:absolute;bottom:1.05rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);z-index:1;white-space:nowrap}
 
@@ -123,9 +125,11 @@
   .skip:focus{left:0}
 
   .card ul{text-align:left;padding-left:.2rem}
-  .card ul li{padding-left:1.1em;text-indent:-1.1em;margin-top:.3rem}
+  .card ul li{padding-left:1.08em;text-indent:-1.08em;margin-top:.26rem}
   .card ul li b{display:inline-block;width:1.1em;text-indent:0}
   .card ul.is-verse li{padding-left:0;text-indent:0;text-align:center}
+  .card ul li b{display:inline-block;width:1.08em;text-indent:0}
+  .card ul.fitdown{font-size:var(--fitsize, inherit)}
 </style>
 </head>
 <body>
@@ -496,7 +500,27 @@
     bed.addEventListener('pointerleave', function () { t0 = Date.now(); });
   }
 
+  function fitCard() {
+    var bed = document.getElementById('bed');
+    var card = document.getElementById('cardEl');
+    var ul = document.getElementById('cPoem');
+    if (!bed || !card || !ul) return;
+    ul.classList.remove('fitdown');
+    ul.style.removeProperty('--fitsize');
+    var maxH = bed.clientHeight * 0.92;
+    var size = parseFloat(getComputedStyle(ul).fontSize) || 16;
+    var guard = 0;
+    while (card.scrollHeight > maxH && size > 8 && guard < 60) {
+      size -= 0.5;
+      ul.style.setProperty('--fitsize', size + 'px');
+      ul.classList.add('fitdown');
+      guard++;
+    }
+  }
+  addEventListener('resize', fitCard);
+
   render();
+  fitCard();
 
   if (qs.get('selftest')) {
     var report = {};
