@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How Acrostia is built for keyboard, screen reader and low vision use, what we test, and how to report a barrier.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Acrostia">
+<meta property="og:title" content="Accessibility statement | Acrostia">
+<meta property="og:description" content="Acrostia collects nothing. How the free name poem generator handles (and does not handle) your data.">
+<meta property="og:url" content="https://parthiv95.github.io/acrostia/accessibility/">
+<meta property="og:image" content="https://parthiv95.github.io/acrostia/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Accessibility statement | Acrostia</title>
+<link rel="canonical" href="https://parthiv95.github.io/acrostia/accessibility/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FFF8F3; --ivory-2:#FBF1E9; --burg:#6B1F2D; --gold-deep:#8A6420;
+    --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  h1,h2,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+  a:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+
+  header{border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.4rem;font-weight:600}
+  .brand svg{width:1rem;height:1rem;color:var(--gold-deep)}
+  .leg-nav{display:flex;gap:1.4rem;font-size:.8rem;color:var(--ink-60)}
+  .leg-nav a:hover{color:var(--burg)}
+
+  .crumb{padding:1.4rem 0 .1rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40)}
+  .crumb span{margin:0 .5rem;color:rgba(200,154,75,.6)}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.9rem,3.2vw,2.7rem);letter-spacing:-.025em;margin-top:.6rem}
+  .meta{margin-top:.7rem;font-size:.78rem;color:var(--ink-40)}
+  .layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-block:clamp(26px,3.4vw,48px) clamp(44px,5vw,72px)}
+  .toc{position:sticky;top:96px;align-self:start;font-size:.8rem}
+  .toc b{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-40);margin-bottom:.7rem}
+  .toc a{display:block;padding:.32rem 0;border-left:2px solid transparent;padding-left:.75rem;color:var(--ink-60)}
+  .toc a:hover,.toc a.is-on{color:var(--burg);border-color:var(--gold-deep)}
+  .prose h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.15rem;letter-spacing:-.01em;margin:2rem 0 .6rem;scroll-margin-top:90px}
+  .prose h2:first-child{margin-top:0}
+  .prose p{font-size:.93rem;line-height:1.75;color:rgba(44,32,36,.8);max-width:64ch}
+  .prose p + p{margin-top:.7rem}
+  .prose strong{color:var(--ink)}
+  .note{border:1px solid var(--line);background:var(--ivory-2);padding:1rem 1.2rem;font-size:.88rem;line-height:1.6;color:var(--ink-60);margin:1.4rem 0}
+  .note b{color:var(--burg)}
+  footer{border-top:1px solid var(--line);padding:1rem 0 1.4rem;display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;color:var(--ink-40);flex-wrap:wrap}
+  @media (max-width:760px){ .toc{display:none} .layout{grid-template-columns:1fr} .leg-nav{display:none} }
+</style>
+</head>
+<body>
+<a class="skip" href="#doc">Skip to the notice</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="../">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav class="leg-nav"><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../refund-policy/">Refunds</a><a href="../cookie-policy/">Cookies</a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="crumb"><a href="../">Home</a><span>/</span><span id="crumbDoc">Accessibility</span></p>
+  <h1 id="docTitle">Accessibility statement</h1>
+  <p class="meta" id="docMeta">Last updated 10 November 2026 · 3 minute read</p>
+
+  <div class="layout">
+    <nav class="toc" id="toc">
+      <b>On this page</b>
+      <a href="#s1" class="is-on">What we collect</a>
+      <a href="#s2">What stays local</a>
+      <a href="#s3">Sharing</a>
+      <a href="#s4">Your choices</a>
+      <a href="#s5">Contact</a>
+    </nav>
+
+    <div class="prose" id="doc">
+      <h2 id="s1">How the site is built</h2>
+      <p>Acrostia is a static site. Text is real text, every page has one main heading, and the layout reflows down to 320 pixels without horizontal scrolling.</p>
+      <h2 id="s2">Keyboard and focus</h2>
+      <p>Every control can be reached with the Tab key and activated with Enter or Space. Focus is always visible as a gold outline. A skip link at the top of each page jumps straight to the content.</p>
+      <h2 id="s3">Contrast and type</h2>
+      <p>Body text meets WCAG 2.2 AA at 4.5 to 1 or better, and small gold labels use a darker shade than the decorative gold so they stay legible. Nothing relies on colour alone to carry meaning.</p>
+      <h2 id="s4">Motion</h2>
+      <p>The card tilt is decorative. It stops entirely when your device asks for reduced motion, and it never blocks reading or exporting.</p>
+      <h2 id="s5">Testing and reporting</h2>
+      <p>Pages are checked for broken links, heading order, contrast, keyboard reach and image alt text on every change. If something is hard to use, write to parthivkk123@gmail.com and describe the page and what happened. A person replies.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../refund-policy/">Refunds</a> &nbsp; <a href="../cookie-policy/">Cookies</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var DOCS = {
+    privacy:{title:'Privacy notice', body:null},
+    terms:{title:'Terms of use', body:null},
+    refund:{title:'Refund policy', body:null},
+    cookies:{title:'Cookie notice', crumb:'Cookies', body:'cookie'}
+  };
+  var q = 'privacy';
+  if (DOCS[q] && DOCS[q].title) {
+    document.title = DOCS[q].title + ' | Acrostia';
+    document.getElementById('docTitle').textContent = DOCS[q].title;
+    document.getElementById('crumbDoc').textContent = DOCS[q].crumb || DOCS[q].title.replace(' notice','').replace(' policy','').replace(' of use','');
+  }
+  if (q === 'cookies') {
+    var note = document.createElement('div');
+    note.className = 'note';
+    note.innerHTML = '<b>About the consent banner.</b> On the live site, a small banner appears once, here and on first visit. Accepting enables anonymous usage statistics. Declining keeps them off. Either way, poems and names are never affected, because they never leave your browser.';
+    var doc = document.getElementById('doc');
+    doc.insertBefore(note, doc.firstChild);
+  }
+})();
+</script>
+
+</body>
+</html>
