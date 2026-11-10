@@ -121,6 +121,11 @@
 
   .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;border-radius:0 0 10px 0;font-size:.8rem;font-weight:600}
   .skip:focus{left:0}
+
+  .card ul{text-align:left;padding-left:.2rem}
+  .card ul li{padding-left:1.1em;text-indent:-1.1em;margin-top:.3rem}
+  .card ul li b{display:inline-block;width:1.1em;text-indent:0}
+  .card ul.is-verse li{padding-left:0;text-indent:0;text-align:center}
 </style>
 </head>
 <body>
@@ -245,99 +250,249 @@
   </div>
 </footer>
 
+<script src="../assets/floral/engine.js"></script>
 <script>
 (function () {
-  var LINES = {
-    A:"lways the warmest one in the room,", B:"rings the party wherever you go,", C:"alm in a way that settles everyone,",
-    D:"oes the small things that matter most,", E:"nergetic and bright,", F:"unny without even trying,",
-    G:"enerous with time and with praise,", H:"eart first, always,", I:"nfectiously curious,",
-    J:"oy seems to follow you around,", K:"ind in the ways that count,", L:"ights up a dull afternoon,",
-    M:"aking days feel light,", N:"ever too busy for anyone,", O:"pen hearted and open handed,",
-    P:"atient beyond all reason,", Q:"uirky in the best possible way,", R:"are and quietly remarkable,",
-    S:"teadier than the tide,", T:"he one everybody calls first,", U:"nfailingly kind,", V:"ery easy to love,",
-    W:"arms every room you enter,", X:" marks the spot, and so do you,", Y:"ou make it look effortless,", Z:"estful and wild at once."
+  var A = window.Acrostia;
+  var OCC_MAP = {
+    'birthday':'birthday','wedding':'wedding','anniversary':'anniversary','diwali':'diwali',
+    'christmas':'christmas','eid':'eid','new baby':'baby','graduation':'graduation',
+    'get well':'getwell','thank you':'thanks'
   };
-  var HINTS = {
-    1:"One name or two for a couple. The card rewrites as you type.",
-    2:"Sixty occasions in the full list. Ten favourites here.",
-    3:"Acrostic reads down the name. Rhyming carries it.",
-    4:"Paper tone, the script for the name, or your own photograph.",
-    5:"Greeting-card size, no watermark, yours to keep."
+  var qs = new URLSearchParams(location.search);
+  var st = {
+    name: qs.get('n') || 'Noah',
+    name2: '',
+    from: '',
+    occ: OCC_MAP[(qs.get('o') || 'birthday').toLowerCase()] || 'birthday',
+    style: (qs.get('s') === 'rhyming' ? 'rhyme' : 'acrostic'),
+    voice: qs.get('v') || 'gentle',
+    verse: 0,
+    font: 'vibes'
   };
-  var name = document.getElementById('nm'), cName = document.getElementById('cName'),
-      cPoem = document.getElementById('cPoem'), cOcc = document.getElementById('cOcc'),
-      bedCap = document.getElementById('bedCap'), hint = document.getElementById('hint'),
-      prog = document.getElementById('prog');
-  var steps = document.querySelectorAll('.r-step'), benches = document.querySelectorAll('.bench'),
-      occs = document.querySelectorAll('[data-bench="2"] .chip'), voices = document.querySelectorAll('.v'),
-      gotos = document.querySelectorAll('[data-goto]');
-  var occ = 'a birthday', voice = 'gentle', cur = 1;
 
-  function poemFor(n) {
-    var out = '', letters = (n || 'Noah').replace(/[^a-z]/gi, '').slice(0, 4).split('');
-    if (!letters.length) letters = ['N','o','a','h'];
-    letters.forEach(function (L) {
-      var line = LINES[L.toUpperCase()] || 'o very easy to love,';
-      out += '<li><b>' + L.toUpperCase() + '</b>' + line.slice(1) + '</li>';
-    });
-    return out;
+  var el = function (id) { return document.getElementById(id); };
+  var nameIn = el('nm'), name2In = el('nm2'), fromIn = el('from');
+  var cName = el('cName'), cOcc = el('cOcc'), cPoem = el('cPoem'), bedCap = el('bedCap');
+  var hint = el('hint'), prog = el('prog');
+
+  nameIn.value = st.name;
+  if (A) A.voice(st.voice);
+
+  function cardLines() {
+    if (!A) return [];
+    A.voice(st.voice);
+    if (st.style === 'rhyme') {
+      var txt = A.rhyme(st.name, st.name2, st.verse, st.occ);
+      return txt.split('\n').filter(Boolean).map(function (l) { return { raw: l }; });
+    }
+    return (st.name2 ? A.pair(st.name, st.name2, st.occ) : A.acrostic(st.name, st.occ));
   }
+
+  function syncChips() {
+    if (!A) return;
+    var lab = A.label(st.occ).toLowerCase();
+    document.querySelectorAll('[data-bench="2"] .chip').forEach(function (c) {
+      c.classList.toggle('is-on', c.textContent.trim().toLowerCase() === lab);
+    });
+    document.querySelectorAll('.v').forEach(function (c) {
+      c.classList.toggle('is-on', c.textContent.trim().toLowerCase() === st.voice);
+    });
+    var seg = document.querySelectorAll('[data-bench="3"] .seg button');
+    seg.forEach(function (b, i) { b.classList.toggle('is-on', (st.style === 'rhyme') === (i === 1)); });
+  }
+
   function render() {
-    var v = name.value.trim() || 'Noah';
-    cName.textContent = v;
-    cPoem.innerHTML = poemFor(v);
-    cOcc.textContent = 'For ' + occ;
-    bedCap.textContent = 'Live card · ' + voice + ' voice';
+    syncChips();
+    cName.textContent = st.name2 ? st.name + ' & ' + st.name2 : st.name;
+    cOcc.textContent = A ? A.label(st.occ) : st.occ;
+    var lines = cardLines(), out = '';
+    if (st.style === 'rhyme') {
+      lines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
+    } else {
+      lines.forEach(function (l) {
+        out += '<li><b>' + l.letter + '</b>' + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '') + '</li>';
+      });
+    }
+    cPoem.innerHTML = out;
+    cPoem.classList.toggle('is-verse', st.style === 'rhyme');
+    bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' + st.voice + ' voice';
+    nameIn.value = st.name;
   }
-  name.addEventListener('input', render);
-  name.addEventListener('input', function () {
-    var v = name.value.trim() || 'Noah';
-    document.querySelectorAll('.fopt').forEach(function (f) { f.textContent = f.dataset.cap === '1' ? v.toUpperCase() : v; });
-  });
-  occs.forEach(function (c) { c.addEventListener('click', function () {
-    occs.forEach(function (x) { x.classList.remove('is-on'); });
-    c.classList.add('is-on'); occ = c.textContent.toLowerCase(); render();
-  }); });
-  voices.forEach(function (c) { c.addEventListener('click', function () {
-    voices.forEach(function (x) { x.classList.remove('is-on'); });
-    c.classList.add('is-on'); voice = c.textContent.toLowerCase(); render();
-  }); });
-  function goStep(n) {
-    cur = n;
-    steps.forEach(function (b, i) {
-      b.classList.toggle('is-on', i === n - 1);
-      b.classList.toggle('is-done', i < n - 1);
+
+  function syncUrl() {
+    var u = new URL(location.href);
+    u.searchParams.set('n', st.name);
+    u.searchParams.set('o', st.occ);
+    u.searchParams.set('s', st.style === 'rhyme' ? 'rhyming' : 'acrostic');
+    u.searchParams.set('v', st.voice);
+    history.replaceState(null, '', u);
+  }
+
+  nameIn.addEventListener('input', function () { st.name = nameIn.value.trim() || 'Noah'; render(); syncUrl(); });
+  name2In.addEventListener('input', function () { st.name2 = name2In.value.trim(); render(); });
+  fromIn.addEventListener('input', function () { st.from = fromIn.value.trim(); });
+
+  document.querySelectorAll('[data-bench="2"] .chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      document.querySelectorAll('[data-bench="2"] .chip').forEach(function (x) { x.classList.remove('is-on'); });
+      c.classList.add('is-on');
+      st.occ = OCC_MAP[c.textContent.trim().toLowerCase()] || 'birthday';
+      render(); syncUrl();
     });
+  });
+
+  document.querySelectorAll('.v').forEach(function (c) {
+    c.addEventListener('click', function () {
+      document.querySelectorAll('.v').forEach(function (x) { x.classList.remove('is-on'); });
+      c.classList.add('is-on');
+      st.voice = c.textContent.trim().toLowerCase();
+      render(); syncUrl();
+    });
+  });
+
+  var seg = document.querySelectorAll('[data-bench="3"] .seg button');
+  seg.forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      seg.forEach(function (x) { x.classList.remove('is-on'); });
+      b.classList.add('is-on');
+      st.style = i === 1 ? 'rhyme' : 'acrostic';
+      render(); syncUrl();
+    });
+  });
+
+  var FONTS = { vibes: "2.4rem 'Great Vibes', cursive", ital: "italic 400 2rem Fraunces, Georgia, serif", caps: "600 1.6rem Fraunces, Georgia, serif" };
+  document.querySelectorAll('.fopt').forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.fopt').forEach(function (x) { x.classList.remove('is-on'); });
+      b.classList.add('is-on');
+      st.font = i === 0 ? 'vibes' : i === 1 ? 'ital' : 'caps';
+      cName.style.font = FONTS[st.font];
+      cName.style.letterSpacing = st.font === 'caps' ? '.06em' : '0';
+    });
+  });
+
+  document.querySelectorAll('.sw').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.sw').forEach(function (x) { x.classList.remove('is-on'); });
+      b.classList.add('is-on');
+      var card = document.getElementById('cardEl');
+      if (card) card.style.background = b.style.background;
+    });
+  });
+
+  /* ---------- exports ---------- */
+  function poemText() {
+    var lines = cardLines();
+    var head = (st.name2 ? st.name + ' & ' + st.name2 : st.name) + '\n' + A.label(st.occ) + '\n\n';
+    if (st.style === 'rhyme') return head + lines.map(function (l) { return l.raw; }).join('\n');
+    return head + lines.map(function (l) { return l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : ''); }).join('\n');
+  }
+
+  function download() {
+    var W = 900, H = 1200, cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    var x = cv.getContext('2d');
+    var g = x.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#FFFDF8'); g.addColorStop(1, '#FBF3E8');
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+    x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.strokeRect(28, 28, W - 56, H - 56);
+    x.strokeStyle = 'rgba(200,154,75,.3)'; x.lineWidth = 1; x.strokeRect(44, 44, W - 88, H - 88);
+    x.textAlign = 'center';
+    x.fillStyle = '#8A6420';
+    x.font = "88px 'Great Vibes', cursive";
+    x.fillText(st.name2 ? st.name + ' & ' + st.name2 : st.name, W / 2, 210);
+    x.fillStyle = 'rgba(200,154,75,.8)';
+    x.fillRect(W / 2 - 40, 240, 80, 2);
+    x.fillStyle = '#5C4A4E';
+    x.font = "600 18px Inter, sans-serif";
+    x.fillText(A.label(st.occ).toUpperCase(), W / 2, 282);
+    var lines = cardLines(), y = 360;
+    if (st.style === 'rhyme') {
+      x.fillStyle = '#3B2B2E'; x.font = "30px Fraunces, Georgia, serif";
+      lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += 52; });
+    } else {
+      lines.forEach(function (l) {
+        var txt = l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '');
+        x.fillStyle = '#6B1F2D'; x.font = "600 30px Fraunces, Georgia, serif";
+        x.textAlign = 'left'; x.fillText(l.letter, 110, y);
+        x.fillStyle = '#3B2B2E'; x.font = "26px Fraunces, Georgia, serif";
+        x.fillText(txt.slice(l.letter.length + 1), 150, y);
+        x.textAlign = 'center';
+        y += 56;
+      });
+    }
+    if (st.from) {
+      x.fillStyle = '#5C4A4E'; x.font = "italic 24px Inter, sans-serif";
+      x.fillText('from ' + st.from, W / 2, H - 120);
+    }
+    x.fillStyle = '#C9557B'; x.font = "26px serif"; x.fillText('\u2665', W / 2, H - 78);
+    var a = document.createElement('a');
+    a.download = (st.name2 ? st.name + '-' + st.name2 : st.name).toLowerCase().replace(/\s+/g, '-') + '-poem.png';
+    a.href = cv.toDataURL('image/png');
+    a.click();
+  }
+
+  function copy(txt, btn) {
+    if (navigator.clipboard) navigator.clipboard.writeText(txt);
+    if (btn) { var old = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = old; }, 1400); }
+  }
+
+  var acts = document.querySelectorAll('[data-bench="5"] button');
+  acts.forEach(function (b) {
+    var t = b.textContent.trim().toLowerCase();
+    b.addEventListener('click', function () {
+      if (t.indexOf('download') === 0) download();
+      else if (t.indexOf('print') === 0) window.print();
+      else if (t.indexOf('copy text') === 0) copy(poemText(), b);
+      else if (t.indexOf('copy link') === 0) copy(location.href, b);
+      else if (t.indexOf('whatsapp') === 0) window.open('https://wa.me/?text=' + encodeURIComponent(poemText() + '\n\n' + location.href), '_blank');
+    });
+  });
+
+  /* ---------- steps + tilt ---------- */
+  var HINTS = {
+    1:'One name or two for a couple. The card rewrites as you type.',
+    2:'Sixty occasions in the full list. Ten favourites here.',
+    3:'Acrostic reads down the name. Rhyming carries it.',
+    4:'Paper tone, the script for the name, or your own photograph.',
+    5:'Greeting-card size, no watermark, yours to keep.'
+  };
+  var steps = document.querySelectorAll('.r-step'), benches = document.querySelectorAll('.bench');
+  function goStep(n) {
+    steps.forEach(function (b, i) { b.classList.toggle('is-on', i === n - 1); b.classList.toggle('is-done', i < n - 1); });
     benches.forEach(function (s) { s.classList.toggle('is-on', +s.dataset.bench === n); });
-    hint.textContent = HINTS[n];
-    prog.textContent = 'Step ' + n + ' of 5';
+    if (hint) hint.textContent = HINTS[n];
+    if (prog) prog.textContent = 'Step ' + n + ' of 5';
   }
   steps.forEach(function (b) { b.addEventListener('click', function () { goStep(+b.dataset.step); }); });
-  gotos.forEach(function (b) { b.addEventListener('click', function () { goStep(+b.dataset.goto); }); });
-  var qstep = +new URLSearchParams(location.search).get('step');
+  document.querySelectorAll('[data-goto]').forEach(function (b) { b.addEventListener('click', function () { goStep(+b.dataset.goto); }); });
+  var qstep = +qs.get('step');
   if (qstep >= 1 && qstep <= 5) goStep(qstep);
 
   var bed = document.getElementById('bed'), wrap = document.getElementById('cardWrap');
-  var pose = new URLSearchParams(location.search).get('pose');
+  var pose = qs.get('pose');
   var fine = matchMedia('(pointer:fine)').matches;
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (pose === 'tilt') { wrap.style.setProperty('--rx', '7deg'); wrap.style.setProperty('--ry', '-10deg'); }
-  if (!fine || reduced || pose) return;
-  var raf, t0 = Date.now();
-  function idle() {
-    var t = (Date.now() - t0) / 1000;
-    wrap.style.setProperty('--rx', (Math.sin(t * .6) * 2).toFixed(2) + 'deg');
-    wrap.style.setProperty('--ry', (Math.cos(t * .45) * 2.6).toFixed(2) + 'deg');
-    raf = requestAnimationFrame(idle);
+  if (fine && !reduced && !pose) {
+    var raf, t0 = Date.now();
+    (function idle() {
+      var t = (Date.now() - t0) / 1000;
+      wrap.style.setProperty('--rx', (Math.sin(t * .6) * 2).toFixed(2) + 'deg');
+      wrap.style.setProperty('--ry', (Math.cos(t * .45) * 2.6).toFixed(2) + 'deg');
+      raf = requestAnimationFrame(idle);
+    })();
+    bed.addEventListener('pointermove', function (e) {
+      cancelAnimationFrame(raf);
+      var r = bed.getBoundingClientRect();
+      wrap.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
+      wrap.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
+    });
+    bed.addEventListener('pointerleave', function () { t0 = Date.now(); });
   }
-  raf = requestAnimationFrame(idle);
-  bed.addEventListener('pointermove', function (e) {
-    cancelAnimationFrame(raf);
-    var r = bed.getBoundingClientRect();
-    wrap.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
-    wrap.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
-  });
-  bed.addEventListener('pointerleave', function () { cancelAnimationFrame(raf); t0 = Date.now(); raf = requestAnimationFrame(idle); });
+
+  render();
 })();
 </script>
 

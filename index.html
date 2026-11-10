@@ -419,7 +419,9 @@
 </script>
 
 
+<script src="assets/floral/engine.js"></script>
 <script>
+var OCC_SLUG = "birthday";
 (function () {
   var LINES = {
     A:"lways the warmest one in the room,", B:"rings the party wherever you go,", C:"alm in a way that settles everyone,",
@@ -438,14 +440,21 @@
   inp.addEventListener('input', function () {
     var v = inp.value.trim() || 'Emma';
     nm.textContent = v;
-    var out = '', letters = v.replace(/[^a-z]/gi, '').slice(0, 4).split('');
-    if (!letters.length) letters = ['E','m','m','a'];
-    letters.forEach(function (L) {
-      var line = LINES[L.toUpperCase()] || 'o very easy to love,';
-      out += '<li><b>' + L.toUpperCase() + '</b>' + line.slice(1) + '</li>';
-    });
-    po.innerHTML = out;
+    if (window.Acrostia) {
+      window.Acrostia.voice('gentle');
+      po.innerHTML = window.Acrostia.acrostic(v, 'birthday').map(function (l) {
+        return '<li><b>' + l.letter + '</b> is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '') + '</li>';
+      }).join('');
+    }
   });
+})();
+</script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  if (q.get('n') || q.get('o') || q.get('s')) {
+    location.replace('/studio/?' + q.toString());
+  }
 })();
 </script>
 </body>

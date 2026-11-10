@@ -334,7 +334,9 @@
   </div>
 </footer>
 
+<script src="../assets/floral/engine.js"></script>
 <script>
+var OCC_SLUG = 'hanukkah';
 (function () {
   var LINES = {
     A:"lways the warmest one in the room,", B:"rings the party wherever you go,", C:"alm in a way that settles everyone,",
@@ -378,19 +380,21 @@
   }
   var name = document.getElementById('nm'), cName = document.getElementById('cName'), cPoem = document.getElementById('cPoem');
   function poemFor(n) {
-    var out = '', letters = (n || 'Aisha').replace(/[^a-z]/gi, '').slice(0, 4).split('');
-    if (!letters.length) letters = ['A','i','s','h'];
-    letters.forEach(function (L) {
-      var line = LINES[L.toUpperCase()] || 'o very easy to love,';
-      out += '<li><b>' + L.toUpperCase() + '</b>' + line.slice(1) + '</li>';
-    });
-    return out;
+    if (!window.Acrostia) return '';
+    window.Acrostia.voice('gentle');
+    return window.Acrostia.acrostic(n, OCC_SLUG).map(function (l) {
+      return '<li><b>' + l.letter + '</b> is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '') + '</li>';
+    }).join('');
   }
-  name.addEventListener('input', function () {
+  var qn = new URLSearchParams(location.search).get('n');
+  if (qn) name.value = qn;
+  function paint() {
     var v = name.value.trim() || 'Aisha';
     cName.textContent = v;
     cPoem.innerHTML = poemFor(v);
-  });
+  }
+  name.addEventListener('input', paint);
+  paint();
   var bed = document.getElementById('bed'), card = document.getElementById('cardEl');
   var fine = matchMedia('(pointer:fine)').matches;
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
