@@ -33,6 +33,18 @@ Randomness comes from `Math.random`, so two runs differ. That is intended, not a
 
 `/studio/?selftest=1` generates a poem, builds the poem text and renders the export canvas without downloading, then writes the result into the page title. Run it after touching the engine or the exports; it is how the PNG path was verified in production.
 
+## Running and deploying
+
+Preview on your own machine, because `file://` breaks relative paths:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000.
+
+Hosted on GitHub Pages from the `main` branch, root folder. Pushing to `main` publishes in a minute or two; the repo must stay public on the free plan.
+
 ## Conventions
 
 - **No em dashes** in copy

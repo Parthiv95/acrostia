@@ -16,20 +16,6 @@ A free, instant name-poem generator. Type a name, pick an occasion, and get a pe
 
 No account, no payment, no watermark.
 
-## Run it locally
-
-It is a static site with no build step:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then open http://localhost:8000
-
-## Deploy
-
-Hosted on GitHub Pages from the `main` branch, root folder. Pushing to `main` publishes the site in a minute or two.
-
 ## Project layout
 
 ```
