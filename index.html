@@ -75,6 +75,9 @@
   .poem-card ul{list-style:none;margin:2.8cqw 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:2.24cqw;line-height:1.7;color:#3B2B2E;transform:translateZ(12px)}
   .poem-card ul li{padding-left:1.05em;text-indent:-1.05em}
   .poem-card ul li + li{margin-top:.18em}
+  .poem-card ul.two-col{column-count:2;column-gap:1.5rem}
+  .poem-card ul.two-col li{break-inside:avoid;margin-top:0;padding-bottom:.18em}
+  @media (max-width:560px){.poem-card ul.two-col{column-count:1}}
   .poem-card ul b{font-weight:600;color:var(--burg);display:inline-block;width:1.05em;text-indent:0}
   .poem-card .heart{display:block;width:2.8cqw;height:2.8cqw;margin:2.9cqw auto 0;color:#C9557B;transform:translateZ(8px)}
   .hero-art{container-type:inline-size}
@@ -461,6 +464,15 @@ var OCC_SLUG = "birthday";
     if (v0) { inp.value = v0; nm.textContent = v0; renderPoem(v0); }
   }
 
+  function columnise() {
+    var ul = document.getElementById('cardPoem');
+    if (!ul) return 0;
+    var n = ul.querySelectorAll('li').length;
+    var wide = ul.closest('.poem-wrap') ? true : true;
+    if (n > 8) ul.classList.add('two-col'); else ul.classList.remove('two-col');
+    return n;
+  }
+
   function fitCard() {
     var art = document.getElementById('art');
     var card = document.getElementById('card');
@@ -485,7 +497,7 @@ var OCC_SLUG = "birthday";
     ul.style.fontSize = '';
     var size = parseFloat(getComputedStyle(ul).fontSize) || 15;
     var guard = 0;
-    while (card.scrollHeight > maxH && size > 6 && guard < 60) {
+    while (card.scrollHeight > maxH && size > 10 && guard < 60) {
       size -= 0.4;
       ul.style.fontSize = size + 'px';
       guard++;
@@ -496,10 +508,12 @@ var OCC_SLUG = "birthday";
     var v = inp.value.trim() || 'Emma';
     nm.textContent = v;
     renderPoem(v);
+    columnise();
     fitCard();
   });
   addEventListener('resize', fitCard);
   renderPoem(inp.value.trim() || 'Emma');
+  columnise();
   fitCard();
 })();
 </script>

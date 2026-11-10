@@ -144,6 +144,9 @@
   .card ul li{padding-left:1.08em;text-indent:-1.08em;margin-top:.26rem}
   .card ul li b{display:inline-block;width:1.1em;text-indent:0}
   .card ul.is-verse li{padding-left:0;text-indent:0;text-align:center}
+  .card ul.two-col{column-count:2;column-gap:1.5rem}
+  .card ul.two-col li{break-inside:avoid;margin-top:0;padding-bottom:.2em}
+  @media (max-width:560px){.card ul.two-col{column-count:1}}
   .card ul li b{display:inline-block;width:1.08em;text-indent:0}
   .card ul.fitdown{font-size:var(--fitsize, inherit)}
 </style>
@@ -394,6 +397,7 @@
     }
     cPoem.innerHTML = out;
     cPoem.classList.toggle('is-verse', st.style === 'rhyme');
+    cPoem.classList.toggle('two-col', st.style !== 'rhyme' && lastLines.length > 8);
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' + st.voice + ' voice' + (st.bg ? ' · your paper' : '');
     nameIn.value = st.name;
   if (st.name2 && name2In) name2In.value = st.name2;
@@ -699,7 +703,7 @@
     var maxH = bed.clientHeight * 0.92;
     var size = parseFloat(getComputedStyle(ul).fontSize) || 16;
     var guard = 0;
-    while (card.scrollHeight > maxH && size > 8 && guard < 60) {
+    while (card.scrollHeight > maxH && size > 10 && guard < 60) {
       size -= 0.5;
       ul.style.setProperty('--fitsize', size + 'px');
       ul.classList.add('fitdown');
