@@ -16,20 +16,6 @@ A free, instant name-poem generator. Type a name, pick an occasion, and get a pe
 
 No account, no payment, no watermark.
 
-## Project layout
-
-```
-index.html        homepage
-studio/           the poem studio
-<occasion>/       60 occasion pages
-birthday/         Birthday Discovery
-first-letter/     Name Discovery
-assets/floral/    images and the poem engine
-sitemap.xml       search engines
-```
-
 ## Contact
 
 parthivkk123@gmail.com
-
-Developer notes, conventions and the engine API live in [docs/ENGINE.md](docs/ENGINE.md).

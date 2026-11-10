@@ -33,6 +33,18 @@ Randomness comes from `Math.random`, so two runs differ. That is intended, not a
 
 `/studio/?selftest=1` generates a poem, builds the poem text and renders the export canvas without downloading, then writes the result into the page title. Run it after touching the engine or the exports; it is how the PNG path was verified in production.
 
+## Project layout
+
+```
+index.html        homepage
+studio/           the poem studio
+<occasion>/       60 occasion pages
+birthday/         Birthday Discovery
+first-letter/     Name Discovery
+assets/floral/    images and the poem engine
+sitemap.xml       search engines
+```
+
 ## Running and deploying
 
 Preview on your own machine, because `file://` breaks relative paths:
