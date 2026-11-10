@@ -474,6 +474,7 @@
     if (up) up.addEventListener('change', function () {
       var f = up.files && up.files[0];
       if (!f) return;
+      if (!/^image\//.test(f.type) || f.size > 8 * 1024 * 1024) { up.value = ''; return; }
       var fr = new FileReader();
       fr.onload = function () { setBg(fr.result, up.closest('.bgthumb')); };
       fr.readAsDataURL(f);
