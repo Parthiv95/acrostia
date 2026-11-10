@@ -81,7 +81,7 @@
   .poem-card ul b{font-weight:600;color:var(--burg);display:inline-block;width:1.05em;text-indent:0}
   .poem-card .heart{display:block;width:2.8cqw;height:2.8cqw;margin:2.9cqw auto 0;color:#C9557B;transform:translateZ(8px)}
   .hero-art{container-type:inline-size}
-  .poem-wrap{max-height:100%}
+  .poem-wrap{max-height:100%;overflow:hidden}
 
   /* ---------- sample band ---------- */
   .sample{background:var(--blush);border-top:1px solid rgba(200,154,75,.3);border-bottom:1px solid rgba(200,154,75,.3);padding-block:clamp(34px,4vw,56px)}
@@ -443,9 +443,15 @@ var OCC_SLUG = "birthday";
   var nm = document.getElementById('cardName');
   var po = document.getElementById('cardPoem');
   if (!inp || !nm || !po) return;
+  var MAXL = 14;              // hard cap: no card may need more than 14 lines
+  function cleanName(v) {
+    var s = (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s+/g, ' ').trim();
+    return s.slice(0, MAXL);
+  }
+
   function renderPoem(v) {
     if (!window.Acrostia) return;
-    var clean = (v || '').replace(/[^\p{L}\s'&-]/gu, '').trim();
+    var clean = cleanName(v);
     if (!clean) return;
     window.Acrostia.voice('gentle');
     var letters = clean.replace(/[^\p{L}]/gu, '').length;
@@ -460,7 +466,7 @@ var OCC_SLUG = "birthday";
 
   var pre = new URLSearchParams(location.search).get('name');
   if (pre) {
-    var v0 = pre.trim().slice(0, 18);
+    var v0 = cleanName(pre);
     if (v0) { inp.value = v0; nm.textContent = v0; renderPoem(v0); }
   }
 
@@ -493,6 +499,8 @@ var OCC_SLUG = "birthday";
       size -= 1; nmEl.style.fontSize = size + 'px'; guard++;
     }
     if (nmEl.scrollWidth > avail) nmEl.style.whiteSpace = 'normal';
+    nmEl.style.maxWidth = '100%';
+    nmEl.style.overflowWrap = 'anywhere';
     // then the lines, until the card fits
     ul.style.fontSize = '';
     var size = parseFloat(getComputedStyle(ul).fontSize) || 15;
@@ -505,7 +513,9 @@ var OCC_SLUG = "birthday";
   }
 
   inp.addEventListener('input', function () {
-    var v = inp.value.trim() || 'Emma';
+    var capped = cleanName(inp.value);
+    if (capped !== inp.value) inp.value = capped;
+    var v = capped || 'Emma';
     nm.textContent = v;
     renderPoem(v);
     columnise();

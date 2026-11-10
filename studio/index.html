@@ -64,7 +64,7 @@
       display:grid;justify-items:center;padding:clamp(28px,4.5vw,64px) 18px clamp(56px,6vw,84px);perspective:1500px}
   .bed .grain{position:absolute;inset:0;background-image:url('../assets/floral/plate-900.jpg');background-size:cover;background-position:50% 30%;opacity:.05;mix-blend-mode:multiply;pointer-events:none}
   .card-wrap{width:min(430px,92vw);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;will-change:transform;position:relative;z-index:1}
-  .card{background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(26px,3.2vw,42px) clamp(18px,2.4vw,34px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 40px 70px -38px rgba(96,44,54,.55);position:relative;transform-style:preserve-3d}
+  .card{overflow:hidden;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(26px,3.2vw,42px) clamp(18px,2.4vw,34px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 40px 70px -38px rgba(96,44,54,.55);position:relative;transform-style:preserve-3d}
   .card::after{content:"";position:absolute;inset:9px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
   .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.7rem,4.4vw,3.6rem);text-align:center;color:var(--gold-deep);line-height:1;transform:translateZ(24px)}
   .card .occ-line{margin-top:.55rem;text-align:center;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(16px)}
@@ -304,16 +304,17 @@
     'christmas':'christmas','eid':'eid','new baby':'baby','graduation':'graduation',
     'get well':'getwell','thank you':'thanks'
   };
+  var MAXL = 14;   // declared before any use: a var assigned later reads undefined
   var qs = new URLSearchParams(location.search);
   var st = {
-    name: qs.get('n') || 'Noah',
-    name2: qs.get('n2') || '',
-    from: qs.get('from') || '',
+    name: cleanName(qs.get('n')) || 'Noah',
+    name2: cleanName(qs.get('n2')),
+    from: (qs.get('from') || '').replace(/[^\p{L}\s'&.-]/gu, '').slice(0, 24),
     occ: OCC_MAP[(qs.get('o') || 'birthday').toLowerCase()] || 'birthday',
     style: (qs.get('s') === 'rhyming' ? 'rhyme' : 'acrostic'),
     voice: qs.get('v') || 'gentle',
     verse: 0,
-    font: qs.get('f') || 'script'
+    font: (['script','keepsake','simple','hand','storybook'].indexOf(qs.get('f')) !== -1 ? qs.get('f') : 'script')
   };
 
   var el = function (id) { return document.getElementById(id); };
@@ -325,6 +326,16 @@
   if (st.name2 && name2In) name2In.value = st.name2;
   if (st.from && fromIn) fromIn.value = st.from;
   if (A) A.voice(st.voice);
+
+  function cleanName(v) {
+    var s = (v || '').replace(/[^\p{L}\s'&-]/gu, '').replace(/\s+/g, ' ').trim();
+    return s.slice(0, MAXL);
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
 
   function cardLines() {
     if (!A) return [];
@@ -352,8 +363,8 @@
   var lastLines = [];
 
   function lineHTML(l) {
-    var t = '<b>' + l.letter + '</b> is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '');
-    return t;
+    return '<b>' + esc(l.letter) + '</b> is for ' + esc(l.word) + ', ' + esc(l.desc) +
+           (l.suf ? ', ' + esc(l.suf) : '') + (l.who ? ' (' + esc(l.who) + ')' : '');
   }
 
   var PAIR_OCC = ['couple', 'engagement', 'wedding', 'anniversary', 'valentine', 'silver-anniversary'];
@@ -376,7 +387,9 @@
     var cCloser = document.getElementById('cCloser');
     var cFrom = document.getElementById('cFrom');
     var verseBtn = document.getElementById('verseBtn');
-    cName.textContent = st.name2 ? st.name + ' & ' + st.name2 : st.name;
+    var head = st.name2 ? st.name + ' & ' + st.name2 : st.name;
+    cName.textContent = head.length > 26 ? head.slice(0, 25).trim() + '\u2026' : head;
+    cName.title = head;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
     lastLines = cardLines();
     if (cCloser) {
@@ -433,7 +446,11 @@
     card.style.backgroundImage = 'url("' + st.bg + '")';
   }
 
+  var ALLOWED_BG = /^(\.\.\/backgrounds\/[a-z-]+\.png|\.\.\/assets\/floral\/[a-z0-9-]+\.jpg|data:image\/(png|jpe?g|webp);base64,)/;
+  function safeBg(src) { return src && ALLOWED_BG.test(src) ? src : null; }
+
   function setBg(src, btn) {
+    src = safeBg(src);
     st.bg = src || null;
     bgImg = null;
     if (src) {
@@ -488,8 +505,18 @@
     history.replaceState(null, '', u);
   }
 
-  nameIn.addEventListener('input', function () { st.name = nameIn.value.trim() || 'Noah'; render(); syncUrl(); });
-  name2In.addEventListener('input', function () { st.name2 = name2In.value.trim(); render(); });
+  nameIn.addEventListener('input', function () {
+    var c = cleanName(nameIn.value);
+    if (c !== nameIn.value) nameIn.value = c;
+    st.name = c || 'Noah';
+    render(); syncUrl();
+  });
+  name2In.addEventListener('input', function () {
+    var c = cleanName(name2In.value);
+    if (c !== name2In.value) name2In.value = c;
+    st.name2 = c;
+    render();
+  });
   var kid = document.getElementById('kidTone');
   if (kid) kid.addEventListener('change', function () {
     st.voice = kid.checked ? 'playful' : 'gentle';
@@ -715,7 +742,7 @@
   initBackgrounds();
   initOccasions();
   var qbg = qs.get('bg');
-  if (qbg) {
+  if (qbg && safeBg(qbg)) {
     var target = document.querySelector('.bgthumb[data-bg="' + qbg.replace(/"/g, '') + '"]');
     setBg(qbg, target);
   }
