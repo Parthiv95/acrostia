@@ -87,7 +87,18 @@
   .seg{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;background:var(--ivory);border:1px solid rgba(180,140,120,.3);border-radius:11px;padding:.3rem}
   .seg button{appearance:none;border:0;background:transparent;border-radius:8px;padding:.5rem .9rem;font-size:.84rem;font-weight:600;color:var(--ink-60);cursor:pointer}
   .seg button.is-on{background:#fff;color:var(--burg);box-shadow:0 4px 12px -8px rgba(107,31,45,.5)}
-  .sw{width:2.1rem;height:2.1rem;border-radius:999px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(180,140,120,.4);cursor:pointer}
+  .bgrow{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.35rem;max-width:100%}
+  .bgthumb{flex:none;width:62px;height:44px;border-radius:7px;border:2px solid transparent;cursor:pointer;background-size:cover;background-position:center;padding:0}
+  .bgthumb.is-on{border-color:var(--burg);box-shadow:0 0 0 1px var(--burg)}
+  .bgthumb.plain{background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-color:rgba(200,154,75,.5);display:grid;place-items:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-40)}
+  .bgthumb.up{background:var(--ivory);border:1px dashed rgba(180,140,120,.55);display:grid;place-items:center;font-size:.55rem;color:var(--ink-40);text-align:center;line-height:1.2}
+  .card.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+  .card.has-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.94) 0%,rgba(255,252,245,.88) 52%,rgba(255,252,245,.58) 100%);z-index:0}
+  .card > *{position:relative;z-index:1}
+  .occSel{border:1px solid rgba(180,140,120,.35);border-radius:9px;background:var(--ivory);padding:.45rem .6rem;font-size:.8rem;color:var(--ink);max-width:11rem}
+  .line-reroll{cursor:pointer;border-radius:4px;transition:background .15s}
+  .line-reroll:hover{background:rgba(200,154,75,.12)}
+  .line-reroll:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .sw.is-on{box-shadow:0 0 0 2px var(--burg)}
   .fopt{appearance:none;background:#fff;border:1px solid rgba(180,140,120,.35);border-radius:9px;padding:.4rem .7rem;cursor:pointer;font-size:1.05rem}
   .fopt.is-on{border-color:var(--burg);box-shadow:0 0 0 1px var(--burg)}
@@ -198,6 +209,7 @@
 
     <div class="bench" data-bench="2">
       <span class="lbl">Occasion</span>
+      <select class="occSel" id="occSel" aria-label="All occasions"></select>
       <button class="chip is-on">Birthday</button><button class="chip">Wedding</button><button class="chip">Anniversary</button><button class="chip">Diwali</button><button class="chip">Christmas</button><button class="chip">Eid</button><button class="chip">New baby</button><button class="chip">Graduation</button><button class="chip">Get well</button><button class="chip">Thank you</button>
       <div class="step-cta"><button class="quiet" data-goto="1">Back</button><button class="pill" data-goto="3">Voice <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
     </div>
@@ -211,11 +223,27 @@
     </div>
 
     <div class="bench" data-bench="4">
-      <span class="lbl">Tone</span>
-      <button class="sw is-on" style="background:#FFFDF8"></button>
-      <button class="sw" style="background:#FBE3E8"></button>
-      <button class="sw" style="background:#EFD49A"></button>
-      <button class="sw" style="background:#D9C7B2"></button>
+      <span class="lbl">Paper</span>
+      <div class="bgrow" id="bgRow">
+        <button class="bgthumb plain is-on" data-bg="" title="Plain paper">Plain</button>
+        <button class="bgthumb" data-bg="../backgrounds/garden.png" style="background-image:url('../backgrounds/garden.png')" title="Garden"></button>
+        <button class="bgthumb" data-bg="../backgrounds/autumn.png" style="background-image:url('../backgrounds/autumn.png')" title="Autumn"></button>
+        <button class="bgthumb" data-bg="../backgrounds/beach.png" style="background-image:url('../backgrounds/beach.png')" title="Beach"></button>
+        <button class="bgthumb" data-bg="../backgrounds/dream.png" style="background-image:url('../backgrounds/dream.png')" title="Dream"></button>
+        <button class="bgthumb" data-bg="../backgrounds/festival.png" style="background-image:url('../backgrounds/festival.png')" title="Festival"></button>
+        <button class="bgthumb" data-bg="../backgrounds/hearts.png" style="background-image:url('../backgrounds/hearts.png')" title="Hearts"></button>
+        <button class="bgthumb" data-bg="../backgrounds/mountains.png" style="background-image:url('../backgrounds/mountains.png')" title="Mountains"></button>
+        <button class="bgthumb" data-bg="../backgrounds/night.png" style="background-image:url('../backgrounds/night.png')" title="Night"></button>
+        <button class="bgthumb" data-bg="../backgrounds/party.png" style="background-image:url('../backgrounds/party.png')" title="Party"></button>
+        <button class="bgthumb" data-bg="../backgrounds/sunset.png" style="background-image:url('../backgrounds/sunset.png')" title="Sunset"></button>
+        <button class="bgthumb" data-bg="../backgrounds/winter.png" style="background-image:url('../backgrounds/winter.png')" title="Winter"></button>
+        <button class="bgthumb" data-bg="../assets/floral/letter-480.jpg" style="background-image:url('../assets/floral/letter-480.jpg')" title="Letter and quill"></button>
+        <button class="bgthumb" data-bg="../assets/floral/book-480.jpg" style="background-image:url('../assets/floral/book-480.jpg')" title="Book"></button>
+        <button class="bgthumb" data-bg="../assets/floral/gift-480.jpg" style="background-image:url('../assets/floral/gift-480.jpg')" title="Gift boxes"></button>
+        <button class="bgthumb" data-bg="../assets/floral/night-1200.jpg" style="background-image:url('../assets/floral/night-1200.jpg')" title="Star trails"></button>
+        <button class="bgthumb" data-bg="../assets/floral/plate-900.jpg" style="background-image:url('../assets/floral/plate-900.jpg')" title="Pressed hydrangea"></button>
+        <label class="bgthumb up" title="Use your own photo">Yours<input type="file" id="bgUpload" accept="image/*" hidden></label>
+      </div>
       <span class="lbl">Script</span>
       <button class="fopt is-on" style="font-family:'Great Vibes',cursive">Noah</button>
       <button class="fopt" style="font-family:Fraunces,serif;font-style:italic">Noah</button>
@@ -306,22 +334,105 @@
     seg.forEach(function (b, i) { b.classList.toggle('is-on', (st.style === 'rhyme') === (i === 1)); });
   }
 
+  var lastLines = [];
+
+  function lineHTML(l) {
+    var t = '<b>' + l.letter + '</b> is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '');
+    return t;
+  }
+
   function render() {
     syncChips();
     cName.textContent = st.name2 ? st.name + ' & ' + st.name2 : st.name;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
-    var lines = cardLines(), out = '';
+    lastLines = cardLines();
+    var out = '';
     if (st.style === 'rhyme') {
-      lines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
+      lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
     } else {
-      lines.forEach(function (l) {
-        out += '<li><b>' + l.letter + '</b>' + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '') + '</li>';
+      lastLines.forEach(function (l, i) {
+        out += '<li class="line-reroll" data-i="' + i + '" tabindex="0" role="button" title="Tap for a different word">' + lineHTML(l) + '</li>';
       });
     }
     cPoem.innerHTML = out;
     cPoem.classList.toggle('is-verse', st.style === 'rhyme');
-    bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' + st.voice + ' voice';
+    bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' + st.voice + ' voice' + (st.bg ? ' · your paper' : '');
     nameIn.value = st.name;
+    if (st.style !== 'rhyme' && A) {
+      Array.prototype.forEach.call(cPoem.querySelectorAll('.line-reroll'), function (el) {
+        function swap() {
+          var i = +el.dataset.i, l = lastLines[i];
+          if (!l || !A.reroll) return;
+          var next = A.reroll(l.letter, st.occ, l.word);
+          lastLines[i] = next;
+          el.innerHTML = lineHTML(next);
+          fitCard();
+        }
+        el.addEventListener('click', swap);
+        el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); swap(); } });
+      });
+    }
+  }
+
+  /* ---------- card backgrounds ---------- */
+  var bgImg = null;
+
+  function applyBg() {
+    var card = document.getElementById('cardEl');
+    if (!card) return;
+    if (!st.bg) {
+      card.classList.remove('has-bg');
+      card.style.backgroundImage = '';
+      return;
+    }
+    card.classList.add('has-bg');
+    card.style.backgroundImage = 'url("' + st.bg + '")';
+  }
+
+  function setBg(src, btn) {
+    st.bg = src || null;
+    bgImg = null;
+    if (src) {
+      bgImg = new Image();
+      bgImg.src = src;
+    }
+    document.querySelectorAll('.bgthumb').forEach(function (b) { b.classList.remove('is-on'); });
+    if (btn) btn.classList.add('is-on');
+    applyBg();
+    render();
+    var u = new URL(location.href);
+    if (src) u.searchParams.set('bg', src); else u.searchParams.delete('bg');
+    history.replaceState(null, '', u);
+  }
+
+  function initBackgrounds() {
+    document.querySelectorAll('.bgthumb[data-bg]').forEach(function (b) {
+      b.addEventListener('click', function () { setBg(b.dataset.bg, b); });
+    });
+    var up = document.getElementById('bgUpload');
+    if (up) up.addEventListener('change', function () {
+      var f = up.files && up.files[0];
+      if (!f) return;
+      var fr = new FileReader();
+      fr.onload = function () { setBg(fr.result, up.closest('.bgthumb')); };
+      fr.readAsDataURL(f);
+    });
+  }
+
+  function initOccasions() {
+    var sel = document.getElementById('occSel');
+    if (!sel || !A) return;
+    A.occasions().sort(function (a, b) { return A.label(a).localeCompare(A.label(b)); }).forEach(function (o) {
+      var opt = document.createElement('option');
+      opt.value = o; opt.textContent = A.label(o);
+      if (o === st.occ) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', function () {
+      st.occ = sel.value;
+      render();
+      syncUrl();
+    });
   }
 
   function syncUrl() {
@@ -400,6 +511,12 @@
     var g = x.createLinearGradient(0, 0, 0, H);
     g.addColorStop(0, '#FFFDF8'); g.addColorStop(1, '#FBF3E8');
     x.fillStyle = g; x.fillRect(0, 0, W, H);
+    if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+      var s = Math.max(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
+      var dw = bgImg.naturalWidth * s, dh = bgImg.naturalHeight * s;
+      x.drawImage(bgImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
+      x.fillStyle = 'rgba(255,252,245,.88)'; x.fillRect(0, 0, W, H);
+    }
     x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.strokeRect(28, 28, W - 56, H - 56);
     x.strokeStyle = 'rgba(200,154,75,.3)'; x.lineWidth = 1; x.strokeRect(44, 44, W - 88, H - 88);
     x.textAlign = 'center';
@@ -519,6 +636,13 @@
   }
   addEventListener('resize', fitCard);
 
+  initBackgrounds();
+  initOccasions();
+  var qbg = qs.get('bg');
+  if (qbg) {
+    var target = document.querySelector('.bgthumb[data-bg="' + qbg.replace(/"/g, '') + '"]');
+    setBg(qbg, target);
+  }
   render();
   fitCard();
 
