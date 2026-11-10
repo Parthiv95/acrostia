@@ -12,11 +12,13 @@
 <meta property="og:url" content="https://parthiv95.github.io/acrostia/">
 <meta property="og:image" content="https://parthiv95.github.io/acrostia/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Acrostia: personalized name poems for every occasion</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/floral/hero2-1440.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Fraunces-300-700-n.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/GreatVibes-400-n.woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
   :root{
     --ivory:#FFF8F3;
@@ -73,8 +75,8 @@
   .feat svg{width:1rem;height:1rem}
 
   /* hero art with 3d card */
-  .hero-art{position:relative;perspective:1400px}
-  .hero-art > img{width:100%;height:auto;display:block}
+  .hero-art{position:relative;perspective:1400px;aspect-ratio:16/9}
+  .hero-art > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:74% 46%;display:block}
   .poem-wrap{position:absolute;left:33%;top:5.5%;width:39%;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotateZ(-3deg);transition:transform .18s ease-out;will-change:transform}
   .poem-shadow{position:absolute;inset:8% -5% -8% 5%;background:radial-gradient(closest-side,rgba(96,44,54,.5),rgba(96,44,54,0) 75%);filter:blur(16px);transform:translateZ(-70px)}
   .poem-card{position:relative;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);padding:5.2% 4.4% 4.2%;box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.22);border-radius:2px;transform-style:preserve-3d}
@@ -89,7 +91,7 @@
   @media (max-width:560px){.poem-card ul.two-col{column-count:1}}
   .poem-card ul b{font-weight:600;color:var(--burg);display:inline-block;width:1.05em;text-indent:0}
   .poem-card .heart{display:block;width:2.8cqw;height:2.8cqw;margin:2.9cqw auto 0;color:#C9557B;transform:translateZ(8px)}
-  .hero-art{container-type:inline-size}
+  .hero-art{container-type:inline-size;aspect-ratio:16/9}
   .poem-wrap{max-height:100%;overflow:hidden}
 
   /* ---------- sample band ---------- */
@@ -213,7 +215,7 @@
 </script>
 </head>
 <body>
-<a class="skip" href="#hero">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <header>
   <div class="wrap bar">
@@ -232,6 +234,7 @@
     </div>
   </div>
 </header>
+<main id="main">
 
 <section class="wrap hero" id="hero">
   <div>
@@ -380,6 +383,7 @@
   </div>
 </section>
 
+</main>
 <footer>
   <div class="wrap">
     <div class="foot">
