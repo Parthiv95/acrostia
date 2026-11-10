@@ -110,8 +110,8 @@
   .card.has-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.94) 0%,rgba(255,252,245,.88) 52%,rgba(255,252,245,.58) 100%);z-index:0}
   .card > *{position:relative;z-index:1}
   .occSel{border:1px solid rgba(180,140,120,.35);border-radius:9px;background:var(--ivory);padding:.45rem .6rem;font-size:.8rem;color:var(--ink);max-width:11rem}
-  .line-reroll{cursor:pointer;border-radius:4px;transition:background .15s}
-  .line-reroll:hover{background:rgba(200,154,75,.12)}
+  .line-reroll{all:unset;display:inline;cursor:pointer;border-radius:4px}
+  .line-reroll:hover{background:rgba(200,154,75,.14)}
   .line-reroll:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .sw.is-on{box-shadow:0 0 0 2px var(--burg)}
   .fopt{appearance:none;background:#fff;border:1px solid rgba(180,140,120,.35);border-radius:9px;padding:.4rem .7rem;cursor:pointer;font-size:1.05rem}
@@ -188,7 +188,7 @@
 </div>
 
 <section class="press">
-  <div class="rail" role="tablist">
+  <div class="rail" role="group" aria-label="Studio steps">
     <button class="r-step is-on" data-step="1"><span class="n">1</span><span class="t">Name</span></button>
     <button class="r-step" data-step="2"><span class="n">2</span><span class="t">Occasion</span></button>
     <button class="r-step" data-step="3"><span class="n">3</span><span class="t">Voice</span></button>
@@ -430,7 +430,7 @@
       lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
     } else {
       lastLines.forEach(function (l, i) {
-        out += '<li class="line-reroll" data-i="' + i + '" tabindex="0" role="button" title="Tap for a different word">' + lineHTML(l) + '</li>';
+        out += '<li><button type="button" class="line-reroll" data-i="' + i + '" title="Choose a different word">' + lineHTML(l) + '</button></li>';
       });
     }
     cPoem.innerHTML = out;
@@ -442,16 +442,14 @@
   if (st.from && fromIn) fromIn.value = st.from;
     if (st.style !== 'rhyme' && A) {
       Array.prototype.forEach.call(cPoem.querySelectorAll('.line-reroll'), function (el) {
-        function swap() {
+        el.addEventListener('click', function () {
           var i = +el.dataset.i, l = lastLines[i];
           if (!l || !A.reroll) return;
           var next = A.reroll(l.letter, st.occ, l.word);
           lastLines[i] = next;
           el.innerHTML = lineHTML(next);
           fitCard();
-        }
-        el.addEventListener('click', swap);
-        el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); swap(); } });
+        });
       });
     }
   }
@@ -709,7 +707,11 @@
   };
   var steps = document.querySelectorAll('.r-step'), benches = document.querySelectorAll('.bench');
   function goStep(n) {
-    steps.forEach(function (b, i) { b.classList.toggle('is-on', i === n - 1); b.classList.toggle('is-done', i < n - 1); });
+    steps.forEach(function (b, i) {
+      b.classList.toggle('is-on', i === n - 1);
+      b.classList.toggle('is-done', i < n - 1);
+      if (i === n - 1) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
     benches.forEach(function (s) { s.classList.toggle('is-on', +s.dataset.bench === n); });
     if (hint) hint.textContent = HINTS[n];
     if (prog) prog.textContent = 'Step ' + n + ' of 5';
