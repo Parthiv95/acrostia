@@ -389,7 +389,7 @@
     return head + lines.map(function (l) { return l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : ''); }).join('\n');
   }
 
-  function download() {
+  function renderPng() {
     var W = 900, H = 1200, cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
     var x = cv.getContext('2d');
@@ -427,9 +427,13 @@
       x.fillText('from ' + st.from, W / 2, H - 120);
     }
     x.fillStyle = '#C9557B'; x.font = "26px serif"; x.fillText('\u2665', W / 2, H - 78);
+    return cv.toDataURL('image/png');
+  }
+
+  function download() {
     var a = document.createElement('a');
     a.download = (st.name2 ? st.name + '-' + st.name2 : st.name).toLowerCase().replace(/\s+/g, '-') + '-poem.png';
-    a.href = cv.toDataURL('image/png');
+    a.href = renderPng();
     a.click();
   }
 
@@ -493,6 +497,24 @@
   }
 
   render();
+
+  if (qs.get('selftest')) {
+    var report = {};
+    try {
+      var lines = cardLines();
+      report.lines = lines.length;
+      report.first = st.style === 'rhyme' ? lines[0].raw.slice(0, 28) : lines[0].letter + ':' + lines[0].word;
+      report.text = poemText().length;
+      var png = renderPng();
+      report.png = png.slice(0, 15);
+      report.pngBytes = Math.round(png.length / 1024);
+      report.ok = report.lines > 0 && report.text > 20 && png.indexOf('data:image/png') === 0;
+    } catch (e) {
+      report.ok = false;
+      report.err = e.message;
+    }
+    document.title = 'SELFTEST ' + JSON.stringify(report);
+  }
 })();
 </script>
 
