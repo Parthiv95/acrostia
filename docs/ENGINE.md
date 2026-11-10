@@ -1,0 +1,50 @@
+# Developer notes
+
+Everything here is for whoever maintains the site next. Visitors do not need it.
+
+## The poem engine
+
+`assets/floral/engine.js` holds the real generator, extracted from the original single-file build and made DOM-free. It has no network calls, no storage and no DOM access.
+
+- `LETTER_TRAITS`, per letter, with gender-aware overrides in `GENDER_TRAITS`
+- `OCC_THEMES` and `OCC_TRAITS`, occasion-specific vocabulary
+- `CLOSERS` for the signing line
+- `buildAcrostic`, `buildAcrosticPair`, `buildRhyme`, 61 occasions of data
+
+It exposes `window.Acrostia`:
+
+```
+acrostic(name, occ)      -> [{letter, word, desc, suf, who?}]
+pair(a, b, occ)          -> same, names interleaved
+rhyme(a, b, verse, occ)  -> string with newlines
+line(entry)              -> "E is for Energetic, full of life and spirit"
+closer(occ)              -> signing line
+voice(v)                 -> gentle | playful | heartfelt | grand
+label(occ), occasions()
+```
+
+Randomness comes from `Math.random`, so two runs differ. That is intended, not a bug.
+
+### Deep links
+
+`/studio/?n=Emma&o=birthday&s=acrostic&v=gentle` sets the name, occasion, style and voice. Occasion pages accept `?n=` to fill their card. Old `?n=` links arriving at `/` forward to `/studio/`.
+
+### Self test
+
+`/studio/?selftest=1` generates a poem, builds the poem text and renders the export canvas without downloading, then writes the result into the page title. Run it after touching the engine or the exports; it is how the PNG path was verified in production.
+
+## Conventions
+
+- **No em dashes** in copy
+- Palette: ivory `#FFF8F3`, blush `#FBE3E8`, burgundy `#6B1F2D`, gold `#C89A4B`, and `#8A6420` for gold on small text, plum `#241826` for the ledger pages
+- Type: Fraunces for display, Inter for UI, Great Vibes for names in script
+- Text under 18px uses the darker gold and clears 4.5:1 contrast
+- Every page has a skip link, visible focus rings, lazy images below the fold, and the SEO title and description that page shipped with
+- The 60 occasion pages share one template and vary only by accent token and copy. Change the template, then regenerate, do not hand-edit sixty files
+- Couple occasions use a two-column layout; three columns of eight interleaved lines is too tall
+- Images live in `assets/floral/` already resized. Do not commit multi-megabyte originals
+- The service worker cache is `acrostia-v2-floral`; bump it whenever a deploy must not be served from cache
+
+## History
+
+The pre-redesign site is recoverable at commit `2ffcdae`. The redesign was built on `redesign/floral-v2` and merged into `main` on 10 November 2026.
