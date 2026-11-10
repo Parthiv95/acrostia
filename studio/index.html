@@ -204,6 +204,7 @@
       <input class="bin" id="nm2" type="text" aria-label="Second name, for couples" placeholder="for couples" style="width:9.5rem" autocomplete="off">
       <span class="lbl">From</span>
       <input class="bin" id="from" type="text" aria-label="From, who sends the card" placeholder="who sends it" style="width:9.5rem" autocomplete="off">
+      <label class="check" style="display:flex;gap:.45rem;align-items:center;font-size:.78rem;color:var(--ink-60)"><input type="checkbox" id="kidTone" style="accent-color:var(--burg)"> lighter tone for a child</label>
       <div class="step-cta"><button class="pill" data-goto="2">Occasion <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
     </div>
 
@@ -446,6 +447,12 @@
 
   nameIn.addEventListener('input', function () { st.name = nameIn.value.trim() || 'Noah'; render(); syncUrl(); });
   name2In.addEventListener('input', function () { st.name2 = name2In.value.trim(); render(); });
+  var kid = document.getElementById('kidTone');
+  if (kid) kid.addEventListener('change', function () {
+    st.voice = kid.checked ? 'playful' : 'gentle';
+    render();
+    syncUrl();
+  });
   fromIn.addEventListener('input', function () { st.from = fromIn.value.trim(); });
 
   document.querySelectorAll('[data-bench="2"] .chip').forEach(function (c) {
