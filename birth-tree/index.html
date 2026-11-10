@@ -91,6 +91,28 @@ h1 em { font-style: italic; color: var(--accent); }
   background: linear-gradient(transparent, rgba(0,0,0,.62)); color: #fff; font-size: .85rem;
   font-weight: 600; display: flex; align-items: center; gap: .3rem; }
 .mf-cta svg { width: 1em; height: 1em; flex: none; }
+
+/* ---- Birthday Ledger journal skin (Group B redesign) ---- */
+:root { --jplate1: #1D3519; --jplate2: #0E1F0C; }
+.ledger-eyebrow { font: 600 .72rem Onest, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #B98A2F; margin: 8px 0 2px; }
+.ledger-eyebrow::after { content: ""; display: block; width: 44px; height: 2px; margin-top: 7px; background: linear-gradient(90deg, #C9A24B, rgba(201,162,75,0)); border-radius: 2px; }
+body { background-color: #F6EFE2; background-image: radial-gradient(1.6px 1.6px at 12% 18%, rgba(185,138,47,.26), transparent 60%), radial-gradient(1.8px 1.8px at 78% 10%, rgba(194,66,110,.12), transparent 60%), radial-gradient(2px 2px at 63% 56%, rgba(185,138,47,.15), transparent 60%), radial-gradient(1.4px 1.4px at 28% 74%, rgba(185,138,47,.13), transparent 60%), linear-gradient(#F7F1E4, #F0E6D2); background-attachment: fixed; }
+.top-cta { border: 0; background: linear-gradient(to bottom, #C2426E, #A83459); color: #FFF6EC; box-shadow: 0 6px 16px rgba(168,52,89,.25); }
+.top-cta:hover { background: linear-gradient(to bottom, #A83459, #93294D); color: #fff; }
+.gold { background: linear-gradient(to bottom, #C2426E, #A83459); color: #FFF6EC; }
+.gold:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(168,52,89,.32); }
+.tool { position: relative; background: #FFFDF6; border: 1px solid #D8CCB9; box-shadow: 0 18px 44px rgba(58,26,20,.1); border-radius: 18px; }
+.tool::before { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(201,162,75,.38); border-radius: 12px; pointer-events: none; }
+.tool > * { position: relative; z-index: 1; }
+.hero-card { position: relative; overflow: hidden; border-radius: 14px; padding: 34px 26px 30px; background: linear-gradient(165deg, var(--jplate1), var(--jplate2)); color: #FBF3E4; border: 1px solid rgba(201,162,75,.55); box-shadow: 0 20px 48px rgba(30,12,20,.26); }
+.hero-card::before { content: ""; position: absolute; inset: 9px; border: 1px dashed rgba(232,205,143,.45); border-radius: 9px; pointer-events: none; }
+.hero-card::after { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22160%22%20height%3D%22160%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.9%22%20numOctaves%3D%222%22%20seed%3D%227%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%20.93%20%200%200%200%200%20.8%20%200%200%200%20.05%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22160%22%20height%3D%22160%22%20filter%3D%22url%28%23n%29%22%2F%3E%3C%2Fsvg%3E"); pointer-events: none; }
+.hero-card > * { position: relative; z-index: 1; }
+.grid12 button { background: #FFFDF6; border-color: #E2D5BC; }
+.grid12 button:hover { border-color: var(--accent); box-shadow: 0 5px 14px rgba(58,26,20,.1); }
+.mf-cta { background: linear-gradient(to bottom, #C2426E, #A83459); color: #FFF6EC; }
+.mf-card:hover .mf-cta { background: linear-gradient(to bottom, #A83459, #93294D); }
+
 </style>
 </head>
 <body>
@@ -99,6 +121,7 @@ h1 em { font-style: italic; color: var(--accent); }
   <nav class="top-links" aria-label="Site"><a class="hub-link" href="../birthday-profile/">Birthday</a><a class="top-cta" href="../">Open the studio</a></nav>
 </header>
 <main>
+<div class="ledger-eyebrow">The Birthday Ledger</div>
 <h1 class="rise" data-rise>Your <em>birth tree</em>, found</h1>
 <p class="lede">Celtic tree astrology gives every stretch of the year its own tree, thirteen windows from Birch to Elder. Find the tree that rules the days you were born in, and what people born under it are said to carry.</p>
 <section class="tool" aria-label="Birth tree finder">
@@ -132,8 +155,8 @@ h1 em { font-style: italic; color: var(--accent); }
     <a class="mf-card" href="../birth-date/" aria-label="What your birth date means"><span class="mf-art" style="background:linear-gradient(160deg, #565149, #312e27)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-family:Georgia,serif;font-size:3rem;line-height:1;color:#f3ecd9;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#9671;</span><span class="mf-cta">What your birth date means<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../birthday-cake/" aria-label="Write your name on a cake"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.pexels.com/photos/33759172/pexels-photo-33759172.jpeg?auto=compress&cs=tinysrgb&w=800&h=520&fit=crop') center/cover"><span class="mf-cta">Your name on a cake<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
     <a class="mf-card" href="../golden-birthday/" aria-label="Find your golden birthday"><span class="mf-art" style="background:linear-gradient(rgba(16,10,24,.16), rgba(16,10,24,.58)), url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&q=80&w=800&h=520') center/cover"><span class="mf-cta">Find your golden birthday<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-        <a class="mf-card" href="../chinese-zodiac/" aria-label="Your Chinese zodiac sign"><span class="mf-art" style="background:linear-gradient(160deg,#a3271a,#570f08)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#fdf2ec;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#127877;</span><span class="mf-cta">Your Chinese zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-        <a class="mf-card" href="../life-path/" aria-label="Your life path number"><span class="mf-art" style="background:linear-gradient(160deg,#24356b,#101a3d)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#eef1fa;text-shadow:0 2px 16px rgba(0,0,0,.45)">&#128099;</span><span class="mf-cta">Your life path number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+        <a class="mf-card" href="../chinese-zodiac/" aria-label="Your Chinese zodiac sign"><span class="mf-art" style="background:linear-gradient(160deg,#a3271a,#570f08)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#fdf2ec;text-shadow:0 2px 16px rgba(0,0,0,.45)"><svg viewBox="0 0 64 64" style="width:64px;height:64px" aria-hidden="true" fill="none" stroke="rgba(255,255,255,.92)" stroke-width="2.2" stroke-linecap="round"><path d="M24 12 h16 M26 12 c-1 3-2 5-2 8 M38 12 c1 3 2 5 2 8"/><ellipse cx="32" cy="32" rx="14" ry="13"/><path d="M24 22 v20 M32 19.5 v25 M40 22 v20" opacity=".7"/><path d="M25 45 c0 3-1 5-2 7 M39 45 c0 3 1 5 2 7" opacity=".8"/><path d="M32 45 v14 M29 59 h6"/></svg></span><span class="mf-cta">Your Chinese zodiac sign<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+        <a class="mf-card" href="../life-path/" aria-label="Your life path number"><span class="mf-art" style="background:linear-gradient(160deg,#24356b,#101a3d)"><span aria-hidden="true" style="position:absolute;top:16%;left:0;right:0;text-align:center;font-size:3rem;line-height:1;color:#eef1fa;text-shadow:0 2px 16px rgba(0,0,0,.45)"><svg viewBox="0 0 64 64" style="width:64px;height:64px" aria-hidden="true" fill="none" stroke="rgba(255,255,255,.92)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 56 c0-10 10-10 18-10 s14-4 14-12 -6-12-14-12 -12-4-12-12" opacity=".9"/><circle cx="14" cy="56" r="2.6" fill="rgba(255,255,255,.92)" stroke="none"/><path d="M38 10 l1.8 3.6 4 .6 -2.9 2.8 .7 4 -3.6-1.9 -3.6 1.9 .7-4 -2.9-2.8 4-.6 Z" fill="rgba(255,255,255,.92)" stroke="none"/></svg></span><span class="mf-cta">Your life path number<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
   </div>
 </section>
 </main>
