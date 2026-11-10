@@ -984,6 +984,11 @@ function buildRhyme(name, name2, vi, occ) {
     rhyme: function (a, b, vi, occ) { return buildRhyme(a, b, vi, occ); },
     verseCount: function (occ) { return ((OCCASIONS[occ] || OCCASIONS.birthday).verses || []).length; },
     closer: function (occ) { return pickCloser(occ); },
-    voice: function (v) { VOICE = v || "heartfelt"; }
+    voice: function (v) { VOICE = v || "heartfelt"; },
+    reroll: function (L, occ, exclude) {
+      var pool = traitsFor(L, "", occ).filter(function (t) { return t[0] !== exclude; });
+      var t = pool.length ? pick(pool) : traitsFor(L, "", occ)[0];
+      return { letter: L, word: t[0], desc: t[1], suf: maybeSuf() };
+    }
   };
 })();
