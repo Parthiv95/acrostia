@@ -165,6 +165,31 @@
   @media (max-width:560px){.card ul.two-col{column-count:1}}
   .card ul li b{display:inline-block;width:1.08em;text-indent:0}
   .card ul.fitdown{font-size:var(--fitsize, inherit)}
+  /* ---------- print: the card alone on the page ---------- */
+  #printRoot{display:none}
+  @media print{
+    @page{size:A5 portrait;margin:0}
+    html,body{background:#fff!important}
+    html.printing-card body > *:not(#printRoot){display:none!important}
+    #printRoot{display:block!important}
+    #printRoot .sheet{width:148mm;min-height:210mm;box-sizing:border-box;padding:12mm;
+      display:flex;align-items:center;justify-content:center;background:#fff}
+    #printRoot .card{width:124mm;box-shadow:none!important;border:1px solid rgba(200,154,75,.5);
+      border-radius:1px;padding:14mm 12mm;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);
+      overflow:visible!important;transform:none!important;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact}
+    #printRoot .card *{transform:none!important}
+    #printRoot .card .nm{font-size:44pt;line-height:1.05}
+    #printRoot .card .occ-line{font-size:7.5pt;letter-spacing:.22em;margin-top:5mm}
+    #printRoot .card .rule{margin-top:4mm;width:22mm}
+    #printRoot .card ul{margin-top:7mm;font-size:11.5pt;line-height:1.75}
+    #printRoot .card ul.two-col{column-count:2;column-gap:10mm}
+    #printRoot .card.t-script ul{line-height:2.05}
+    #printRoot .card.t-script ul b, #printRoot .card.t-hand ul b{margin-right:.5em;font-weight:400}
+    #printRoot .card .closer{font-size:9.5pt;margin-top:6mm}
+    #printRoot .card .fromline{font-size:8.5pt;margin-top:3mm}
+    #printRoot .card .heart{width:3.4mm;height:3.4mm;margin-top:5mm}
+  }
 </style>
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
@@ -838,5 +863,35 @@
 })();
 </script>
 
+<div id="printRoot" aria-hidden="true"></div>
+<script>
+/* Printing used to output the whole studio: header on top of the card, benches,
+   footer links, and the poem clipped by the viewport. Print gets its own sheet,
+   cloned at print time so it carries whatever the card currently says. */
+(function () {
+  var root = document.getElementById('printRoot');
+  var card = document.getElementById('cardEl');
+  if (!root || !card) return;
+  function build() {
+    root.innerHTML = '';
+    var sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    var clone = card.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.removeAttribute('style');
+    // the clone must not duplicate cName/cPoem, or a selector picks up two cards
+    [].forEach.call(clone.querySelectorAll('[id]'), function (n) { n.removeAttribute('id'); });
+    sheet.appendChild(clone);
+    root.appendChild(sheet);
+    document.documentElement.classList.add('printing-card');
+  }
+  function clear() { document.documentElement.classList.remove('printing-card'); }
+  addEventListener('beforeprint', build);
+  addEventListener('afterprint', clear);
+  var btn = [].slice.call(document.querySelectorAll('[data-bench="5"] button'))
+    .filter(function (b) { return /^print/i.test(b.textContent.trim()); })[0];
+  if (btn) btn.addEventListener('click', build);
+})();
+</script>
 </body>
 </html>
