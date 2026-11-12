@@ -915,6 +915,28 @@ const P_CLOSERS = {
   grand: ["a name the day will long remember", "a legend in comfortable shoes", "the title role of this story", "a name worthy of a portrait", "history's favorite guest tonight", "the headline act, as ever", "a name spoken with admiration", "the standard others are measured by"],
   gentle: ["quietly wonderful, always", "soft-hearted and steady", "a calm place in a loud world", "kind in ways that stay", "gentle, and strong for it", "a warm light left on", "the quiet heart of the day", "loved more than words manage"]
 };
+const R_CODA = {
+  heartfelt: [
+    "And may you know, in all you do,\nhow much of this world leans on you.",
+    "So take this wish and keep it near,\na little light for every year.",
+    "Whatever comes and whatever goes,\nyou are loved more than you know."
+  ],
+  gentle: [
+    "And may the year be soft with you,\nin everything you say and do.",
+    "So here is one wish, small and true:\nthe gentlest light, and that is all.",
+    "May quiet joy find where you are,\nand never have to travel far."
+  ],
+  playful: [
+    "So raise a glass, or three, or four,\nand someone ends up on the floor.",
+    "And if the day goes slightly wrong,\nat least you get this silly song.",
+    "May luck show up and overstay,\nand bring its loudest friends to play."
+  ],
+  grand: [
+    "So let the bells and banners say\nthe name that carries off the day.",
+    "And let the record show it plain:\nthe world is better for your name.",
+    "Let trumpets do what trumpets do,\nand make a little noise for you."
+  ]
+};
 const avoidWords = new Set();
 
 let VOICE = "heartfelt";
@@ -975,8 +997,14 @@ function buildRhyme(name, name2, vi, occ) {
   const shown = name2 ? name + " and " + name2 : name;
   const pretty = shown.charAt(0).toUpperCase() + shown.slice(1);
   const verses = theme.verses || [];
-  const t = verses[vi] || verses[0] || "Dear {N}, today is all about you.";
-  return t.split("{N}").join(pretty);
+  const vIdx = { gentle: 0, playful: 1, heartfelt: 2, grand: 3 }[VOICE] || 2;
+  const t = verses[(vi + vIdx) % (verses.length || 1)] || verses[0] || "Dear {N}, today is all about you.";
+  const body = t.split("{N}").join(pretty);
+  // the voice had no reach into rhyming cards: every voice returned the same
+  // stanza. The closing couplet is where a voice can be heard on any occasion.
+  const bank = R_CODA[VOICE] || R_CODA.heartfelt;
+  const coda = bank[(vi + pretty.length) % bank.length];
+  return body + "\n" + coda;
 }
 
 
