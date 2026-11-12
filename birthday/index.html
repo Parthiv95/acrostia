@@ -108,7 +108,7 @@
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
 </head>
-<body>
+<body data-reading="hub">
 <a class="skip" href="#main">Skip to content</a>
 
 <header>
@@ -132,8 +132,8 @@
     <p class="eyebrow">The Birthday Ledger</p>
     <h1>Your birthday, read <em>thirteen ways.</em></h1>
     <p class="lede">A birth tree from a Celtic date window, a stone for the month, the phase of the moon that night, a number for the day. Thirteen free readings of one date, kept in one ledger you can come back to.</p>
-    <form class="entry" onsubmit="return false">
-      <input type="date" aria-label="Your birth date">
+    <form class="entry" id="hubDate">
+      <input type="date" aria-label="Your birth date" name="d" id="hubDateInput" max="2026-11-13">
       <button class="pill" type="submit">Open my ledger
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </button>
@@ -191,5 +191,18 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var f=document.getElementById('hubDate');
+  if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(document.getElementById('hubDateInput')||{}).value;
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(v||'')) { document.getElementById('hubDateInput').focus(); return; }
+    try{ localStorage.setItem('acrostia-birth-date', v); }catch(err){}
+    location.href = '../birth-tree/?d=' + v;
+  });
+})();
+</script>
 </body>
 </html>

@@ -128,7 +128,7 @@
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
 </head>
-<body>
+<body data-reading="life-path">
 <a class="skip" href="#main">Skip to content</a>
 
 <header>
@@ -151,9 +151,7 @@
     <p class="crumb"><a href="../">Home</a><span>/</span><a href="../birthday/">Birthday Discovery</a><span>/</span><span id="crumbStone">Life path</span></p>
     <p class="eyebrow">The Birthday Ledger · Reading 10 of 13</p>
     <h1>Your life path, summed from the whole <em>date.</em></h1>
-    <p class="lede">Every month has a stone that people have carried, gifted and believed in for centuries. Pick a month, read its entry, then take the stone's meaning straight into a poem.</p>
-
-    <div class="months" id="months"></div>
+    <p class="lede">The digits of the full date added until one number is left. Eleven, twenty two and thirty three stay whole.</p>
 
     <article class="entrycard">
       <p class="eno" id="eNo">Entry · Path</p>
@@ -161,7 +159,7 @@
       <p class="range" id="eRange">the numerologist sum of the full date</p>
       <p class="body" id="eBody">The life path is the sum of the whole date, reduced until it is one digit, unless it lands on eleven, twenty two or thirty three. Seven is the <b>searcher,</b> the one who needs to know why before agreeing to anything.</p>
       <div class="acts">
-        <a class="u-link" href="#poem">Write a topaz poem for someone</a>
+        <a class="u-link" href="#poem">Write a poem for someone</a>
         <a class="u-link" href="../studio/">See it on a card</a>
       </div>
     </article>
@@ -195,8 +193,8 @@
 <section class="bridge" id="poem">
   <div class="wrap bridge-in">
     <div>
-      <h2>Turn the stone into a <em>poem.</em></h2>
-      <p class="sub">The studio writes the stone's meaning into the verse, so the card carries both the name and the month.</p>
+      <h2>Turn the reading into a <em>poem.</em></h2>
+      <p class="sub">The studio writes the reading into the verse, so the card carries both the name and the date.</p>
       <form class="entry2" onsubmit="return false">
         <input id="nm" type="text" aria-label="Their name" placeholder="Type a name, e.g. Tara" autocomplete="off">
         <button class="pill" type="submit">Write the poem
@@ -254,32 +252,7 @@
     S:"teadier than the tide,", T:"ranquil as a topaz in the light,", U:"nfailingly kind,", V:"ery easy to love,",
     W:"arms every room you enter,", X:" marks the spot, and so do you,", Y:"ou make it look effortless,", Z:"estful and wild at once."
   };
-  var months = document.getElementById('months');
-  var eNo = document.getElementById('eNo'), eStone = document.getElementById('eStone'),
-      eRange = document.getElementById('eRange'), eBody = document.getElementById('eBody'),
-      crumb = document.getElementById('crumbStone'), cOcc = document.getElementById('cOcc');
-  var cur = new Date().getMonth() + 1;
-  var q = +new URLSearchParams(location.search).get('m');
-  if (q >= 1 && q <= 12) cur = q;
-
-  NAMES.forEach(function (n, i) {
-    var b = document.createElement('button');
-    b.className = 'mchip'; b.type = 'button'; b.textContent = n;
-    b.addEventListener('click', function () { set(i + 1); });
-    months.appendChild(b);
-  });
-  function set(m) {
-    cur = m;
-    var st = STONES[m];
-    eNo.textContent = 'Entry · ' + st[1];
-    eStone.textContent = st[0];
-    eRange.textContent = st[1] + ', by the modern list';
-    eBody.innerHTML = 'The stone people carried for ' + st[2] + '. Old lists agree on the feeling more than the fact, which is usually how traditions work. ' + st[0] + ' remains the ' + st[1] + ' stone on nearly every list printed since 1912.';
-    crumb.textContent = 'Birthstone';
-    cOcc.textContent = st[0] + ' child, for a ' + st[1].toLowerCase() + ' birthday';
-    document.querySelectorAll('.mchip').forEach(function (c, i) { c.classList.toggle('is-on', i === m - 1); });
-  }
-  set(cur);
+  
 
   var name = document.getElementById('nm'), cName = document.getElementById('cName'), cPoem = document.getElementById('cPoem');
   name.addEventListener('input', function () {
@@ -296,5 +269,7 @@
 })();
 </script>
 
+<script src="../fun-data.js"></script>
+<script src="../assets/birthday.js"></script>
 </body>
 </html>
