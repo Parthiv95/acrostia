@@ -361,7 +361,7 @@
   function cardLines() {
     if (!A) return [];
     A.voice(st.voice);
-    if (st.style === 'rhyme') {
+    if (st.style === 'rhyme' || !A.canAcrostic(st.name)) {
       var txt = A.rhyme(st.name, st.name2, st.verse, st.occ);
       return txt.split('\n').filter(Boolean).map(function (l) { return { raw: l }; });
     }
@@ -428,7 +428,7 @@
     if (cFrom) cFrom.textContent = st.from ? 'from ' + st.from : '';
     if (verseBtn) verseBtn.style.display = st.style === 'rhyme' ? '' : 'none';
     var out = '';
-    if (st.style === 'rhyme') {
+    if (st.style === 'rhyme' || !A.canAcrostic(st.name)) {
       lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
     } else {
       lastLines.forEach(function (l, i) {
@@ -438,7 +438,9 @@
     cPoem.innerHTML = out;
     cPoem.classList.toggle('is-verse', st.style === 'rhyme');
     cPoem.classList.toggle('two-col', st.style !== 'rhyme' && lastLines.length > 8);
-    bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' + st.voice + ' voice' + (st.bg ? ' · your paper' : '');
+    var nonLatin = !A.canAcrostic(st.name);
+    bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' +
+      (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + (st.bg ? ' · your paper' : '');
     nameIn.value = st.name;
   if (st.name2 && name2In) name2In.value = st.name2;
   if (st.from && fromIn) fromIn.value = st.from;
@@ -702,7 +704,7 @@
   /* ---------- steps + tilt ---------- */
   var HINTS = {
     1:'One name or two for a couple. The card rewrites as you type.',
-    2:'Sixty occasions in the full list. Ten favourites here.',
+    2:'Sixty occasions in the full list. Ten favorites here.',
     3:'Acrostic reads down the name. Rhyming carries it.',
     4:'Paper tone, the script for the name, or your own photograph.',
     5:'Greeting-card size, no watermark, yours to keep.'

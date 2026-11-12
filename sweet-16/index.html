@@ -403,6 +403,10 @@ var OCC_SLUG = 'sweet-16';
   function poemFor(n) {
     if (!window.Acrostia) return '';
     window.Acrostia.voice('gentle');
+    if (!window.Acrostia.canAcrostic(n)) {
+      return window.Acrostia.rhyme(n, '', 0, OCC_SLUG).split('\n').filter(Boolean)
+        .map(function (x) { return '<li class="verse">' + x + '</li>'; }).join('');
+    }
     return window.Acrostia.acrostic(cap20(n), OCC_SLUG).map(function (l) {
       return '<li><b>' + l.letter + '</b> is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '') + '</li>';
     }).join('');

@@ -985,6 +985,7 @@ function buildRhyme(name, name2, vi, occ) {
     verseCount: function (occ) { return ((OCCASIONS[occ] || OCCASIONS.birthday).verses || []).length; },
     closer: function (occ) { return pickCloser(occ); },
     voice: function (v) { VOICE = v || "heartfelt"; },
+    canAcrostic: function (n) { return /[A-Za-z]/.test(n || ''); },
     reroll: function (L, occ, exclude) {
       var pool = traitsFor(L, "", occ).filter(function (t) { return t[0] !== exclude; });
       var t = pool.length ? pick(pool) : traitsFor(L, "", occ)[0];

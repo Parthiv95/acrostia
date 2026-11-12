@@ -313,7 +313,7 @@
         <li><b>U</b>nder your roof the hard days were never quite fatal,</li>
         <li><b>M</b>aking a home out of ordinary weeks.</li>
       </ol>
-      <a class="u-link cta" href="studio/?n=Mum&o=birthday">Make one like this</a>
+      <a class="u-link cta" href="studio/?n=Mom&o=birthday">Make one like this</a>
       <a class="u-link" href="examples/" style="margin-left:1.2rem">See the archive</a>
     </div>
   </div>
@@ -605,6 +605,11 @@ var OCC_SLUG = "birthday";
     var clean = cleanName(v);
     if (!clean) return;
     window.Acrostia.voice('gentle');
+    if (!window.Acrostia.canAcrostic(clean)) {
+      po.innerHTML = window.Acrostia.rhyme(clean, '', 0, 'birthday').split('\n').filter(Boolean)
+        .map(function (l) { return '<li class="verse">' + l + '</li>'; }).join('');
+      return;
+    }
     var letters = clean.replace(/[^\p{L}]/gu, '').length;
     var short = letters > 6;   // long names drop the clause so the type stays legible
     po.innerHTML = window.Acrostia.acrostic(poemName(clean), 'birthday').map(function (l) {
