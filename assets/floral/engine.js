@@ -1,6 +1,12 @@
 /* Acrostia poem engine, extracted from the original site and made DOM-free.
    Exposes window.Acrostia. No network, no storage, no DOM. */
 (function () {
+  var ACCENTS = { '\u00d8':'O','\u00f8':'o','\u00c6':'AE','\u00e6':'ae','\u00df':'ss','\u0141':'L','\u0142':'l','\u0110':'D','\u0111':'d','\u00de':'Th','\u00fe':'th' };
+  function deaccent(str) {
+    return String(str == null ? '' : str)
+      .replace(/[\u00d8\u00f8\u00c6\u00e6\u00df\u0141\u0142\u0110\u0111\u00de\u00fe]/g, function (c) { return ACCENTS[c] || c; })
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
 const OCCASIONS = {
   birthday: {
     label: "Birthday", emoji: "🎂", orn: ["🎈","🎂","✨"],
@@ -931,7 +937,7 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 function buildAcrostic(name, occ) {
-  const letters = name.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
+  const letters = deaccent(name).replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const used = new Set();
   const occUsed = { n: 0 };
   const g = genderOf(name);
@@ -942,8 +948,8 @@ function buildAcrostic(name, occ) {
 }
 
 function buildAcrosticPair(n1, n2, occ) {
-  const l1 = n1.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
-  const l2 = n2.replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
+  const l1 = deaccent(n1).replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
+  const l2 = deaccent(n2).replace(/[^a-zA-Z]/g, "").toUpperCase().split("");
   const inter = [];
   const maxL = Math.max(l1.length, l2.length);
   for (let i = 0; i < maxL; i++) {
@@ -985,7 +991,7 @@ function buildRhyme(name, name2, vi, occ) {
     verseCount: function (occ) { return ((OCCASIONS[occ] || OCCASIONS.birthday).verses || []).length; },
     closer: function (occ) { return pickCloser(occ); },
     voice: function (v) { VOICE = v || "heartfelt"; },
-    canAcrostic: function (n) { return /[A-Za-z]/.test(n || ''); },
+    canAcrostic: function (n) { return /[A-Za-z]/.test(deaccent(n)); },
     reroll: function (L, occ, exclude) {
       var pool = traitsFor(L, "", occ).filter(function (t) { return t[0] !== exclude; });
       var t = pool.length ? pick(pool) : traitsFor(L, "", occ)[0];

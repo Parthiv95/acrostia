@@ -626,7 +626,8 @@
   function poemText() {
     var lines = cardLines();
     var head = (st.name2 ? st.name + ' & ' + st.name2 : st.name) + '\n' + A.label(st.occ) + '\n\n';
-    if (st.style === 'rhyme') return head + lines.map(function (l) { return l.raw; }).join('\n');
+    var rhyming = st.style === 'rhyme' || !A.canAcrostic(st.name2 ? st.name : st.name);
+    if (rhyming) return head + lines.map(function (l) { return l.raw || ''; }).join('\n');
     return head + lines.map(function (l) { return l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : ''); }).join('\n');
   }
 
@@ -655,7 +656,8 @@
     x.font = "600 18px Inter, sans-serif";
     x.fillText(A.label(st.occ).toUpperCase(), W / 2, 282);
     var lines = cardLines(), y = 360;
-    if (st.style === 'rhyme') {
+    var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
+    if (rhymeOut) {
       x.fillStyle = '#3B2B2E'; x.font = "30px Fraunces, Georgia, serif";
       lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += 52; });
     } else {
@@ -795,7 +797,8 @@
     try {
       var lines = cardLines();
       report.lines = lines.length;
-      report.first = st.style === 'rhyme' ? lines[0].raw.slice(0, 28) : lines[0].letter + ':' + lines[0].word;
+      var rhyming = st.style === 'rhyme' || !A.canAcrostic(st.name);
+      report.first = rhyming ? lines[0].raw.slice(0, 28) : lines[0].letter + ':' + lines[0].word;
       report.text = poemText().length;
       var png = renderPng();
       report.png = png.slice(0, 15);
