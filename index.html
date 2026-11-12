@@ -249,6 +249,16 @@
   .popular-names{margin-top:1.1rem;font-size:.82rem;color:var(--ink-40);line-height:1.9}
   .popular-names a{color:var(--burg);border-bottom:1px solid rgba(107,31,45,.28);padding-bottom:1px}
   .popular-names a:hover{border-color:var(--burg)}
+
+  /* ---------- reassurance, papers ---------- */
+  .reassure{margin-top:.9rem;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-40)}
+  .papers-row{display:flex;align-items:center;gap:clamp(10px,1.4vw,18px);margin-top:clamp(22px,3vw,34px);flex-wrap:wrap}
+  .papers-copy{flex:1 1 220px;max-width:24rem}
+  .papers-copy p + p{margin-top:.35rem;font-size:.85rem;color:var(--ink-60)}
+  .papers-copy .u-link{display:inline-block;margin-top:.6rem}
+  .paper{width:clamp(64px,8vw,104px);aspect-ratio:4/3;border-radius:8px;background-size:cover;background-position:center;border:1px solid rgba(200,154,75,.35);flex:none}
+  .paper:hover{transform:translateY(-2px)}
+  @media (max-width:900px){ .paper{width:74px} }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"Acrostia","url":"https://parthiv95.github.io/acrostia/","description":"Personalized acrostic and rhyming name poems on printable keepsake cards."}
@@ -292,6 +302,7 @@
       </button>
     </form>
 
+    <p class="reassure">Free, no sign up, printable at home</p>
     <p class="popular-names">Popular right now: <a href="studio/?n=Olivia">Olivia</a> · <a href="studio/?n=Noah">Noah</a> · <a href="studio/?n=Emma">Emma</a> · <a href="studio/?n=Liam">Liam</a> · <a href="studio/?n=Amelia">Amelia</a> · <a href="studio/?n=Sophia">Sophia</a> · <a href="studio/?n=Aisha">Aisha</a> · <a href="studio/?n=Priya">Priya</a> · <a href="studio/?n=Arjun">Arjun</a> · <a href="studio/?n=Mia">Mia</a></p>
     <div class="feats">
       <div class="feat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l3.2-.7L19 7.5a2.1 2.1 0 0 0-3-3L4.7 16.3z"/><path d="M14.5 6l3.5 3.5"/></svg></i><span>Acrostic &amp; rhyming poems</span></div>
@@ -402,6 +413,18 @@
     </article>
   </div>
 
+  <div class="papers-row">
+    <div class="papers-copy">
+      <p class="eyebrow plain">The paper</p>
+      <p>Twelve papers, or your own photograph behind the card.</p>
+      <a class="u-link" href="studio/?step=4">Choose the paper</a>
+    </div>
+    <a class="paper" href="studio/?step=4&bg=../backgrounds/garden.png" style="background-image:url('backgrounds/garden.png')" aria-label="Garden paper"></a>
+    <a class="paper" href="studio/?step=4&bg=../backgrounds/night.png" style="background-image:url('backgrounds/night.png')" aria-label="Night paper"></a>
+    <a class="paper" href="studio/?step=4&bg=../assets/floral/plate-900.jpg" style="background-image:url('assets/floral/plate-900.jpg')" aria-label="Pressed flower paper"></a>
+    <a class="paper" href="studio/?step=4&bg=../backgrounds/autumn.png" style="background-image:url('backgrounds/autumn.png')" aria-label="Autumn paper"></a>
+    <a class="paper" href="studio/?step=4&bg=../backgrounds/night-1200.jpg" style="background-image:url('assets/floral/night-1200.jpg')" aria-label="Star paper"></a>
+  </div>
   <div class="tools">
     <a class="tool" href="studio/"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 8l9 6 9-6"/></svg></i>Love Letter Creator</a>
     <a class="tool" href="studio/"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></i>Invitation Maker</a>
@@ -412,11 +435,22 @@
   </div>
 </section>
 
+<section class="wrap steps" id="how">
+  <h2>From name to keepsake in four taps</h2>
+  <p class="sub">No account, no payment, no watermark</p>
+  <div class="step-grid">
+    <div class="step"><div class="n">1</div><h3>Type their name</h3><p>One name, or two for a couple.</p></div>
+    <div class="step"><div class="n">2</div><h3>Pick an occasion</h3><p>Sixty of them, worldwide.</p></div>
+    <div class="step"><div class="n">3</div><h3>Refine the verse</h3><p>Swap any line until it sounds right.</p></div>
+    <div class="step"><div class="n">4</div><h3>Download and share</h3><p>Picture, print, link or WhatsApp.</p></div>
+  </div>
+</section>
+
 <section class="occ-index" id="occasions">
   <div class="wrap">
     <div class="oi-head">
       <h2 class="serif">Sixty occasions, one <em>studio.</em></h2>
-      <p class="eyebrow plain">Every one has its own page</p>
+      <a class="u-link" href="occasions/">All sixty occasions</a>
     </div>
     <div class="oi-grid">
       <a href="anniversary/">Anniversary <span>→</span></a>
@@ -442,44 +476,7 @@
       <a href="friendship/">Friendship <span>→</span></a>
       <a href="getwell/">Get Well <span>→</span></a>
       <a href="girlfriend/">Girlfriend <span>→</span></a>
-      <a href="goodluck/">Good Luck <span>→</span></a>
-      <a href="graduation/">Graduation <span>→</span></a>
-      <a href="grandma/">Grandma <span>→</span></a>
-      <a href="grandpa/">Grandpa <span>→</span></a>
-      <a href="grandparents-day/">Grandparents' Day <span>→</span></a>
-      <a href="halloween/">Halloween <span>→</span></a>
-      <a href="hanukkah/">Hanukkah <span>→</span></a>
-      <a href="holi/">Holi <span>→</span></a>
-      <a href="husband/">Husband <span>→</span></a>
-      <a href="karwa-chauth/">Karwa Chauth <span>→</span></a>
-      <a href="lunarnewyear/">Lunar New Year <span>→</span></a>
-      <a href="mother/">Mother <span>→</span></a>
-      <a href="mothersday/">Mother's Day <span>→</span></a>
-      <a href="naming-ceremony/">Naming Ceremony <span>→</span></a>
-      <a href="navratri/">Navratri <span>→</span></a>
-      <a href="nephew/">Nephew <span>→</span></a>
-      <a href="newhome/">New Home <span>→</span></a>
-      <a href="newjob/">New Job <span>→</span></a>
-      <a href="newyear/">New Year <span>→</span></a>
-      <a href="niece/">Niece <span>→</span></a>
-      <a href="pet/">Pet <span>→</span></a>
-      <a href="prom/">Prom <span>→</span></a>
-      <a href="quinceanera/">Quinceanera <span>→</span></a>
-      <a href="rakhi/">Rakhi <span>→</span></a>
-      <a href="retirement/">Retirement <span>→</span></a>
-      <a href="silver-anniversary/">Silver Anniversary <span>→</span></a>
-      <a href="sister/">Sister <span>→</span></a>
-      <a href="son/">Son <span>→</span></a>
-      <a href="sweet-16/">Sweet 16 <span>→</span></a>
-      <a href="teacher-appreciation/">Teacher Appreciation <span>→</span></a>
-      <a href="teachersday/">Teachers' Day <span>→</span></a>
-      <a href="thanks/">Thanks <span>→</span></a>
-      <a href="thanksgiving/">Thanksgiving <span>→</span></a>
-      <a href="uncle/">Uncle <span>→</span></a>
-      <a href="valentine/">Valentine <span>→</span></a>
-      <a href="wedding/">Wedding <span>→</span></a>
-      <a href="wife/">Wife <span>→</span></a>
-    </div>
+      <a href="goodluck/">Good Luck <span>→</span></a></div>
   </div>
 </section>
 
@@ -513,17 +510,6 @@
   </div>
 </section>
 
-<section class="wrap steps" id="how">
-  <h2>From name to keepsake in four taps</h2>
-  <p class="sub">No account, no payment, no watermark</p>
-  <div class="step-grid">
-    <div class="step"><div class="n">1</div><h3>Type their name</h3><p>One name, or two for a couple.</p></div>
-    <div class="step"><div class="n">2</div><h3>Pick an occasion</h3><p>Sixty of them, worldwide.</p></div>
-    <div class="step"><div class="n">3</div><h3>Refine the verse</h3><p>Swap any line until it sounds right.</p></div>
-    <div class="step"><div class="n">4</div><h3>Download and share</h3><p>Picture, print, link or WhatsApp.</p></div>
-  </div>
-</section>
-
 </main>
 <section class="faq-sec" id="faq">
   <div class="wrap faq-in">
@@ -538,19 +524,35 @@
       </details>
       <details>
         <summary>Do you store the names I type?</summary>
-        <p>No. The poem is written in your browser, so the name never leaves the page and never reaches a server.</p>
+        <p>No. The poem is written in your browser, so the name never leaves the page and never reaches a server. Close the tab and it is gone.</p>
+      </details>
+      <details>
+        <summary>What do I actually get when I download?</summary>
+        <p>A greeting-card sized image at print resolution, without a watermark. You also get a print view, the poem as plain text, and a link that rebuilds the same card for whoever opens it.</p>
+      </details>
+      <details>
+        <summary>Can I change a line I do not like?</summary>
+        <p>Yes. Tap any line in the studio and it swaps for a different word on the same letter. Keep tapping until the line sounds like you wrote it.</p>
       </details>
       <details>
         <summary>Can I print the cards at home?</summary>
-        <p>Yes. The download is a greeting-card sized image at print resolution, so it holds up on A5 and on a phone screen.</p>
+        <p>Yes. The download holds up on A5 and on a phone screen, and the print view is sized for ordinary paper rather than a photo lab.</p>
       </details>
       <details>
         <summary>Can I make a poem for a couple?</summary>
-        <p>Yes. Add a second name and the studio writes across both, which is what most wedding and anniversary cards want.</p>
+        <p>Yes. Add a second name and the studio writes across both, alternating lines and marking whose letter each one belongs to. That is what most wedding and anniversary cards need.</p>
       </details>
       <details>
         <summary>Which occasions are covered?</summary>
-        <p>Sixty, from birthdays and Diwali to a new job or a farewell. Each has its own page with its own examples.</p>
+        <p>Sixty, from birthdays and Diwali to a new job or a farewell. Each has its own page with its own examples, and the studio lists all sixty in one menu.</p>
+      </details>
+      <details>
+        <summary>Does it work with names in other scripts?</summary>
+        <p>The acrostic needs letters A to Z, so José and Nguyễn work, and names in Arabic, Chinese or Greek switch automatically to a rhyming verse instead. The interface itself is English for now.</p>
+      </details>
+      <details>
+        <summary>Does it work on a phone?</summary>
+        <p>Yes. The studio is built for a phone first, the card fits the screen, and the download goes straight to your camera roll so you can send it on WhatsApp.</p>
       </details>
     </div>
   </div>
