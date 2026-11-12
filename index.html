@@ -231,6 +231,24 @@
   .oi-grid a:hover{color:var(--burg)}
   .oi-grid a span{color:var(--gold-deep)}
   @media (max-width:900px){.oi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.2rem}}
+
+  /* ---------- sample band, three proofs ---------- */
+  .sample-head{display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;margin-bottom:clamp(16px,2vw,26px)}
+  .sample-head .sub{font-size:.92rem;color:var(--ink-60);max-width:34ch}
+  .proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,32px)}
+  .pcard{border-top:2px solid var(--line-soft);padding-top:1rem;display:flex;flex-direction:column}
+  .pcard .nm{font-family:"Great Vibes",cursive;font-size:1.75rem;color:var(--gold-deep);line-height:1}
+  .pcard .tag{margin-top:.3rem;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-40)}
+  .pcard ol{list-style:none;margin:.9rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:.9rem;line-height:1.65;color:#3B2B2E;flex:1}
+  .pcard ol li + li{margin-top:.2rem}
+  .pcard ol b{color:var(--burg);font-weight:600}
+  .pcard .u-link{margin-top:.9rem;align-self:flex-start;font-size:.74rem}
+  @media (max-width:900px){.proof{grid-template-columns:1fr}}
+
+  /* ---------- popular names ---------- */
+  .popular-names{margin-top:1.1rem;font-size:.82rem;color:var(--ink-40);line-height:1.9}
+  .popular-names a{color:var(--burg);border-bottom:1px solid rgba(107,31,45,.28);padding-bottom:1px}
+  .popular-names a:hover{border-color:var(--burg)}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"Acrostia","url":"https://parthiv95.github.io/acrostia/","description":"Personalized acrostic and rhyming name poems on printable keepsake cards."}
@@ -274,6 +292,7 @@
       </button>
     </form>
 
+    <p class="popular-names">Popular right now: <a href="studio/?n=Olivia">Olivia</a> · <a href="studio/?n=Noah">Noah</a> · <a href="studio/?n=Emma">Emma</a> · <a href="studio/?n=Liam">Liam</a> · <a href="studio/?n=Amelia">Amelia</a> · <a href="studio/?n=Sophia">Sophia</a> · <a href="studio/?n=Aisha">Aisha</a> · <a href="studio/?n=Priya">Priya</a> · <a href="studio/?n=Arjun">Arjun</a> · <a href="studio/?n=Mia">Mia</a></p>
     <div class="feats">
       <div class="feat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l3.2-.7L19 7.5a2.1 2.1 0 0 0-3-3L4.7 16.3z"/><path d="M14.5 6l3.5 3.5"/></svg></i><span>Acrostic &amp; rhyming poems</span></div>
       <div class="feat"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></i><span>Beautiful card designs</span></div>
@@ -301,20 +320,45 @@
 </section>
 
 <section class="sample" id="samples">
-  <div class="wrap sample-in">
-    <div>
-      <h2>Read one before you <em>write one.</em></h2>
-      <p class="sub">A finished poem from the studio, exactly as it arrives.</p>
+  <div class="wrap">
+    <div class="sample-head">
+      <h2>Read three before you <em>write one.</em></h2>
+      <p class="sub">Finished poems from the studio, exactly as they arrive on the card.</p>
+      <a class="u-link" href="examples/">See all twelve examples</a>
     </div>
-    <div class="poem">
-      <div class="nm" style="grid-row:span 3">Mum</div>
-      <ol>
-        <li><b>M</b>ost of what I know of kindness, I learned at your table,</li>
-        <li><b>U</b>nder your roof the hard days were never quite fatal,</li>
-        <li><b>M</b>aking a home out of ordinary weeks.</li>
-      </ol>
-      <a class="u-link cta" href="studio/?n=Mom&o=birthday">Make one like this</a>
-      <a class="u-link" href="examples/" style="margin-left:1.2rem">See the archive</a>
+    <div class="proof">
+      <article class="pcard">
+        <div class="nm">Olivia</div>
+        <div class="tag">Acrostic · birthday</div>
+        <ol>
+          <li><b>O</b>pen-hearted, first to welcome a stranger in,</li>
+          <li><b>L</b>aughs at her own jokes before anyone else does,</li>
+          <li><b>I</b>nsists on the small ceremonies, the candles, the cake,</li>
+          <li><b>V</b>ery hard to argue with, impossible to replace.</li>
+        </ol>
+        <a class="u-link" href="studio/?n=Olivia&o=birthday">Make one like it</a>
+      </article>
+      <article class="pcard">
+        <div class="nm">Priya &amp; Arjun</div>
+        <div class="tag">Acrostic · wedding</div>
+        <ol>
+          <li><b>P</b>atient with each other, even in the queue, (Priya)</li>
+          <li><b>A</b>lways the first to say the true thing, (Arjun)</li>
+          <li><b>R</b>arely apart, never quite the same, (Priya)</li>
+          <li><b>J</b>oking through the vows, meaning every word, (Arjun)</li>
+        </ol>
+        <a class="u-link" href="studio/?n=Priya&n2=Arjun&o=wedding">Make one like it</a>
+      </article>
+      <article class="pcard">
+        <div class="nm">Mom</div>
+        <div class="tag">Acrostic · just because</div>
+        <ol>
+          <li><b>M</b>ost of what I know of kindness, I learned at your table,</li>
+          <li><b>O</b>n the days I got it wrong, you never kept score,</li>
+          <li><b>M</b>aking a home out of ordinary weeks.</li>
+        </ol>
+        <a class="u-link" href="studio/?n=Mom&o=mothersday">Make one like it</a>
+      </article>
     </div>
   </div>
 </section>
