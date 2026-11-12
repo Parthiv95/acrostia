@@ -83,6 +83,12 @@
   .card ul li + li{margin-top:.18em}
   .card ul b{font-weight:600;color:var(--burg);display:inline;letter-spacing:0}
   .card .heart{display:block;width:13px;margin:1.1rem auto 0;color:#C9557B;transform:translateZ(8px)}
+  .card.t-script ul, .card.t-script .closer{font-size:calc(clamp(.94rem,1.2vw,1.06rem) * 1.16)}
+  .card.t-script ul{line-height:2.08}
+  .card.t-script ul b, .card.t-hand ul b{margin-right:.52em;font-weight:400}
+  .card.t-script ul{line-height:2.25}
+  .card.t-hand ul{line-height:2.1}
+  .card.t-hand ul, .card.t-hand .closer{font-size:calc(clamp(.94rem,1.2vw,1.06rem) * 1.07)}
   .card .closer{margin:1.1rem auto 0;max-width:30ch;text-align:center;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:.9rem;line-height:1.5;color:var(--burg);transform:translateZ(10px)}
   .card .fromline{margin:.7rem auto 0;text-align:center;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(8px)}
   .card .closer:empty,.card .fromline:empty{display:none}
@@ -382,15 +388,20 @@
   // each script sets the name and the poem body, the way the old build did
   var FONT_MAP = {
     script:    { name: "clamp(2.4rem,4vw,3.4rem) 'Great Vibes', cursive",
-                 cv: "88px 'Great Vibes', cursive", caps: false, track: "0" },
+                 cv: "88px 'Great Vibes', cursive", caps: false, track: "0",
+                 body: "'Great Vibes', cursive", bstyle: "normal", bweight: "400", bsize: ".96", cpx: 1.16 },
     keepsake:  { name: "italic 400 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
-                 cv: "italic 400 64px Fraunces, Georgia, serif", caps: false, track: "0" },
+                 cv: "italic 400 64px Fraunces, Georgia, serif", caps: false, track: "0",
+                 body: "Fraunces, Georgia, serif", bstyle: "italic", bweight: "400", bsize: ".94", cpx: 1 },
     simple:    { name: "600 clamp(1.5rem,2.4vw,2rem) Fraunces, Georgia, serif",
-                 cv: "600 52px Fraunces, Georgia, serif", caps: true, track: ".06em" },
+                 cv: "600 52px Fraunces, Georgia, serif", caps: true, track: ".06em",
+                 body: "Fraunces, Georgia, serif", bstyle: "normal", bweight: "400", bsize: ".9", cpx: 1 },
     hand:      { name: "clamp(2rem,3.2vw,2.6rem) 'Bradley Hand', 'Segoe Script', cursive",
-                 cv: "64px 'Bradley Hand', 'Segoe Script', cursive", caps: false, track: "0" },
+                 cv: "64px 'Bradley Hand', 'Segoe Script', cursive", caps: false, track: "0",
+                 body: "'Bradley Hand', 'Segoe Script', cursive", bstyle: "normal", bweight: "400", bsize: "1.02", cpx: 1.07 },
     storybook: { name: "300 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
-                 cv: "300 64px Fraunces, Georgia, serif", caps: false, track: ".02em" }
+                 cv: "300 64px Fraunces, Georgia, serif", caps: false, track: ".02em",
+                 body: "Fraunces, Georgia, serif", bstyle: "normal", bweight: "300", bsize: ".94", cpx: 1 }
   };
 
   function render() {
@@ -581,16 +592,23 @@
 
   function applyFont() {
     var f = FONT_MAP[st.font] || FONT_MAP.script;
-    // this control names the card: it changes the name, never the poem, so the
-    // preview and the download agree and printed lines stay in the reading serif
+    // one typeface per card: the choice sets the name, the poem and the closer
+    // together, so a card never reads as two designs stapled to each other
+    var cardEl = document.getElementById('cardEl');
+    if (cardEl) { cardEl.className = cardEl.className.replace(/\bt-\w+/g, '').trim() + ' t-' + st.font; }
     cName.style.font = f.name;
     cName.style.letterSpacing = f.track || '0';
     cName.style.textTransform = f.caps ? 'uppercase' : 'none';
-    cPoem.style.fontFamily = 'Fraunces, Georgia, serif';
-    cPoem.style.fontStyle = 'normal';
+    cPoem.style.fontFamily = f.body;
+    cPoem.style.fontStyle = f.bstyle;
+    cPoem.style.fontWeight = f.bweight;
     cPoem.style.letterSpacing = '0';
     var closer = document.getElementById('cCloser');
-    if (closer) { closer.style.fontFamily = 'Fraunces, Georgia, serif'; closer.style.fontStyle = 'italic'; }
+    if (closer) {
+      closer.style.fontFamily = f.body;
+      closer.style.fontStyle = f.bstyle;
+      closer.style.fontWeight = f.bweight;
+    }
     if (typeof fitCard === 'function') fitCard();
   }
   document.querySelectorAll('.fopt').forEach(function (b) {
@@ -661,17 +679,21 @@
     var lines = cardLines(), y = 360;
     var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (rhymeOut) {
-      x.fillStyle = '#3B2B2E'; x.font = "30px Fraunces, Georgia, serif";
-      lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += 52; });
+      var bf = FONT_MAP[st.font] || FONT_MAP.script;
+      var bs = Math.round(30 * (bf.cpx || 1));
+      x.fillStyle = '#3B2B2E'; x.font = bf.bstyle + ' ' + bf.bweight + ' ' + bs + 'px ' + bf.body;
+      lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += Math.round(52 * (bf.cpx || 1)); });
     } else {
       lines.forEach(function (l) {
         var txt = l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '');
-        x.fillStyle = '#6B1F2D'; x.font = "600 30px Fraunces, Georgia, serif";
+        var bf2 = FONT_MAP[st.font] || FONT_MAP.script;
+        var bm = bf2.cpx || 1;
+        x.fillStyle = '#6B1F2D'; x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(30 * bm) + 'px ' + bf2.body;
         x.textAlign = 'left'; x.fillText(l.letter, 110, y);
-        x.fillStyle = '#3B2B2E'; x.font = "26px Fraunces, Georgia, serif";
+        x.fillStyle = '#3B2B2E'; x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(26 * bm) + 'px ' + bf2.body;
         x.fillText(txt.slice(l.letter.length + 1), 150, y);
         x.textAlign = 'center';
-        y += 56;
+        y += Math.round(56 * (bf2.cpx || 1));
       });
     }
     if (st.from) {
