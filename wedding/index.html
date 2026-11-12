@@ -367,16 +367,26 @@ var OCC_SLUG = 'wedding';
     W:"arms every room you enter,", X:" marks the spot, and so do you,", Y:"ou make it look effortless,", Z:"estful and wild at once."
   };
   var OCCS = {
-    birthday:{acc:'#F6D7DE', ink:'#6B1F2D', name:'Birthday', occ:'for wedding', h1:'Birthday name poem,'},
-    diwali:{acc:'#EFD49A', ink:'#5C3A10', name:'Diwali', occ:'for Diwali', h1:'Diwali name poem,'},
-    eid:{acc:'#D9C7E2', ink:'#44235A', name:'Eid', occ:'for Eid', h1:'Eid name poem,'},
-    christmas:{acc:'#CFD8C4', ink:'#2E4027', name:'Christmas', occ:'for Christmas', h1:'Christmas name poem,'},
-    valentine:{acc:'#F2CFD8', ink:'#7A2440', name:'Valentine', occ:'for Valentine', h1:'Valentine name poem,'},
-    holi:{acc:'#F4D06F', ink:'#6B4A0E', name:'Holi', occ:'for Holi', h1:'Holi name poem,'},
-    hanukkah:{acc:'#C7D3E2', ink:'#24406B', name:'Hanukkah', occ:'for Hanukkah', h1:'Hanukkah name poem,'},
-    lunarnewyear:{acc:'#E7B9B9', ink:'#7A1F1F', name:'Lunar New Year', occ:'for Lunar New Year', h1:'Lunar New Year name poem,'},
-    thanksgiving:{acc:'#E3C9A8', ink:'#6B3A10', name:'Thanksgiving', occ:'for Thanksgiving', h1:'Thanksgiving name poem,'},
-    halloween:{acc:'#CBB7D9', ink:'#3E2A52', name:'Halloween', occ:'for Halloween', h1:'Halloween name poem,'}
+    birthday:{acc:'#F6D7DE', ink:'#6B1F2D', name:'Birthday', occ:"for wedding",
+     h1:'Birthday name poem,'},
+    diwali:{acc:'#EFD49A', ink:'#5C3A10', name:'Diwali', occ:"for Diwali",
+     h1:'Diwali name poem,'},
+    eid:{acc:'#D9C7E2', ink:'#44235A', name:'Eid', occ:"for Eid",
+     h1:'Eid name poem,'},
+    christmas:{acc:'#CFD8C4', ink:'#2E4027', name:'Christmas', occ:"for Christmas",
+     h1:'Christmas name poem,'},
+    valentine:{acc:'#F2CFD8', ink:'#7A2440', name:'Valentine', occ:"for Valentine",
+     h1:'Valentine name poem,'},
+    holi:{acc:'#F4D06F', ink:'#6B4A0E', name:'Holi', occ:"for Holi",
+     h1:'Holi name poem,'},
+    hanukkah:{acc:'#C7D3E2', ink:'#24406B', name:'Hanukkah', occ:"for Hanukkah",
+     h1:'Hanukkah name poem,'},
+    lunarnewyear:{acc:'#E7B9B9', ink:'#7A1F1F', name:'Lunar New Year', occ:"for Lunar New Year",
+     h1:'Lunar New Year name poem,'},
+    thanksgiving:{acc:'#E3C9A8', ink:'#6B3A10', name:'Thanksgiving', occ:"for Thanksgiving",
+     h1:'Thanksgiving name poem,'},
+    halloween:{acc:'#CBB7D9', ink:'#3E2A52', name:'Halloween', occ:"for Halloween",
+     h1:'Halloween name poem,'}
   };
   var LEDLE = 'Type a name and get a free personalized {OCC} poem on a beautiful themed card. Acrostic or rhyming, instant, no sign up. Download it, print it, or send it on WhatsApp.';
   function ledeFor(o){ return LEDLE.replace('{OCC}', o === 'Birthday' ? 'birthday' : o); }
