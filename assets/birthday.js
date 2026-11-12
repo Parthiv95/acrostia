@@ -29,13 +29,13 @@
     var m = d.getMonth();
     switch (kind) {
       case 'birth-tree': {
-        var t = F.treeFor(d);
+        var t = F.treeFor(m + 1, d.getDate());
         return { no: 'Entry · tree window', stone: t.name,
                  range: MON[t.from[0] - 1] + ' ' + t.from[1] + ' to ' + MON[t.to[0] - 1] + ' ' + t.to[1],
                  body: cap(t.line) + '.' };
       }
       case 'zodiac': {
-        var z = F.signFor(d);
+        var z = F.signFor(m + 1, d.getDate());
         return { no: 'Entry · sign', stone: z.name,
                  range: z.element + ' element, ruled by ' + z.planet,
                  body: z.line };
@@ -64,7 +64,7 @@
                  body: parts[1] ? cap(parts[1].trim()) + '.' : '' };
       }
       case 'lucky-number': {
-        var ln = F.luckyNumbers(d);
+        var ln = F.luckyNumbers(m + 1, d.getDate());
         var num = Array.isArray(ln) ? ln[0] : ln;
         return { no: 'Entry · number', stone: String(num),
                  range: 'from ' + F.fmt(d),
@@ -93,7 +93,7 @@
                  body: cap(F.LIFE_PATHS[lp] || '') + '.' };
       }
       case 'chinese-zodiac': {
-        var ch = F.chineseFor(d.getFullYear());
+        var ch = F.chineseFor(d.getFullYear(), m + 1, d.getDate());
         return { no: 'Entry · animal', stone: ch.name,
                  range: 'the year beginning at Lunar New Year, ' + d.getFullYear(),
                  body: cap(ch.line) + '.' };
