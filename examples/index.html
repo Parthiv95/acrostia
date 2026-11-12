@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poem examples: twelve finished cards | Acrostia</title>
+<meta name="description" content="Twelve finished name poems from the studio, across birthdays, weddings, Diwali, Mother's Day and more. Read one properly, then make your own in a minute.">
+<link rel="canonical" href="https://parthiv95.github.io/acrostia/examples/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Acrostia">
+<meta property="og:title" content="Poem examples: twelve finished cards | Acrostia">
+<meta property="og:description" content="Twelve finished name poems from the studio, across birthdays, weddings and festivals.">
+<meta property="og:url" content="https://parthiv95.github.io/acrostia/examples/">
+<meta property="og:image" content="https://parthiv95.github.io/acrostia/og-image.png">
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/Fraunces-300-700-n.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/GreatVibes-400-n.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  :root{
+    --ivory:#FFF8F3; --ivory-2:#FBF1E9; --burg:#6B1F2D; --gold:#C89A4B; --gold-deep:#8A6420;
+    --ink:#2C2024; --ink-60:#5C4A4E; --ink-40:#6E5A5E;
+    --line:rgba(200,154,75,.4); --line-soft:rgba(200,154,75,.28);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,3vw,44px)}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--burg);color:#FFF6F0;padding:.7rem 1.2rem;font-size:.8rem;font-weight:600}
+  .skip:focus{left:0}
+  a:focus-visible,button:focus-visible{outline:3px solid rgba(200,154,75,.9);outline-offset:2px}
+  .pill{display:inline-flex;align-items:center;gap:.45rem;background:var(--burg);color:#FFF6F0;border:0;border-radius:999px;padding:.7rem 1.3rem;font-size:.82rem;font-weight:600;cursor:pointer}
+  .pill:hover{background:#84293A}
+  .eyebrow{font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+
+  header{background:rgba(255,248,243,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .bar{display:flex;align-items:center;gap:clamp(14px,2.2vw,38px);height:76px}
+  .brand{display:flex;align-items:center;gap:.5rem;font-family:Fraunces,Georgia,serif;font-size:1.5rem;font-weight:600}
+  .brand svg{width:1.05rem;height:1.05rem;color:var(--gold-deep)}
+  nav{display:flex;gap:clamp(12px,1.8vw,30px);margin-left:clamp(6px,1.4vw,26px)}
+  nav a{font-size:.9rem;color:#3C2F33;font-weight:500}
+  nav a[aria-current]{color:var(--burg);font-weight:600}
+  nav a:hover{color:var(--burg)}
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:.9rem}
+  .icon-btn{width:2.4rem;height:2.4rem;border-radius:999px;border:1px solid rgba(180,140,120,.35);background:rgba(255,255,255,.6);display:grid;place-items:center;color:#5B4A4E;cursor:pointer}
+  .icon-btn svg{width:1rem;height:1rem}
+
+  .head{padding-block:clamp(28px,3.6vw,48px) clamp(18px,2.2vw,28px)}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2.1rem,3.8vw,3.2rem);line-height:1.03;letter-spacing:-.028em;margin-top:.8rem}
+  h1 em{font-style:italic;color:var(--burg)}
+  .lede{margin-top:.9rem;font-size:1rem;line-height:1.65;color:var(--ink-60);max-width:52ch}
+  .chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.5rem}
+  .chip{appearance:none;border:1px solid rgba(180,140,120,.45);background:#fff;border-radius:999px;padding:.45rem .9rem;font-size:.8rem;color:#4A3A3E;cursor:pointer}
+  .chip:hover{border-color:var(--gold)}
+  .chip.is-on{background:var(--burg);border-color:var(--burg);color:#FFF6F0}
+
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.6vw,34px);padding-block:clamp(20px,2.4vw,32px) clamp(40px,5vw,64px)}
+  .card{border-top:2px solid var(--acc,var(--gold));padding-top:1.1rem;display:flex;flex-direction:column}
+  .card .nm{font-family:"Great Vibes",cursive;font-size:1.9rem;color:var(--gold-deep);line-height:1}
+  .card .tag{margin-top:.35rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-40)}
+  .card ol{list-style:none;margin:1rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:.93rem;line-height:1.7;color:#3B2B2E;flex:1}
+  .card ol li + li{margin-top:.22rem}
+  .card ol b{color:var(--burg);font-weight:600}
+  .card .u-link{margin-top:1rem;align-self:flex-start;font-size:.76rem;font-weight:600;color:var(--burg);border-bottom:1px solid rgba(107,31,45,.35);padding-bottom:.15rem}
+  .card .u-link:hover{border-color:var(--burg)}
+
+  .bridge{border-top:1px solid var(--line-soft);padding-block:clamp(26px,3.2vw,44px);display:flex;justify-content:space-between;align-items:center;gap:1.4rem;flex-wrap:wrap}
+  .bridge h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.3rem,2vw,1.7rem);letter-spacing:-.02em}
+  .bridge h2 em{font-style:italic;color:var(--burg)}
+
+  footer{background:var(--burg);color:#F7E4E3;padding:1.1rem 0 1.5rem}
+  .legal{display:flex;justify-content:space-between;gap:1rem;font-size:.74rem;flex-wrap:wrap;color:rgba(247,228,227,.85)}
+  .legal a{color:rgba(247,228,227,.9)}
+
+  @media (max-width:980px){ nav{display:none} .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:620px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="../">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.6l1.9 7.1 7.1 1.9-7.1 1.9L12 19.6l-1.9-7.1L3 10.6l7.1-1.9z"/></svg>
+      Acrostia
+    </a>
+    <nav>
+      <a href="../studio/">Create</a>
+      <a href="../birthday/">Discover</a>
+      <a href="../first-letter/">Explore</a>
+      <a href="../examples/" aria-current="page">Examples</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="bar-right">
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+      <a class="pill" href="../studio/">Start Creating</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap head">
+    <p class="eyebrow">The archive</p>
+    <h1>Twelve poems, made by the <em>studio.</em></h1>
+    <p class="lede">Real output, not samples written for the brochure. Each one was generated from a name and an occasion, then left exactly as it came out. Pick one close to yours and start there.</p>
+    <div class="chips" id="chips">
+      <button class="chip is-on" data-f="all">All twelve</button>
+      <button class="chip" data-f="birthday">Birthday</button>
+      <button class="chip" data-f="love">Weddings and love</button>
+      <button class="chip" data-f="family">Family</button>
+      <button class="chip" data-f="festival">Festivals</button>
+    </div>
+  </section>
+
+  <section class="wrap grid" id="grid">
+    <article class="card" data-occ="birthday" style="--acc:#C89A4B">
+      <div class="nm">Aisha</div>
+      <div class="tag">Acrostic · birthday</div>
+      <ol>
+        <li><b>A</b>lways first on the phone when it matters,</li>
+        <li><b>I</b>nquisitive about everyone else,</li>
+        <li><b>S</b>illy on a Tuesday, wise on a Sunday,</li>
+        <li><b>H</b>olding the whole group together, gently.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Aisha&o=birthday">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="birthday" style="--acc:#C89A4B">
+      <div class="nm">Daniel</div>
+      <div class="tag">Rhyming · birthday</div>
+      <ol>
+        <li>Definitely the funniest one left in the family,</li>
+        <li>always game for one more round,</li>
+        <li>never lets anyone carry anything alone,</li>
+        <li>impossible not to be glad he is around.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Daniel&o=birthday&s=rhyming">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="love" style="--acc:#D98CA6">
+      <div class="nm">Priya &amp; Arjun</div>
+      <div class="tag">Acrostic · wedding</div>
+      <ol>
+        <li><b>P</b>atient with each other, even in the queue, (Priya)</li>
+        <li><b>A</b>lways the first to say the true thing, (Arjun)</li>
+        <li><b>R</b>arely apart, never quite the same, (Priya)</li>
+        <li><b>J</b>oking through the vows, meaning every word, (Arjun)</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Priya&n2=Arjun&o=wedding">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="family" style="--acc:#A6BC7B">
+      <div class="nm">Mum</div>
+      <div class="tag">Acrostic · just because</div>
+      <ol>
+        <li><b>M</b>ost of what I know of kindness, I learned at your table,</li>
+        <li><b>U</b>nder your roof the hard days were never quite fatal,</li>
+        <li><b>M</b>aking a home out of ordinary weeks.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Mum&o=mothersday">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="festival" style="--acc:#E8AE3C">
+      <div class="nm">Diya</div>
+      <div class="tag">Acrostic · Diwali</div>
+      <ol>
+        <li><b>D</b>raws the whole street into one room,</li>
+        <li><b>I</b>nsists the sweets are for everyone,</li>
+        <li><b>Y</b>early she lights the first lamp herself,</li>
+        <li><b>A</b>nd the house settles into its warmest week.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Diya&o=diwali">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="family" style="--acc:#CFD8C4">
+      <div class="nm">Grandpa Joe</div>
+      <div class="tag">Acrostic · heartfelt</div>
+      <ol>
+        <li><b>G</b>rew the tomatoes everyone remembers,</li>
+        <li><b>R</b>emembers every name we forget,</li>
+        <li><b>A</b>lways a chair left open at his table,</li>
+        <li><b>N</b>ever once made a fuss of it.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Grandpa%20Joe&o=birthday">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="love" style="--acc:#F2CFD8">
+      <div class="nm">Meera</div>
+      <div class="tag">Rhyming · anniversary</div>
+      <ol>
+        <li>Ten years in and still the first to laugh,</li>
+        <li>still the one who fills the better half,</li>
+        <li>still choosing the same seat, the same hand,</li>
+        <li>still the best decision in the land.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Meera&o=anniversary&s=rhyming">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="birthday" style="--acc:#C89A4B">
+      <div class="nm">Kabir</div>
+      <div class="tag">Acrostic · birthday</div>
+      <ol>
+        <li><b>K</b>eeps every promise, even the small ones,</li>
+        <li><b>A</b>lways the last to leave the table,</li>
+        <li><b>B</b>rave in the ways nobody notices,</li>
+        <li><b>I</b>ntent on making the year count,</li>
+        <li><b>R</b>eady for whatever this one brings.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Kabir&o=birthday">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="festival" style="--acc:#CFD8C4">
+      <div class="nm">Noel</div>
+      <div class="tag">Acrostic · Christmas</div>
+      <ol>
+        <li><b>N</b>ever too old to shake the parcel,</li>
+        <li><b>O</b>pens the door to whoever turns up,</li>
+        <li><b>E</b>very year the same terrible cracker jokes,</li>
+        <li><b>L</b>eaves the lights up until February.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Noel&o=christmas">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="family" style="--acc:#F6D7DE">
+      <div class="nm">Anya</div>
+      <div class="tag">Acrostic · for a sister</div>
+      <ol>
+        <li><b>A</b>lways borrows the good coat and returns it better,</li>
+        <li><b>N</b>ever tells the story the way it happened,</li>
+        <li><b>Y</b>our side, no questions asked, every single time,</li>
+        <li><b>A</b>nd the only person who can say it straight to me.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Anya&o=sister">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="birthday" style="--acc:#C89A4B">
+      <div class="nm">Tara</div>
+      <div class="tag">Acrostic · birthday</div>
+      <ol>
+        <li><b>T</b>ells the truth before you ask for it,</li>
+        <li><b>A</b>lways mid-project, never mid-complaint,</li>
+        <li><b>R</b>eads three books at once and finishes two,</li>
+        <li><b>A</b>nd makes the year feel longer, in the good way.</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Tara&o=birthday">Make one like it</a>
+    </article>
+
+    <article class="card" data-occ="love" style="--acc:#D98CA6">
+      <div class="nm">Emma &amp; Noah</div>
+      <div class="tag">Acrostic · engagement</div>
+      <ol>
+        <li><b>E</b>mphatic, feeling what others feel, (Emma)</li>
+        <li><b>N</b>urturing, helping others grow, (Noah)</li>
+        <li><b>M</b>agnetic, drawing people in, (Emma)</li>
+        <li><b>O</b>pen-hearted, welcoming everyone in, (Noah)</li>
+      </ol>
+      <a class="u-link" href="../studio/?n=Emma&n2=Noah&o=engagement">Make one like it</a>
+    </article>
+  </section>
+
+  <section class="wrap bridge">
+    <h2>None of these are quite the <em>right one.</em></h2>
+    <a class="pill" href="../studio/">Write a new poem</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap legal">
+    <span>© 2026 Acrostia. All rights reserved.</span>
+    <span><a href="../privacy/">Privacy</a> &nbsp; <a href="../terms/">Terms</a> &nbsp; <a href="../pricing/">Pricing</a> &nbsp; <a href="../cookie-policy/">Cookies</a> &nbsp; <a href="../accessibility/">Accessibility</a></span>
+  </div>
+</footer>
+
+<script src="../assets/analytics.js" defer></script>
+<script>
+(function () {
+  var chips = document.querySelectorAll('#chips .chip');
+  var cards = document.querySelectorAll('#grid .card');
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      chips.forEach(function (x) { x.classList.remove('is-on'); });
+      c.classList.add('is-on');
+      var f = c.dataset.f;
+      cards.forEach(function (a) {
+        a.style.display = (f === 'all' || a.dataset.occ === f) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
