@@ -167,7 +167,7 @@
   function bgNote() {
     if (!st.bg) return '';
     var on = document.querySelector('.bgthumb.is-on[data-bg]');
-    if (!on || !on.title) return ' · your photo';
+    if (!on || !on.title) return /^photo-/i.test(st.bg) ? ' · photo background' : ' · your photo';
     return ' · ' + on.title.toLowerCase() + ' template';
   }
 
@@ -228,10 +228,19 @@
       return;
     }
     card.classList.add('has-bg');
-    card.style.backgroundImage = 'url("' + st.bg + '")';
+    card.style.backgroundImage = 'url("' + bgSrc(st.bg) + '")';
   }
 
-  var ALLOWED_BG = /^(\.\.\/backgrounds\/[a-z-]+\.png|\.\.\/assets\/floral\/[a-z0-9-]+\.jpg|data:image\/(png|jpe?g|webp);base64,)/;
+  var ALLOWED_BG = /^(\.\.\/backgrounds\/[a-z-]+\.png|\.\.\/assets\/floral\/[a-z0-9-]+\.jpg|photo-[0-9a-z-]+|data:image\/(png|jpe?g|webp);base64,)/i;
+  /* /backgrounds/ links carry an Unsplash id rather than a path. Resolving it here
+     keeps the shared URL short and gives the canvas a CORS-clean image. */
+  function bgSrc(v) {
+    if (!v) return '';
+    if (/^photo-[0-9a-z-]+$/i.test(v)) {
+      return 'https://images.unsplash.com/' + v + '?auto=format&fit=crop&q=80&w=900&h=1200';
+    }
+    return v;
+  }
   function safeBg(src) { return src && ALLOWED_BG.test(src) ? src : null; }
 
   function setBg(src, btn) {
@@ -240,7 +249,8 @@
     bgImg = null;
     if (src) {
       bgImg = new Image();
-      bgImg.src = src;
+      if (/^https?:/i.test(bgSrc(src))) bgImg.crossOrigin = 'anonymous';
+      bgImg.src = bgSrc(src);
     }
     document.querySelectorAll('.bgthumb').forEach(function (b) { b.classList.remove('is-on'); });
     if (btn) btn.classList.add('is-on');
