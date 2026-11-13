@@ -951,6 +951,10 @@ function traitsFor(L, g, occ) {
   if (occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][L]) bank = bank.concat(OCC_TRAITS[occ][L]);
   if (g === "m") bank = bank.filter((t) => t[2] !== "f");
   if (g === "f") bank = bank.filter((t) => t[2] !== "m");
+  // the merge blocks and the occasion banks can name the same word; one entry per
+  // word or the same word turns up twice and skews the random draw toward it
+  const seen = new Set();
+  bank = bank.filter((t) => (seen.has(t[0]) ? false : (seen.add(t[0]), true)));
   return bank.length ? bank : [[L + "-cellent", "one of a kind"]];
 }
 
@@ -1104,6 +1108,9 @@ function buildRhyme(name, name2, vi, occ) {
     closer: function (occ) { return pickCloser(occ); },
     voice: function (v) { VOICE = v || "heartfelt"; },
     canAcrostic: function (n) { return /[A-Za-z]/.test(deaccent(n)); },
+    words: function (L, occ) {
+      return traitsFor(L, '', occ).map(function (t) { return { word: t[0], desc: t[1] }; });
+    },
     reroll: function (L, occ, exclude) {
       var pool = traitsFor(L, "", occ).filter(function (t) { return t[0] !== exclude; });
       var t = pool.length ? pick(pool) : traitsFor(L, "", occ)[0];

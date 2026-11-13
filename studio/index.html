@@ -190,6 +190,20 @@
     #printRoot .card .fromline{font-size:8.5pt;margin-top:3mm}
     #printRoot .card .heart{width:3.4mm;height:3.4mm;margin-top:5mm}
   }
+  .wb{max-width:1080px;margin:1.2rem auto 0;padding:1rem 1.4rem 0;border-top:1px solid rgba(200,154,75,.28)}
+  .wb summary{cursor:pointer;list-style:none;font-family:Fraunces,Georgia,serif;font-size:1.02rem;color:var(--burg);display:flex;align-items:baseline;gap:.6rem}
+  .wb summary::-webkit-details-marker{display:none}
+  .wb summary::after{content:"+";margin-left:auto;font-family:Inter,sans-serif;color:var(--ink-40)}
+  .wb[open] summary::after{content:"\2013"}
+  .wb-hint{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-40)}
+  .wb-body{padding:.6rem 0 1.4rem}
+  .wb-row{display:grid;grid-template-columns:1.9rem 1fr;gap:.55rem;align-items:start;padding:.4rem 0;border-bottom:1px solid rgba(200,154,75,.16)}
+  .wb-row:last-child{border-bottom:0}
+  .wb-letter{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.05rem;color:var(--burg);padding-top:.15rem}
+  .wb-chips{display:flex;flex-wrap:wrap;gap:.32rem}
+  .wb-chip{font:inherit;font-size:.78rem;padding:.24rem .55rem;border:1px solid rgba(180,140,120,.35);border-radius:999px;background:var(--ivory);color:#4A3C40;cursor:pointer;line-height:1.2}
+  .wb-chip:hover{border-color:var(--burg);color:var(--burg)}
+  .wb-chip.is-on{background:var(--burg);border-color:var(--burg);color:#FFF6F0}
 </style>
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
@@ -323,6 +337,11 @@
 </section>
 
 </main>
+  <details class="wb" id="wordBank">
+    <summary>Word bank <span class="wb-hint">every word this name can use</span></summary>
+    <div class="wb-body" id="wbBody"></div>
+  </details>
+
 <footer>
   <div class="wrap legal">
     <span>© 2026 Acrostia. All rights reserved. <span class="build">Build 13 Nov 2026</span></span>
@@ -330,8 +349,8 @@
   </div>
 </footer>
 
-<script src="../assets/floral/engine.js?v=103bfc6799"></script>
-<script src="../assets/studio/app.js?v=8cbf9f5008"></script>
+<script src="../assets/floral/engine.js?v=f7f5a71787"></script>
+<script src="../assets/studio/app.js?v=4ddfbcb4ba"></script>
 
 <div id="printRoot" aria-hidden="true"></div>
 <script>

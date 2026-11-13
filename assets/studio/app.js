@@ -80,10 +80,11 @@
   // One source for the wash that keeps the poem legible over artwork. The screen
   // reads it through --card-scrim and the canvas replays the same stops, so the
   // download can no longer look unlike the preview.
-  var SCRIM = { cx: 0.5, cy: 0.46, stops: [[0, 'rgba(255,252,245,.94)'], [0.52, 'rgba(255,252,245,.88)'], [1, 'rgba(255,252,245,.58)']] };
+  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.34)'], [0.28, 'rgba(255,252,245,.54)'], [0.5, 'rgba(255,252,245,.62)'], [0.72, 'rgba(255,252,245,.54)'], [1, 'rgba(255,252,245,.34)']] };
   function scrimCss() {
-    return 'radial-gradient(ellipse at ' + (SCRIM.cx * 100) + '% ' + (SCRIM.cy * 100) + '%, ' +
-      SCRIM.stops.map(function (s) { return s[1] + ' ' + Math.round(s[0] * 100) + '%'; }).join(', ') + ')';
+    var stops = SCRIM.stops.map(function (s) { return s[1] + ' ' + Math.round(s[0] * 100) + '%'; }).join(', ');
+    if (SCRIM.type === 'linear') return 'linear-gradient(180deg, ' + stops + ')';
+    return 'radial-gradient(ellipse at ' + (SCRIM.cx * 100) + '% ' + (SCRIM.cy * 100) + '%, ' + stops + ')';
   }
   try { document.documentElement.style.setProperty('--card-scrim', scrimCss()); } catch (e) {}
 
@@ -158,6 +159,53 @@
         });
       });
     }
+    renderWordBank();
+  }
+
+
+  /* ---------- word bank: every word the current name can use ---------- */
+  function renderWordBank() {
+    var box = document.getElementById('wordBank');
+    var body = document.getElementById('wbBody');
+    if (!box || !body || !A || !A.words) return;
+    if (st.style === 'rhyme' || !lastLines.length || !A.canAcrostic(st.name)) {
+      box.style.display = 'none';
+      return;
+    }
+    box.style.display = '';
+    var order = [], byLetter = {};
+    lastLines.forEach(function (l, i) {
+      if (!byLetter[l.letter]) { byLetter[l.letter] = []; order.push(l.letter); }
+      byLetter[l.letter].push(i);
+    });
+    var html = '';
+    order.forEach(function (L) {
+      var idx = byLetter[L][0];
+      var current = lastLines[idx].word;
+      var pool = A.words(L, st.occ).map(function (w) { return w.word; });
+      if (pool.indexOf(current) === -1) pool.unshift(current);
+      html += '<div class="wb-row"><span class="wb-letter">' + L + '</span><div class="wb-chips">' +
+        pool.map(function (w) {
+          return '<button type="button" class="wb-chip' + (w === current ? ' is-on' : '') +
+            '" data-letter="' + L + '" data-word="' + esc(w) + '">' + esc(w) + '</button>';
+        }).join('') + '</div></div>';
+    });
+    body.innerHTML = html;
+    Array.prototype.forEach.call(body.querySelectorAll('.wb-chip'), function (chip) {
+      chip.addEventListener('click', function () {
+        var L = chip.dataset.letter, word = chip.dataset.word;
+        var pool = A.words(L, st.occ);
+        var found = null;
+        for (var i = 0; i < pool.length; i++) { if (pool[i].word === word) { found = pool[i]; break; } }
+        if (!found) { found = { word: word, desc: lastLines[byLetter[L][0]].desc }; }
+        var idx = byLetter[L][0];
+        lastLines[idx] = { letter: L, word: found.word, desc: found.desc, suf: '' };
+        var btn = document.querySelector('.line-reroll[data-i="' + idx + '"]');
+        if (btn) btn.innerHTML = lineHTML(lastLines[idx]);
+        renderWordBank();
+        fitCard();
+      });
+    });
   }
 
   /* ---------- card backgrounds ---------- */
@@ -175,7 +223,7 @@
     card.style.backgroundImage = 'url("' + st.bg + '")';
   }
 
-  var ALLOWED_BG = /^(\.\.\/assets\/floral\/[a-z0-9-]+\.jpg|data:image\/(png|jpe?g|webp);base64,)/;
+  var ALLOWED_BG = /^(\.\.\/backgrounds\/[a-z-]+\.png|\.\.\/assets\/floral\/[a-z0-9-]+\.jpg|data:image\/(png|jpe?g|webp);base64,)/;
   function safeBg(src) { return src && ALLOWED_BG.test(src) ? src : null; }
 
   function setBg(src, btn) {
@@ -354,7 +402,9 @@
       var s = Math.max(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
       var dw = bgImg.naturalWidth * s, dh = bgImg.naturalHeight * s;
       x.drawImage(bgImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
-      var sg = x.createRadialGradient(W * SCRIM.cx, H * SCRIM.cy, 0, W * SCRIM.cx, H * SCRIM.cy, Math.max(W, H) * 0.68);
+      var sg = SCRIM.type === 'linear'
+        ? x.createLinearGradient(0, 0, 0, H)
+        : x.createRadialGradient(W * SCRIM.cx, H * SCRIM.cy, 0, W * SCRIM.cx, H * SCRIM.cy, Math.max(W, H) * 0.68);
       SCRIM.stops.forEach(function (s) { sg.addColorStop(s[0], s[1]); });
       x.fillStyle = sg; x.fillRect(0, 0, W, H);
     }
