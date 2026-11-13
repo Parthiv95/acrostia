@@ -143,10 +143,10 @@
     cPoem.classList.toggle('two-col', st.style !== 'rhyme' && lastLines.length > 8);
     var nonLatin = !A.canAcrostic(st.name);
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' +
-      (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + (st.bg ? ' · your paper' : '');
+      (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + bgNote();
     nameIn.value = st.name;
-  if (st.name2 && name2In) name2In.value = st.name2;
-  if (st.from && fromIn) fromIn.value = st.from;
+    if (st.name2 && name2In) name2In.value = st.name2;
+    if (st.from && fromIn) fromIn.value = st.from;
     if (st.style !== 'rhyme' && A) {
       Array.prototype.forEach.call(cPoem.querySelectorAll('.line-reroll'), function (el) {
         el.addEventListener('click', function () {
@@ -162,6 +162,14 @@
     renderWordBank();
   }
 
+  /* the caption used to say "your paper" for a stock template, as if the visitor
+     had uploaded it; name what is actually on the card */
+  function bgNote() {
+    if (!st.bg) return '';
+    var on = document.querySelector('.bgthumb.is-on[data-bg]');
+    if (!on || !on.title) return ' · your photo';
+    return ' · ' + on.title.toLowerCase() + ' template';
+  }
 
   /* ---------- word bank: every word the current name can use ---------- */
   function renderWordBank() {
