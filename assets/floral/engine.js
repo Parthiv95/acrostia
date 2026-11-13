@@ -658,6 +658,88 @@ function genderOf(name) {
   return "";
 }
 
+const EXTRA_LETTER_TRAITS = {
+  A: [["Adaptable","easy to fit any plan"], ["Appreciative","never misses a kindness"], ["Artistic","sees beauty before the rest"], ["Approachable","easy to confide in"], ["Assertive","says what needs saying"], ["Astute","reads a room in seconds"], ["Amiable","a pleasure to be near"], ["Ardent","whole-hearted in everything"], ["Accomplished","good at whatever you set down"], ["Alert","awake to every detail"]],
+  B: [["Beaming","a smile you can feel"], ["Benevolent","wishes people well and acts on it"], ["Blessed","a lucky star overhead"], ["Brisk","quick and full of purpose"], ["Brainy","sharp in a quiet way"], ["Bright-eyed","curious about everything"], ["Bounteous","generous beyond need"], ["Believing","keeps faith in people"], ["Blithe","light of heart"], ["Bold-hearted","brave where it counts"]],
+  C: [["Considerate","remembers what you need"], ["Courageous","does the brave thing quietly"], ["Candid","honest without the sting"], ["Charismatic","draws people without trying"], ["Conscientious","does it properly or not at all"], ["Cheery","a lift in every greeting"], ["Cultured","at home in many worlds"], ["Clear-headed","steady under pressure"], ["Courteous","manners that never slip"], ["Champion","stands up for whoever needs it"]],
+  D: [["Diplomatic","finds the way through"], ["Decisive","chooses and moves"], ["Dutiful","does what must be done"], ["Dreamy","half in a better world"], ["Droll","funny without warning"], ["Dapper","always put together"], ["Distinguished","carries a good name well"], ["Driven","a fire that never idles"], ["Discerning","taste you can trust"], ["Down-to-earth","no airs about it"]],
+  E: [["Expressive","says it with the whole face"], ["Eager","first to begin"], ["Eloquent","turns a sentence well"], ["Emphatic","means it loudly when needed"], ["Entertaining","the evening improves on arrival"], ["Esteemed","held high by many"], ["Evergreen","stays good all year"], ["Exuberant","joy with the volume up"], ["Exact","precise where it matters"], ["Exceptional","a cut above"]],
+  F: [["Forgiving","lets the small things go"], ["Flexible","bends without breaking"], ["Frank","the honest answer"], ["Free-spirited","follows their own wind"], ["Farsighted","plans past the horizon"], ["Flourishing","growing in every season"], ["Fond","keeps the warm regard"], ["Formidable","not to be underestimated"], ["Fervent","feels things deeply"], ["Fair","gives everyone their due"]],
+  G: [["Gregarious","collects friends like stories"], ["Gentle","soft hands, steady heart"], ["Gallant","chivalry without the fuss"], ["Gutsy","brave on the quiet days"], ["Guiding","shows the way by walking it"], ["Grateful","counts what is good"], ["Gleaming","polished by hard days"], ["Good-humored","laughs first"], ["Grand","larger than the room"], ["Genial","warmth that costs nothing"]],
+  H: [["Helpful","hands already there"], ["Humorous","finds the joke in the fog"], ["Hospitable","the door is always open"], ["Heroic","brave in the ordinary"], ["Hearty","full of good cheer"], ["Harmonious","makes the pieces fit"], ["Handy","fixes what others give up on"], ["High-achieving","sets the bar and clears it"], ["Honorable","the right thing, always"], ["Hale","sturdy in body and spirit"]],
+  I: [["Industrious","works without the noise"], ["Inventive","makes a way where none was"], ["Inquisitive","asks the second question"], ["Infectious","joy that spreads"], ["Immaculate","nothing out of place"], ["Impressive","quietly so"], ["Incomparable","no one else fits the space"], ["Invaluable","worth more than counted"], ["Irrepressible","cannot be kept down"], ["Instructive","teaches by example"]],
+  J: [["Joyous","glad in the morning"], ["Jazzy","a style all their own"], ["Jubilant","celebrates with the whole body"], ["Jocular","quick with the good line"], ["Just-hearted","fair even when tired"]],
+  K: [["Kindly","gentle by default"], ["Kinetic","always in motion"], ["Knightly","noble in small things"], ["Keen-eyed","spots what others miss"]],
+  L: [["Lovable","easy to love"], ["Lucid","clear as morning"], ["Laudable","worth praising aloud"], ["Luminous","gives light without trying"], ["Lofty","aims high and means it"]],
+  M: [["Meticulous","nothing left to chance"], ["Mellow","calm water"], ["Mirthful","laughter just behind the eyes"], ["Mature","steady beyond the years"], ["Methodical","step by careful step"], ["Musical","hears what others miss"], ["Merciful","soft where it matters"]],
+  N: [["Neat","order follows them"], ["Nifty","clever with the small stuff"], ["Noble-minded","thinks above the noise"], ["Nimble-fingered","makes hard things look easy"]],
+  O: [["Orderly","a place for everything"], ["Open","no locked doors"], ["Obliging","glad to be of use"], ["Organized","calm because prepared"], ["Outspoken","says the true thing"], ["Open-handed","gives what is needed"]],
+  P: [["Purposeful","every step means something"], ["Polite","courtesy as habit"], ["Proactive","ahead of the problem"], ["Perceptive","reads between the lines"], ["Plucky","brave at any size"], ["Protective","stands in front when needed"], ["Prolific","makes more than most"], ["Persuasive","wins with reason"], ["Practical","the useful answer"], ["Prepared","ready before the bell"]],
+  Q: [["Quiet","strength without volume"], ["Quizzical","curious with a raised brow"], ["Quick-footed","first to the fun"], ["Quicksilver","impossible to pin down"], ["Queenly","grace that commands"]],
+  R: [["Rational","cool in a hot moment"], ["Robust","built to last"], ["Reverent","holds things sacred"], ["Ready","always the first yes"], ["Rollicking","fun at full tilt"], ["Rousing","lifts a whole room"], ["Respectable","a name held well"], ["Relentless","does not stop at no"]],
+  S: [["Serene","calm as deep water"], ["Sociable","at ease with anyone"], ["Steady","the same in every weather"], ["Sensible","the sound answer"], ["Skilled","hands that know the work"], ["Sparkling","light in every corner"], ["Sage","worth listening to"], ["Straightforward","says it plain"]],
+  T: [["Tactful","truth with a soft edge"], ["Tidy","order without fuss"], ["Tolerant","room for everyone"], ["Trailblazing","goes where no one has"], ["Tranquil","quiet inside"], ["Trusting","gives people their chance"], ["Truthful","no varnish"], ["Tuned-in","hears what is not said"]],
+  U: [["Unbowed","still standing, still smiling"], ["Uncommon","not made in multiples"], ["Unfailing","there every time"], ["United","brings people together"], ["Unshakable","calm under fire"], ["Upbeat","the mood lifts with them"], ["Useful","the one you call"], ["Unstinting","gives without measure"]],
+  V: [["Vivacious","alive in every room"], ["Venerable","respected for good reason"], ["Vigilant","watches over the rest"], ["Venturesome","tries the untried"], ["Victorious","wins the long game"]],
+  W: [["Warm","the welcome you remember"], ["Wise","knows what to keep quiet"], ["Witty","quick and kind with it"], ["Wonderful","in the plain sense"], ["Welcoming","everyone gets a seat"], ["Worthwhile","time well spent"], ["Wholesome","good to the core"]],
+  X: [["Xenial","a gracious host"]],
+  Y: [["Youthful","young at heart"], ["Yearning","always reaching"], ["Yes-saying","open to the world"]],
+  Z: [["Zealous","all in on what matters"], ["Zesty","a bite to the day"], ["Zen","unbothered by the storm"], ["Zippy","quick and cheerful"]]
+};
+
+/* The extra banks are merged rather than pasted into the original literal, and
+   duplicates are dropped by word, so running this twice cannot double a letter. */
+(function () {
+  Object.keys(EXTRA_LETTER_TRAITS).forEach(function (L) {
+    var bank = LETTER_TRAITS[L] || (LETTER_TRAITS[L] = []);
+    var seen = {};
+    bank.forEach(function (t) { seen[t[0]] = 1; });
+    EXTRA_LETTER_TRAITS[L].forEach(function (t) {
+      if (!seen[t[0]]) { bank.push(t); seen[t[0]] = 1; }
+    });
+  });
+})();
+
+const EXTRA_TRAITS_2 = {
+  A: [["Accurate","gets it right first time"], ["Active","always in the middle of it"], ["Adored","loved without conditions"], ["Affable","easy company"], ["Agile","quick in body and mind"], ["All-star","the pick of any team"], ["Amusing","the good kind of trouble"], ["Anchoring","keeps everyone steady"]],
+  B: [["Beacon","the light others steer by"], ["Beguiling","charming without trying"], ["Big-thinking","plans beyond the room"], ["Blossoming","opening into themselves"], ["Bonny","bright and bonny"], ["Boundless","no edges found yet"]],
+  C: [["Captivating","hard to look away from"], ["Carefree","carries no weight"], ["Centered","knows where they stand"], ["Cerebral","thinks three moves ahead"], ["Committed","all the way in"], ["Companionable","good company for a long road"], ["Consistent","the same every time"], ["Convivial","makes a table a party"]],
+  D: [["Dandy","sharp in every detail"], ["Dashing","arrives with style"], ["Dauntless","fear does not steer"], ["Dear","held close by many"], ["Deep-thinking","goes past the surface"], ["Deft","neat with their hands"], ["Deliberate","nothing accidental"], ["Deserving","earns what comes"]],
+  E: [["Earthy","grounded and real"], ["Effervescent","bubbles over with ideas"], ["Elated","joy comes easily"], ["Empowering","makes others braver"], ["Enlivening","wakes the room up"], ["Equanimous","even in the storm"], ["Exemplary","sets the example"], ["Expansive","room for everyone"]],
+  F: [["Faith-filled","believes and keeps believing"], ["Famed","known for the right reasons"], ["Fastidious","exact in the details"], ["Fine","fine in the old sense"], ["Fitting","always the right fit"], ["Freehearted","gives love without a ledger"]],
+  G: [["Genteel","old-fashioned good manners"], ["Gladsome","gladness comes naturally"], ["Golden-hearted","the best kind of gold"], ["Good-natured","never a sharp edge"], ["Grace-filled","grace in every step"], ["Grower","makes things grow"]],
+  H: [["Handsome","easy on the eyes"], ["Happy-go-lucky","takes the day as it comes"], ["Heart-strong","brave in the softest way"], ["Heavenly","a gift to be near"], ["High-minded","aims at the better thing"], ["Homespun","warm and unvarnished"]],
+  I: [["Idolized","looked up to by many"], ["Illumined","lights what they touch"], ["Impassioned","feels it and says it"], ["Improvising","makes it up beautifully"], ["Incandescent","glows under pressure"], ["Indefatigable","cannot be worn down"]],
+  J: [["Joy-bringer","brings the good mood"], ["Jubilance","celebration in a person"]],
+  K: [["Keeper","the one who stays"], ["Kindling","starts the fire in others"], ["Keen-minded","sharp and interested"]],
+  L: [["Laid-back","unhurried and easy"], ["Large-hearted","room for every story"], ["Leading","out front by choice"], ["Learned","deep in the books"], ["Legendary","already a story"], ["Light-footed","moves without noise"], ["Likable","wins people quickly"], ["Lucky","good things find them"]],
+  M: [["Majestic","takes up the room well"], ["Mannered","grace in the small things"], ["Masterful","makes it look simple"], ["Memorable","hard to forget, easy to like"], ["Merry-hearted","laughs before the joke"], ["Moxie","nerve and charm together"], ["Multi-talented","good at more than one thing"]],
+  N: [["Nimble-minded","quick to the clever answer"], ["Noble-hearted","generous in the bones"], ["Noteworthy","worth writing down"], ["Nourishing","feeds people well"]],
+  O: [["Open-souled","hides nothing"], ["Onward-looking","eyes on what is next"], ["Original-minded","thinks their own thoughts"]],
+  P: [["Persevering","keeps at it"], ["Pioneering","first through the door"], ["Pitch-perfect","hits the note every time"], ["Poised","calm with an audience"], ["Polished","finished to the edges"], ["Praise-worthy","deserves the good word"], ["Proficient","skilled and sure"], ["Prudent","wise before the fact"]],
+  Q: [["Quick-minded","fast on the uptake"], ["Quietly-strong","power without noise"], ["Quest-driven","always after something"]],
+  R: [["Reassuring","the voice that steadies"], ["Refreshing","new air in a stale room"], ["Regal","carries the crown lightly"], ["Rejoicing","celebrates what is good"], ["Resolute","decided and unmoved"], ["Restful","peace follows them"], ["Revered","held in high regard"], ["Right-minded","thinks the right way"]],
+  S: [["Sensational","stops the room"], ["Sharp","quick to the point"], ["Shrewd","sees the angle first"], ["Solid","dependable through anything"], ["Soulful","feels things in full color"], ["Splendid","worth the occasion"], ["Spry","light on their feet"], ["Stalwart","unmoved by weather"], ["Star","the one they come to see"], ["Sturdy","holds under weight"], ["Sure-footed","never loses the path"], ["Sunlit","brings the light in"]],
+  T: [["Tasteful","never overdone"], ["Teachable","still learning, always"], ["Thorough","leaves nothing half done"], ["Thrilling","makes the ordinary loud"], ["Timeless","never out of date"], ["Tops","first among the rest"], ["Tough-minded","clear under pressure"], ["Trailblazer","goes first and looks back"]],
+  U: [["Unafraid","steps in first"], ["Unbreakable","nothing has broken them yet"], ["Undaunted","keeps the line"], ["Unifying","makes a team of strangers"], ["Unrivaled","no one close"], ["Uplifted","rises and lifts"]],
+  V: [["Valiant","brave with a good heart"], ["Veracious","tells it true"], ["Versed","knows the ground"], ["Vivifying","makes things come alive"], ["Vivid","impossible to ignore"]],
+  W: [["Warm-hearted","warmth before words"], ["Watchful","notices the quiet ones"], ["Well-loved","loved in many places"], ["Winsome","wins without a contest"], ["Wise-hearted","wisdom with a soft edge"]],
+  Y: [["Young-spirited","young where it counts"], ["Year-round","there in every season"], ["Yes-minded","open before asked"]],
+  Z: [["Zestful","full of appetite for life"], ["Zingy","a spark in the room"], ["Zeal-filled","nothing half-hearted"]]
+};
+
+/* second pass: merged the same way, deduped by word, safe to re-run */
+(function () {
+  Object.keys(EXTRA_TRAITS_2).forEach(function (L) {
+    var bank = LETTER_TRAITS[L] || (LETTER_TRAITS[L] = []);
+    var seen = {};
+    bank.forEach(function (t) { seen[t[0]] = 1; });
+    EXTRA_TRAITS_2[L].forEach(function (t) {
+      if (!seen[t[0]]) { bank.push(t); seen[t[0]] = 1; }
+    });
+  });
+})();
+
 const GENDER_TRAITS = {
   f: {
     A: [["Angel-hearted","kindness that shows"]],
@@ -873,10 +955,10 @@ function traitsFor(L, g, occ) {
 }
 
 /* Picks a trait, leaning toward occasion words at least once per poem. */
-function pickTrait(L, g, occ, used, occUsed) {
+function pickTrait(L, g, occ, used, occUsed, first) {
   const occBank = occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][L] ? OCC_TRAITS[occ][L] : [];
   const full = traitsFor(L, g, occ);
-  const useOcc = occBank.length > 0 && (occUsed.n === 0 || Math.random() < 0.4);
+  const useOcc = occBank.length > 0 && (first === true || Math.random() < 0.3);
   let pool = useOcc ? occBank : full;
   let trait = pick(pool);
   let guard = 0;
@@ -963,8 +1045,8 @@ function buildAcrostic(name, occ) {
   const used = new Set();
   const occUsed = { n: 0 };
   const g = genderOf(name);
-  return letters.map((L) => {
-    const trait = pickTrait(L, g, occ, used, occUsed);
+  return letters.map((L, i) => {
+    const trait = pickTrait(L, g, occ, used, occUsed, i === 0);
     return { letter: L, word: trait[0], desc: trait[1], suf: maybeSuf() };
   });
 }
@@ -980,8 +1062,8 @@ function buildAcrosticPair(n1, n2, occ) {
   }
   const used = new Set();
   const occUsed = { n: 0 };
-  return inter.map((x) => {
-    const trait = pickTrait(x.letter, genderOf(x.who), occ, used, occUsed);
+  return inter.map((x, i) => {
+    const trait = pickTrait(x.letter, genderOf(x.who), occ, used, occUsed, i === 0);
     return { letter: x.letter, word: trait[0], desc: trait[1], suf: maybeSuf(), who: x.who };
   });
 }
