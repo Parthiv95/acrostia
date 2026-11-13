@@ -956,18 +956,20 @@ function traitsFor(L, g, occ) {
 
 /* Picks a trait, leaning toward occasion words at least once per poem. */
 function pickTrait(L, g, occ, used, occUsed, first) {
-  const occBank = occ && OCC_TRAITS[occ] && OCC_TRAITS[occ][L] ? OCC_TRAITS[occ][L] : [];
+  // Every letter draws one word uniformly at random from everything available to
+  // it. No word is favoured, and the occasion words are simply part of the pool,
+  // so a name no longer opens the same way every time.
   const full = traitsFor(L, g, occ);
-  const useOcc = occBank.length > 0 && (first === true || Math.random() < 0.3);
-  let pool = useOcc ? occBank : full;
-  let trait = pick(pool);
+  let trait = pick(full);
   let guard = 0;
-  while ((used.has(trait[0]) || avoidWords.has(trait[0])) && guard < 12) { trait = pick(pool); guard++; }
-  if ((used.has(trait[0]) || avoidWords.has(trait[0])) && pool === occBank) { pool = full; guard = 0; trait = pick(pool); while ((used.has(trait[0]) || avoidWords.has(trait[0])) && guard < 12) { trait = pick(pool); guard++; } }
+  while ((used.has(trait[0]) || avoidWords.has(trait[0])) && guard < 20) {
+    trait = pick(full);
+    guard++;
+  }
   used.add(trait[0]);
-  if (occBank.some((t) => t[0] === trait[0])) occUsed.n++;
   return trait;
 }
+
 
 const CLOSERS = {
   birthday: ["a self-motivated individual, one year wiser","one of a kind, today and always", "born to be celebrated", "the gift is having you", "a year older, a year more wonderful", "the candle that outshines the cake", "aging like the finest things do", "the birthday star, as always"],
