@@ -114,6 +114,7 @@
   .bgthumb.plain{background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-color:rgba(200,154,75,.5);display:grid;place-items:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-40)}
   .bgthumb.up{background:var(--ivory);border:1px dashed rgba(180,140,120,.55);display:grid;place-items:center;font-size:.55rem;color:var(--ink-40);text-align:center;line-height:1.2}
   .card.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+  .card.has-bg .nm,.card.has-bg ul,.card.has-bg .closer,.card.has-bg .occ-line,.card.has-bg .fromline{text-shadow:0 1px 3px rgba(255,255,255,.8),0 0 14px rgba(255,252,245,.45)}
   .card.has-bg::before{content:"";position:absolute;inset:0;background:var(--card-scrim,radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.94) 0%,rgba(255,252,245,.88) 52%,rgba(255,252,245,.58) 100%));z-index:0}
   .card > *{position:relative;z-index:1}
   .occSel{border:1px solid rgba(180,140,120,.35);border-radius:9px;background:var(--ivory);padding:.45rem .6rem;font-size:.8rem;color:var(--ink);max-width:11rem}
@@ -293,9 +294,20 @@
     </div>
 
     <div class="bench" data-bench="4">
-      <span class="lbl">Paper</span>
+      <span class="lbl">Template</span>
       <div class="bgrow" id="bgRow">
         <button class="bgthumb plain is-on" data-bg="" title="Plain paper">Plain</button>
+        <button class="bgthumb" data-bg="../backgrounds/garden.png" style="background-image:url('../backgrounds/garden.png')" title="Garden"></button>
+        <button class="bgthumb" data-bg="../backgrounds/autumn.png" style="background-image:url('../backgrounds/autumn.png')" title="Autumn"></button>
+        <button class="bgthumb" data-bg="../backgrounds/beach.png" style="background-image:url('../backgrounds/beach.png')" title="Beach"></button>
+        <button class="bgthumb" data-bg="../backgrounds/dream.png" style="background-image:url('../backgrounds/dream.png')" title="Dream"></button>
+        <button class="bgthumb" data-bg="../backgrounds/festival.png" style="background-image:url('../backgrounds/festival.png')" title="Festival"></button>
+        <button class="bgthumb" data-bg="../backgrounds/hearts.png" style="background-image:url('../backgrounds/hearts.png')" title="Hearts"></button>
+        <button class="bgthumb" data-bg="../backgrounds/mountains.png" style="background-image:url('../backgrounds/mountains.png')" title="Mountains"></button>
+        <button class="bgthumb" data-bg="../backgrounds/night.png" style="background-image:url('../backgrounds/night.png')" title="Night"></button>
+        <button class="bgthumb" data-bg="../backgrounds/party.png" style="background-image:url('../backgrounds/party.png')" title="Party"></button>
+        <button class="bgthumb" data-bg="../backgrounds/sunset.png" style="background-image:url('../backgrounds/sunset.png')" title="Sunset"></button>
+        <button class="bgthumb" data-bg="../backgrounds/winter.png" style="background-image:url('../backgrounds/winter.png')" title="Winter"></button>
         <button class="bgthumb" data-bg="../assets/floral/letter-480.jpg" style="background-image:url('../assets/floral/letter-480.jpg')" title="Letter and quill"></button>
         <button class="bgthumb" data-bg="../assets/floral/book-480.jpg" style="background-image:url('../assets/floral/book-480.jpg')" title="Book"></button>
         <button class="bgthumb" data-bg="../assets/floral/gift-480.jpg" style="background-image:url('../assets/floral/gift-480.jpg')" title="Gift boxes"></button>
@@ -350,7 +362,7 @@
 </footer>
 
 <script src="../assets/floral/engine.js?v=f7f5a71787"></script>
-<script src="../assets/studio/app.js?v=4ddfbcb4ba"></script>
+<script src="../assets/studio/app.js?v=f0c4d7b4d6"></script>
 
 <div id="printRoot" aria-hidden="true"></div>
 <script>

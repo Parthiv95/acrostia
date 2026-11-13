@@ -80,7 +80,7 @@
   // One source for the wash that keeps the poem legible over artwork. The screen
   // reads it through --card-scrim and the canvas replays the same stops, so the
   // download can no longer look unlike the preview.
-  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.34)'], [0.28, 'rgba(255,252,245,.54)'], [0.5, 'rgba(255,252,245,.62)'], [0.72, 'rgba(255,252,245,.54)'], [1, 'rgba(255,252,245,.34)']] };
+  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.38)'], [0.28, 'rgba(255,252,245,.58)'], [0.5, 'rgba(255,252,245,.66)'], [0.72, 'rgba(255,252,245,.58)'], [1, 'rgba(255,252,245,.38)']] };
   function scrimCss() {
     var stops = SCRIM.stops.map(function (s) { return s[1] + ' ' + Math.round(s[0] * 100) + '%'; }).join(', ');
     if (SCRIM.type === 'linear') return 'linear-gradient(180deg, ' + stops + ')';
