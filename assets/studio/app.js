@@ -231,7 +231,7 @@
     card.style.backgroundImage = 'url("' + bgSrc(st.bg) + '")';
   }
 
-  var ALLOWED_BG = /^(\.\.\/backgrounds\/[a-z-]+\.png|\.\.\/assets\/floral\/[a-z0-9-]+\.jpg|photo-[0-9a-z-]+|data:image\/(png|jpe?g|webp);base64,)/i;
+  var ALLOWED_BG = /^(\.\.\/assets\/(?:floral|templates)\/[a-z0-9-]+\.jpg|photo-[0-9a-z-]+|data:image\/(png|jpe?g|webp);base64,)/i;
   /* /backgrounds/ links carry an Unsplash id rather than a path. Resolving it here
      keeps the shared URL short and gives the canvas a CORS-clean image. */
   function bgSrc(v) {
