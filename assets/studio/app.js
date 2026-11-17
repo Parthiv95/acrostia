@@ -160,7 +160,6 @@
         });
       });
     }
-    renderWordBank();
   }
 
   /* the caption used to say "your paper" for a stock template, as if the visitor
@@ -170,51 +169,6 @@
     var on = document.querySelector('.bgthumb.is-on[data-bg]');
     if (!on || !on.title) return /^photo-/i.test(st.bg) ? ' · photo background' : ' · your photo';
     return ' · ' + on.title.toLowerCase() + ' template';
-  }
-
-  /* ---------- word bank: every word the current name can use ---------- */
-  function renderWordBank() {
-    var box = document.getElementById('wordBank');
-    var body = document.getElementById('wbBody');
-    if (!box || !body || !A || !A.words) return;
-    if (st.style === 'rhyme' || !lastLines.length || !A.canAcrostic(st.name)) {
-      box.style.display = 'none';
-      return;
-    }
-    box.style.display = '';
-    var order = [], byLetter = {};
-    lastLines.forEach(function (l, i) {
-      if (!byLetter[l.letter]) { byLetter[l.letter] = []; order.push(l.letter); }
-      byLetter[l.letter].push(i);
-    });
-    var html = '';
-    order.forEach(function (L) {
-      var idx = byLetter[L][0];
-      var current = lastLines[idx].word;
-      var pool = A.words(L, st.occ).map(function (w) { return w.word; });
-      if (pool.indexOf(current) === -1) pool.unshift(current);
-      html += '<div class="wb-row"><span class="wb-letter">' + L + '</span><div class="wb-chips">' +
-        pool.map(function (w) {
-          return '<button type="button" class="wb-chip' + (w === current ? ' is-on' : '') +
-            '" data-letter="' + L + '" data-word="' + esc(w) + '">' + esc(w) + '</button>';
-        }).join('') + '</div></div>';
-    });
-    body.innerHTML = html;
-    Array.prototype.forEach.call(body.querySelectorAll('.wb-chip'), function (chip) {
-      chip.addEventListener('click', function () {
-        var L = chip.dataset.letter, word = chip.dataset.word;
-        var pool = A.words(L, st.occ);
-        var found = null;
-        for (var i = 0; i < pool.length; i++) { if (pool[i].word === word) { found = pool[i]; break; } }
-        if (!found) { found = { word: word, desc: lastLines[byLetter[L][0]].desc }; }
-        var idx = byLetter[L][0];
-        lastLines[idx] = { letter: L, word: found.word, desc: found.desc, suf: '' };
-        var btn = document.querySelector('.line-reroll[data-i="' + idx + '"]');
-        if (btn) btn.innerHTML = lineHTML(lastLines[idx]);
-        renderWordBank();
-        fitCard();
-      });
-    });
   }
 
   /* ---------- card backgrounds ---------- */
