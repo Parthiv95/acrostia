@@ -135,7 +135,7 @@
       lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
     } else {
       lastLines.forEach(function (l, i) {
-        out += '<li><button type="button" class="line-reroll" data-i="' + i + '" title="Choose a different word">' + lineHTML(l) + '</button></li>';
+        out += '<li><button type="button" class="line-reroll" data-i="' + i + '">' + lineHTML(l) + '</button></li>';
       });
     }
     cPoem.innerHTML = out;
