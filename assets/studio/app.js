@@ -16,7 +16,8 @@
     style: (qs.get('s') === 'rhyming' ? 'rhyme' : 'acrostic'),
     voice: qs.get('v') || 'gentle',
     verse: 0,
-    font: (['script','keepsake','simple','hand','storybook'].indexOf(qs.get('f')) !== -1 ? qs.get('f') : 'script')
+    // keepsake reads at a glance; the script is a deliberate choice, not the default
+    font: (['script','keepsake','simple','hand','storybook'].indexOf(qs.get('f')) !== -1 ? qs.get('f') : 'keepsake')
   };
 
   var el = function (id) { return document.getElementById(id); };
