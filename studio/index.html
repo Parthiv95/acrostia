@@ -356,37 +356,9 @@
 </footer>
 
 <script src="../assets/floral/engine.js?v=f7f5a71787"></script>
-<script src="../assets/studio/app.js?v=db0d60e40c"></script>
+<script src="../assets/studio/app.js?v=c9af50f4d9"></script>
+
 
 <div id="printRoot" aria-hidden="true"></div>
-<script>
-/* Printing used to output the whole studio: header on top of the card, benches,
-   footer links, and the poem clipped by the viewport. Print gets its own sheet,
-   cloned at print time so it carries whatever the card currently says. */
-(function () {
-  var root = document.getElementById('printRoot');
-  var card = document.getElementById('cardEl');
-  if (!root || !card) return;
-  function build() {
-    root.innerHTML = '';
-    var sheet = document.createElement('div');
-    sheet.className = 'sheet';
-    var clone = card.cloneNode(true);
-    clone.removeAttribute('id');
-    clone.removeAttribute('style');
-    // the clone must not duplicate cName/cPoem, or a selector picks up two cards
-    [].forEach.call(clone.querySelectorAll('[id]'), function (n) { n.removeAttribute('id'); });
-    sheet.appendChild(clone);
-    root.appendChild(sheet);
-    document.documentElement.classList.add('printing-card');
-  }
-  function clear() { document.documentElement.classList.remove('printing-card'); }
-  addEventListener('beforeprint', build);
-  addEventListener('afterprint', clear);
-  var btn = [].slice.call(document.querySelectorAll('[data-bench="5"] button'))
-    .filter(function (b) { return /^print/i.test(b.textContent.trim()); })[0];
-  if (btn) btn.addEventListener('click', build);
-})();
-</script>
 </body>
 </html>

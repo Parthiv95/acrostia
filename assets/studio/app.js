@@ -612,16 +612,27 @@
    footer links, and the poem clipped by the viewport. Print gets its own sheet,
    cloned at print time so it carries whatever the card currently says. */
 (function () {
-  var root = document.getElementById('printRoot');
-  var card = document.getElementById('cardEl');
-  if (!root || !card) return;
   function build() {
+    // resolve both at print time: this script runs before the container exists in
+    // the document, and a card reference captured at load can go stale
+    var root = document.getElementById('printRoot');
+    var live = document.getElementById('cardEl');
+    if (!root || !live) return;
     root.innerHTML = '';
     var sheet = document.createElement('div');
     sheet.className = 'sheet';
-    var clone = card.cloneNode(true);
+    var clone = live.cloneNode(true);
     clone.removeAttribute('id');
+    // the template lives in an inline background, so keep it; only the 3D tilt and
+    // sizing have to go, or print would come out as plain ivory paper
+    var art = live.style.backgroundImage || (live.className.indexOf('has-bg') !== -1 ? getComputedStyle(live).backgroundImage : '');
     clone.removeAttribute('style');
+    if (art) {
+      clone.style.backgroundImage = art;
+      clone.style.backgroundSize = 'cover';
+      clone.style.backgroundPosition = 'center';
+      clone.style.backgroundRepeat = 'no-repeat';
+    }
     // the clone must not duplicate cName/cPoem, or a selector picks up two cards
     [].forEach.call(clone.querySelectorAll('[id]'), function (n) { n.removeAttribute('id'); });
     sheet.appendChild(clone);
