@@ -76,7 +76,8 @@
   .card-wrap{width:min(430px,92vw);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;will-change:transform;position:relative;z-index:1}
   .card{overflow:hidden;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(26px,3.2vw,42px) clamp(18px,2.4vw,34px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 40px 70px -38px rgba(96,44,54,.55);position:relative;transform-style:preserve-3d}
   .card::after{content:"";position:absolute;inset:9px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
-  .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.7rem,4.4vw,3.6rem);text-align:center;color:var(--gold-deep);line-height:1;transform:translateZ(24px)}
+  .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.7rem,4.4vw,3.6rem);text-align:center;color:var(--gold-deep);line-height:1.06;letter-spacing:.012em;transform:translateZ(24px);padding:0 .35em}
+  .card.is-wide .nm{letter-spacing:.02em}
   .card .occ-line{margin-top:.55rem;text-align:center;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(16px)}
   .card .rule{width:58px;height:1px;background:rgba(200,154,75,.6);margin:.9rem auto 0;transform:translateZ(14px)}
   .card ul{list-style:none;margin:1.2rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:clamp(.94rem,1.2vw,1.06rem);line-height:1.85;color:#3B2B2E;text-align:center;transform:translateZ(10px)}
@@ -110,6 +111,7 @@
   .bin:focus,.bin:focus-visible{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,154,75,.22)}
   .bin::-webkit-outer-spin-button,.bin::-webkit-inner-spin-button{appearance:none}
   .lbl.at-max{color:var(--burg)}
+  #nmHint{margin-left:.15rem;margin-right:.35rem;white-space:nowrap}
   .bin::placeholder{color:rgba(44,32,36,.32);font-style:italic}
   .chip{appearance:none;border:1px solid rgba(180,140,120,.4);background:#fff;border-radius:999px;padding:.42rem .85rem;font-size:.8rem;color:#4A3A3E;cursor:pointer;transition:all .2s}
   .chip:hover{border-color:var(--gold)}
@@ -382,7 +384,7 @@
 </footer>
 
 <script src="../assets/floral/engine.js?v=f7f5a71787"></script>
-<script src="../assets/studio/app.js?v=0de07902af"></script>
+<script src="../assets/studio/app.js?v=b639b1853b"></script>
 
 
 <div id="printRoot" aria-hidden="true"></div>

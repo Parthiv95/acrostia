@@ -42,6 +42,9 @@
     // because the first word happened to be one letter long
     return letters.slice(0, POEM_MAX);
   }
+  function spaced(name) {
+    return String(name).replace(/([a-z\u00e0-\u024f])([A-Z\u00c0-\u024f])/g, '$1\u2009$2');
+  }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -138,7 +141,7 @@
     var cFrom = document.getElementById('cFrom');
     var verseBtn = document.getElementById('verseBtn');
     var head = pairName();
-    cName.textContent = head;   // the name is fitted, not truncated
+    cName.textContent = spaced(head);   // the name is fitted, not truncated
     cName.title = head;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
     lastLines = cardLines();
@@ -497,7 +500,7 @@
     x.font = nf.cv;
     var npx = parseInt((nf.cv.match(/(\d+)px/) || [0, '0'])[1], 10) || 64;
     var nguard = 0;
-    while (x.measureText(label).width > W - 150 && npx > 30 && nguard < 80) {
+    while (x.measureText(spaced(label)).width > W - 150 && npx > 30 && nguard < 80) {
       npx -= 2;
       x.font = nf.cv.replace(/\d+px/, npx + 'px');
       nguard++;
@@ -517,7 +520,7 @@
     }
     var nameX = hasPhoto ? (110 + 2 * (wide ? 54 : 68) + 28) : W / 2;
     x.textAlign = hasPhoto ? 'left' : 'center';
-    x.fillText(label, nameX, hasPhoto ? (wide ? 100 : 118) + 14 : (wide ? 150 : 210) + shift);
+    x.fillText(spaced(label), nameX, hasPhoto ? (wide ? 100 : 118) + 14 : (wide ? 150 : 210) + shift);
     x.fillStyle = 'rgba(200,154,75,.8)';
     if (!hasPhoto) x.fillRect(W / 2 - 40, (wide ? 180 : 240) + shift, 80, 2);
     x.fillStyle = '#5C4A4E';
@@ -750,6 +753,7 @@
     setBg(qbg, target);
   }
   render();
+  showCount(nameIn);
   fitCard();
 
   if (qs.get('selftest')) {
