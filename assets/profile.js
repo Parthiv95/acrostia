@@ -75,9 +75,85 @@
       '.pf-card .v{font-family:Fraunces,Georgia,serif;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.1;margin:.45rem 0 .4rem;color:var(--ivory-lt)}',
       '.pf-card .l{font-size:.85rem;line-height:1.55;color:rgba(246,233,228,.72)}',
       '.pf-card .n{margin-top:.5rem;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,233,228,.45)}',
-      '.pf-cta{margin-top:clamp(16px,2.4vw,26px);display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}'
+      '.pf-cta{margin-top:clamp(16px,2.4vw,26px);display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}',
+      '.pf-dl{appearance:none;border:1px solid rgba(200,154,75,.55);background:transparent;color:var(--gold);padding:.7rem 1.3rem;border-radius:999px;font-size:.8rem;letter-spacing:.06em;cursor:pointer;font-family:inherit}',
+      '.pf-dl:hover{background:rgba(200,154,75,.12)}',
+      '.pf-link{color:rgba(246,233,228,.72);text-decoration:none;font-size:.86rem;border-bottom:1px solid rgba(200,154,75,.45);padding-bottom:2px}',
+      '.pf-link:hover{color:var(--gold)}'
     ].join('');
     document.head.appendChild(s);
+  }
+
+
+  /* ---------- the downloadable ledger ---------- */
+  function drawLedger(date, r, name) {
+    var W = 1200, pad = 76, rowGap = 26;
+    var cv = document.createElement('canvas');
+    var x = cv.getContext('2d');
+
+    function font(spec) { x.font = spec; }
+    function wrap(text, maxW, f) {
+      font(f);
+      var words = String(text).split(' '), out = [], cur = '';
+      words.forEach(function (w) {
+        var t = cur ? cur + ' ' + w : w;
+        if (x.measureText(t).width > maxW && cur) { out.push(cur); cur = w; } else { cur = t; }
+      });
+      if (cur) out.push(cur);
+      return out;
+    }
+
+    var rows = CARDS.map(function (c) { return { label: c.label, item: r[c.id] }; }).filter(function (o) { return o.item; });
+    var heights = rows.map(function (row) {
+      var lines = wrap(row.item.line || '', W - pad * 2, '22px Inter, sans-serif');
+      return 118 + lines.length * 30;
+    });
+    var H = 250 + heights.reduce(function (a, b) { return a + b + rowGap; }, 0) + 120;
+    cv.width = W; cv.height = H;
+
+    x.fillStyle = '#241826'; x.fillRect(0, 0, W, H);
+    x.strokeStyle = 'rgba(200,154,75,.45)'; x.lineWidth = 2;
+    x.strokeRect(28, 28, W - 56, H - 56);
+
+    x.fillStyle = '#C89A4B'; font('600 20px Inter, sans-serif');
+    x.fillText('ACROSTIA · BIRTHDAY LEDGER', pad, 96);
+    x.fillStyle = '#F6E9E4'; font('600 54px Fraunces, Georgia, serif');
+    x.fillText(name ? name : 'The whole profile', pad, 168);
+    x.fillStyle = 'rgba(246,233,228,.7)'; font('20px Inter, sans-serif');
+    x.fillText(F.fmt(date), pad, 206);
+    x.strokeStyle = 'rgba(200,154,75,.5)'; x.lineWidth = 1;
+    x.beginPath(); x.moveTo(pad, 230); x.lineTo(W - pad, 230); x.stroke();
+
+    var y = 286;
+    rows.forEach(function (row, i) {
+      x.fillStyle = '#C89A4B'; font('600 15px Inter, sans-serif');
+      x.fillText(String(row.label).toUpperCase(), pad, y);
+      x.fillStyle = '#F6E9E4'; font('600 34px Fraunces, Georgia, serif');
+      x.fillText(String(row.item.value || ''), pad, y + 44);
+      var lines = wrap(row.item.line || '', W - pad * 2, '22px Inter, sans-serif');
+      x.fillStyle = 'rgba(246,233,228,.72)'; font('22px Inter, sans-serif');
+      lines.forEach(function (ln, j) { x.fillText(ln, pad, y + 82 + j * 30); });
+      if (row.item.note) {
+        x.fillStyle = 'rgba(246,233,228,.45)'; font('600 14px Inter, sans-serif');
+        x.fillText(String(row.item.note).toUpperCase(), pad, y + 82 + lines.length * 30 + 8);
+      }
+      y += heights[i] + rowGap;
+      if (i < rows.length - 1) {
+        x.strokeStyle = 'rgba(200,154,75,.2)';
+        x.beginPath(); x.moveTo(pad, y - 18); x.lineTo(W - pad, y - 18); x.stroke();
+      }
+    });
+
+    x.fillStyle = 'rgba(246,233,228,.4)'; font('16px Inter, sans-serif');
+    x.fillText('acrostia · free name poems and birthday readings', pad, H - 60);
+    return cv.toDataURL('image/png');
+  }
+
+  function download(date, r, name) {
+    var a = document.createElement('a');
+    a.download = 'acrostia-ledger-' + iso(date) + '.png';
+    a.href = drawLedger(date, r, name);
+    a.click();
   }
 
   function render(date) {
@@ -102,7 +178,12 @@
 
     host.innerHTML = '<div class="pf-head"><h2>Your ledger</h2><span class="pf-date">' + F.fmt(date) + '</span></div>' +
       '<div class="pf-grid">' + cards + '</div>' +
-      '<div class="pf-cta"><a class="pill" href="../studio/">Turn one of these into a poem</a></div>';
+      '<div class="pf-cta">' +
+      '<button class="pf-dl" type="button">Download the ledger</button>' +
+      '<a class="pf-link" href="../studio/">or turn one of these into a poem &rarr;</a></div>';
+
+    var dl = host.querySelector('.pf-dl');
+    if (dl) dl.addEventListener('click', function () { download(date, r, name); });
   }
 
   /* validDate takes numbers, not a string: passing the ISO value straight in made
