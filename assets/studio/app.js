@@ -175,7 +175,8 @@
     cPoem.innerHTML = out;
     cPoem.classList.toggle('is-verse', st.style === 'rhyme');
     var letters = (st.name + (st.name2 || '')).replace(/[^A-Za-z]/g, '').length;
-    var wide = letters > 12 || lastLines.length > 12;
+    // 9+: anything name-sized (Noah Dizozagh and up) wraps badly on the portrait card
+    var wide = letters > 9 || lastLines.length > 12;
     var wrap = document.getElementById('cardWrap');
     if (wrap) wrap.classList.toggle('is-wide', wide);
     document.getElementById('cardEl').classList.toggle('is-wide', wide);
