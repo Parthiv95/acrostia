@@ -12,7 +12,7 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent
-WATCHED = ["assets/floral/engine.js", "assets/studio/app.js", "assets/birthday.js", "fun-data.js"]
+WATCHED = ["assets/floral/engine.js", "assets/studio/app.js", "assets/birthday.js", "fun-data.js", "assets/profile.js"]
 
 
 def digest(p: pathlib.Path) -> str:
