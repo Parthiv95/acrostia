@@ -193,6 +193,7 @@
         });
       });
     }
+    fitCard();
   }
 
   /* the caption used to say "your paper" for a stock template, as if the visitor
@@ -688,8 +689,10 @@
       nm.style.removeProperty('font-size');
       nm.style.whiteSpace = 'nowrap';
       var base = parseFloat(getComputedStyle(nm).fontSize) || 40;
+      if (card.classList.contains('is-wide')) base *= 0.8;
       var room = card.clientWidth - 32;
       var size2 = base, g2 = 0;
+      nm.style.fontSize = base + 'px';
       while (nm.scrollWidth > room && size2 > base * 0.42 && g2 < 90) { size2 -= 1; nm.style.fontSize = size2 + 'px'; g2++; }
       if (nm.scrollWidth > room) nm.style.whiteSpace = 'normal';
     }
