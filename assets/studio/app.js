@@ -38,8 +38,9 @@
   function poemName(v) {
     var letters = (v || '').replace(/[^\p{L}]/gu, '');
     if (letters.length <= POEM_MAX) return v;
-    var first = (v || '').split(' ')[0].replace(/[^\p{L}]/gu, '');
-    return first.length && first.length <= POEM_MAX ? first : letters.slice(0, POEM_MAX);
+    // taking the first word gave a one line poem for a name like "c ej cejj ...",
+    // because the first word happened to be one letter long
+    return letters.slice(0, POEM_MAX);
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
