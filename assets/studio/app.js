@@ -138,7 +138,7 @@
     var cFrom = document.getElementById('cFrom');
     var verseBtn = document.getElementById('verseBtn');
     var head = pairName();
-    cName.textContent = head.length > 26 ? head.slice(0, 25).trim() + '\u2026' : head;
+    cName.textContent = head;   // the name is fitted, not truncated
     cName.title = head;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
     lastLines = cardLines();
@@ -154,13 +154,16 @@
     if (st.style === 'rhyme' || !A.canAcrostic(st.name)) {
       lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
     } else if (st.name2 && isPair) {
-      pairBlocks(lastLines).forEach(function (g) {
-        out += '<li class="pair-name">' + esc(g.who) + '</li>';
-        g.lines.forEach(function (l) {
+      // one block per person, side by side; inside CSS columns the second name's
+      // heading used to land halfway down the middle column
+      out = pairBlocks(lastLines).map(function (g) {
+        var rows = g.lines.map(function (l) {
           var i = lastLines.indexOf(l);
-          out += '<li><button type="button" class="line-reroll" data-i="' + i + '">' + lineHTML(l) + '</button></li>';
-        });
-      });
+          return '<div class="pair-line"><button type="button" class="line-reroll" data-i="' + i + '">' + lineHTML(l) + '</button></div>';
+        }).join('');
+        return '<li class="pair-block"><div class="pair-name">' + esc(g.who) + '</div>' + rows + '</li>';
+      }).join('');
+      cPoem.classList.add('pair-cols');
     } else {
       lastLines.forEach(function (l, i) {
         out += '<li><button type="button" class="line-reroll" data-i="' + i + '">' + lineHTML(l) + '</button></li>';
@@ -174,7 +177,10 @@
     if (wrap) wrap.classList.toggle('is-wide', wide);
     document.getElementById('cardEl').classList.toggle('is-wide', wide);
     cPoem.classList.toggle('two-col', st.style !== 'rhyme' && lastLines.length > 8);
-    cPoem.classList.toggle('three-col', false);
+    cPoem.classList.toggle('three-col', wide && st.style !== 'rhyme' && lastLines.length >= 24);
+    var isPairCard = !!(st.name2 && isPair);
+    cPoem.classList.toggle('pair-cols', isPairCard);
+    if (isPairCard) { cPoem.classList.remove('two-col'); cPoem.classList.remove('three-col'); }
     var nonLatin = !A.canAcrostic(st.name);
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' +
       (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + bgNote();
