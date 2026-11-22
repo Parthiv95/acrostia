@@ -166,7 +166,13 @@
     }
     cPoem.innerHTML = out;
     cPoem.classList.toggle('is-verse', st.style === 'rhyme');
+    var letters = (st.name + (st.name2 || '')).replace(/[^A-Za-z]/g, '').length;
+    var wide = letters > 12 || lastLines.length > 12;
+    var wrap = document.getElementById('cardWrap');
+    if (wrap) wrap.classList.toggle('is-wide', wide);
+    document.getElementById('cardEl').classList.toggle('is-wide', wide);
     cPoem.classList.toggle('two-col', st.style !== 'rhyme' && lastLines.length > 8);
+    cPoem.classList.toggle('three-col', wide && st.style !== 'rhyme' && lastLines.length > 14);
     var nonLatin = !A.canAcrostic(st.name);
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' +
       (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + bgNote();
@@ -399,7 +405,9 @@
   }
 
   function renderPng() {
-    var W = 900, H = 1200, cv = document.createElement('canvas');
+    var wide = !!(document.getElementById('cardEl') || {}).classList &&
+               document.getElementById('cardEl').classList.contains('is-wide');
+    var W = wide ? 1200 : 900, H = wide ? 900 : 1200, cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
     var x = cv.getContext('2d');
     var g = x.createLinearGradient(0, 0, 0, H);
@@ -430,13 +438,13 @@
       x.font = nf.cv.replace(/\d+px/, npx + 'px');
       nguard++;
     }
-    x.fillText(label, W / 2, 210);
+    x.fillText(label, W / 2, wide ? 150 : 210);
     x.fillStyle = 'rgba(200,154,75,.8)';
-    x.fillRect(W / 2 - 40, 240, 80, 2);
+    x.fillRect(W / 2 - 40, wide ? 180 : 240, 80, 2);
     x.fillStyle = '#5C4A4E';
     x.font = "600 18px Inter, sans-serif";
-    x.fillText(A.label(st.occ).toUpperCase(), W / 2, 282);
-    var lines = cardLines(), y = 360;
+    x.fillText(A.label(st.occ).toUpperCase(), W / 2, wide ? 222 : 282);
+    var lines = cardLines(), y = wide ? 300 : 360;
     var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (rhymeOut) {
       var bf = FONT_MAP[st.font] || FONT_MAP.script;
@@ -446,15 +454,60 @@
     } else {
       var bf2 = FONT_MAP[st.font] || FONT_MAP.script;
       var bm = bf2.cpx || 1;
-      var drawLine = function (l) {
-        var txt = l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '');
-        x.fillStyle = '#6B1F2D'; x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(30 * bm) + 'px ' + bf2.body;
-        x.textAlign = 'left'; x.fillText(l.letter, 110, y);
-        x.fillStyle = '#3B2B2E'; x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(26 * bm) + 'px ' + bf2.body;
-        x.fillText(txt.slice(l.letter.length + 1), 150, y);
-        x.textAlign = 'center';
-        y += Math.round(56 * bm);
-      };
+      var colW = wide ? Math.floor((W - 170) / 2) : W;
+
+      function wrapText(text, maxW, font) {
+        x.font = font;
+        var words = String(text).split(' '), out = [], cur = '';
+        words.forEach(function (w) {
+          var t = cur ? cur + ' ' + w : w;
+          if (x.measureText(t).width > maxW && cur) { out.push(cur); cur = w; } else { cur = t; }
+        });
+        if (cur) out.push(cur);
+        return out;
+      }
+
+      // the poem is measured before it is drawn: canvas does not wrap, so a long
+      // line used to run straight out of the card
+      function layout(items, tsize, maxW) {
+        var font = bf2.bstyle + ' ' + bf2.bweight + ' ' + tsize + 'px ' + bf2.body;
+        var lh = Math.round(tsize * 1.62), gap = Math.round(tsize * 0.5), h = 0;
+        var wrapped = items.map(function (l) {
+          var body = 'is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '');
+          var parts = wrapText(body, maxW, font);
+          h += (parts.length - 1) * lh + lh + gap;
+          return { l: l, parts: parts };
+        });
+        return { wrapped: wrapped, lh: lh, gap: gap, height: h };
+      }
+
+      var perCol = wide ? Math.ceil(lines.length / 2) : lines.length;
+      var cols = wide ? [lines.slice(0, perCol), lines.slice(perCol)] : [lines];
+      var room = Math.max(120, (H - (wide ? 150 : 140)) - y);
+      var tsize = Math.round((wide ? 23 : 26) * bm);
+      var plan, guard = 0;
+      do {
+        plan = cols.map(function (set) { return layout(set, tsize, (wide ? colW : W) - 160); });
+        var tallest = Math.max.apply(null, plan.map(function (p2) { return p2.height; }));
+        if (tallest <= room || tsize <= 13) break;
+        tsize -= 1; guard++;
+      } while (guard < 20);
+
+      function drawColumn(p2, x0, y0) {
+        var yy = y0;
+        p2.wrapped.forEach(function (item) {
+          x.textAlign = 'left';
+          x.fillStyle = '#6B1F2D';
+          x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(tsize * 1.15) + 'px ' + bf2.body;
+          x.fillText(item.l.letter, x0, yy);
+          x.fillStyle = '#3B2B2E';
+          x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + tsize + 'px ' + bf2.body;
+          item.parts.forEach(function (part, i) { x.fillText(part, x0 + 40, yy + i * p2.lh); });
+          yy += (item.parts.length - 1) * p2.lh + p2.lh + p2.gap;
+        });
+        return yy;
+      }
+
       // couples get the same labelled blocks as the card, or the download would
       // show a different poem from the one on screen
       if (st.name2 && PAIR_OCC.indexOf(st.occ) !== -1) {
@@ -463,20 +516,31 @@
           x.fillStyle = '#8A6420'; x.font = '600 17px Inter, sans-serif';
           x.fillText(g.who.toUpperCase(), 110, y);
           x.fillStyle = 'rgba(200,154,75,.75)'; x.fillRect(110, y + 10, 34, 2);
-          x.textAlign = 'center';
-          y += 42;
-          g.lines.forEach(drawLine);
-          y += 14;
+          var single = layout(g.lines, tsize, W - 200);
+          y = drawColumn(single, 110, y + 42) + 14;
         });
+        x.textAlign = 'center';
       } else {
-        lines.forEach(drawLine);
+        var ys = [];
+        plan.forEach(function (p2, i) { ys.push(drawColumn(p2, wide ? (95 + i * colW) : 110, y)); });
+        y = Math.max.apply(null, ys);
+        x.textAlign = 'center';
       }
+      x.textAlign = 'center';
+    }
+    // the card shows a closing line; the file never did
+    var isRhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
+    if (!isRhymeOut && A.closer) {
+      var cf = FONT_MAP[st.font] || FONT_MAP.script;
+      x.fillStyle = '#6B1F2D';
+      x.font = cf.bstyle + ' ' + cf.bweight + ' ' + (wide ? 26 : 28) + 'px ' + cf.body;
+      x.fillText(pairName() + ', ' + A.closer(st.occ), W / 2, H - (wide ? 116 : 150));
     }
     if (st.from) {
-      x.fillStyle = '#5C4A4E'; x.font = "italic 24px Inter, sans-serif";
-      x.fillText('from ' + st.from, W / 2, H - 120);
+      x.fillStyle = '#5C4A4E'; x.font = 'italic 22px Inter, sans-serif';
+      x.fillText('from ' + st.from, W / 2, H - (wide ? 74 : 108));
     }
-    x.fillStyle = '#C9557B'; x.font = "26px serif"; x.fillText('\u2665', W / 2, H - 78);
+    x.fillStyle = '#C9557B'; x.font = '26px serif'; x.fillText('\u2665', W / 2, H - (wide ? 34 : 68));
     return cv.toDataURL('image/png');
   }
 
@@ -571,6 +635,17 @@
     if (!bed || !card || !ul) return;
     ul.classList.remove('fitdown');
     ul.style.removeProperty('--fitsize');
+    // the name used to clip the moment it was longer than the card
+    var nm = document.getElementById('cName');
+    if (nm) {
+      nm.style.removeProperty('font-size');
+      nm.style.whiteSpace = 'nowrap';
+      var base = parseFloat(getComputedStyle(nm).fontSize) || 40;
+      var room = card.clientWidth - 32;
+      var size2 = base, g2 = 0;
+      while (nm.scrollWidth > room && size2 > base * 0.42 && g2 < 90) { size2 -= 1; nm.style.fontSize = size2 + 'px'; g2++; }
+      if (nm.scrollWidth > room) nm.style.whiteSpace = 'normal';
+    }
     var maxH = bed.clientHeight * 0.92;
     var size = parseFloat(getComputedStyle(ul).fontSize) || 16;
     var guard = 0;
@@ -625,7 +700,7 @@
     if (!root || !live) return;
     root.innerHTML = '';
     var sheet = document.createElement('div');
-    sheet.className = 'sheet';
+    sheet.className = 'sheet' + (live.classList.contains('is-wide') ? ' is-wide' : '');
     var clone = live.cloneNode(true);
     clone.removeAttribute('id');
     // the template lives in an inline background, so keep it; only the 3D tilt and
