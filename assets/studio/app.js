@@ -329,9 +329,30 @@
     history.replaceState(null, '', u);
   }
 
+  function clampLetters(v, max) {
+    // keep spaces, stop at the letter limit: the card spells every letter it shows,
+    // so silently dropping the tail was the wrong behaviour
+    var out = '', n = 0;
+    for (var i = 0; i < v.length; i++) {
+      var ch = v[i];
+      if (/[\p{L}]/u.test(ch)) { if (n >= max) continue; n++; }
+      out += ch;
+    }
+    return out.replace(/\s{2,}/g, ' ').trim();
+  }
+  function showCount(el) {
+    var hint = document.getElementById('nmHint');
+    if (!hint) return;
+    var n = (el.value.replace(/[^\p{L}]/gu, '') || '').length;
+    hint.textContent = n + ' of ' + POEM_MAX + ' letters';
+    hint.classList.toggle('at-max', n >= POEM_MAX);
+  }
+
   nameIn.addEventListener('input', function () {
     var live = stripInvalid(nameIn.value);
+    live = clampLetters(live, POEM_MAX);
     if (live !== nameIn.value) nameIn.value = live;
+    showCount(nameIn);
     var v = live.trim();
     // an empty field is allowed to stay empty: forcing the last name back made it
     // impossible to clear the box, you could only type over the old name
@@ -340,6 +361,7 @@
     render(); syncUrl();
   });
   nameIn.addEventListener('blur', function () {
+    showCount(nameIn);
     nameIn.value = cleanName(nameIn.value);
     if (!nameIn.value) return;
     st.name = nameIn.value;
