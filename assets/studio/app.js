@@ -103,7 +103,7 @@
   // One source for the wash that keeps the poem legible over artwork. The screen
   // reads it through --card-scrim and the canvas replays the same stops, so the
   // download can no longer look unlike the preview.
-  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.38)'], [0.28, 'rgba(255,252,245,.58)'], [0.5, 'rgba(255,252,245,.66)'], [0.72, 'rgba(255,252,245,.58)'], [1, 'rgba(255,252,245,.38)']] };
+  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.2)'], [0.28, 'rgba(255,252,245,.32)'], [0.5, 'rgba(255,252,245,.36)'], [0.72, 'rgba(255,252,245,.32)'], [1, 'rgba(255,252,245,.2)']] };
   function scrimCss() {
     var stops = SCRIM.stops.map(function (s) { return s[1] + ' ' + Math.round(s[0] * 100) + '%'; }).join(', ');
     if (SCRIM.type === 'linear') return 'linear-gradient(180deg, ' + stops + ')';
@@ -499,13 +499,6 @@
     var label = pairName();
     if (nf.caps) label = label.toUpperCase();
     x.font = nf.cv;
-    var npx = parseInt((nf.cv.match(/(\d+)px/) || [0, '0'])[1], 10) || 64;
-    var nguard = 0;
-    while (x.measureText(spaced(label)).width > W - 150 && npx > 30 && nguard < 80) {
-      npx -= 2;
-      x.font = nf.cv.replace(/\d+px/, npx + 'px');
-      nguard++;
-    }
     var shift = 0;
     var hasPhoto = !!(st.photo && photoImg && photoImg.complete && photoImg.naturalWidth);
     if (st.photo && photoImg && photoImg.complete && photoImg.naturalWidth) {
@@ -521,6 +514,15 @@
     }
     var nameX = hasPhoto ? (110 + 2 * (wide ? 54 : 68) + 28) : W / 2;
     x.textAlign = hasPhoto ? 'left' : 'center';
+    // shrink against the room the name actually has; the photo circle takes the left edge
+    var nameRoom = hasPhoto ? W - nameX - 44 : W - 150;
+    var npx = parseInt((nf.cv.match(/(\d+)px/) || [0, '0'])[1], 10) || 64;
+    var nguard = 0;
+    while (x.measureText(spaced(label)).width > nameRoom && npx > 22 && nguard < 80) {
+      npx -= 2;
+      x.font = nf.cv.replace(/\d+px/, npx + 'px');
+      nguard++;
+    }
     x.fillText(spaced(label), nameX, hasPhoto ? (wide ? 100 : 118) + 14 : (wide ? 150 : 210) + shift);
     x.fillStyle = 'rgba(200,154,75,.8)';
     if (!hasPhoto) x.fillRect(W / 2 - 40, (wide ? 180 : 240) + shift, 80, 2);
@@ -534,9 +536,19 @@
     var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (rhymeOut) {
       var bf = FONT_MAP[st.font] || FONT_MAP.script;
-      var bs = Math.round(30 * (bf.cpx || 1));
-      x.fillStyle = '#3B2B2E'; x.font = bf.bstyle + ' ' + bf.bweight + ' ' + bs + 'px ' + bf.body;
-      lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += Math.round(52 * (bf.cpx || 1)); });
+      var bs = Math.round((wide ? 42 : 30) * (bf.cpx || 1));
+      // wide card gets a bigger verse; shrink until the widest line and the column both fit
+      var bw2 = W - 220, g3 = 0;
+      for (;;) {
+        x.font = bf.bstyle + ' ' + bf.bweight + ' ' + bs + 'px ' + bf.body;
+        var wmax = 0;
+        lines.forEach(function (l) { wmax = Math.max(wmax, x.measureText(l.raw).width); });
+        if ((wmax <= bw2 && y + lines.length * Math.round(bs * 1.72) <= H - 96) || bs <= 15 || g3 > 40) break;
+        bs -= 1; g3++;
+      }
+      var blh = Math.round(bs * 1.72);
+      x.fillStyle = '#3B2B2E';
+      lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += blh; });
     } else {
       var bf2 = FONT_MAP[st.font] || FONT_MAP.script;
       var bm = bf2.cpx || 1;

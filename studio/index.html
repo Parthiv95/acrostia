@@ -126,7 +126,7 @@
   .bgthumb.up{background:var(--ivory);border:1px dashed rgba(180,140,120,.55);display:grid;place-items:center;font-size:.55rem;color:var(--ink-40);text-align:center;line-height:1.2}
   .card.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
   .card.has-bg .nm,.card.has-bg ul,.card.has-bg .closer,.card.has-bg .occ-line,.card.has-bg .fromline{text-shadow:0 1px 3px rgba(255,255,255,.8),0 0 14px rgba(255,252,245,.45)}
-  .card.has-bg::before{content:"";position:absolute;inset:0;background:var(--card-scrim,radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.94) 0%,rgba(255,252,245,.88) 52%,rgba(255,252,245,.58) 100%));z-index:0}
+  .card.has-bg::before{content:"";position:absolute;inset:0;background:var(--card-scrim,radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.7) 0%,rgba(255,252,245,.55) 52%,rgba(255,252,245,.35) 100%));z-index:0}
   .card > *{position:relative;z-index:1}
   .occSel{border:1px solid rgba(180,140,120,.35);border-radius:9px;background:var(--ivory);padding:.45rem .6rem;font-size:.8rem;color:var(--ink);max-width:11rem}
   .line-reroll{all:unset;display:inline;cursor:pointer;border-radius:4px}
@@ -171,12 +171,13 @@
   .card ul li{padding-left:0;text-indent:0;margin-top:.26rem}
   .card ul li b{display:inline}
   .card ul.is-verse li{padding-left:0;text-indent:0;text-align:center}
+  .card.is-wide ul.is-verse{font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.9}
   .card ul.two-col{column-count:2;column-gap:1.5rem}
   .card ul.three-col{column-count:3;column-gap:1.4rem}
   .card.is-wide ul.two-col{column-count:2;column-gap:2.2rem}
   .card.is-wide ul.three-col{column-count:3;column-gap:1.8rem}
   .card.is-wide ul.three-col{font-size:clamp(.82rem,1.2vw,.9rem)}
-  .card.is-wide.has-bg::before{background:linear-gradient(180deg,rgba(255,252,245,.42) 0%,rgba(255,252,245,.72) 28%,rgba(255,252,245,.76) 55%,rgba(255,252,245,.72) 74%,rgba(255,252,245,.42) 100%)}
+  .card.is-wide.has-bg::before{background:linear-gradient(180deg,rgba(255,252,245,.22) 0%,rgba(255,252,245,.44) 28%,rgba(255,252,245,.48) 55%,rgba(255,252,245,.44) 74%,rgba(255,252,245,.22) 100%)}
   .card.is-wide ul{font-size:clamp(.9rem,1.5vw,.98rem)}
   .card ul.two-col li{break-inside:avoid;margin-top:0;padding-bottom:.2em}
   @media (max-width:560px){.card ul.two-col{column-count:1}}
