@@ -106,11 +106,31 @@
     .entry{flex-direction:column;align-items:stretch}
     .entry .pill{width:100%}
   }
+
+  .pf-prose{padding-block:clamp(34px,4vw,58px)}
+  .pf-prose .wrap{max-width:900px}
+  .pf-prose h2{scroll-margin-top:96px}
+  .pf-prose h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.5rem,2.4vw,2rem);color:var(--ivory-lt);margin:0 0 .6rem}
+  .pf-prose h2 + p{margin-top:0}
+  .pf-prose p{max-width:64ch;font-size:1rem;line-height:1.75;color:rgba(246,233,228,.76);margin:0 0 1rem}
+  .pf-prose a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+  .pf-prose details{border-top:1px solid rgba(200,154,75,.22);padding:.9rem 0;max-width:70ch}
+  .pf-prose details:last-of-type{border-bottom:1px solid rgba(200,154,75,.22)}
+  .pf-prose summary{cursor:pointer;font-family:Fraunces,Georgia,serif;font-size:1.05rem;color:var(--ivory-lt)}
+  .pf-prose summary::marker{color:var(--gold)}
+  .pf-prose details p{margin:.55rem 0 0;font-size:.94rem;color:rgba(246,233,228,.7)}
 </style>
 <script src="../fun-data.js?v=7308c3315e"></script>
 <script src="../assets/profile.js?v=8b779c3691"></script>
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Is the profile the same every time?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every reading is derived from the birth date itself, so the same date always gives the same profile."}},
+ {"@type":"Question","name":"Does the year matter?","acceptedAnswer":{"@type":"Answer","text":"Yes, for your exact age, the weekday you arrived, your leap year count and your Chinese zodiac animal."}},
+ {"@type":"Question","name":"Can I share it?","acceptedAnswer":{"@type":"Answer","text":"Download the profile card as a picture, or share the page address with the date in it."}},
+ {"@type":"Question","name":"Where do the readings come from?","acceptedAnswer":{"@type":"Answer","text":"Each is a named tradition: the Celtic tree calendar, the modern birthstone and birth flower lists, Western and Chinese astrology, and the numerological life path."}}]}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -150,6 +170,34 @@
 </section>
 
 <section class="pf-wrap" id="pfOut" aria-live="polite"></section>
+
+
+<section class="pf-prose">
+  <div class="wrap">
+    <h2>What a birthday profile tells you</h2>
+    <p>Your birth date carries more than your age in years, months and days. The same date names your zodiac sign and its ruling planet, your Chinese zodiac animal, the birthstone, birth flower and birth tree of your month, the weekday you arrived on, and a small stack of lucky things: your color, your day, your number. A birthday profile lines them all up in one place.</p>
+    <p>Everything here is calculated from the date alone, so the same birthday always gives the same profile. You can compare friends, family and famous birthdays without signing up for anything. When you are done, download the profile card and send it in a chat, or copy the link so they can read their own.</p>
+    <p>Want the poem version of the same moment? The <a href="../studio/">Acrostia studio</a> turns a name into a birthday poem on a card you can print.</p>
+
+    <h2 id="faq">Questions people ask</h2>
+    <details>
+      <summary>Is the profile the same every time?</summary>
+      <p>Yes. Every reading is derived from the birth date itself, so the same date always gives the same profile. Change the date to explore another one.</p>
+    </details>
+    <details>
+      <summary>Does the year matter?</summary>
+      <p>Yes, for your exact age, the weekday you arrived, your leap year count and your Chinese zodiac animal. The sign, birthstone, flower and tree depend on the day and month.</p>
+    </details>
+    <details>
+      <summary>Can I share it?</summary>
+      <p>Download the profile card as a picture, or copy the address of this page with the date in it: anyone who opens it sees the same profile already filled in, with nothing to type.</p>
+    </details>
+    <details>
+      <summary>Where do the readings come from?</summary>
+      <p>Each one is a named tradition, not a guess: the Celtic tree calendar, the modern birthstone and birth flower lists, Western and Chinese astrology, and the numerological life path. Every reading links to its own page, where the source is spelled out.</p>
+    </details>
+  </div>
+</section>
 
 <section class="tiles">
   <div class="wrap">
