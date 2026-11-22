@@ -110,6 +110,64 @@
     }
   }
 
+
+  /* ---------- entry artwork ----------
+     One gold emblem per reading type, sitting in the empty half of the entry card.
+     Per-item artwork would mean over a hundred images; a type emblem keeps the
+     card balanced without pretending to show a particular stone or flower. */
+  var ART = {
+    'birthstone': '<path d="M60 26 L96 58 L60 134 L24 58 Z"/><path d="M24 58 L96 58"/><path d="M60 26 L60 134"/><path d="M42 58 L60 26 L78 58 L60 134"/>',
+    'birth-flower': '<circle cx="60" cy="58" r="13"/><ellipse cx="60" cy="34" rx="9" ry="15"/><ellipse cx="60" cy="82" rx="9" ry="15"/><ellipse cx="36" cy="58" rx="15" ry="9"/><ellipse cx="84" cy="58" rx="15" ry="9"/><path d="M60 96 C60 118 60 126 60 140"/><path d="M60 112 C48 104 40 108 36 116"/><path d="M60 124 C72 116 80 120 84 128"/>',
+    'birth-month': '<circle cx="60" cy="70" r="34"/><path d="M88 52 A34 34 0 1 0 88 92 A28 28 0 1 1 88 52"/><circle cx="60" cy="18" r="2.4"/><circle cx="104" cy="70" r="2.4"/><circle cx="60" cy="122" r="2.4"/><circle cx="16" cy="70" r="2.4"/>',
+    'birth-tree': '<path d="M60 138 L60 76"/><path d="M60 96 C44 92 34 80 34 66"/><path d="M60 88 C76 84 86 72 86 58"/><path d="M60 76 C52 62 54 48 60 36"/><path d="M34 66 C30 56 34 46 42 42"/><path d="M86 58 C90 48 86 38 78 34"/>',
+    'zodiac': '<circle cx="34" cy="44" r="3"/><circle cx="66" cy="30" r="3"/><circle cx="92" cy="60" r="3"/><circle cx="70" cy="94" r="3"/><circle cx="36" cy="112" r="3"/><circle cx="58" cy="70" r="3"/><path d="M34 44 L58 70 L66 30 M58 70 L92 60 M58 70 L70 94 M58 70 L36 112"/>',
+    'birth-date': '<circle cx="60" cy="70" r="36"/><path d="M60 44 L60 70 L78 82"/>',
+    'birth-time': '<circle cx="60" cy="70" r="34"/><path d="M60 40 L60 70 L84 58"/>',
+    'life-path': '<path d="M60 130 C20 110 100 92 60 70 C20 48 100 30 60 14"/>'
+  };
+  function mountArt(kind, month) {
+    if (!kind) return;
+    var card = document.querySelector('.entrycard'); if (!card) return;
+    var host = card.querySelector('.ecard-art');
+    if (!host) {
+      host = document.createElement('div');
+      host.className = 'ecard-art';
+      host.setAttribute('aria-hidden', 'true');
+      card.appendChild(host);
+    }
+    if (!document.getElementById('ecardArtCss')) {
+      var s = document.createElement('style'); s.id = 'ecardArtCss';
+      s.textContent = '.ecard-art{position:absolute;right:clamp(4px,1.4vw,20px);top:50%;transform:translateY(-50%);width:min(38%,260px);pointer-events:none;z-index:0}' +
+        '.ecard-art img{width:100%;height:auto;display:block;opacity:.95;mix-blend-mode:screen;' +
+        '-webkit-mask-image:radial-gradient(ellipse at 50% 50%, #000 52%, transparent 76%);' +
+        'mask-image:radial-gradient(ellipse at 50% 50%, #000 52%, transparent 76%)}' +
+        '.ecard-art svg{width:100%;height:auto;fill:none;stroke:#C89A4B;stroke-width:1.6;opacity:.45;stroke-linecap:round;stroke-linejoin:round}' +
+        '.entrycard>*:not(.ecard-art){position:relative;z-index:1}' +
+        '@media (max-width:700px){.ecard-art{display:none}}';
+      document.head.appendChild(s);
+    }
+    var typePlate = {
+      'birthstone': 'stone', 'birth-tree': 'tree', 'zodiac': 'zodiac',
+      'birth-month': 'moon', 'birth-date': 'moon', 'birth-time': 'moon', 'life-path': 'moon'
+    }[kind];
+    var src = '';
+    if (kind === 'birth-flower' && month >= 0) src = '../assets/entry/flowers/' + (month + 1) + '.jpg';
+    else if (typePlate) src = '../assets/entry/' + typePlate + '.jpg';
+
+    if (src) {
+      host.innerHTML = '<img src="' + src + '" alt="">';
+      var img = host.firstChild;
+      img.onerror = function () { host.innerHTML = svgFor(kind); };
+    } else {
+      host.innerHTML = svgFor(kind);
+    }
+  }
+
+  function svgFor(kind) {
+    var body = ART[kind] || '<path d="M30 120 C60 90 60 50 90 20"/><circle cx="90" cy="20" r="3"/><circle cx="30" cy="120" r="3"/>';
+    return '<svg viewBox="0 0 120 160" role="presentation">' + body + '</svg>';
+  }
+
   function render(d) {
     var kind = document.body.getAttribute('data-reading');
     if (!kind || !d) return;
@@ -120,6 +178,7 @@
     set('eStone', e.stone);
     set('eRange', e.range);
     set('eBody', e.body);
+    mountArt(kind, d.getMonth());
   }
 
   /* a date field in the hero, so the reading is changeable without leaving */
