@@ -125,7 +125,7 @@
     'birth-time': '<circle cx="60" cy="70" r="34"/><path d="M60 40 L60 70 L84 58"/>',
     'life-path': '<path d="M60 130 C20 110 100 92 60 70 C20 48 100 30 60 14"/>'
   };
-  function mountArt(kind, month) {
+  function mountArt(kind, month, signIndex) {
     if (!kind) return;
     var card = document.querySelector('.entrycard'); if (!card) return;
     var host = card.querySelector('.ecard-art');
@@ -152,13 +152,18 @@
     }[kind];
     var src = '';
     if (kind === 'birth-flower' && month >= 0) src = '../assets/entry/flowers/' + (month + 1) + '.jpg';
+    else if (kind === 'zodiac' && signIndex >= 0) src = '../assets/entry/zodiac/' + (signIndex + 1) + '.jpg';
     else if (kind === 'birthstone' && month >= 0) src = '../assets/entry/stones/' + (month + 1) + '.jpg';
     else if (typePlate) src = '../assets/entry/' + typePlate + '.jpg';
 
     if (src) {
       host.innerHTML = '<img src="' + src + '" alt="">';
       var img = host.firstChild;
-      img.onerror = function () { host.innerHTML = svgFor(kind); };
+      var fellBack = false;
+      img.onerror = function () {
+        if (!fellBack && typePlate) { fellBack = true; img.src = '../assets/entry/' + typePlate + '.jpg'; return; }
+        host.innerHTML = svgFor(kind);
+      };
     } else {
       host.innerHTML = svgFor(kind);
     }
@@ -179,7 +184,12 @@
     set('eStone', e.stone);
     set('eRange', e.range);
     set('eBody', e.body);
-    mountArt(kind, d.getMonth());
+    var signIndex = -1;
+    if (kind === 'zodiac' && F && F.ZODIAC) {
+      var zz = F.signFor(d.getMonth() + 1, d.getDate());
+      for (var zi = 0; zi < F.ZODIAC.length; zi++) { if (F.ZODIAC[zi].name === zz.name) { signIndex = zi; break; } }
+    }
+    mountArt(kind, d.getMonth(), signIndex);
   }
 
   /* a date field in the hero, so the reading is changeable without leaving */
