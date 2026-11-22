@@ -12,7 +12,7 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent
-WATCHED = ["assets/floral/engine.js", "assets/studio/app.js"]
+WATCHED = ["assets/floral/engine.js", "assets/studio/app.js", "assets/birthday.js", "fun-data.js"]
 
 
 def digest(p: pathlib.Path) -> str:
@@ -49,7 +49,8 @@ def main() -> int:
                         return f'src="{base}?v={h}"'
             return m.group(0)
 
-        html = re.sub(r'src="([^"]*(?:engine\.js|app\.js)[^"]*)"', fix, html)
+        names = "|".join(re.escape(pathlib.PurePosixPath(w).name) for w in WATCHED)
+        html = re.sub(r'src="([^"]*(?:' + names + r')[^"]*)"', fix, html)
         if html != before:
             page.write_text(html, encoding="utf-8")
             changed += 1
