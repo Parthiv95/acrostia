@@ -71,9 +71,26 @@
 
   var lastLines = [];
 
-  function lineHTML(l) {
+  function pairName() {
+    return st.name2 ? st.name + ' and ' + st.name2 : st.name;
+  }
+
+  function lineHTML(l, withWho) {
     return '<b>' + esc(l.letter) + '</b> is for ' + esc(l.word) + ', ' + esc(l.desc) +
-           (l.suf ? ', ' + esc(l.suf) : '') + (l.who ? ' (' + esc(l.who) + ')' : '');
+           (l.suf ? ', ' + esc(l.suf) : '') + (withWho && l.who ? ' (' + esc(l.who) + ')' : '');
+  }
+
+  /* Couples used to alternate letter by letter, so the card read N E O M A M H A
+     and every line ended in "(Noah)". Group by owner instead: one labelled block
+     per name, each spelling that name down its own column. */
+  function pairBlocks(lines) {
+    var order = [], by = {};
+    lines.forEach(function (l) {
+      var who = l.who || '';
+      if (!by[who]) { by[who] = []; order.push(who); }
+      by[who].push(l);
+    });
+    return order.map(function (who) { return { who: who, lines: by[who] }; });
   }
 
   var PAIR_OCC = ['couple', 'engagement', 'wedding', 'anniversary', 'valentine', 'silver-anniversary'];
@@ -118,14 +135,14 @@
     var cCloser = document.getElementById('cCloser');
     var cFrom = document.getElementById('cFrom');
     var verseBtn = document.getElementById('verseBtn');
-    var head = st.name2 ? st.name + ' & ' + st.name2 : st.name;
+    var head = pairName();
     cName.textContent = head.length > 26 ? head.slice(0, 25).trim() + '\u2026' : head;
     cName.title = head;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
     lastLines = cardLines();
     if (cCloser) {
       var isRhyme = st.style === 'rhyme';
-      cCloser.textContent = (!isRhyme && A && A.closer) ? (st.name2 ? st.name + ' & ' + st.name2 : st.name) + ', ' + A.closer(st.occ) : '';
+      cCloser.textContent = (!isRhyme && A && A.closer) ? pairName() + ', ' + A.closer(st.occ) : '';
       cPoem.classList.toggle('has-closer', !isRhyme);
       cCloser.style.display = (!isRhyme && st.voice !== 'heartfelt') || (!isRhyme) ? '' : 'none';
     }
@@ -134,6 +151,14 @@
     var out = '';
     if (st.style === 'rhyme' || !A.canAcrostic(st.name)) {
       lastLines.forEach(function (l) { out += '<li class="verse">' + l.raw + '</li>'; });
+    } else if (st.name2 && isPair) {
+      pairBlocks(lastLines).forEach(function (g) {
+        out += '<li class="pair-name">' + esc(g.who) + '</li>';
+        g.lines.forEach(function (l) {
+          var i = lastLines.indexOf(l);
+          out += '<li><button type="button" class="line-reroll" data-i="' + i + '">' + lineHTML(l) + '</button></li>';
+        });
+      });
     } else {
       lastLines.forEach(function (l, i) {
         out += '<li><button type="button" class="line-reroll" data-i="' + i + '">' + lineHTML(l) + '</button></li>';
@@ -395,7 +420,7 @@
     x.textAlign = 'center';
     x.fillStyle = '#8A6420';
     var nf = FONT_MAP[st.font] || FONT_MAP.script;
-    var label = (st.name2 ? st.name + ' & ' + st.name2 : st.name);
+    var label = pairName();
     if (nf.caps) label = label.toUpperCase();
     x.font = nf.cv;
     var npx = parseInt((nf.cv.match(/(\d+)px/) || [0, '0'])[1], 10) || 64;
@@ -419,17 +444,33 @@
       x.fillStyle = '#3B2B2E'; x.font = bf.bstyle + ' ' + bf.bweight + ' ' + bs + 'px ' + bf.body;
       lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += Math.round(52 * (bf.cpx || 1)); });
     } else {
-      lines.forEach(function (l) {
-        var txt = l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '') + (l.who ? ' (' + l.who + ')' : '');
-        var bf2 = FONT_MAP[st.font] || FONT_MAP.script;
-        var bm = bf2.cpx || 1;
+      var bf2 = FONT_MAP[st.font] || FONT_MAP.script;
+      var bm = bf2.cpx || 1;
+      var drawLine = function (l) {
+        var txt = l.letter + ' is for ' + l.word + ', ' + l.desc + (l.suf ? ', ' + l.suf : '');
         x.fillStyle = '#6B1F2D'; x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(30 * bm) + 'px ' + bf2.body;
         x.textAlign = 'left'; x.fillText(l.letter, 110, y);
         x.fillStyle = '#3B2B2E'; x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(26 * bm) + 'px ' + bf2.body;
         x.fillText(txt.slice(l.letter.length + 1), 150, y);
         x.textAlign = 'center';
-        y += Math.round(56 * (bf2.cpx || 1));
-      });
+        y += Math.round(56 * bm);
+      };
+      // couples get the same labelled blocks as the card, or the download would
+      // show a different poem from the one on screen
+      if (st.name2 && PAIR_OCC.indexOf(st.occ) !== -1) {
+        pairBlocks(lines).forEach(function (g) {
+          x.textAlign = 'left';
+          x.fillStyle = '#8A6420'; x.font = '600 17px Inter, sans-serif';
+          x.fillText(g.who.toUpperCase(), 110, y);
+          x.fillStyle = 'rgba(200,154,75,.75)'; x.fillRect(110, y + 10, 34, 2);
+          x.textAlign = 'center';
+          y += 42;
+          g.lines.forEach(drawLine);
+          y += 14;
+        });
+      } else {
+        lines.forEach(drawLine);
+      }
     }
     if (st.from) {
       x.fillStyle = '#5C4A4E'; x.font = "italic 24px Inter, sans-serif";
