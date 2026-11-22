@@ -152,6 +152,7 @@
     }[kind];
     var src = '';
     if (kind === 'birth-flower' && month >= 0) src = '../assets/entry/flowers/' + (month + 1) + '.jpg';
+    else if (kind === 'birthstone' && month >= 0) src = '../assets/entry/stones/' + (month + 1) + '.jpg';
     else if (typePlate) src = '../assets/entry/' + typePlate + '.jpg';
 
     if (src) {
