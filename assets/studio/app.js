@@ -17,6 +17,7 @@
     voice: qs.get('v') || 'gentle',
     verse: 0,
     // keepsake reads at a glance; the script is a deliberate choice, not the default
+    photo: '',
     font: (['script','keepsake','simple','hand','storybook'].indexOf(qs.get('f')) !== -1 ? qs.get('f') : 'keepsake')
   };
 
@@ -204,6 +205,39 @@
 
   /* ---------- card backgrounds ---------- */
   var bgImg = null;
+  var photoImg = null;
+
+  /* ---------- portrait ---------- */
+  function applyPhoto() {
+    var wrap = document.getElementById('cPhotoWrap');
+    var img = document.getElementById('cPhoto');
+    var clear = document.getElementById('photoClear');
+    if (!wrap || !img) return;
+    if (st.photo) {
+      img.src = st.photo;
+      wrap.classList.add('has');
+      if (clear) clear.hidden = false;
+      if (!photoImg || photoImg.src !== st.photo) { photoImg = new Image(); photoImg.src = st.photo; }
+    } else {
+      wrap.classList.remove('has');
+      img.removeAttribute('src');
+      if (clear) clear.hidden = true;
+      photoImg = null;
+    }
+  }
+
+  var photoIn = document.getElementById('photoIn');
+  if (photoIn) photoIn.addEventListener('change', function () {
+    var f = photoIn.files && photoIn.files[0];
+    if (!f) return;
+    if (!/^image\//.test(f.type) || f.size > 8 * 1024 * 1024) { photoIn.value = ''; return; }
+    var fr = new FileReader();
+    fr.onload = function () { st.photo = fr.result; applyPhoto(); fitCard(); };
+    fr.readAsDataURL(f);
+    photoIn.value = '';
+  });
+  var photoClear = document.getElementById('photoClear');
+  if (photoClear) photoClear.addEventListener('click', function () { st.photo = ''; applyPhoto(); fitCard(); });
 
   function applyBg() {
     var card = document.getElementById('cardEl');
@@ -438,13 +472,25 @@
       x.font = nf.cv.replace(/\d+px/, npx + 'px');
       nguard++;
     }
-    x.fillText(label, W / 2, wide ? 150 : 210);
+    var shift = 0;
+    if (st.photo && photoImg && photoImg.complete && photoImg.naturalWidth) {
+      var pr = wide ? 62 : 86, pcx = W / 2, pcy = wide ? 92 : 104;
+      x.save(); x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2); x.closePath(); x.clip();
+      var ps = Math.max((pr * 2) / photoImg.naturalWidth, (pr * 2) / photoImg.naturalHeight);
+      var pw = photoImg.naturalWidth * ps, ph = photoImg.naturalHeight * ps;
+      x.drawImage(photoImg, pcx - pw / 2, pcy - ph / 2, pw, ph);
+      x.restore();
+      x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2);
+      x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.stroke();
+      shift = (pcy + pr) - 34;
+    }
+    x.fillText(label, W / 2, (wide ? 150 : 210) + shift);
     x.fillStyle = 'rgba(200,154,75,.8)';
-    x.fillRect(W / 2 - 40, wide ? 180 : 240, 80, 2);
+    x.fillRect(W / 2 - 40, (wide ? 180 : 240) + shift, 80, 2);
     x.fillStyle = '#5C4A4E';
     x.font = "600 18px Inter, sans-serif";
-    x.fillText(A.label(st.occ).toUpperCase(), W / 2, wide ? 222 : 282);
-    var lines = cardLines(), y = wide ? 300 : 360;
+    x.fillText(A.label(st.occ).toUpperCase(), W / 2, (wide ? 222 : 282) + shift);
+    var lines = cardLines(), y = (wide ? 300 : 360) + shift;
     var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (rhymeOut) {
       var bf = FONT_MAP[st.font] || FONT_MAP.script;
