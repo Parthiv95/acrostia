@@ -145,7 +145,7 @@
     var nonLatin = !A.canAcrostic(st.name);
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' +
       (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + bgNote();
-    nameIn.value = st.name;
+    if (document.activeElement !== nameIn) nameIn.value = st.name;
     if (st.name2 && name2In) name2In.value = st.name2;
     if (st.from && fromIn) fromIn.value = st.from;
     if (st.style !== 'rhyme' && A) {
@@ -259,10 +259,19 @@
   nameIn.addEventListener('input', function () {
     var live = stripInvalid(nameIn.value);
     if (live !== nameIn.value) nameIn.value = live;
-    st.name = live.trim() || 'Noah';
+    var v = live.trim();
+    // an empty field is allowed to stay empty: forcing the last name back made it
+    // impossible to clear the box, you could only type over the old name
+    if (!v) return;
+    st.name = v;
     render(); syncUrl();
   });
-  nameIn.addEventListener('blur', function () { nameIn.value = cleanName(nameIn.value); st.name = nameIn.value || 'Noah'; });
+  nameIn.addEventListener('blur', function () {
+    nameIn.value = cleanName(nameIn.value);
+    if (!nameIn.value) return;
+    st.name = nameIn.value;
+    render(); syncUrl();
+  });
   name2In.addEventListener('input', function () {
     var live = stripInvalid(name2In.value);
     if (live !== name2In.value) name2In.value = live;
