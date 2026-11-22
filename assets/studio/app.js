@@ -174,7 +174,7 @@
     if (wrap) wrap.classList.toggle('is-wide', wide);
     document.getElementById('cardEl').classList.toggle('is-wide', wide);
     cPoem.classList.toggle('two-col', st.style !== 'rhyme' && lastLines.length > 8);
-    cPoem.classList.toggle('three-col', wide && st.style !== 'rhyme' && lastLines.length > 14);
+    cPoem.classList.toggle('three-col', false);
     var nonLatin = !A.canAcrostic(st.name);
     bedCap.textContent = 'Live card · ' + A.label(st.occ) + ' · ' +
       (nonLatin ? 'rhyming verse, no Latin letters' : st.voice + ' voice') + bgNote();

@@ -72,7 +72,7 @@
       border-bottom:1px solid var(--line-soft);
       display:grid;justify-items:center;padding:clamp(28px,4.5vw,64px) 18px clamp(56px,6vw,84px);perspective:1500px}
   .bed .grain{position:absolute;inset:0;background-image:url('../assets/floral/plate-900.jpg');background-size:cover;background-position:50% 30%;opacity:.05;mix-blend-mode:multiply;pointer-events:none}
-  .card-wrap.is-wide{width:min(760px,94vw)}
+  .card-wrap.is-wide{width:min(880px,94vw)}
   .card-wrap{width:min(430px,92vw);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out;will-change:transform;position:relative;z-index:1}
   .card{overflow:hidden;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-radius:3px;padding:clamp(26px,3.2vw,42px) clamp(18px,2.4vw,34px);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(200,154,75,.25),0 40px 70px -38px rgba(96,44,54,.55);position:relative;transform-style:preserve-3d}
   .card::after{content:"";position:absolute;inset:9px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
@@ -166,6 +166,9 @@
   .card ul.is-verse li{padding-left:0;text-indent:0;text-align:center}
   .card ul.two-col{column-count:2;column-gap:1.5rem}
   .card ul.three-col{column-count:3;column-gap:1.4rem}
+  .card.is-wide ul.two-col{column-count:2;column-gap:2.2rem}
+  .card.is-wide.has-bg::before{background:linear-gradient(180deg,rgba(255,252,245,.42) 0%,rgba(255,252,245,.72) 28%,rgba(255,252,245,.76) 55%,rgba(255,252,245,.72) 74%,rgba(255,252,245,.42) 100%)}
+  .card.is-wide ul{font-size:clamp(.9rem,1.5vw,.98rem)}
   .card ul.two-col li{break-inside:avoid;margin-top:0;padding-bottom:.2em}
   @media (max-width:560px){.card ul.two-col{column-count:1}}
   .card ul li b{display:inline-block;width:1.08em;text-indent:0}
@@ -363,7 +366,7 @@
 </footer>
 
 <script src="../assets/floral/engine.js?v=f7f5a71787"></script>
-<script src="../assets/studio/app.js?v=fbd3743f49"></script>
+<script src="../assets/studio/app.js?v=bf552dfb9a"></script>
 
 
 <div id="printRoot" aria-hidden="true"></div>
