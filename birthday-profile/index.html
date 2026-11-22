@@ -63,6 +63,8 @@
   h1 em{font-style:italic;color:#EFD7A8}
   .lede{margin-top:1.1rem;font-size:1.02rem;line-height:1.66;color:rgba(246,233,228,.68);max-width:48ch}
   .entry{margin-top:1.7rem;display:flex;align-items:center;gap:.6rem;max-width:480px}
+  .pf-up{border:1px solid rgba(200,154,75,.45);border-radius:999px;padding:.75rem 1.1rem;color:rgba(246,233,228,.8);font-size:.8rem;cursor:pointer;white-space:nowrap}
+  .pf-up:hover{border-color:var(--gold);color:var(--gold)}
   .entry input{flex:1;min-width:0;background:rgba(246,233,228,.06);border:1px solid rgba(200,154,75,.4);border-radius:999px;padding:.78rem 1.2rem;color:var(--ivory-lt);font-size:.95rem;outline:none}
   .entry input::placeholder{color:rgba(246,233,228,.4)}
   .entry input:focus{border-color:#EFD7A8}
@@ -106,7 +108,7 @@
   }
 </style>
 <script src="../fun-data.js?v=7308c3315e"></script>
-<script src="../assets/profile.js?v=c0db999c15"></script>
+<script src="../assets/profile.js?v=8b779c3691"></script>
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
 </head>
@@ -136,6 +138,7 @@
     <h1>The whole profile, in <em>one ledger.</em></h1>
     <p class="lede">A birth tree from a Celtic date window, a stone for the month, the phase of the moon that night, a number for the day. Thirteen free readings of one date, kept in one ledger you can come back to.</p>
     <form class="entry" onsubmit="return false">
+      <label class="pf-up">Photo (optional)<input class="pf-photo" type="file" accept="image/*" hidden></label>
       <input class="pf-name" type="text" placeholder="Name (optional)" aria-label="Name to print on the card" maxlength="20" autocomplete="off">
       <input type="date" aria-label="Your birth date">
       <button class="pill" type="submit">Open my ledger

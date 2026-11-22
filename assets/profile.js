@@ -13,6 +13,9 @@
 
   var CARDS = [
     { id: 'age', label: 'Age today', href: '' },
+    { id: 'lived', label: 'Days on earth', href: '' },
+    { id: 'next', label: 'Next birthday', href: '' },
+    { id: 'conception', label: 'Date of conception', href: '' },
     { id: 'tree', label: 'Birth tree', href: '../birth-tree/' },
     { id: 'date', label: 'Birth date', href: '../birth-date/' },
     { id: 'month', label: 'Birth month', href: '../birth-month/' },
@@ -47,9 +50,14 @@
     var age = F.ageBreakdown(d, today);
     var lived = F.daysBetween(d, today);
     var nextIn = F.nextBirthdayIn(d, today);
+    var leaps = F.leapYearsSeen(d, today);
+    var conception = new Date(d.getTime() - 266 * 86400000);
     var wd = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d.getDay()];
 
     return {
+      lived: { value: lived.toLocaleString(), line: 'Days on earth, counting today.', note: String(leaps) + ' leap years so far' },
+      next: { value: nextIn === 0 ? 'Today' : nextIn + ' days', line: nextIn === 0 ? 'It is today. Light something.' : 'Until the next birthday.', note: 'the one to plan for' },
+      conception: { value: F.fmt(conception), line: 'About nine months before, give or take.', note: 'give or take a week' },
       age: { value: age.y + (age.y === 1 ? ' year, ' : ' years, ') + age.m + (age.m === 1 ? ' month' : ' months'), line: lived.toLocaleString() + ' days on earth so far.', note: nextIn === 0 ? 'happy birthday' : 'next birthday in ' + nextIn + ' days' },
       tree: { value: tree.name, line: cap(tree.line) + '.', note: MON[tree.from[0] - 1] + ' ' + tree.from[1] + ' to ' + MON[tree.to[0] - 1] + ' ' + tree.to[1] },
       date: { value: String(dnVal), line: cap(F.BIRTH_NUMBERS[dnVal] || ''), note: dnVal === day ? 'the ' + stamp + ' of the month' : 'the ' + stamp + ' reduces to ' + dnVal },
@@ -96,7 +104,7 @@
   /* ---------- the downloadable profile card ----------
      The old build handed people a portrait card with the name, the date and the
      headline facts. Same idea, drawn in the current palette. */
-  function drawCard(date, r, name) {
+  function drawCard(date, r, name, photo) {
     var W = 1080, H = 1500;
     var cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
@@ -108,23 +116,35 @@
     x.strokeStyle = 'rgba(200,154,75,.25)'; x.lineWidth = 1;
     x.strokeRect(52, 52, W - 104, H - 104);
 
+    var topY = 128;
+    if (photo && photo.complete && photo.naturalWidth) {
+      var pr = 74, pcx = W / 2, pcy = 132;
+      x.save(); x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2); x.closePath(); x.clip();
+      var s2 = Math.max((pr * 2) / photo.naturalWidth, (pr * 2) / photo.naturalHeight);
+      x.drawImage(photo, pcx - photo.naturalWidth * s2 / 2, pcy - photo.naturalHeight * s2 / 2, photo.naturalWidth * s2, photo.naturalHeight * s2);
+      x.restore();
+      x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2);
+      x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.stroke();
+      topY = 258;
+    }
+
     x.textAlign = 'center';
     x.fillStyle = '#C89A4B'; x.font = "600 22px Inter, sans-serif";
-    x.fillText('B I R T H D A Y   P R O F I L E', W / 2, 128);
+    x.fillText('B I R T H D A Y   P R O F I L E', W / 2, topY);
     x.fillStyle = '#F6E9E4'; x.font = "600 72px Fraunces, Georgia, serif";
     var head = name ? name + "'s big day" : 'The whole profile';
-    x.fillText(head, W / 2, 226);
+    x.fillText(head, W / 2, topY + 98);
     x.fillStyle = 'rgba(246,233,228,.7)'; x.font = "italic 30px Georgia, serif";
-    x.fillText(F.fmt(date), W / 2, 274);
+    x.fillText(F.fmt(date), W / 2, topY + 146);
 
     // the sign, as the centrepiece
     var sign = F.signFor(date.getMonth() + 1, date.getDate());
     x.fillStyle = '#C89A4B'; x.font = "64px Georgia, serif";
-    x.fillText(sign.glyph + '\uFE0E', W / 2, 372);
+    x.fillText(sign.glyph + '\uFE0E', W / 2, topY + 244);
     x.fillStyle = '#F6E9E4'; x.font = "600 44px Fraunces, Georgia, serif";
-    x.fillText(sign.name, W / 2, 424);
+    x.fillText(sign.name, W / 2, topY + 296);
     x.fillStyle = 'rgba(246,233,228,.62)'; x.font = "20px Inter, sans-serif";
-    x.fillText(sign.element + '  ·  ruled by ' + sign.planet, W / 2, 458);
+    x.fillText(sign.element + '  ·  ruled by ' + sign.planet, W / 2, topY + 330);
 
     // two columns of facts
     var facts = [
@@ -141,7 +161,7 @@
       ['Lucky day', sign.day],
       ['Lucky number', sign.number]
     ];
-    var colW = (W - 200) / 2, top = 540, rowH = 132;
+    var colW = (W - 200) / 2, top = topY + 412, rowH = 120;
     facts.forEach(function (f, i) {
       var col = i % 2, row = Math.floor(i / 2);
       var cx = 100 + col * colW, cy = top + row * rowH;
@@ -160,10 +180,12 @@
     return cv.toDataURL('image/png');
   }
 
+  var profilePhoto = null;
   function download(date, r, name) {
+
     var a = document.createElement('a');
     a.download = 'acrostia-profile-' + iso(date) + '.png';
-    a.href = drawCard(date, r, name);
+    a.href = drawCard(date, r, name, profilePhoto);
     a.click();
   }
 
@@ -222,6 +244,16 @@
       input.value = saved;
       render(startDate);
     }
+
+    var photoIn = document.querySelector('.pf-photo');
+    if (photoIn) photoIn.addEventListener('change', function () {
+      var f = photoIn.files && photoIn.files[0];
+      if (!f) { profilePhoto = null; return; }
+      if (!/^image\//.test(f.type) || f.size > 8 * 1024 * 1024) { photoIn.value = ''; return; }
+      var fr = new FileReader();
+      fr.onload = function () { profilePhoto = new Image(); profilePhoto.src = fr.result; };
+      fr.readAsDataURL(f);
+    });
 
     var nameIn = document.querySelector('.pf-name');
     if (nameIn) nameIn.addEventListener('change', function () {
