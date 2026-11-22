@@ -475,8 +475,9 @@
       nguard++;
     }
     var shift = 0;
+    var hasPhoto = !!(st.photo && photoImg && photoImg.complete && photoImg.naturalWidth);
     if (st.photo && photoImg && photoImg.complete && photoImg.naturalWidth) {
-      var pr = wide ? 62 : 86, pcx = W / 2, pcy = wide ? 92 : 104;
+      var pr = wide ? 54 : 68, pcx = 110 + pr, pcy = wide ? 100 : 118;
       x.save(); x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2); x.closePath(); x.clip();
       var ps = Math.max((pr * 2) / photoImg.naturalWidth, (pr * 2) / photoImg.naturalHeight);
       var pw = photoImg.naturalWidth * ps, ph = photoImg.naturalHeight * ps;
@@ -484,15 +485,20 @@
       x.restore();
       x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2);
       x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.stroke();
-      shift = (pcy + pr) - 34;
+      shift = Math.max(0, (pcy + pr) - (wide ? 150 : 210));
     }
-    x.fillText(label, W / 2, (wide ? 150 : 210) + shift);
+    var nameX = hasPhoto ? (110 + 2 * (wide ? 54 : 68) + 28) : W / 2;
+    x.textAlign = hasPhoto ? 'left' : 'center';
+    x.fillText(label, nameX, hasPhoto ? (wide ? 100 : 118) + 14 : (wide ? 150 : 210) + shift);
     x.fillStyle = 'rgba(200,154,75,.8)';
-    x.fillRect(W / 2 - 40, (wide ? 180 : 240) + shift, 80, 2);
+    if (!hasPhoto) x.fillRect(W / 2 - 40, (wide ? 180 : 240) + shift, 80, 2);
     x.fillStyle = '#5C4A4E';
     x.font = "600 18px Inter, sans-serif";
-    x.fillText(A.label(st.occ).toUpperCase(), W / 2, (wide ? 222 : 282) + shift);
-    var lines = cardLines(), y = (wide ? 300 : 360) + shift;
+    x.textAlign = hasPhoto ? 'left' : 'center';
+    x.fillText(A.label(st.occ).toUpperCase(), hasPhoto ? nameX : W / 2, hasPhoto ? (wide ? 100 : 118) + 44 : (wide ? 222 : 282) + shift);
+    if (hasPhoto) x.fillRect(nameX, (wide ? 100 : 118) + 62, 80, 2);
+    x.textAlign = 'center';
+    var lines = cardLines(), y = (hasPhoto ? (wide ? 250 : 300) : (wide ? 300 : 360) + shift);
     var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (rhymeOut) {
       var bf = FONT_MAP[st.font] || FONT_MAP.script;
