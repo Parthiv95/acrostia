@@ -102,7 +102,8 @@
   .bench.is-on{display:flex}
   .bench .lbl{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40);font-weight:600;margin-right:.2rem}
   .bin{border:1px solid rgba(180,140,120,.35);border-radius:10px;background:var(--ivory);padding:.55rem .8rem;font-size:.95rem;font-family:Fraunces,Georgia,serif;color:var(--ink);outline:none;min-width:0}
-  .bin:focus{border-color:var(--gold)}
+  .bin:focus,.bin:focus-visible{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,154,75,.22)}
+  .bin::-webkit-outer-spin-button,.bin::-webkit-inner-spin-button{appearance:none}
   .bin::placeholder{color:rgba(44,32,36,.32);font-style:italic}
   .chip{appearance:none;border:1px solid rgba(180,140,120,.4);background:#fff;border-radius:999px;padding:.42rem .85rem;font-size:.8rem;color:#4A3A3E;cursor:pointer;transition:all .2s}
   .chip:hover{border-color:var(--gold)}
@@ -256,7 +257,7 @@
   <div class="wrap">
     <div class="bench is-on" data-bench="1">
       <span class="lbl">Name</span>
-      <input class="bin" id="nm" type="text" maxlength="40" aria-label="Their name" placeholder="Noah" value="Noah" style="width:11rem" autocomplete="off">
+      <input class="bin" id="nm" type="text" maxlength="40" aria-label="Their name" placeholder="Noah" value="Noah" style="width:13rem" autocomplete="off">
       <span class="lbl">Second</span>
       <input class="bin" id="nm2" type="text" aria-label="Second name, for couples" placeholder="for couples" style="width:9.5rem" autocomplete="off">
       <span class="lbl">From</span>
@@ -340,7 +341,7 @@
 </footer>
 
 <script src="../assets/floral/engine.js?v=f7f5a71787"></script>
-<script src="../assets/studio/app.js?v=61f2aaa953"></script>
+<script src="../assets/studio/app.js?v=8bb25bf920"></script>
 
 
 <div id="printRoot" aria-hidden="true"></div>

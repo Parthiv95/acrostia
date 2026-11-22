@@ -129,7 +129,7 @@
     var isPair = PAIR_OCC.indexOf(st.occ) !== -1;
     if (name2In) {
       name2In.disabled = !isPair;
-      name2In.placeholder = isPair ? 'for couples' : 'couples occasions only';
+      name2In.placeholder = isPair ? 'second name' : 'couples only';
       if (!isPair && st.name2) { st.name2 = ''; name2In.value = ''; }
     }
     var cCloser = document.getElementById('cCloser');
