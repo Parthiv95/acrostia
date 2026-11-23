@@ -251,6 +251,25 @@
   var photoClear = document.getElementById('photoClear');
   if (photoClear) photoClear.addEventListener('click', function () { st.photo = ''; applyPhoto(); fitCard(); });
 
+  var darkBg = false;
+  function syncDarkBg() {
+    darkBg = false;
+    if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+      var c2 = document.createElement('canvas'); c2.width = 16; c2.height = 16;
+      var x2 = c2.getContext('2d');
+      x2.drawImage(bgImg, 0, 0, 16, 16);
+      var d = null;
+      try { d = x2.getImageData(0, 0, 16, 16).data; } catch (e) { d = null; }
+      if (d) {
+        var sum = 0, cnt = d.length / 4;
+        for (var i = 0; i < d.length; i += 4) sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+        darkBg = sum / cnt < 128;
+      }
+    }
+    var card = document.getElementById('cardEl');
+    if (card) card.classList.toggle('dark-bg', darkBg);
+  }
+
   function applyBg() {
     var card = document.getElementById('cardEl');
     if (!card) return;
@@ -283,6 +302,7 @@
       bgImg = new Image();
       if (/^https?:/i.test(bgSrc(src))) bgImg.crossOrigin = 'anonymous';
       bgImg.src = bgSrc(src);
+      bgImg.onload = function () { syncDarkBg(); render(); };
     }
     document.querySelectorAll('.bgthumb').forEach(function (b) { b.classList.remove('is-on'); });
     if (btn) btn.classList.add('is-on');
@@ -482,6 +502,7 @@
     g.addColorStop(0, '#FFFDF8'); g.addColorStop(1, '#FBF3E8');
     x.fillStyle = g; x.fillRect(0, 0, W, H);
     var hasBg = bgImg && bgImg.complete && bgImg.naturalWidth;
+    var dark = !!hasBg && darkBg;
     if (hasBg) {
       var s = Math.max(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
       var dw = bgImg.naturalWidth * s, dh = bgImg.naturalHeight * s;
@@ -496,8 +517,10 @@
     x.strokeStyle = 'rgba(200,154,75,.3)'; x.lineWidth = 1; x.strokeRect(44, 44, W - 88, H - 88);
     x.textAlign = 'center';
     // photo backgrounds are nearly unscrimmed now, so PNG text carries a cream halo like the DOM card
-    if (hasBg) { x.shadowColor = 'rgba(255,252,245,.9)'; x.shadowBlur = 14; }
-    x.fillStyle = '#8A6420';
+    if (hasBg && dark) { x.shadowColor = 'rgba(0,0,0,.55)'; x.shadowBlur = 10; } else if (hasBg) { x.shadowColor = 'rgba(255,252,245,.9)'; x.shadowBlur = 14; }
+    var P = dark ? { name: '#F0DFAE', sub: '#EFE4D6', ink: '#FBF3E4', accent: '#F6C6CF', rule: 'rgba(240,214,150,.8)' }
+                 : { name: '#8A6420', sub: '#5C4A4E', ink: '#3B2B2E', accent: '#6B1F2D', rule: 'rgba(200,154,75,.8)' };
+    x.fillStyle = P.name;
     var nf = FONT_MAP[st.font] || FONT_MAP.script;
     var label = pairName();
     if (nf.caps) label = label.toUpperCase();
@@ -527,9 +550,9 @@
       nguard++;
     }
     x.fillText(spaced(label), nameX, hasPhoto ? (wide ? 100 : 118) + 14 : (wide ? 150 : 210) + shift);
-    x.fillStyle = 'rgba(200,154,75,.8)';
+    x.fillStyle = P.rule;
     if (!hasPhoto) x.fillRect(W / 2 - 40, (wide ? 180 : 240) + shift, 80, 2);
-    x.fillStyle = '#5C4A4E';
+    x.fillStyle = P.sub;
     x.font = "600 18px Inter, sans-serif";
     x.textAlign = hasPhoto ? 'left' : 'center';
     x.fillText(A.label(st.occ).toUpperCase(), hasPhoto ? nameX : W / 2, hasPhoto ? (wide ? 100 : 118) + 44 : (wide ? 222 : 282) + shift);
@@ -550,7 +573,7 @@
         bs -= 1; g3++;
       }
       var blh = Math.round(bs * 1.72);
-      x.fillStyle = '#3B2B2E';
+      x.fillStyle = P.ink;
       lines.forEach(function (l) { x.fillText(l.raw, W / 2, y); y += blh; });
     } else {
       var bf2 = FONT_MAP[st.font] || FONT_MAP.script;
@@ -598,10 +621,10 @@
         var yy = y0;
         p2.wrapped.forEach(function (item) {
           x.textAlign = 'left';
-          x.fillStyle = '#6B1F2D';
+          x.fillStyle = P.accent;
           x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + Math.round(tsize * 1.15) + 'px ' + bf2.body;
           x.fillText(item.l.letter, x0, yy);
-          x.fillStyle = '#3B2B2E';
+          x.fillStyle = P.ink;
           x.font = bf2.bstyle + ' ' + bf2.bweight + ' ' + tsize + 'px ' + bf2.body;
           item.parts.forEach(function (part, i) { x.fillText(part, x0 + 40, yy + i * p2.lh); });
           yy += (item.parts.length - 1) * p2.lh + p2.lh + p2.gap;
@@ -614,9 +637,9 @@
       if (st.name2 && PAIR_OCC.indexOf(st.occ) !== -1) {
         pairBlocks(lines).forEach(function (g) {
           x.textAlign = 'left';
-          x.fillStyle = '#8A6420'; x.font = '600 17px Inter, sans-serif';
+          x.fillStyle = P.name; x.font = '600 17px Inter, sans-serif';
           x.fillText(g.who.toUpperCase(), 110, y);
-          x.fillStyle = 'rgba(200,154,75,.75)'; x.fillRect(110, y + 10, 34, 2);
+          x.fillStyle = P.rule; x.fillRect(110, y + 10, 34, 2);
           var single = layout(g.lines, tsize, W - 200);
           y = drawColumn(single, 110, y + 42) + 14;
         });
@@ -633,12 +656,12 @@
     var isRhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (!isRhymeOut && A.closer) {
       var cf = FONT_MAP[st.font] || FONT_MAP.script;
-      x.fillStyle = '#6B1F2D';
+      x.fillStyle = P.accent;
       x.font = cf.bstyle + ' ' + cf.bweight + ' ' + (wide ? 26 : 28) + 'px ' + cf.body;
       x.fillText(pairName() + ', ' + A.closer(st.occ), W / 2, H - (wide ? 116 : 150));
     }
     if (st.from) {
-      x.fillStyle = '#5C4A4E'; x.font = 'italic 22px Inter, sans-serif';
+      x.fillStyle = P.sub; x.font = 'italic 22px Inter, sans-serif';
       x.fillText('from ' + st.from, W / 2, H - (wide ? 74 : 108));
     }
     x.shadowBlur = 0; x.shadowColor = 'transparent';

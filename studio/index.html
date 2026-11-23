@@ -127,6 +127,13 @@
   .card.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
   .card.has-bg .nm,.card.has-bg ul,.card.has-bg .closer,.card.has-bg .occ-line,.card.has-bg .fromline{text-shadow:0 1px 2px rgba(255,255,255,.95),0 0 10px rgba(255,252,245,.95),0 0 24px rgba(255,252,245,.7)}
   .card.has-bg::before{content:"";position:absolute;inset:0;background:var(--card-scrim,radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.7) 0%,rgba(255,252,245,.55) 52%,rgba(255,252,245,.35) 100%));z-index:0}
+  /* dark photo backgrounds flip the card to a light palette; the sampler in app.js toggles dark-bg */
+  .card.dark-bg .nm{color:#F0DFAE}
+  .card.dark-bg ul{color:#FBF3E4}
+  .card.dark-bg ul b{color:#F6C6CF}
+  .card.dark-bg .closer{color:#F6C6CF}
+  .card.dark-bg .occ-line,.card.dark-bg .fromline{color:#EFE4D6}
+  .card.dark-bg .nm,.card.dark-bg ul,.card.dark-bg .closer,.card.dark-bg .occ-line,.card.dark-bg .fromline{text-shadow:0 1px 3px rgba(0,0,0,.6),0 0 16px rgba(0,0,0,.4)}
   .card > *{position:relative;z-index:1}
   .occSel{border:1px solid rgba(180,140,120,.35);border-radius:9px;background:var(--ivory);padding:.45rem .6rem;font-size:.8rem;color:var(--ink);max-width:11rem}
   .line-reroll{all:unset;display:inline;cursor:pointer;border-radius:4px}
