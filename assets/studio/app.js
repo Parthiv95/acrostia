@@ -103,7 +103,7 @@
   // One source for the wash that keeps the poem legible over artwork. The screen
   // reads it through --card-scrim and the canvas replays the same stops, so the
   // download can no longer look unlike the preview.
-  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.2)'], [0.28, 'rgba(255,252,245,.32)'], [0.5, 'rgba(255,252,245,.36)'], [0.72, 'rgba(255,252,245,.32)'], [1, 'rgba(255,252,245,.2)']] };
+  var SCRIM = { type: 'linear', stops: [[0, 'rgba(255,252,245,.08)'], [0.28, 'rgba(255,252,245,.16)'], [0.5, 'rgba(255,252,245,.2)'], [0.72, 'rgba(255,252,245,.16)'], [1, 'rgba(255,252,245,.08)']] };
   function scrimCss() {
     var stops = SCRIM.stops.map(function (s) { return s[1] + ' ' + Math.round(s[0] * 100) + '%'; }).join(', ');
     if (SCRIM.type === 'linear') return 'linear-gradient(180deg, ' + stops + ')';
@@ -481,7 +481,8 @@
     var g = x.createLinearGradient(0, 0, 0, H);
     g.addColorStop(0, '#FFFDF8'); g.addColorStop(1, '#FBF3E8');
     x.fillStyle = g; x.fillRect(0, 0, W, H);
-    if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+    var hasBg = bgImg && bgImg.complete && bgImg.naturalWidth;
+    if (hasBg) {
       var s = Math.max(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
       var dw = bgImg.naturalWidth * s, dh = bgImg.naturalHeight * s;
       x.drawImage(bgImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
@@ -494,6 +495,8 @@
     x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.strokeRect(28, 28, W - 56, H - 56);
     x.strokeStyle = 'rgba(200,154,75,.3)'; x.lineWidth = 1; x.strokeRect(44, 44, W - 88, H - 88);
     x.textAlign = 'center';
+    // photo backgrounds are nearly unscrimmed now, so PNG text carries a cream halo like the DOM card
+    if (hasBg) { x.shadowColor = 'rgba(255,252,245,.9)'; x.shadowBlur = 14; }
     x.fillStyle = '#8A6420';
     var nf = FONT_MAP[st.font] || FONT_MAP.script;
     var label = pairName();
@@ -638,6 +641,7 @@
       x.fillStyle = '#5C4A4E'; x.font = 'italic 22px Inter, sans-serif';
       x.fillText('from ' + st.from, W / 2, H - (wide ? 74 : 108));
     }
+    x.shadowBlur = 0; x.shadowColor = 'transparent';
     x.fillStyle = '#C9557B'; x.font = '26px serif'; x.fillText('\u2665', W / 2, H - (wide ? 34 : 68));
     return cv.toDataURL('image/png');
   }
