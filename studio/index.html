@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Write an acrostic or rhyming poem for any name and occasion, choose the paper, and download the card. Free, no sign up. Free and printable, with no sign up and.">
+<meta name="description" content="Write an acrostic or rhyming poem for any name and occasion, choose the paper, and download the card. Free, printable, no sign up.">
 <link rel="canonical" href="https://parthiv95.github.io/acrostia/studio/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Acrostia">
 <meta property="og:title" content="Acrostia — The Press">
-<meta property="og:description" content="Write an acrostic or rhyming poem for any name and occasion, choose the paper, and download the card. Free, no sign up. Free and printable, with no sign up and.">
+<meta property="og:description" content="Write an acrostic or rhyming poem for any name and occasion, choose the paper, and download the card. Free, printable, no sign up.">
 <meta property="og:url" content="https://parthiv95.github.io/acrostia/studio/">
 <meta property="og:image" content="https://parthiv95.github.io/acrostia/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -78,7 +78,7 @@
   .card::after{content:"";position:absolute;inset:9px;border:1px solid rgba(200,154,75,.4);pointer-events:none}
   .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.7rem,4.4vw,3.6rem);text-align:center;color:var(--gold-deep);line-height:1.06;letter-spacing:.012em;transform:translateZ(24px);padding:0 .35em}
   .card.is-wide .nm{letter-spacing:.02em}
-  .card .occ-line{margin-top:.55rem;text-align:center;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(16px)}
+  .card .occ-line{margin-top:.55rem;text-align:center;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);transform:translateZ(16px)}
   .card .rule{width:58px;height:1px;background:rgba(200,154,75,.6);margin:.9rem auto 0;transform:translateZ(14px)}
   .card ul{list-style:none;margin:1.2rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:clamp(.94rem,1.2vw,1.06rem);line-height:1.85;color:#3B2B2E;text-align:center;transform:translateZ(10px)}
   .card ul li{padding-left:0;text-indent:0}
@@ -97,7 +97,7 @@
   .card.t-script ul{line-height:2.25}
   .card.t-hand ul{line-height:2.1}
   .card.t-hand ul, .card.t-hand .closer{font-size:calc(clamp(.94rem,1.2vw,1.06rem) * 1.07)}
-  .card .closer{margin:1.1rem auto 0;max-width:30ch;text-align:center;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:.9rem;line-height:1.5;color:var(--burg);transform:translateZ(10px)}
+  .card .closer{margin:1.1rem auto 0;max-width:30ch;text-align:center;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:.95rem;line-height:1.5;color:var(--burg);transform:translateZ(10px)}
   .card .fromline{margin:.7rem auto 0;text-align:center;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(8px)}
   .card .closer:empty,.card .fromline:empty{display:none}
   .bed-cap{position:absolute;bottom:1.05rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);z-index:1;white-space:nowrap}
@@ -234,6 +234,17 @@
   .card .photo img{width:100%;height:100%;object-fit:cover;display:block}
   .upbtn{appearance:none;border:1px dashed rgba(180,140,120,.55);border-radius:9px;background:var(--ivory);padding:.5rem .8rem;font-size:.78rem;color:var(--ink-60);cursor:pointer;font-family:inherit}
   .upbtn:hover{border-color:var(--burg);color:var(--burg)}
+
+  /* mobile menu: burger shows below the nav-hide breakpoint, toggles header.open */
+  header .bar{position:relative}
+  .burger{display:none;border:0;background:none;color:#3C2F33;cursor:pointer;padding:.45rem;margin-left:auto;border-radius:10px}
+  .burger:hover{color:#6B1F2D}
+  @media (max-width:900px){
+    .burger{display:inline-flex}
+    header.open nav{display:flex;position:absolute;top:100%;left:0;right:0;z-index:60;flex-direction:column;gap:.1rem;background:#FFFDF8;padding:.5rem 1.4rem 1rem;border-bottom:1px solid rgba(200,154,75,.45);box-shadow:0 22px 34px -24px rgba(107,31,45,.5)}
+    header.open nav a{padding:.55rem 0;font-size:1rem;border-bottom:1px solid rgba(200,154,75,.2)}
+    header.open nav a:last-child{border-bottom:0}
+  }
 </style>
 <script src="../assets/analytics.js" defer></script>
 <link rel="manifest" href="../manifest.webmanifest">
@@ -249,8 +260,8 @@
     </a>
     <nav><a href="../studio/">Create</a><a href="../birthday/">Discover</a><a href="../first-letter/">Explore</a><a href="../#occasions">Occasions</a>
         <a href="../examples/">Examples</a><a href="../#faq">FAQ</a></nav>
-    <div class="bar-right">
-      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></button>
+    <button class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('header');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="bar-right">
       <a class="pill" href="../studio/">Start Creating</a>
     </div>
   </div>
@@ -327,7 +338,7 @@
       <span class="lbl">Form</span>
       <div class="seg"><button class="is-on">Acrostic</button><button>Rhyming</button></div>
       <span class="lbl">Voice</span>
-      <button class="chip v is-on">Gentle</button><button class="chip v">Playful</button><button class="chip v">Heartfelt</button><button class="chip v">Grand</button>
+      <button class="chip v is-on">Gentle</button><button class="chip v">Playful</button><button class="chip v">Heartfelt</button><button class="chip v">Grand</button><button class="chip" id="verseBtn">Another verse</button>
       <div class="step-cta"><button class="quiet" data-goto="2">Back</button><button class="pill" data-goto="4">Paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
     </div>
 

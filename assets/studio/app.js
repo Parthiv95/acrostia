@@ -519,7 +519,7 @@
     // photo backgrounds are nearly unscrimmed now, so PNG text carries a cream halo like the DOM card
     if (hasBg && dark) { x.shadowColor = 'rgba(0,0,0,.55)'; x.shadowBlur = 10; } else if (hasBg) { x.shadowColor = 'rgba(255,252,245,.9)'; x.shadowBlur = 14; }
     var P = dark ? { name: '#F0DFAE', sub: '#EFE4D6', ink: '#FBF3E4', accent: '#F6C6CF', rule: 'rgba(240,214,150,.8)' }
-                 : { name: '#8A6420', sub: '#5C4A4E', ink: '#3B2B2E', accent: '#6B1F2D', rule: 'rgba(200,154,75,.8)' };
+                 : { name: '#8A6420', sub: '#4A3A3E', ink: '#3B2B2E', accent: '#6B1F2D', rule: 'rgba(200,154,75,.8)' };
     x.fillStyle = P.name;
     var nf = FONT_MAP[st.font] || FONT_MAP.script;
     var label = pairName();
@@ -790,7 +790,8 @@
   var qbg = qs.get('bg');
   if (qbg && safeBg(qbg)) {
     var target = document.querySelector('.bgthumb[data-bg="' + qbg.replace(/"/g, '') + '"]');
-    setBg(qbg, target);
+    // a deep link naming a background with no thumb (or file) would 404 forever
+    if (target || /^data:image/.test(qbg)) setBg(qbg, target);
   }
   render();
   showCount(nameIn);

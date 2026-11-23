@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more. Free, instant, and.">
+<meta name="description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more. Free, instant, no sign up.">
 <link rel="canonical" href="https://parthiv95.github.io/acrostia/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Acrostia">
 <meta property="og:title" content="Acrostia: personalized name poems for every occasion">
-<meta property="og:description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more. Free, instant, and.">
+<meta property="og:description" content="Type a name, pick an occasion, get a personalized acrostic or rhyming poem. Free name poems for birthdays, weddings, Diwali, Eid and more. Free, instant, no sign up.">
 <meta property="og:url" content="https://parthiv95.github.io/acrostia/">
 <meta property="og:image" content="https://parthiv95.github.io/acrostia/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -264,6 +264,17 @@
   .paper .sw{display:block;aspect-ratio:4/5;border-radius:6px;background-size:cover;background-position:center;border:1px solid rgba(200,154,75,.4);transition:transform .3s,box-shadow .3s}
   .paper:hover .sw{transform:translateY(-2px);box-shadow:0 8px 18px -12px rgba(96,44,54,.6)}
   .paper .nm{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-40);text-align:center}
+
+  /* mobile menu: burger shows below the nav-hide breakpoint, toggles header.open */
+  header .bar{position:relative}
+  .burger{display:none;border:0;background:none;color:#3C2F33;cursor:pointer;padding:.45rem;margin-left:auto;border-radius:10px}
+  .burger:hover{color:#6B1F2D}
+  @media (max-width:980px){
+    .burger{display:inline-flex}
+    header.open nav{display:flex;position:absolute;top:100%;left:0;right:0;z-index:60;flex-direction:column;gap:.1rem;background:#FFFDF8;padding:.5rem 1.4rem 1rem;border-bottom:1px solid rgba(200,154,75,.45);box-shadow:0 22px 34px -24px rgba(107,31,45,.5)}
+    header.open nav a{padding:.55rem 0;font-size:1rem;border-bottom:1px solid rgba(200,154,75,.2)}
+    header.open nav a:last-child{border-bottom:0}
+  }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"Acrostia","url":"https://parthiv95.github.io/acrostia/","description":"Personalized acrostic and rhyming name poems on printable keepsake cards."}
@@ -282,10 +293,8 @@
     </a>
     <nav><a href="studio/">Create</a><a href="birthday/">Discover</a><a href="first-letter/">Explore</a><a href="#occasions">Occasions</a>
         <a href="examples/">Examples</a><a href="#faq">FAQ</a></nav>
-    <div class="bar-right">
-      <button class="icon-btn" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
-      </button>
+    <button class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('header');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="bar-right">
       <a class="pill" href="studio/">Start Creating
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </a>
