@@ -12,6 +12,7 @@
     name: cleanName(qs.get('n')) || 'Noah',
     name2: cleanName(qs.get('n2')),
     from: (qs.get('from') || '').replace(/[^\p{L}\s'&.-]/gu, '').slice(0, 24),
+    dateline: '',
     occ: OCC_MAP[(qs.get('o') || 'birthday').toLowerCase()] || 'birthday',
     style: (qs.get('s') === 'rhyming' ? 'rhyme' : 'acrostic'),
     voice: qs.get('v') || 'gentle',
@@ -22,8 +23,8 @@
   };
 
   var el = function (id) { return document.getElementById(id); };
-  var nameIn = el('nm'), name2In = el('nm2'), fromIn = el('from');
-  var cName = el('cName'), cOcc = el('cOcc'), cPoem = el('cPoem'), bedCap = el('bedCap');
+  var nameIn = el('nm'), name2In = el('nm2'), fromIn = el('from'), datelineIn = el('dateline');
+  var cName = el('cName'), cOcc = el('cOcc'), cDate = el('cDate'), cPoem = el('cPoem'), bedCap = el('bedCap');
   var hint = el('hint'), prog = el('prog');
 
   nameIn.value = st.name;
@@ -144,6 +145,7 @@
     cName.textContent = spaced(head);   // the name is fitted, not truncated
     cName.title = head;
     cOcc.textContent = A ? A.label(st.occ) : st.occ;
+    if (cDate) cDate.textContent = st.dateline || '';
     lastLines = cardLines();
     if (cCloser) {
       var isRhyme = st.style === 'rhyme';
@@ -405,6 +407,7 @@
     syncUrl();
   });
   fromIn.addEventListener('input', function () { st.from = fromIn.value.trim(); render(); });
+  datelineIn.addEventListener('input', function () { st.dateline = datelineIn.value.replace(/[<>]/g, '').trim().slice(0, 60); render(); });
   var verseBtn = document.getElementById('verseBtn');
   if (verseBtn) verseBtn.addEventListener('click', function () {
     var n = (A && A.verseCount) ? A.verseCount(st.occ) : 2;
@@ -556,9 +559,14 @@
     x.font = "600 18px Inter, sans-serif";
     x.textAlign = hasPhoto ? 'left' : 'center';
     x.fillText(A.label(st.occ).toUpperCase(), hasPhoto ? nameX : W / 2, hasPhoto ? (wide ? 100 : 118) + 44 : (wide ? 222 : 282) + shift);
+    if (st.dateline) {
+      x.fillStyle = P.name;
+      x.font = 'italic 20px Inter, sans-serif';
+      x.fillText(st.dateline, hasPhoto ? nameX : W / 2, hasPhoto ? (wide ? 100 : 118) + 92 : (wide ? 222 : 282) + shift + 32);
+    }
     if (hasPhoto) x.fillRect(nameX, (wide ? 100 : 118) + 62, 80, 2);
     x.textAlign = 'center';
-    var lines = cardLines(), y = (hasPhoto ? (wide ? 250 : 300) : (wide ? 300 : 360) + shift);
+    var lines = cardLines(), y = (hasPhoto ? (wide ? 250 : 300) : (wide ? 300 : 360) + shift) + (st.dateline ? 34 : 0);
     var rhymeOut = st.style === 'rhyme' || !A.canAcrostic(st.name);
     if (rhymeOut) {
       var bf = FONT_MAP[st.font] || FONT_MAP.script;

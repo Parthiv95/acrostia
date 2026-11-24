@@ -79,6 +79,7 @@
   .card .nm{font-family:"Great Vibes",cursive;font-size:clamp(2.7rem,4.4vw,3.6rem);text-align:center;color:var(--gold-deep);line-height:1.06;letter-spacing:.012em;transform:translateZ(24px);padding:0 .35em}
   .card.is-wide .nm{letter-spacing:.02em}
   .card .occ-line{margin-top:.55rem;text-align:center;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);transform:translateZ(16px)}
+  .card .dateline{margin-top:.45rem;text-align:center;font-style:italic;font-size:.72rem;letter-spacing:.04em;color:#8A6A30;transform:translateZ(14px)}
   .card .rule{width:58px;height:1px;background:rgba(200,154,75,.6);margin:.9rem auto 0;transform:translateZ(14px)}
   .card ul{list-style:none;margin:1.2rem 0 0;padding:0;font-family:Fraunces,Georgia,serif;font-size:clamp(.94rem,1.2vw,1.06rem);line-height:1.85;color:#3B2B2E;text-align:center;transform:translateZ(10px)}
   .card ul li{padding-left:0;text-indent:0}
@@ -99,7 +100,7 @@
   .card.t-hand ul, .card.t-hand .closer{font-size:calc(clamp(.94rem,1.2vw,1.06rem) * 1.07)}
   .card .closer{margin:1.1rem auto 0;max-width:30ch;text-align:center;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:.95rem;line-height:1.5;color:var(--burg);transform:translateZ(10px)}
   .card .fromline{margin:.7rem auto 0;text-align:center;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-40);transform:translateZ(8px)}
-  .card .closer:empty,.card .fromline:empty{display:none}
+  .card .closer:empty,.card .fromline:empty,.card .dateline:empty{display:none}
   .bed-cap{position:absolute;bottom:1.05rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-60);z-index:1;white-space:nowrap}
 
   /* ---------- bench ---------- */
@@ -124,15 +125,15 @@
   .bgthumb.plain{background:linear-gradient(180deg,#FFFDF8,#FBF3E8);border-color:rgba(200,154,75,.5);display:grid;place-items:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-40)}
   .bgthumb.up{background:var(--ivory);border:1px dashed rgba(180,140,120,.55);display:grid;place-items:center;font-size:.55rem;color:var(--ink-40);text-align:center;line-height:1.2}
   .card.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
-  .card.has-bg .nm,.card.has-bg ul,.card.has-bg .closer,.card.has-bg .occ-line,.card.has-bg .fromline{text-shadow:0 1px 2px rgba(255,255,255,.95),0 0 10px rgba(255,252,245,.95),0 0 24px rgba(255,252,245,.7)}
+  .card.has-bg .nm,.card.has-bg ul,.card.has-bg .closer,.card.has-bg .occ-line,.card.has-bg .fromline,.card.has-bg .dateline{text-shadow:0 1px 2px rgba(255,255,255,.95),0 0 10px rgba(255,252,245,.95),0 0 24px rgba(255,252,245,.7)}
   .card.has-bg::before{content:"";position:absolute;inset:0;background:var(--card-scrim,radial-gradient(ellipse at 50% 46%,rgba(255,252,245,.7) 0%,rgba(255,252,245,.55) 52%,rgba(255,252,245,.35) 100%));z-index:0}
   /* dark photo backgrounds flip the card to a light palette; the sampler in app.js toggles dark-bg */
   .card.dark-bg .nm{color:#F0DFAE}
   .card.dark-bg ul{color:#FBF3E4}
   .card.dark-bg ul b{color:#F6C6CF}
   .card.dark-bg .closer{color:#F6C6CF}
-  .card.dark-bg .occ-line,.card.dark-bg .fromline{color:#EFE4D6}
-  .card.dark-bg .nm,.card.dark-bg ul,.card.dark-bg .closer,.card.dark-bg .occ-line,.card.dark-bg .fromline{text-shadow:0 1px 3px rgba(0,0,0,.6),0 0 16px rgba(0,0,0,.4)}
+  .card.dark-bg .occ-line,.card.dark-bg .fromline,.card.dark-bg .dateline{color:#EFE4D6}
+  .card.dark-bg .nm,.card.dark-bg ul,.card.dark-bg .closer,.card.dark-bg .occ-line,.card.dark-bg .fromline,.card.dark-bg .dateline{text-shadow:0 1px 3px rgba(0,0,0,.6),0 0 16px rgba(0,0,0,.4)}
   .card > *{position:relative;z-index:1}
   .occSel{border:1px solid rgba(180,140,120,.35);border-radius:9px;background:var(--ivory);padding:.45rem .6rem;font-size:.8rem;color:var(--ink);max-width:11rem}
   .line-reroll{all:unset;display:inline;cursor:pointer;border-radius:4px}
@@ -199,6 +200,7 @@
     #printRoot .sheet.is-wide .card ul{column-count:2;column-gap:10mm;font-size:8.3pt;line-height:1.5;margin-top:5mm}
     #printRoot .sheet.is-wide .card .nm{font-size:30pt}
     #printRoot .sheet.is-wide .card .occ-line{font-size:6.5pt;margin-top:3mm}
+    #printRoot .sheet.is-wide .card .dateline{font-size:8pt;margin-top:2mm}
     #printRoot .sheet.is-wide .card .rule{margin-top:2.5mm}
     #printRoot .sheet.is-wide .card .closer{font-size:7.6pt;margin-top:4mm}
     #printRoot .sheet.is-wide .card .heart{width:2.8mm;height:2.8mm;margin-top:3mm}
@@ -216,6 +218,7 @@
     #printRoot .sheet.is-wide .card .photo.has{width:22mm;margin-bottom:3mm}
     #printRoot .card .nm{font-size:44pt;line-height:1.05}
     #printRoot .card .occ-line{font-size:7.5pt;letter-spacing:.22em;margin-top:5mm}
+    #printRoot .card .dateline{font-size:9.5pt;margin-top:2.5mm}
     #printRoot .card .rule{margin-top:4mm;width:22mm}
     #printRoot .card ul{margin-top:7mm;font-size:11.5pt;line-height:1.75}
     #printRoot .card ul.two-col{column-count:2;column-gap:10mm}
@@ -294,6 +297,7 @@
           <div class="names">
             <div class="nm" id="cName">Noah</div>
             <div class="occ-line" id="cOcc">For a birthday</div>
+            <div class="dateline" id="cDate"></div>
             <div class="rule"></div>
           </div>
         </div>
@@ -323,6 +327,8 @@
       <button class="upbtn" id="photoClear" hidden>Remove</button>
       <span class="lbl">From</span>
       <input class="bin" id="from" type="text" aria-label="From, who sends the card" placeholder="who sends it" style="width:9.5rem" autocomplete="off">
+      <span class="lbl">Date line</span>
+      <input class="bin" id="dateline" type="text" maxlength="60" aria-label="Optional date line under the occasion, e.g. twelve June mornings since 2014" placeholder="optional — e.g. since 2014" style="width:12rem" autocomplete="off">
       <label class="check" style="display:flex;gap:.45rem;align-items:center;font-size:.78rem;color:var(--ink-60)"><input type="checkbox" id="kidTone" style="accent-color:var(--burg)"> lighter tone for a child</label>
       <div class="step-cta"><button class="pill" data-goto="2">Occasion <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
     </div>
