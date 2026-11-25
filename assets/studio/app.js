@@ -19,7 +19,7 @@
     verse: 0,
     // keepsake reads at a glance; the script is a deliberate choice, not the default
     photo: '',
-    font: (['script','keepsake','simple','hand','storybook'].indexOf(qs.get('f')) !== -1 ? qs.get('f') : 'keepsake')
+    font: (['script','keepsake','simple','hand','storybook','elegant','flourish','classic'].indexOf(qs.get('f')) !== -1 ? qs.get('f') : 'keepsake')
   };
 
   var el = function (id) { return document.getElementById(id); };
@@ -874,6 +874,29 @@
    footer links, and the poem clipped by the viewport. Print gets its own sheet,
    cloned at print time so it carries whatever the card currently says. */
 (function () {
+  // the title carries its screen font inline, which would override the print
+  // sheet's sizing and clip long couples names; rewrite it at a fitted size
+  function fitName(card, wide) {
+    var nm = card.querySelector('.nm');
+    if (!nm || !nm.textContent) return;
+    var cs = getComputedStyle(nm);
+    // card content width in mm (sheet size minus padding), less photo and flex gap when there is one
+    var avail = (wide ? 162 : 100) - (card.querySelector('.photo.has') ? (wide ? 22 : 26) + 7 : 0);
+    var boxPx = avail * 96 / 25.4;
+    var text = nm.textContent;
+    if ((nm.style.textTransform || cs.textTransform) === 'uppercase') text = text.toUpperCase();
+    var lsPx = parseFloat(cs.letterSpacing);
+    if (isNaN(lsPx)) lsPx = 0;
+    var fs = parseFloat(cs.fontSize) || 16;
+    var lsr = lsPx / fs; // tracking as a font-size ratio, so em-based caps tracking scales with the fit
+    var ctx = document.createElement('canvas').getContext('2d');
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' 100px ' + cs.fontFamily;
+    var w = ctx.measureText(text).width / 100 + lsr * (text.length - 1); // rendered width per 1px of font-size
+    var capPx = (wide ? 30 : 44) * 96 / 72; // the sheet's own name size
+    var fit = Math.min(capPx, boxPx / w);
+    nm.style.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + fit + 'px ' + cs.fontFamily;
+    if (lsr) nm.style.letterSpacing = (lsr * fit) + 'px';
+  }
   function build() {
     // resolve both at print time: this script runs before the container exists in
     // the document, and a card reference captured at load can go stale
@@ -899,6 +922,9 @@
     [].forEach.call(clone.querySelectorAll('[id]'), function (n) { n.removeAttribute('id'); });
     sheet.appendChild(clone);
     root.appendChild(sheet);
+    // fit only once the clone is in the document: getComputedStyle is empty on a
+    // detached node, which would silently reject the fitted font shorthand
+    fitName(clone, live.classList.contains('is-wide'));
     document.documentElement.classList.add('printing-card');
   }
   function clear() { document.documentElement.classList.remove('printing-card'); }
