@@ -171,7 +171,8 @@
     if (name2In) {
       name2In.disabled = !isPair;
       name2In.placeholder = isPair ? 'second name' : 'couples only';
-      if (!isPair && st.name2) { st.name2 = ''; name2In.value = ''; }
+      if (!isPair && st.name2) { st.name2 = ''; } // keep the typed text; restored when a pair occasion returns
+      else if (isPair) { st.name2 = name2In.value.trim(); }
     }
     var cCloser = document.getElementById('cCloser');
     var cFrom = document.getElementById('cFrom');
@@ -350,6 +351,7 @@
     document.querySelectorAll('.bgthumb').forEach(function (b) { b.classList.remove('is-on'); });
     if (btn) btn.classList.add('is-on');
     applyBg();
+    syncDarkBg(); // also on clear: otherwise the old photo's dark-bg class survives Plain
     render();
     var u = new URL(location.href);
     if (src) u.searchParams.set('bg', src); else u.searchParams.delete('bg');
@@ -730,8 +732,10 @@
   }
 
   function copy(txt, btn) {
-    if (navigator.clipboard) navigator.clipboard.writeText(txt);
-    if (btn) { var old = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = old; }, 1400); }
+    function flip() { if (btn) { var old = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = old; }, 1400); } }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(txt).then(flip, function () { }); // denial: leave the button honest
+    }
   }
 
   var acts = document.querySelectorAll('[data-bench="5"] button');
