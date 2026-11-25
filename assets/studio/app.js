@@ -147,7 +147,16 @@
                  body: "'Bradley Hand', 'Segoe Script', cursive", bstyle: "normal", bweight: "400", bsize: "1.02", cpx: 1.07 },
     storybook: { name: "300 clamp(2rem,3.2vw,2.6rem) Fraunces, Georgia, serif",
                  cv: "300 64px Fraunces, Georgia, serif", caps: false, track: ".02em",
-                 body: "Fraunces, Georgia, serif", bstyle: "normal", bweight: "300", bsize: ".94", cpx: 1 }
+                 body: "Fraunces, Georgia, serif", bstyle: "normal", bweight: "300", bsize: ".94", cpx: 1 },
+    elegant:   { name: "500 clamp(1.9rem,3vw,2.5rem) 'Playfair Display', Georgia, serif",
+                 cv: "500 64px 'Playfair Display', Georgia, serif", caps: false, track: ".01em",
+                 body: "'Playfair Display', Georgia, serif", bstyle: "normal", bweight: "500", bsize: ".92", cpx: 1 },
+    flourish:  { name: "clamp(2.3rem,3.8vw,3.2rem) Parisienne, cursive",
+                 cv: "84px Parisienne, cursive", caps: false, track: "0",
+                 body: "Parisienne, cursive", bstyle: "normal", bweight: "400", bsize: ".98", cpx: 1.1 },
+    classic:   { name: "400 clamp(1.5rem,2.4vw,2rem) Marcellus, Georgia, serif",
+                 cv: "400 52px Marcellus, Georgia, serif", caps: true, track: ".08em",
+                 body: "Marcellus, Georgia, serif", bstyle: "normal", bweight: "400", bsize: ".9", cpx: 1 }
   };
 
   function render() {
