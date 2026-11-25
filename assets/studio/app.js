@@ -112,6 +112,19 @@
   }
   try { document.documentElement.style.setProperty('--card-scrim', scrimCss()); } catch (e) {}
 
+  /* Curated photo backgrounds keep their approved treatment: dark photos stay
+     original under cream text, busy mid-tones get a flat dark scrim, light ones
+     keep the soft wash. Keyed by path so deep links resolve the tone too. */
+  var TONE = {
+    '../assets/templates/pexels-bokeh.jpg': 'dark',
+    '../assets/templates/pexels-diya.jpg': 'dark',
+    '../assets/templates/pexels-roses.jpg': 'light',
+    '../assets/templates/pexels-balloons.jpg': 'light',
+    '../assets/templates/pexels-eucalyptus.jpg': 'light',
+    '../assets/templates/pexels-marble.jpg': 'busy'
+  };
+  function toneOf() { return TONE[bgSrc(st.bg)] || ''; }
+
   var FONT_MAP = {
     script:    { name: "clamp(2.4rem,4vw,3.4rem) 'Great Vibes', cursive",
                  cv: "88px 'Great Vibes', cursive", caps: false, track: "0",
@@ -256,7 +269,10 @@
   var darkBg = false;
   function syncDarkBg() {
     darkBg = false;
-    if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+    var tone = toneOf();
+    if (tone === 'dark' || tone === 'busy') darkBg = true;
+    else if (tone === 'light') darkBg = false;
+    else if (bgImg && bgImg.complete && bgImg.naturalWidth) {
       var c2 = document.createElement('canvas'); c2.width = 16; c2.height = 16;
       var x2 = c2.getContext('2d');
       x2.drawImage(bgImg, 0, 0, 16, 16);
@@ -282,6 +298,9 @@
     }
     card.classList.add('has-bg');
     card.style.backgroundImage = 'url("' + bgSrc(st.bg) + '")';
+    var tone = toneOf();
+    document.documentElement.style.setProperty('--card-scrim',
+      tone === 'busy' ? 'rgba(20,12,6,.3)' : tone === 'dark' ? 'none' : scrimCss());
   }
 
   var ALLOWED_BG = /^(\.\.\/assets\/(?:floral|templates)\/[a-z0-9-]+\.jpg|photo-[0-9a-z-]+|data:image\/(png|jpe?g|webp);base64,)/i;
@@ -510,11 +529,15 @@
       var s = Math.max(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
       var dw = bgImg.naturalWidth * s, dh = bgImg.naturalHeight * s;
       x.drawImage(bgImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
-      var sg = SCRIM.type === 'linear'
+      if (toneOf() === 'busy') {
+        x.fillStyle = 'rgba(20,12,6,.3)'; x.fillRect(0, 0, W, H);
+      } else if (toneOf() !== 'dark') {
+        var sg = SCRIM.type === 'linear'
         ? x.createLinearGradient(0, 0, 0, H)
         : x.createRadialGradient(W * SCRIM.cx, H * SCRIM.cy, 0, W * SCRIM.cx, H * SCRIM.cy, Math.max(W, H) * 0.68);
       SCRIM.stops.forEach(function (s) { sg.addColorStop(s[0], s[1]); });
       x.fillStyle = sg; x.fillRect(0, 0, W, H);
+      }
     }
     x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.strokeRect(28, 28, W - 56, H - 56);
     x.strokeStyle = 'rgba(200,154,75,.3)'; x.lineWidth = 1; x.strokeRect(44, 44, W - 88, H - 88);
