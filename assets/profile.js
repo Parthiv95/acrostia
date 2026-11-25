@@ -412,11 +412,15 @@
 
   /* validDate takes numbers, not a string: passing the ISO value straight in made
      it return false and the whole ledger stayed empty */
+  /* reject future dates at every entry point: typed, shared link (?d=), or saved —
+     a birth date cannot be in the future, and the age maths go negative on one */
   function parseISO(s) {
     var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
     if (!m) return null;
     var y = +m[1], mo = +m[2], da = +m[3];
-    return F.validDate(y, mo, da) ? new Date(y, mo - 1, da, 12) : null;
+    var d = F.validDate(y, mo, da) ? new Date(y, mo - 1, da, 12) : null;
+    if (!d || d.getTime() > new Date().setHours(23, 59, 59, 999)) return null;
+    return d;
   }
 
   function iso(d) {
@@ -427,6 +431,8 @@
     var input = document.querySelector('.entry input[type="date"]');
     var form = document.querySelector('.entry');
     if (!input || !form) return;
+    var t = new Date();
+    input.max = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); /* today — the picker cannot offer a future birth date */
 
     var qs = new URLSearchParams(location.search);
     var q = qs.get('d');
@@ -458,14 +464,28 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (!input.value) return;
+      var picked = parseISO(input.value);
+      if (!picked) { showNote('That date is not valid, or it has not happened yet. Pick today or earlier.'); return; }
       localStorage.setItem(KEY, input.value);
       var u = new URL(location.href); u.searchParams.set('d', input.value);
       history.replaceState(null, '', u);
-      var picked = parseISO(input.value);
-      if (picked) render(picked);
+      render(picked);
       var out = document.getElementById('pfOut');
       if (out) out.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+
+    /* one-line feedback under the form for invalid or future dates */
+    function showNote(msg) {
+      var n = document.querySelector('.entry-note');
+      if (!n) {
+        n = document.createElement('p');
+        n.className = 'entry-note';
+        n.style.cssText = 'margin:.5rem 0 0;color:#8a3324;font-size:.85rem';
+        form.after(n);
+      }
+      n.textContent = msg;
+      n.hidden = false;
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

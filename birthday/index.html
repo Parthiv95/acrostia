@@ -146,7 +146,7 @@
     <h1>Your birthday, read <em>thirteen ways.</em></h1>
     <p class="lede">A birth tree from a Celtic date window, a stone for the month, the phase of the moon that night, a number for the day. Thirteen free readings of one date, kept in one ledger you can come back to.</p>
     <form class="entry" id="hubDate">
-      <input type="date" aria-label="Your birth date" name="d" id="hubDateInput" max="2026-11-13">
+      <input type="date" aria-label="Your birth date" name="d" id="hubDateInput">
       <button class="pill" type="submit">Open my ledger
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </button>
@@ -209,10 +209,14 @@
 (function(){
   var f=document.getElementById('hubDate');
   if(!f) return;
+  var di=document.getElementById('hubDateInput');
+  var now=new Date();
+  di.max=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0'); /* today: a birth date cannot be in the future */
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var v=(document.getElementById('hubDateInput')||{}).value;
     if(!/^\d{4}-\d{2}-\d{2}$/.test(v||'')) { document.getElementById('hubDateInput').focus(); return; }
+    if(v>di.max) { di.value=''; di.focus(); return; } /* typed future date: ignore it, a birth date cannot be in the future */
     try{ localStorage.setItem('acrostia-birth-date', v); }catch(err){}
     location.href = '../birthday-profile/?d=' + v;
   });
