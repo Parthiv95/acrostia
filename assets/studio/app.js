@@ -118,10 +118,17 @@
   var TONE = {
     '../assets/templates/pexels-bokeh.jpg': 'dark',
     '../assets/templates/pexels-diya.jpg': 'dark',
+    '../assets/templates/pexels-lights.jpg': 'dark',
     '../assets/templates/pexels-roses.jpg': 'light',
     '../assets/templates/pexels-balloons.jpg': 'light',
     '../assets/templates/pexels-eucalyptus.jpg': 'light',
-    '../assets/templates/pexels-marble.jpg': 'busy'
+    '../assets/templates/pexels-marble.jpg': 'busy',
+    '../assets/templates/pexels-blossom.jpg': 'light',
+    '../assets/templates/pexels-lavender.jpg': 'busy',
+    '../assets/templates/pexels-autumn.jpg': 'busy',
+    '../assets/templates/pexels-sunset.jpg': 'busy',
+    '../assets/templates/pexels-snow.jpg': 'light',
+    '../assets/templates/pexels-peony.jpg': 'light'
   };
   function toneOf() { return TONE[bgSrc(st.bg)] || ''; }
 

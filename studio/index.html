@@ -141,6 +141,7 @@
   .line-reroll:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .sw.is-on{box-shadow:0 0 0 2px var(--burg)}
   .fopt{appearance:none;background:#fff;border:1px solid rgba(180,140,120,.35);border-radius:9px;padding:.4rem .7rem;cursor:pointer;font-size:1.05rem}
+  .fopt .fname{display:block;font-family:Fraunces,serif;font-size:.62rem;font-weight:400;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-40);margin-top:.15rem}
   .fopt.is-on{border-color:var(--burg);box-shadow:0 0 0 1px var(--burg)}
   .bench .spacer{flex:1}
   .bench .step-cta{display:flex;align-items:center;gap:.8rem;margin-left:auto}
@@ -358,14 +359,19 @@
         <button class="bgthumb" data-bg="../assets/templates/milestone.jpg" style="background-image:url('../assets/templates/milestone.jpg')" title="Milestone"></button>
         <button class="bgthumb" data-bg="../assets/templates/thanks.jpg" style="background-image:url('../assets/templates/thanks.jpg')" title="Thank you"></button>
         <button class="bgthumb" data-bg="../assets/templates/sympathy.jpg" style="background-image:url('../assets/templates/sympathy.jpg')" title="Sympathy"></button>
-        <button class="bgthumb" data-bg="../assets/templates/love.jpg" style="background-image:url('../assets/templates/love.jpg')" title="Love"></button>
-        <button class="bgthumb" data-bg="../assets/templates/diwali.jpg" style="background-image:url('../assets/templates/diwali.jpg')" title="Diwali"></button>
         <button class="bgthumb" data-bg="../assets/templates/pexels-bokeh.jpg" style="background-image:url('../assets/templates/pexels-bokeh.jpg')" title="Golden bokeh"></button>
         <button class="bgthumb" data-bg="../assets/templates/pexels-diya.jpg" style="background-image:url('../assets/templates/pexels-diya.jpg')" title="Diya glow"></button>
         <button class="bgthumb" data-bg="../assets/templates/pexels-roses.jpg" style="background-image:url('../assets/templates/pexels-roses.jpg')" title="Roses"></button>
         <button class="bgthumb" data-bg="../assets/templates/pexels-balloons.jpg" style="background-image:url('../assets/templates/pexels-balloons.jpg')" title="Balloons"></button>
         <button class="bgthumb" data-bg="../assets/templates/pexels-marble.jpg" style="background-image:url('../assets/templates/pexels-marble.jpg')" title="Gilded marble"></button>
         <button class="bgthumb" data-bg="../assets/templates/pexels-eucalyptus.jpg" style="background-image:url('../assets/templates/pexels-eucalyptus.jpg')" title="Eucalyptus"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-blossom.jpg" style="background-image:url('../assets/templates/pexels-blossom.jpg')" title="Cherry blossom"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-peony.jpg" style="background-image:url('../assets/templates/pexels-peony.jpg')" title="Peonies"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-lavender.jpg" style="background-image:url('../assets/templates/pexels-lavender.jpg')" title="Lavender field"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-autumn.jpg" style="background-image:url('../assets/templates/pexels-autumn.jpg')" title="Golden autumn"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-sunset.jpg" style="background-image:url('../assets/templates/pexels-sunset.jpg')" title="Sunset clouds"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-snow.jpg" style="background-image:url('../assets/templates/pexels-snow.jpg')" title="Snowy pines"></button>
+        <button class="bgthumb" data-bg="../assets/templates/pexels-lights.jpg" style="background-image:url('../assets/templates/pexels-lights.jpg')" title="Fairy lights"></button>
         <button class="bgthumb" data-bg="../assets/floral/letter-480.jpg" style="background-image:url('../assets/floral/letter-480.jpg')" title="Letter and quill"></button>
         <button class="bgthumb" data-bg="../assets/floral/book-480.jpg" style="background-image:url('../assets/floral/book-480.jpg')" title="Book"></button>
         <button class="bgthumb" data-bg="../assets/floral/gift-480.jpg" style="background-image:url('../assets/floral/gift-480.jpg')" title="Gift boxes"></button>
@@ -374,11 +380,11 @@
         <label class="bgthumb up" title="Use your own photo">Yours<input type="file" id="bgUpload" accept="image/*" hidden></label>
       </div>
       <span class="lbl">Script</span>
-      <button class="fopt" data-f="script" style="font-family:'Great Vibes',cursive">Noah</button>
-      <button class="fopt is-on" data-f="keepsake" style="font-family:Fraunces,serif;font-style:italic">Noah</button>
-      <button class="fopt" data-f="simple" data-cap="1" style="font-family:Fraunces,serif;font-weight:600;letter-spacing:.05em">NOAH</button>
-      <button class="fopt" data-f="hand" style="font-family:'Bradley Hand','Segoe Script',cursive">Noah</button>
-      <button class="fopt" data-f="storybook" style="font-family:Fraunces,serif;font-weight:300;letter-spacing:.02em">Noah</button>
+      <button class="fopt" data-f="script" style="font-family:'Great Vibes',cursive">Noah<span class="fname">Script</span></button>
+      <button class="fopt is-on" data-f="keepsake" style="font-family:Fraunces,serif;font-style:italic">Noah<span class="fname">Keepsake</span></button>
+      <button class="fopt" data-f="simple" data-cap="1" style="font-family:Fraunces,serif;font-weight:600;letter-spacing:.05em">NOAH<span class="fname">Simple</span></button>
+      <button class="fopt" data-f="hand" style="font-family:'Bradley Hand','Segoe Script',cursive">Noah<span class="fname">Hand</span></button>
+      <button class="fopt" data-f="storybook" style="font-family:Fraunces,serif;font-weight:300;letter-spacing:.02em">Noah<span class="fname">Storybook</span></button>
       <div class="step-cta"><button class="quiet" data-goto="3">Back</button><button class="pill" data-goto="5">Print <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button></div>
     </div>
 
@@ -414,7 +420,7 @@
 </footer>
 
 <script src="../assets/floral/engine.js?v=f7f5a71787"></script>
-<script src="../assets/studio/app.js?v=b639b1853b"></script>
+<script src="../assets/studio/app.js?v=f5d714c4e0"></script>
 
 
 <div id="printRoot" aria-hidden="true"></div>
