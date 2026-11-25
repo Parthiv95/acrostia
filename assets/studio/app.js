@@ -128,7 +128,13 @@
     '../assets/templates/pexels-autumn.jpg': 'busy',
     '../assets/templates/pexels-sunset.jpg': 'busy',
     '../assets/templates/pexels-snow.jpg': 'light',
-    '../assets/templates/pexels-peony.jpg': 'light'
+    '../assets/templates/pexels-peony.jpg': 'light',
+    '../assets/templates/pexels-arches.jpg': 'busy',
+    '../assets/templates/pexels-shapes.jpg': 'busy',
+    '../assets/templates/pexels-clay.jpg': 'busy',
+    '../assets/templates/pexels-crystal.jpg': 'busy',
+    '../assets/templates/pexels-sage.jpg': 'busy',
+    '../assets/templates/pexels-swirl.jpg': 'busy'
   };
   function toneOf() { return TONE[bgSrc(st.bg)] || ''; }
 
