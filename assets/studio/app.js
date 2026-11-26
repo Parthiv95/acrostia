@@ -662,12 +662,20 @@
 
       var perCol = wide ? Math.ceil(lines.length / 2) : lines.length;
       var cols = wide ? [lines.slice(0, perCol), lines.slice(perCol)] : [lines];
+      var isPairDraw = !!(st.name2 && PAIR_OCC.indexOf(st.occ) !== -1);
+      var blocks = isPairDraw ? pairBlocks(lines) : null;
       var room = Math.max(120, (H - (wide ? 150 : 140)) - y);
       var tsize = Math.round((wide ? 23 : 26) * bm);
-      var plan, guard = 0;
+      var plan, bplans, guard = 0;
       do {
         plan = cols.map(function (set) { return layout(set, tsize, (wide ? colW : W) - 160); });
-        var tallest = Math.max.apply(null, plan.map(function (p2) { return p2.height; }));
+        // the couple card is drawn as labelled blocks, so THAT layout must be the one measured
+        bplans = isPairDraw ? blocks.map(function (g) { return layout(g.lines, tsize, (wide ? colW : W) - 200); }) : null;
+        var tallest = isPairDraw
+          ? (wide
+            ? Math.max.apply(null, bplans.map(function (p2) { return p2.height; })) + 56 + 90 // +56 heading, +90 room for the closer below
+            : bplans.reduce(function (s, p2) { return s + p2.height; }, 0) + 56 * blocks.length + 14 * (blocks.length - 1) + 90)
+          : Math.max.apply(null, plan.map(function (p2) { return p2.height; }));
         if (tallest <= room || tsize <= 13) break;
         tsize -= 1; guard++;
       } while (guard < 20);
@@ -688,16 +696,27 @@
       }
 
       // couples get the same labelled blocks as the card, or the download would
-      // show a different poem from the one on screen
-      if (st.name2 && PAIR_OCC.indexOf(st.occ) !== -1) {
-        pairBlocks(lines).forEach(function (g) {
-          x.textAlign = 'left';
-          x.fillStyle = P.name; x.font = '600 17px Inter, sans-serif';
-          x.fillText(g.who.toUpperCase(), 110, y);
-          x.fillStyle = P.rule; x.fillRect(110, y + 10, 34, 2);
-          var single = layout(g.lines, tsize, W - 200);
-          y = drawColumn(single, 110, y + 42) + 14;
-        });
+      // show a different poem from the one on screen; side by side like the DOM
+      // grid when the card is wide, stacked only when it is portrait
+      if (isPairDraw) {
+        if (wide) {
+          blocks.forEach(function (g, gi) {
+            var x0 = 95 + gi * colW;
+            x.textAlign = 'left';
+            x.fillStyle = P.name; x.font = '600 17px Inter, sans-serif';
+            x.fillText(g.who.toUpperCase(), x0, y);
+            x.fillStyle = P.rule; x.fillRect(x0, y + 10, 34, 2);
+            drawColumn(bplans[gi], x0, y + 42);
+          });
+        } else {
+          blocks.forEach(function (g) {
+            x.textAlign = 'left';
+            x.fillStyle = P.name; x.font = '600 17px Inter, sans-serif';
+            x.fillText(g.who.toUpperCase(), 110, y);
+            x.fillStyle = P.rule; x.fillRect(110, y + 10, 34, 2);
+            y = drawColumn(bplans[blocks.indexOf(g)], 110, y + 42) + 14;
+          });
+        }
         x.textAlign = 'center';
       } else {
         var ys = [];

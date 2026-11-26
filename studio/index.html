@@ -213,7 +213,11 @@
       border-radius:1px;padding:14mm 12mm;background:linear-gradient(180deg,#FFFDF8,#FBF3E8);
       overflow:visible!important;transform:none!important;
       -webkit-print-color-adjust:exact;print-color-adjust:exact}
-    #printRoot .card *{transform:none!important}
+    #printRoot .card *{transform:none!important;text-shadow:none!important}
+    /* on screen each line keeps its translateZ stacking context and paints above the
+       photo scrim; print removes the transforms, so lift the content back above it or
+       the white wash prints on top of the words */
+    #printRoot .card > *{position:relative;z-index:1}
     #printRoot .card .photo.has{display:block;width:26mm;margin:0 auto 5mm}
     #printRoot .sheet.is-wide .card .photo.has{width:22mm;margin-bottom:3mm}
     #printRoot .card .nm{font-size:44pt;line-height:1.05}
