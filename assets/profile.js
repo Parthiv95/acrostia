@@ -451,7 +451,14 @@
       if (!f) { profilePhoto = null; return; }
       if (!/^image\//.test(f.type) || f.size > 8 * 1024 * 1024) { photoIn.value = ''; return; }
       var fr = new FileReader();
-      fr.onload = function () { profilePhoto = new Image(); profilePhoto.src = fr.result; };
+      fr.onload = function () {
+        profilePhoto = new Image();
+        profilePhoto.onload = function () { /* redraw so the photo lands in the gold ring on screen and in the download */
+          var picked = parseISO(input.value);
+          if (picked) render(picked);
+        };
+        profilePhoto.src = fr.result;
+      };
       fr.readAsDataURL(f);
     });
 
