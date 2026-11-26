@@ -125,7 +125,7 @@
     'birth-time': '<circle cx="60" cy="70" r="34"/><path d="M60 40 L60 70 L84 58"/>',
     'life-path': '<path d="M60 130 C20 110 100 92 60 70 C20 48 100 30 60 14"/>'
   };
-  function mountArt(kind, month, signIndex) {
+  function mountArt(kind, month, signIndex, treeIndex) {
     if (!kind) return;
     var card = document.querySelector('.entrycard'); if (!card) return;
     var host = card.querySelector('.ecard-art');
@@ -138,7 +138,7 @@
     if (!document.getElementById('ecardArtCss')) {
       var s = document.createElement('style'); s.id = 'ecardArtCss';
       s.textContent = '.ecard-art{position:absolute;right:clamp(4px,1.4vw,20px);top:50%;transform:translateY(-50%);width:min(38%,260px);pointer-events:none;z-index:0}' +
-        '.ecard-art img{width:100%;height:auto;display:block;opacity:.95;mix-blend-mode:screen;' +
+        '.ecard-art img{width:100%;height:auto;display:block;opacity:.95;' +
         '-webkit-mask-image:radial-gradient(ellipse at 50% 50%, #000 52%, transparent 76%);' +
         'mask-image:radial-gradient(ellipse at 50% 50%, #000 52%, transparent 76%)}' +
         '.ecard-art svg{width:100%;height:auto;fill:none;stroke:#C89A4B;stroke-width:1.6;opacity:.45;stroke-linecap:round;stroke-linejoin:round}' +
@@ -148,12 +148,13 @@
     }
     var typePlate = {
       'birthstone': 'stone', 'birth-tree': 'tree', 'zodiac': 'zodiac',
-      'birth-month': 'moon', 'birth-date': 'moon', 'birth-time': 'moon', 'life-path': 'moon'
+      'birth-month': 'moon', 'birth-date': 'moon', 'birth-time': 'moon', 'moon-phase': 'moon', 'life-path': 'moon'
     }[kind];
     var src = '';
     if (kind === 'birth-flower' && month >= 0) src = '../assets/entry/flowers/' + (month + 1) + '.jpg';
     else if (kind === 'zodiac' && signIndex >= 0) src = '../assets/entry/zodiac/' + (signIndex + 1) + '.jpg';
     else if (kind === 'birthstone' && month >= 0) src = '../assets/entry/stones/' + (month + 1) + '.jpg';
+    else if (kind === 'birth-tree' && treeIndex >= 0) src = '../assets/entry/trees/' + (treeIndex + 1) + '.jpg';
     else if (typePlate) src = '../assets/entry/' + typePlate + '.jpg';
 
     if (src) {
@@ -189,7 +190,7 @@
       var zz = F.signFor(d.getMonth() + 1, d.getDate());
       for (var zi = 0; zi < F.ZODIAC.length; zi++) { if (F.ZODIAC[zi].name === zz.name) { signIndex = zi; break; } }
     }
-    mountArt(kind, d.getMonth(), signIndex);
+    mountArt(kind, d.getMonth(), signIndex, F.TREES.indexOf(F.treeFor(d.getMonth() + 1, d.getDate())));
   }
 
   /* a date field in the hero, so the reading is changeable without leaving */
