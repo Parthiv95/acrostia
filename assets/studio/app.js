@@ -949,6 +949,11 @@
     // fit only once the clone is in the document: getComputedStyle is empty on a
     // detached node, which would silently reject the fitted font shorthand
     fitName(clone, live.classList.contains('is-wide'));
+    // a tall poem (wrapped lines, two-line closer) can outgrow the A5 sheet and
+    // spill an almost-empty second page; shrink the whole card to fit
+    var innerH = (live.classList.contains('is-wide') ? 128 : 186) * 96 / 25.4;
+    var ch = clone.getBoundingClientRect().height;
+    if (ch > innerH) clone.style.zoom = (innerH / ch).toFixed(3);
     document.documentElement.classList.add('printing-card');
   }
   function clear() { document.documentElement.classList.remove('printing-card'); }
