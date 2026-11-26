@@ -767,6 +767,7 @@
       else if (t.indexOf('copy text') === 0) copy(poemText(), b);
       else if (t.indexOf('copy link') === 0) copy(location.href, b);
       else if (t.indexOf('whatsapp') === 0) window.open('https://wa.me/?text=' + encodeURIComponent(poemText() + '\n\n' + location.href), '_blank');
+      else if (t.indexOf('start over') === 0) location.href = location.pathname; // fresh card, drops all state params
     });
   });
 
