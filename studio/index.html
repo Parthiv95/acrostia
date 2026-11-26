@@ -218,8 +218,8 @@
        photo scrim; print removes the transforms, so lift the content back above it or
        the white wash prints on top of the words */
     #printRoot .card > *{position:relative;z-index:1}
-    #printRoot .card .photo.has{display:block;width:26mm;margin:0 auto 5mm}
-    #printRoot .sheet.is-wide .card .photo.has{width:22mm;margin-bottom:3mm}
+    #printRoot .card .photo.has{display:block;width:30mm;margin:0 auto 5mm}
+    #printRoot .sheet.is-wide .card .photo.has{width:26mm;margin-bottom:3mm}
     #printRoot .card .nm{font-size:44pt;line-height:1.05}
     #printRoot .card .occ-line{font-size:7.5pt;letter-spacing:.22em;margin-top:5mm}
     #printRoot .card .dateline{font-size:9.5pt;margin-top:2.5mm}
@@ -234,7 +234,7 @@
   }
   .card .head{display:flex;align-items:center;gap:clamp(12px,3%,24px);justify-content:center}
   .card .head .names{min-width:0;flex:0 1 auto;text-align:center}
-  .card .photo{display:none;width:clamp(58px,20%,112px);flex:none;aspect-ratio:1;margin:0;border-radius:50%;overflow:hidden;border:1px solid rgba(200,154,75,.55);box-shadow:0 6px 18px -12px rgba(96,44,54,.6);transform:translateZ(18px)}
+  .card .photo{display:none;width:clamp(64px,23%,128px);flex:none;aspect-ratio:1;margin:0;border-radius:50%;overflow:hidden;border:1px solid rgba(200,154,75,.55);box-shadow:0 6px 18px -12px rgba(96,44,54,.6);transform:translateZ(18px)}
   .card .head:has(.photo.has) .names{text-align:left}
   .card .head:has(.photo.has) .nm{text-align:left}
   .card .photo.has{display:block}

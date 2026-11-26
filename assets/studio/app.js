@@ -577,8 +577,9 @@
     x.font = nf.cv;
     var shift = 0;
     var hasPhoto = !!(st.photo && photoImg && photoImg.complete && photoImg.naturalWidth);
+    var pr = wide ? 60 : 76; // the photo circle, sized with the DOM card's larger photo
     if (st.photo && photoImg && photoImg.complete && photoImg.naturalWidth) {
-      var pr = wide ? 54 : 68, pcx = 110 + pr, pcy = wide ? 100 : 118;
+      var pcx = 110 + pr, pcy = wide ? 100 : 118;
       x.save(); x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2); x.closePath(); x.clip();
       var ps = Math.max((pr * 2) / photoImg.naturalWidth, (pr * 2) / photoImg.naturalHeight);
       var pw = photoImg.naturalWidth * ps, ph = photoImg.naturalHeight * ps;
@@ -588,7 +589,7 @@
       x.strokeStyle = 'rgba(200,154,75,.55)'; x.lineWidth = 2; x.stroke();
       shift = Math.max(0, (pcy + pr) - (wide ? 150 : 210));
     }
-    var nameX = hasPhoto ? (110 + 2 * (wide ? 54 : 68) + 28) : W / 2;
+    var nameX = hasPhoto ? (110 + 2 * pr + 28) : W / 2;
     x.textAlign = hasPhoto ? 'left' : 'center';
     // shrink against the room the name actually has; the photo circle takes the left edge
     var nameRoom = hasPhoto ? W - nameX - 44 : W - 150;
@@ -699,21 +700,21 @@
       // show a different poem from the one on screen; side by side like the DOM
       // grid when the card is wide, stacked only when it is portrait
       if (isPairDraw) {
+        // the labels copy the DOM pair-name: italic serif in the deep gold,
+        // name as typed — not the caps sans the export used to draw
         if (wide) {
           blocks.forEach(function (g, gi) {
             var x0 = 95 + gi * colW;
             x.textAlign = 'left';
-            x.fillStyle = P.name; x.font = '600 17px Inter, sans-serif';
-            x.fillText(g.who.toUpperCase(), x0, y);
-            x.fillStyle = P.rule; x.fillRect(x0, y + 10, 34, 2);
+            x.fillStyle = '#8A6420'; x.font = 'italic 600 18px Fraunces, Georgia, serif';
+            x.fillText(g.who, x0, y);
             drawColumn(bplans[gi], x0, y + 42);
           });
         } else {
           blocks.forEach(function (g) {
             x.textAlign = 'left';
-            x.fillStyle = P.name; x.font = '600 17px Inter, sans-serif';
-            x.fillText(g.who.toUpperCase(), 110, y);
-            x.fillStyle = P.rule; x.fillRect(110, y + 10, 34, 2);
+            x.fillStyle = '#8A6420'; x.font = 'italic 600 18px Fraunces, Georgia, serif';
+            x.fillText(g.who, 110, y);
             y = drawColumn(bplans[blocks.indexOf(g)], 110, y + 42) + 14;
           });
         }
@@ -904,7 +905,7 @@
     if (!nm || !nm.textContent) return;
     var cs = getComputedStyle(nm);
     // card content width in mm (sheet size minus padding), less photo and flex gap when there is one
-    var avail = (wide ? 162 : 100) - (card.querySelector('.photo.has') ? (wide ? 22 : 26) + 7 : 0);
+    var avail = (wide ? 162 : 100) - (card.querySelector('.photo.has') ? (wide ? 26 : 30) + 7 : 0);
     var boxPx = avail * 96 / 25.4;
     var text = nm.textContent;
     if ((nm.style.textTransform || cs.textTransform) === 'uppercase') text = text.toUpperCase();
