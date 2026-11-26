@@ -137,10 +137,10 @@
     }
     if (!document.getElementById('ecardArtCss')) {
       var s = document.createElement('style'); s.id = 'ecardArtCss';
-      s.textContent = '.ecard-art{position:absolute;right:clamp(4px,1.4vw,20px);top:50%;transform:translateY(-50%);width:min(38%,260px);pointer-events:none;z-index:0}' +
-        '.ecard-art img{width:100%;height:auto;display:block;opacity:.95;' +
-        '-webkit-mask-image:radial-gradient(ellipse at 50% 50%, #000 52%, transparent 76%);' +
-        'mask-image:radial-gradient(ellipse at 50% 50%, #000 52%, transparent 76%)}' +
+      /* art fits the card height; the jpgs already feather to cream with a
+         gold ring, so no CSS mask is needed (one would cut the ring off) */
+      s.textContent = '.ecard-art{position:absolute;right:clamp(4px,1.4vw,20px);top:50%;transform:translateY(-50%);height:calc(100% - 2.2rem);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0}' +
+        '.ecard-art img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;opacity:.95}' +
         '.ecard-art svg{width:100%;height:auto;fill:none;stroke:#C89A4B;stroke-width:1.6;opacity:.45;stroke-linecap:round;stroke-linejoin:round}' +
         '.entrycard>*:not(.ecard-art){position:relative;z-index:1}' +
         '@media (max-width:700px){.ecard-art{display:none}}';
